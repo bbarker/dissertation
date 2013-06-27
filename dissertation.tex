@@ -13,6 +13,11 @@
 
 % TODO (Brandon Barker)
 
+% Introduction:
+% Add other (Jason-deleted) sections/words
+% Refs/Figs
+% Epistasis
+
 % Figure out how copyright registration is handled; apparently it is necesasry.
 % I assume it is handled by Cornell.
 
@@ -53,6 +58,15 @@
 \makecopyright
 
 \begin{abstract}
+
+There has been a surge of interest in understanding the regulation 
+of metabolic networks involved in disease in recent years.  Quantitative 
+models are increasingly being used to interrogate the metabolic pathways 
+that are contained within this complex disease biology.  At the core of 
+this effort is the mathematical modeling of central carbon metabolism involving 
+glycolysis and the citric acid cycle (referred to as energy metabolism).  
+Here we discuss several approaches used to quantitatively model metabolic 
+pathways relating to energy metabolism and discuss their formalisms, successes, and limitations.
 Your abstract goes here. Make sure it sits inside the brackets. If not,
 your biosketch page may not be roman numeral iii, as required by the
 graduate school.
@@ -80,36 +94,223 @@ Your acknowledgements go here. Make sure it sits inside the brackets.
 
 \chapter{Introduction}
 
-\section{SECTION 1}
-The text for Section 1 goes here, without brackets.
+The accumulated amount of biochemical work carried out over the years
+has elaborated complex metabolic systems and networks.  This
+information includes the network architecture encoded in chemical
+reactions that are carried out by metabolic enzymes and the kinetic
+parameters that determine reaction mechanisms involved in each of
+these chemical reactions.  Application of this knowledge has led to
+tremendous predictive capability in characterizing metabolic
+regulation in normal physiology including the growth of unicellular
+organisms and the successful simulation of energy metabolism in
+healthy red blood cells.  However, there are far fewer instances in
+which these models have been applied to the characterization of
+pathophysiology.  Applying our knowledge of metabolic regulation to
+the investigation of disease states such as cancer or
+neurodegeneration is currently a scientific frontier.  In this review,
+we will revisit several classic techniques for the mathematical
+modeling of metabolic pathways and discuss instances where their
+application to biomedical science is beginning to yield fruitful
+dividends.
 
-\section{SECTION 2}
-Section 2 text.
+\section{Linear Systems, Flux Balance Analysis}
+Linear models are mathematical models that containt a set of algebraic
+equations based on the stoichiometric relationships that define
+conservation relationships within a metabolic network.  Linear models,
+to our knowledge, were first applied to biochemical systems in 1961 by
+Howard Shapiro1. Shapiro discussed the possibility of using
+optimization in biochemical linear models in a 1969 publication2. In
+1984, a model incorporating glycolysis and the TCA cycle was employed
+running a variant of Dantzig’s algorithm with the assumed biological
+objective of minimized free energy dissipation3,4. An enduring
+research program was initiated by Bernhard Palsson half a decade
+later5,6.  An early work of Palsson showed that growth maximization in
+an E. coli model could correctly match 86\% of 79 gene essentialities
+examined7. Subsequent modeling in S. cerevisiae was able to closely
+predict growth rates and exometabolic fluxes in various media, and
+nearly capture the in vivo phosphate/oxygen (P/O) ratio of 0.94 with a
+simulated P/O value of 1.04, showing that models of eukaryotes were
+also feasible8. If one chooses the biological objective function to
+reflect the appropriate physiological demands then it is possible to
+predict features of adaptation; this was shown to be the case for
+growth optimization in several E. coli mutants9. By this time it had
+become apparent that linear models held much promise, particularly
+when coupled with optimization.
 
-\subsection{Subsection heading goes here}
 
-Subsection 1 text
+\section{Genome Scale Modeling}
+Today, when we refer to linear models, we most often mean Constraint
+Based Models (CBMs). We refer to a CBM as any model making use of the
+stoichiometric matrix, S, as a linear matrix constraint, e.g. S * F =
+0, where F is a flux vector. In fact, this is a nearly universal
+constraint, as it guarantees conservation of mass during steady state
+processes such as exponential growth or tissue maintenance10. Other
+constraints commonly used include reversibility constraints when the
+direction of a reaction is known for physiological conditions of
+interest, bounds on the uptake of nutrients or efflux rates due to
+regulation or physiology, or bounds on enzyme reactions when the
+maximum enzyme velocity Vmax is known.
 
-\subsubsection{Subsubsection 1 heading goes here}
-Subsubsection 1 text
+Because these constraints give rise to an underdetermined system, it
+will not be possible to identify a unique solution for the flux
+vector. A unique solution is often desirable as it allows
+investigators to analyze a putative metabolic phenotype. Indeed, this
+is one of the more convenient features of linear optimization: the
+ability to get meaningful solutions without explicitly taking into
+account any, or at least very few, free parameters.  Flux Balance
+Analysis, or FBA, assumes a linear combination of fluxes to be
+maximized or minimized (Fig 1). In microbes, perhaps the most popular
+FBA objective has been growth maximization, which consists of the
+biomass precursors and products formulated as a single
+pseudo-reaction. Additionally, an ATP maintenance constraint should be
+formulated as a sink reaction with the molar ATP required to keep one
+gram of dry weight biomass living for one hour11. This empirically
+determined constraint, although assumed, is less discussed, perhaps
+due to its dependence on individual strains and environments.  We note
+that for many expression-based methods in the CBM framework, the ATP
+maintenance constraint is not required (see Table and Fig 2 for
+examples). Fixed biomass objectives by themselves also have some
+undesirable qualities; biomass composition likely has some measure of
+variability based on genetic background and environment.  Robust FBA
+attempts to address this problem by allowing some variation in the
+biomass composition, as determined by variation of empirical assays of
+biomass 12.  Despite these caveats, FBA has recently been found to not
+only predict growth in microbes, but also has good agreement with gold
+standard 13C flux assays in vivo when the growth objective is used
+along with ATP synthesis maximization and minimization of absolute
+fluxes13.
 
-\subsubsection{Subsubsection 2 heading goes here}
-Subsubsection 2 text
+Minimization of absolute flux is a commonly used objective employed
+alongside other objectives, forming a minimax problem (i.e. finding
+the minimum absolute flux profile among all flux profiles that
+maximize biomass). This approximates the biological goal of being
+efficient with enzyme production costs and enzyme crowding constraints
+while also guaranteeing that no thermodynamically impossible loops are
+present, that is, ruling out some fluxes that might otherwise violate
+Kirchoff’s loop rule14,15.  This constraint will work whenever a sink
+reaction, such as growth, is being optimized.  However, maximizing an
+internal flux, as in Flux Variability Analysis16, could still result
+in internal cycles15. Initial thermodynamic approaches involved
+nonlinear optimization17–20.  Constraints satisfying Kirchoff’s loop
+rule were later developed that were faster and more generally
+applicable than prior methods15,21.  Still, these involve integer
+constraints that put this problem in a slower class of algorithms than
+the convex minimized absolute flux problem.  When available,
+thermodynamic data is valuable; it can not only be used to guarantee
+there are no internal cycles, but can also aid in determining reaction
+direction and potential regulatory targets15,18,22,23. Application of
+this framework to concentration data allows unmeasured metabolite
+concentrations to be inferred and global concentrations to be resolved
+at the organelle level20. CBMs have also found use in tracing
+individual atoms through pathways, which provides a more appealing
+framework for performing Metabolic Flux Analysis (MFA; discussed
+below) on stable isotope data due to the lack of bias compared to
+typical MFA models, which are often an order of magnitude smaller than
+genome-scale reconstructions24.  Recent insightful work has made it
+possible to simplify the computational complexity of loopless FBA to
+be nearly the same as conventional FBA, but some mathematical
+difficulties must still be overcome before bounds on exchange fluxes
+can be suitably incorporated for genome-scale modeling10,25.
 
-\section{SECTION 3}
-Section 3 text. The dielectric constant at the air-metal interface
-determines the resonance shift as absorption or capture occurs.
 
-\begin{equation}
-k_1=\frac{\omega }{c({1/\varepsilon_m + 1/\varepsilon_i})^{1/2}}=k_2=\frac{\omega
-sin(\theta)\varepsilon_{air}^{1/2}}{c}
-\end{equation}
+The metabolism of different tissues within the same organism is
+diverse; whereas the metabolism in liver is anabolic, neurons or red
+blood cells have a much more limited catabolic regime26–28.The
+creation of tissue specific models for multicellular organism has
+become an important problem, and several automated algorithms taking
+as inputs tissue expression data and a generic model for the organism
+have been developed28–30. Coupling multiple cellular models together
+will enable multi-scale modeling of tissues in multicellular models or
+entire ecosystems for microbes26,31–33.
 
-\noindent
-where $\omega$ is the frequency of the plasmon, $c$ is the speed of
-light, $\varepsilon_m$ is the dielectric constant of the metal,
-$\varepsilon_i$ is the dielectric constant of neighboring insulator,
-and $\varepsilon_{air}$ is the dielectric constant of air.
+Automated generation of metabolic networks from genome sequence and
+pathway databases, especially in prokaryotes, has been developed34–37.
+This will offer many advantages to modelers: a starting point for
+curated models (a draft reconstruction is estimated to often take
+several months even in prokaryotes), a means for doing population or
+ecological simulation33, and personalized genomic modeling for
+patients with metabolic syndromes such as cancer where both the
+patient and possibly the disease have diverse genotypes38,39.
+Eukaryotic models are somewhat more difficult to generate due to the
+necessity of protein localization and metabolite transporter
+information34. Automatic reconstruction going beyond enzymatic gene
+information, such as rFBA models, should also be possible40,41; the
+automated generation of boolean and higher-order discrete regulatory
+models using time-series expression data has been explored as well,
+though to date these regulatory models have not been coupled to
+metabolic reconstructions42–45. These approaches and other families of
+genome-scale methods are discussed in Table 1.
+
+Several approaches have been used in applying CBMs to cancer and the
+Warburg effect, the preference for glycolytic ATP production over
+glucose-derived mitochondrial ATP production in cancer cells46–48. An
+important study working with a simplified, small model of
+central-carbon metabolism showed that, while the TCA cycle predicts
+better ATP yield than glycolysis when only available glucose is
+considered as a constraint, the addition of enzyme solvent-capacity
+constraints creates a preference for ATP synthesis through
+glycolysis48. More recently, the work of Vazquez et al. was extended
+to include a genome-scale model along with enzyme solvent-capacity
+constraints, which was able to show significant correlations between
+fluxes and expression in the NCI-60 cell line panel, as well as
+predicting an intermediate state in cancer metabolism transition
+exhibiting a temporary increase in OxPhos that was supported by two
+prior experimental observations47. All of these approaches correctly
+predicted lactate production. Concurrent research on predicting cancer
+targets by screening for simulated negative epistasis in cancer
+tissue-specific models that have at least one known-drug target and no
+known effect on normal tissue revealed many epistatic
+interactions39. A related study confirmed one of these synthetic
+lethalities between hemeoxygenase and fumarate hydratase, a mutation
+found in certain kidney cancers49. The recent publication of Human
+Recon 2 promises to aid in the understanding of many human diseases;
+already 65 cell-type specific models based on it are available, and
+the model reports 77\% accuracy in identifying metabolic markers
+across 49 inborn errors of metabolism50. Although this model is a
+great step forward in consolidating much of the knowledge about human
+metabolism, it is only one of many steps to come. For instance, this
+model is still primarily only amenable to steady-state approaches,
+lacks corresponding enzyme-regulatory and signaling architecture, and
+has introduced more dead-end metabolites than it removed (1,176 versus
+339). 
+
+\section{Conclusions for the State of Linear and Genome-Scale Models}
+Kinetic models for smaller pathways are possible when the data are
+present, but many energetic questions concern the entire cell, leaving
+only incorporation of CBMs as a viable option. The original efficiency
+and ease of use of FBA have helped propagate a field of more diverse
+algorithms that are often tractable on today’s computers using the
+same modeling and software frameworks51,52.  Numerous methods and
+successful applications in energy metabolism exist, including
+prevalent diseases such as heart disease, cancer, and Alzheimer’s53.
+
+Multiscale models, as were used in the Alzheimer’s models, will
+undoubtedly become more common. At the intracellular scale, CBMs are
+also beginning to incorporate information other than metabolic
+stoichiometry54–56. A whole cell model for Mycoplasma genitalium
+incorporating information about all classes of macromolecular
+synthesis and degradation, in addition to stoichiometric and
+regulatory information, found a non-stochastic coupling between
+metabolism and the cell-cycle where DNA replication rates depended on
+the concentration of dNTP55. Models like these are not easy to build,
+but substantial endeavors are underway to assist in their draft
+construction and refinement, and together with an increase in use of
+jamboree meetings of organism and model experts and online
+collaborative tools, will likely aid in creating public models of
+higher quality and the understanding of many biological processes
+outside the traditional scope of metabolism 35,50,57–61.
+
+
+%\begin{equation}
+%k_1=\frac{\omega }{c({1/\varepsilon_m + 1/\varepsilon_i})^{1/2}}=k_2=\frac{\omega
+%sin(\theta)\varepsilon_{air}^{1/2}}{c}
+%\end{equation}
+%
+%\noindent
+%where $\omega$ is the frequency of the plasmon, $c$ is the speed of
+%light, $\varepsilon_m$ is the dielectric constant of the metal,
+%$\varepsilon_i$ is the dielectric constant of neighboring insulator,
+%and $\varepsilon_{air}$ is the dielectric constant of air.
 
 \chapter{Alice in Wonderland}
 
