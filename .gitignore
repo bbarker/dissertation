@@ -1,8 +1,9 @@
+*.pdf
+*.dvi
 *.acn
 *.acr
 *.alg
 *.aux
-*.bbl
 *.blg
 *.dvi
 *.fdb_latexmk
