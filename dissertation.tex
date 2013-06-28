@@ -22,6 +22,11 @@
 % Semi-automate Mendeley->.bib citation process
 % TODO (Brandon Barker)
 % Read Formatting Rules on Grad School site.
+%  - referencing figures/capitalization: Fig or fig or figure ...
+%
+% Spellcheck
+%
+% Word histogram to check for words used too often.
 %
 
 % Chapter 1: Introduction:
@@ -165,7 +170,7 @@ provided much experimental advice, training, and data.
 
 I would also like to thank many other colleagues for their help,
 friendship, scientific discussion, or some combination of
-the three. These include Ms. Diana Chang, Mr. Elijah Bogart 
+the three. These include Ms. Diana Chang, Mr. Elijah Bogart, 
 Dr. Hong Chian, Mr. Lei Huang,
 Ms. Haley Hunter-Zinck, Dr. Ben Heavner, Dr. Xiaojing Liu, Ms. Anuttama Mohan,
 Mr. Lonnie Princehouse, Mr. Narayanan Sadagopan, and Mr. Kaixiong Ye.
@@ -572,12 +577,12 @@ be explored in more detail later.
 
 Given the abundance of genome-scale expression datasets available, either as microarray or more
 recently RNA-Seq, it could be useful to actually gauge the number of enzyme complexes present 
-in a cell. This isn't much of an issue for the simplest case where there is a reaction that is
+in a cell. This isn't much of an issue for the simplest case where a reaction is
 catalyzed by only one polypeptide, and that polypeptide does not catalyze any other reactions.
 Frequently the situation is not so simple, so a model of enzyme complex formation is called for.
-Using some available tools, and modifying them where necessary, we attempt to formalize a model
-for enzyme complex formation based on GPR (gene-protein-reaction) rules that are frequently available
-in genome-scale annotations. For better curated models, the approach described immediately find
+We formalize a model such a model for enzyme complex formation based 
+on GPR (gene-protein-reaction) rules that are frequently available
+in genome-scale annotations. For better curated models, the approach described immediately finds
 use for understanding metabolism, as well as being a scaffold to find problems for
 existing GPRs, and more broadly the GPR formalism itself.
 
@@ -587,20 +592,30 @@ A protein complex typically refers to two or more physically associated polypept
 sometimes called a quaternary structure. Since we
 are not exclusively dealing with multiprotein complexes, we refer to an enzyme complex as being
 one or more polypeptide chains that act together to carry out metabolic catalysis. Also, to simply
-our English, we also include the notion of isozymes--that is, different proteins that catalyze the 
+our English, we also include the notion of isozymes--different proteins that catalyze the 
 same reaction--in our notion of enzyme complex. Isozymes may arise by having one or more differing
 protein isoforms, and even though these isoforms may not be present in the same complex at the same
-moment, we consider them to be part of the enzyme complex.
+moment, we consider them to be part of the enzyme complex since one could be substituted for the other.
 
-  Show how in F1, there are actually multiple copies of the same peptide. This is one of the examples where enzyme-complex stoichiometry is well known.
-  In this particular case, we don't have as much to worry about since the peptide axle is not required in multiple copies for complex formation, and will likely be the minimum of the F1 subunit
+As an example, take the F1 subcomplex of ATP Synthase (figure
+~\ref{fig:2F43}), which is composed of seven protein subunits
+(distinguised by color, left). On the right-hand side we see different
+isoforms depicted as different colors.  Error in expression data
+aside, instead of considering the copy numbers with multiplicity and
+dividing their expression values by their multiplicity, it may be
+easier to simply note that the axle peptide (shown in red in the
+center of the complex) only has one copy in the complex, so its
+expression should be an overall good estimation of the F1 subcomplex
+copy number. This reasoning will be useful later in considering why
+GPRs may be largely adequate for estimating the abundance of most
+enzyme complexes.
+
 \begin{figure}[H]
 \caption{Illustration of the F1 part of the ATP Synthase complex.}
 \label{fig:2F43}
 \centering
 \includegraphics[clip=true,trim=0cm 0cm 0cm 0cm, width=12cm]{2F43}
 \end{figure}
-
 
 The modeling of enzyme complex copy number can be thought of in a recursive fashion: each enzyme 
 complex consists of several functional groups of proteins. These functional groups are required
