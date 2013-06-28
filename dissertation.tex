@@ -186,7 +186,7 @@ educator and advising my senior design project.  My passionate and
 reassuring high school biology teacher, Mr. David Christiansen,
 warrants special thanks for being continually amazed at the wonders
 biology has to offer. Lastly, I thank my friend Mr. Benjamin Runyon,
-for always being there.
+for always lending an ear.
 \end{acknowledgements}
 
 \contentspage
@@ -617,14 +617,23 @@ enzyme complexes.
 \includegraphics[clip=true,trim=0cm 0cm 0cm 0cm, width=12cm]{2F43}
 \end{figure}
 
-The modeling of enzyme complex copy number can be thought of in a recursive fashion: each enzyme 
-complex consists of several functional groups of proteins. These functional groups are required
-for the enzyme complex to function (AND relationships). However, there may be alternative 
-versions of each functional group (given by OR relationships). Eventually, the recursion terminates
-with a base-level functional group  (i.e. a protein isoform).
+The modeling of enzyme complex copy number can be thought of as nested
+(but terminating) sets: each enzyme complex consists of
+several functional groups of protein subunits. These functional groups
+are required for the enzyme complex to function (AND
+relationships). However, there may be alternative versions of each
+functional set (given by OR relationships). Eventually, the
+recursion terminates with a base-level functional set (i.e. a set of
+protein isoforms--usually only one--fulfilling the same function). 
+In the case of ATP Synthase, one of its functional sets is represented
+by the F1 subcomplex. The F1 subcomplex itself can be viewed as having 
+three other subcomplexes: \textbf{double check text book on this}
+It is obvious that one of these base-level functional subcomplexes
+will be in most limited supply, and that it will best represent the 
+overall enzyme complex copy number.
 
 Note that it is possible for an enzyme complex to catalyze different reactions. In fact, some transporter
-complexes can transfer many different metabolites across a lipid bilayer--up to . Another example is the
+complexes can transfer many different metabolites \textbf{across a lipid bilayer--up to} . Another example is the
 ligation or hydrolysis of nucleotide, fatty acid, or peptide chains, where chains of different length may
 all be substrates or products of the same enzyme complex. 
 
