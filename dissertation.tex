@@ -14,7 +14,7 @@
 
 %General
 %
-% Verify bibliography working
+% Verify bibliography working; check eMoMA script and add to Makefile?
 %
 % Semi-automate Mendeley->.bib citation process
 % TODO (Brandon Barker)
@@ -30,6 +30,13 @@
 % I assume it is handled by Cornell.
 
 % ************* End of TODO ***********************************************
+%Added by Brandon:
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{algorithmic}
+
 
 %Some possible packages to include
 \usepackage{graphicx,pstricks}
@@ -41,6 +48,9 @@
 \usepackage{hangcaption}
 \usepackage{txfonts}
 \usepackage{palatino}
+
+\graphicspath{{./figures/}}
+\usetikzlibrary{shapes,arrows}
 
 %if you're having problems with overfull boxes, you may need to increase
 %the tolerance to 9999
@@ -62,6 +72,18 @@
 \copyrightyear{2013}
 
 \begin{document}
+% Define block styles
+\tikzstyle{decision} = [diamond, draw, fill=blue!20,
+    text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20,
+    text width=5em, text centered, node distance=3cm, minimum height=4em]
+\tikzstyle{line} = [draw, very thick, color=black!50, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+    minimum height=2em]
+\tikzstyle{iogram} = [trapezium, draw, fill=pink!20,
+    trapezium left angle=70,trapezium right angle=-70, inner xsep=0pt,
+    text width=5em, text centered, node distance=3cm, minimum height=4em]
+
 
 \maketitle
 \makecopyright
@@ -410,12 +432,410 @@ optimum for our fitness objective.
 
 \chapter{eMoMA section (Get a new name for eMoMA)}
 
+\section{Methods Introduction}
+\subsection{MoMA: Minimization of Metabolic Adjustment}
+
+The minimization of metabolic adjustment (MoMA) method \cite{Segre2002}, 
+which is framed as a least-squares optimization problem, is typically employed
+to calculate the flux vector of an \emph{in silico} organism after a
+mutation.  The biological intuition is that the organism has not had
+time to adapt to the restricted metabolic capacity and will maintain
+a similar flux to the wild-type (WT).
+
+Suppose $\mathbf{a}$ is the WT flux vector obtained by an optimization procedure, 
+such as min-norm FBA (flux balance analysis), empirical measurements, or a
+combination of these. Then for an undetermined flux vector $\mathbf{v}$ in a model 
+with $N$ reactions the optimization objective can be expressed as
+\[ \textnormal{minimize}\ \sum^N_{i=1}(v_i-a_i)^2 \]
+subject to the stoichiometric constraints $\mathbf{S v} = \mathbf{0}$
+where $\mathbf{v} = (v_1, \ldots, v_N)^T$. This assumes that each $a_i$ is measured,
+but it is also possible and sometimes even more useful to employ this objective when only
+a subset of the $a_i$ are measured (if $a_i$ is not measured for some $i$, then we omit
+$(v_i-a_i)^2$ from the objective). In metabolomics, for instance, it is always the case in experiments with 
+labeled isotope tracers that only a relatively small subset of all fluxes are able to be estimated 
+with metabolic flux analysis (MFA). Combining MoMA with MFA provides a technique to 
+potentially estimate other fluxes in the network. 
+Additional constant bounds on fluxes are often present, such as substrate uptake limits,
+or experimental $v_{max}$ estimates, so we write 
+$\mathbf{v}_{lb} \preceq \mathbf{v} \preceq \mathbf{v}_{ub}$.  
+
+The objective may be equivalently expressed in the 
+canonical quadratic programming (QP) form as
+
+\[ \textnormal{minimize}\ \frac{1}{2}\mathbf{v}^T \mathbf{v} - \mathbf{a}^T \mathbf{v}\textnormal{.}\]
+
+A variant of MoMA can be expressed by minimizing the absolute values of individual fluxes.
+This variant has some advantages, as it is not biased towards penalizing large magnitude fluxes. Additionally,
+it is expressed as the following linear program, making it amenable to additional changes that
+may not always be suitable for the quadratic problem. Assuming the usual stoichiometric constraints,
+the most simple version of linear MoMA which assumes the existence of a constant wild-type flux vector is:
+
+\begin{align*}
+&\textnormal{minimize}\ \sum^N_{i=1}d_i  \\
+&s.t.\\
+&\forall i: -d_i \le v_i-a_i \le d_i \\
+&d_i \ge 0
+\end{align*}
+
+\subsection{Premises and a Flowchart for eMoMA}
+Because eMoMA deals with expression data instead of flux, normalization must be addressed in the method.
+Further adding to the complexity, expression data has no directionality, so a method to determine 
+reaction direction given the model and expression data must be devised. Most genome-scale models have
+attached boolean gene rules (without negation) to aid in determining whether or not a gene deletion will
+completely disable a reaction. These rules are a requirement for eMoMA, and their validity, like the
+stoichimoetric matrix, will undoubtedly be important for generating accurate predictions.
+
+Also important are the assumptions and limitations of mapping expression data to complexes. Due to 
+current models not containing negations in their gene rules, which might correspond to inhibitors,
+this has been omitted from the current expression mapping algorithm. We see no reason why it could not
+be added in later. Another limitation that relates to lack of biological information is that we always
+assume a one-to-one copy number for each gene in a complex. Once more information on enzyme complex
+structure and reaction mechanism becomes available, an extension to the current method could make use
+of this information.
+
+An obvious issue is that we are assuming flux correlates with expression. Prior
+work showed this type of modeling is nonetheless useful in yeast \cite{Lee2012}. One possibility
+is to attempt to use empirically obtained kinetic parameters to estimate $v_{max}$, but this
+approach may not be useful, as it has been shown that many reactions in central carbon
+metabolism tend to operate well below $v_{max}$ \cite{Bennett2010}. Still, this is an area that should
+be explored in more detail later.
+
+\subsection{A Formalism for Enzyme Complex Formation}
+
+Given the abundance of genome-scale expression datasets available, either as microarray or more
+recently RNA-Seq, it could be useful to actually gauge the number of enzyme complexes present 
+in a cell. This isn't much of an issue for the simplest case where there is a reaction that is
+catalyzed by only one polypeptide, and that polypeptide does not catalyze any other reactions.
+Frequently the situation is not so simple, so a model of enzyme complex formation is called for.
+Using some available tools, and modifying them where necessary, we attempt to formalize a model
+for enzyme complex formation based on GPR (gene-protein-reaction) rules that are frequently available
+in genome-scale annotations. For better curated models, the approach described immediately find
+use for understanding metabolism, as well as being a scaffold to find problems for
+existing GPRs, and more broadly the GPR formalism itself.
+
+In order to  quantify enzyme complex formation, the notion of an enzyme complex as described in English 
+should be formalized.
+A protein complex typically refers to two or more physically associated polypeptide chains, which is
+sometimes called a quaternary structure. Since we
+are not exclusively dealing with multiprotein complexes, we refer to an enzyme complex as being
+one or more polypeptide chains that act together to carry out metabolic catalysis. Also, to simply
+our English, we also include the notion of isozymes--that is, different proteins that catalyze the 
+same reaction--in our notion of enzyme complex. Isozymes may arise by having one or more differing
+protein isoforms, and even though these isoforms may not be present in the same complex at the same
+moment, we consider them to be part of the enzyme complex.
+
+  Show how in F1, there are actually multiple copies of the same peptide. This is one of the examples where enzyme-complex stoichiometry is well known.
+  In this particular case, we don't have as much to worry about since the peptide axle is not required in multiple copies for complex formation, and will likely be the minimum of the F1 subunit
+\begin{figure}[H]
+\caption{Illustration of the F1 part of the ATP Synthase complex.}
+\label{fig:2F43}
+\centering
+\includegraphics[clip=true,trim=0cm 0cm 0cm 0cm, width=12cm]{2F43}
+\end{figure}
+
+
+The modeling of enzyme complex copy number can be thought of in a recursive fashion: each enzyme 
+complex consists of several functional groups of proteins. These functional groups are required
+for the enzyme complex to function (AND relationships). However, there may be alternative 
+versions of each functional group (given by OR relationships). Eventually, the recursion terminates
+with a base-level functional group  (i.e. a protein isoform).
+
+Note that it is possible for an enzyme complex to catalyze different reactions. In fact, some transporter
+complexes can transfer many different metabolites across a lipid bilayer--up to . Another example is the
+ligation or hydrolysis of nucleotide, fatty acid, or peptide chains, where chains of different length may
+all be substrates or products of the same enzyme complex. 
+
+\emph{It may prove useful to formalize the above concept to show that what the algorithm below achieves is
+in fact the copy number of this enzyme complex. I have attempted this in another document.}
+
+\begin{center}
+\begin{tabular}{| p{14cm} |}
+\hline
+\textbf{Box 1. Assumptions in GPR-based Enzyme Complex Formation} \\
+\hline
+\vspace{2.5 mm} 
+\textbf{Assumptions} \\
+\begin{enumerate}
+\item Expression values faithfully represent the relative copy number of their corresponding 
+peptide isoforms. 
+\item Protein isoforms contributing to isozymes are considered part of the same enzyme complex.
+\item Assumes one copy of peptide per complex; exact isoform stoichiometry is not considered. 
+\item With the exception of complexes having identical rules, assumes each copy of a peptide 
+is available for all complexes in the model. 
+\end{enumerate} \\
+\hline
+\vspace{2.5 mm} 
+\textbf{Other Caveats} \\
+\begin{enumerate}
+\item GPR rules may be erroneous even at their level of specification.
+\end{enumerate} \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{5 mm} 
+\begin{tikzpicture}[scale=2, node distance = 2cm, auto]
+    % Place nodes
+    \node [block] (start) {start};
+    \node [iogram, below of=start, left of=start, text width=3cm] (exp) {\{[Gene, Mean, STDEV]\}};
+    \node [iogram, below of=start, right of=start, text width=2.5cm] (rules) {[Reaction, Rule]};
+    \node [block, below of=rules] (parse) {Parse Rule};
+    \node [block, below of=parse, left of=parse, text width=3cm] (mindisj) {Find Min. Disjunction};
+    \node [iogram, below of=mindisj, text width=3cm] (expstd) {Effective STDEV and Mean Expression};
+    % Draw edges
+    \path [line] (start) -- (exp);
+    \path [line] (start) -- (rules);
+    \path [line] (rules) -- (parse);
+    \path [line] (exp.south) -- (mindisj);
+    \path [line] (parse) |- (mindisj);
+    \path [line] (mindisj) -- (expstd);
+\end{tikzpicture} 
+
+
+\subsection{Orignal eMoMA Formulation}
+
+The prior work does not use an acronym for labeling their method \cite{Lee2012}.
+However, their work was a direct inspiration for the current approach, 
+so we also consider this a form of eMoMA. Please also see this paper for examples
+of mapping gene expression data to expression and variation of enzyme complex
+copy number.
+
+\subsection{Motivational Gene-Rule Examples for Conjunctive Normal Form}
+The previous direct evaluation of gene rule expression values can lead to some problems.
+Below, lower case letters denote expression level (i.e. copy number of mRNA) of their
+corresponding upper case letter, which denotes the gene name. The $r_i$ are different reaction
+rules and the $e_i$ are the corresponding estimated complex expression levels.
+
+We need some way to guarantee that we don’t count anything twice or more across disjunctions: \\
+\begin{tabular}{cccccccc}
+& $r_1$ & := & [A and B] or [A and C] & $\rightarrow$ & $e_1$  &=& min($a,b$) + min($a,c$) \\ 
+& $r_2$ & := & [A and (B or C)]       & $\rightarrow$ & $e_2$  &=&  min($a, b + c$) 
+\end{tabular} \\
+Supposing A is the minimum, then if we just evaluate $r_1$ directly (a rule in 
+disjunctive normal form, or DNF), A will be counted twice. 
+
+Another possibility is divvying up expression as seen in DNF. For instance, in $r_1$ above,
+we could evaluate it as $e_1$ = min($\frac{a}{2},b$) + min($\frac{a}{2},c$) to account for
+the repeated use of $a$. However, other potential issues aside, we can see that this can
+cause problems rather quickly. For instance, suppose $b = a$ and $c = 0$; then min($a$,$b+c$) 
+$=b=a$ appears to be correct, not min($\frac{a}{2},b$) + min($\frac{a}{2},c$) = $\frac{a}{2} + 0$. 
+
+In practice, for biological rules, DNF usually appears to be more readable and easier to reason about.
+Attempting to symbolically convert the human ATP Synthase rule in Human Recon 2 to conjunctive normal form (CNF) 
+appears to be impossible due to an exponential increase in memory \cite{Thiele2013}. Therefore, we use a reduction rule
+that makes use of expression data, outlined below. The algorithm is basically the following:  \\
+
+\begin{algorithmic}
+\REQUIRE $g_i$ are genes. 
+\REQUIRE $x_i$ are expressions in the boolean language.
+\WHILE{$rule \neq AND(d_1,...,d_n)$ where $d_i$ has the form: $OR(g_1,...,g_m)$}
+  \STATE $\mathbf{1}$: check for sequence of ANDs $\rightarrow$ reduce to gene with minimum \\
+    \hspace{4.8 mm} expression 
+  \STATE $\mathbf{2}$: Distribute ORs over ANDs, e.g.: $(x_1 \land x_2) \lor (x_3 \land x_4)$ \\ 
+    \hspace{4.8 mm} $\rightarrow (x_1 \lor x_3) \land (x_1 \lor x_4) \land (x_2 \lor x_3) \land (x_2 \lor x_4)$
+  \STATE $\mathbf{3}$: Change adjacent gene arguments to sets, e.g: \\
+    \hspace{4.8 mm} $g_1 \land g_2 \rightarrow AND(g_1,g_2)$;  \\
+    \hspace{4.8 mm} $g_1 \land AND(g_2,g_3) \rightarrow AND(g_1,g_2,g_3)$ 
+\ENDWHILE
+\end{algorithmic} 
+\vspace{5 mm} 
+The third step greatly simplifies numeric manipluations later, as well as checking for
+the terminating condition.
+Please see below for the code for the core part of the algorithm.
+
+The method presented here for enzyme complex copy number estimation can be used as a stand-alone method,
+as long as gene-protein-reaction (GPR) rules from a metabolic construction are present. For instance, it 
+may not always be desirable to directly compute a flux. As an example, the relative copy number of
+enzyme complexes present in secretions from various biological tissues, such as milk or pancreatic
+secretions. Perhaps more importantly, this approach to estimating relative complex levels can be employed
+with regulatory models such as PROM or other regulatory network models that can estimate individual gene
+expression levels at time $t+1$ given the state of the model at a time $t$ (cites PROM, some other bayesian
+regulatory/signalling model).
+
+\subsection{Formulation with Automatic Normalization and Fast Direction Assignment}
+Unlike the original formulation of eMoMA, we employ a normalization variable $n$ in the problem
+to find the most agreeable scaling of expression data. Additional technical constraints not shown
+from Linear Fractional Programming (LFP) require $n$ to be non-zero \cite{Boyd2004}. The
+LFP shown below can be converted to a linear program by the Charnes-Cooper transformation.
+
+Additionally, the original formulation
+used repeated iterations of FVA (Flux Variability Analysis). This is a very costly procedure. 
+To address this, we convert the model to an irreversible model, where each reversible flux $v$
+in the original model is split into a forward and backward reaction that take strictly positive
+values: $v_f$ and $v_b$. Given an indexed family $R$ of reactions with the identical gene rules in each
+set and estimated expression values $e_i$, we can describe the new problem as:
+
+\begin{align*}
+&\textnormal{minimize}\ \sum^N_{i=1}\frac{d_i}{n \sigma_i}  \\
+&s.t. \\
+&\forall i: -d_i \leq \sum_{j \in R_i}(v_{j,f} + v_{j,b}) - n e_i \leq d_i \\
+&d_i \geq 0 \\
+&n > 0
+\end{align*}
+
+Note that as in the original eMoMA paper, $\sigma_i$ is an optional weighting of variation
+in biological or technical replicates. 
+
+In the original formulation, FVA uses an objective with a $-1$ or $+1$ for each reversible reaction 
+with all other reactions having a 0. If having a non-zero flux in the negative or positive direction
+does not increase the residuals' magnitude (which is the objective of the eMoMA problem), then 
+the reaction is made irreversible for subsequent iterations. Eventually this process terminates
+when the number of reversible reactions remains constant. 
+
+During each iteration we allow flux through both $v_f$ and $v_b$; if one of these is is greater 
+than the other, then the lesser flux is constrained to be zero in subsequent iterations. What
+can be done in practice is to pick a parameter $\alpha \in [0.5,1)$ so that if
+$\frac{v_f}{v_f+v_b} > \alpha$ then $v_b$ is constrained to be 0 subsequently. This parameter could
+also be changed as iterations progress, but so far there appears to be no advantage to using
+anything other than $0.5$ (larger values terminate more quickly, but with slightly fewer reaction
+directions determined).
+
+If $v_f = v_b$ after an iteration, we constrain both reactions to be zero, since this
+is a futile cycle. Otherwise, the flux through these reactions may be inadvertently affecting
+the obective. If we don't do this, we actually see about 100 fewer reactions active in an eMoMA run.
+The disadvantage is that the time for completing eMoMA goes up from about 70s to 200s on a recent
+AMD Athlon Magny-Cours system running the Gurobi 5.1 solver. This is still a major improvement 
+in efficiency over the FVA method, which could take several hours per Human Recon 2 eMoMA run.
+
+Futher work on improving convergence speed should be kept in mind, or at least, making use of prior
+eMoMA flux estimations (see the section below about mutational models and epistasis).
+
+\subsection{Applications and Insights from GPR formalisms and eMoMA}
+When should an investigator simply look at gene expression levels rather than
+worrying about the additional complexities of GPRs and flux estimation as in eMoMA?
+Perhaps the most obvious example is attempting to estimate actual enzyme-catalyzed 
+fluxes rather than expression levels, since individual gene expression levels
+may not be straight-forward to draw conclusions from due to non-linearities
+from the GPRs, as well as network-related effects. Additionally, methods like these
+allow us to impute fluxes for reactions that are not catalyzed by enzymes,
+such as transport reactions or highly spontaneous chemical reactions. To illustrate
+this point, Table XXXX shows the correlation matrix for the above quantities and 
+the distributions of each quantity for a single eMoMA run (XXXX).
+
+
+\section{Future Analysis}
+\subsection{An Analysis of Cancer Tissue Metabolism}
+\subsection{Cancer's Influence on Nighboring Tissue}
+\subsection{Epistasis Extended to Beneficial Mutations and Non-Microbial Models}
+
+The occurence of beneficial mutations and how they affect adaptation is currently an area of active
+interest in evolutionary biology \cite{Chou2011} \cite{Weinreich2006}. The questions are often difficult
+or impossible to assess experimentally due to limited resources.  In genome-scale models, to our knowledge,
+only microbial epistasis has so far been studied for all enzymes (often referred to as genome-scale 
+in this context). This is due to several factors.
+
+One issue is that these computations can still take a significant amount of time, and the increase in model
+size of Human Recon 2 over Yeast can cause even a relatively simple FBA run to go up by an order of magnitude.
+This problem is compounded by the increase in the number of genes in the human model, since computing epistasis
+consumes space and time as $O(n^2)$ where $n$ is the number of genes in the model. More important than this issue,
+which might be overcome with enough computational resources, is the issue of an objective function. It has been shown
+numerous times that FBA with a biomass objective can be a reasonable approximation to what a microbe is trying to 
+achieve metabolically \cite{Schuetz2012} \cite{Fong2004} \cite{Varma1994} . While Recon 2 is equipped with a ``generalized biomass reaction'', it is not clear
+what the meaning of this is, and it certainly seems unlikely to estimate the metabolism even of fast-growing cancer
+cells (cite Locasale?). We propose eMoMA as a method to get around this issue for non-microbial models.
+
+Another advantage to eMoMA is that it allows one to directly probe mutations that are represented as gene expresion
+perturbations. A decreased level of gene expression may also be metabolically equivalent to the effect of a missense
+mutation, for example. This allows a different sampling strategy than before; for instance, we could observe how uniform 
+expression restriction compares to uniform flux restriction\cite{Xu2012}. Assuming an accurate model of enzyme-complex
+expression measurement, the former should be the more realistic model.
+
+One issue discussed elsewhere is that combining traditional flux restriction mutations, which are known as 
+\emph{hard constraints}, may result in an unsolvable system, which is almost certainly an undesired effect
+of this mutation modeling formalism. Instead, it would be better if mutations could be modeled as 
+\emph{soft constraints}. Concretely, whereas hard constraints are enacted in the actual constraints of the 
+optimization problem, soft constraints merely change the objective. This means that multiple soft constaints
+combined together under some mutational model would be compatible in the sense that they wouldn't unexpectedly
+result in an unsolvable system. eMoMA provides two possible avenues for soft constraints: expression level 
+and expression variation. \emph{However, it is not clear yet what expression variation really means, so further
+investigation is necessary.}
+
+\section{Code}
+\subsection{minDisjunction}
+
+The following code is written in ATS, a type-safe language including syntax similar to SML while
+having direct access to C types \cite{ATStypes03}.
+GREXP describes a datatype that is used for storing the parse trees of boolean rules (without negation).
+A GREXP can then be manipulated by the function toCNF to be converted to a conjunctive normal form.
+We make use of the reduction rule mentioned previously by calling the minConj function. The 
+conjunctivize function is a helper function to deal with different structures for a GRconj
+and GRdisj (one is set based, one is parse-tree based; note this described in the data(view)type defintion).
+
+\begin{verbatim}
+dataviewtype GREXP = 
+  | GRgenes of genes
+  | GRconj of genes
+  | GRconj of (GREXP,GREXP)
+  | GRdisj of genes
+  | GRdisj of (GREXP,GREXP)
+
+extern
+fun toCNF (bexp: GREXP, emap: &gDMap): GREXP
+
+implement
+toCNF (bexp, emap): GREXP = let     
+  val LR:GREXP = (case+ bexp of 
+    | ~GRconj(ex1,ex2) => GRconj (toCNF(ex1,emap),toCNF(ex2,emap))
+    | ~GRdisj(ex1,ex2) => GRdisj (toCNF(ex1,emap),toCNF(ex2,emap))   
+    | GR => GR):GREXP
+  in (case+ LR of  
+    | ~GRconj(ex1,ex2) => minConj(GRconj(ex1,ex2),emap) 
+    | ~GRdisj(ex1,ex2) => (case+ (ex1,ex2) of
+      // Handle disjunctive leaf cases:         
+      | (~GRdisj(lx), ~GRgenes(g)) => GRdisj (lx + g) 
+      | (~GRgenes(g), ~GRdisj(rx)) => GRdisj (rx + g)
+      | (~GRdisj(lx), ~GRdisj(rx)) => GRdisj (lx + rx)
+      | (~GRgenes(g1), ~GRgenes(g2)) => GRdisj (g1 + g2)
+
+      // Distribute OR over ANDs:
+      | (~GRconj(x1,x2), ~GRconj(g)) => conj1(x1,x2,g,emap) 
+      | (~GRconj(g), ~GRconj(x1,x2)) => conj1(x1,x2,g,emap) 
+      | (~GRconj(g1), ~GRconj(g2)) => conj2(g1,g2,emap)
+      | (~GRconj(lx1,lx2), ~GRconj(rx1,rx2)) => let
+        val lx1c = GREXP_copy(lx1)
+        val lx2c = GREXP_copy(lx2) 
+        val rx1c = GREXP_copy(rx1)
+        val rx2c = GREXP_copy(rx2) 
+        in GRconj(GRconj(GRconj(toCNF(GRdisj(lx1,rx1),emap), 
+          toCNF(GRdisj (lx2, rx1c ),emap)),
+          toCNF(GRdisj (lx1c, rx2),emap)), 
+          toCNF(GRdisj (lx2c, rx2c),emap)) 
+        end
+
+      // Handle e.g.: (.. OR ..) OR (.. AND ...) 
+      | (~GRconj(lx1,lx2), RX) => let
+        val RXc = GREXP_copy(RX)
+        in GRconj(toCNF(GRdisj(lx1,RX),emap),
+          toCNF(GRdisj(lx2,RXc),emap)) 
+        end
+      | (LX ,~GRconj(rx1,rx2)) => let
+        val LXc = GREXP_copy(LX)
+        in GRconj(toCNF(GRdisj(LX,rx1),emap),
+          toCNF(GRdisj(LXc,rx2),emap)) 
+        end
+      | (~GRconj(gc), RX) => let
+        val retGR = toCNF(conjunctivize(RX, gc,emap),emap)
+        val _ = genes_free(gc)
+        in retGR end
+      | (LX, ~GRconj(gc)) => let
+        val retGR = toCNF (conjunctivize(LX, gc,emap),emap)
+        val _ = genes_free(gc)
+        in retGR end
+      // All other disjunctive cases
+      | (_,_) => GRdisj(toCNF(ex1,emap),toCNF(ex2,emap))
+      ):GREXP
+    | EX => EX
+    ):GREXP
+  end
+\end{verbatim}
+
+
 \chapter{Cancer Phenotypes and eMoMA}
 
 \appendix
 \chapter{Chapter 1 of appendix}
 Appendix chapter 1 text goes here
 
-\bibliography{sampleThesis}
+\bibliography{dissertation}
 
 \end{document}

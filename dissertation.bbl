@@ -1,3 +1,59 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
+
+\bibitem{bennett2010}
+Bryson~D Bennett, Elizabeth~H Kimball, Melissa Gao, Robin Osterhout, Stephen~J
+  Van, and Joshua~D Rabinowitz.
+\newblock {NIH Public Access}.
+\newblock 5(8):593--599, 2010.
+
+\bibitem{Fong2004}
+Stephen~S Fong and Bernhard~\O Palsson.
+\newblock {Metabolic gene-deletion strains of Escherichia coli evolve to
+  computationally predicted growth phenotypes.}
+\newblock {\em Nature genetics}, 36(10):1056--8, October 2004.
+
+\bibitem{Lee2012}
+Dave Lee, Kieran Smallbone, Warwick~B Dunn, Ettore Murabito, Catherine~L
+  Winder, Douglas~B Kell, Pedro Mendes, and Neil Swainston.
+\newblock {Improving metabolic flux predictions using absolute gene expression
+  data.}
+\newblock {\em BMC systems biology}, 6(1):73, January 2012.
+
+\bibitem{Schuetz2012}
+R.~Schuetz, N.~Zamboni, M.~Zampieri, M.~Heinemann, and U.~Sauer.
+\newblock {Multidimensional Optimality of Microbial Metabolism}.
+\newblock {\em Science}, 336(6081):601--604, May 2012.
+
+\bibitem{Segre2002}
+Daniel Segr\`{e}, Dennis Vitkup, and George~M Church.
+\newblock {Analysis of optimality in natural and perturbed metabolic networks.}
+\newblock {\em Proceedings of the National Academy of Sciences of the United
+  States of America}, 99(23):15112--7, November 2002.
+
+\bibitem{Thiele2013}
+Ines Thiele, Neil Swainston, Ronan M~T Fleming, Andreas Hoppe, Swagatika Sahoo,
+  Maike~K Aurich, Hulda Haraldsdottir, Monica~L Mo, Ottar Rolfsson, Miranda~D
+  Stobbe, Stefan~G Thorleifsson, Rasmus Agren, Christian B\"{o}lling, Sergio
+  Bordel, Arvind~K Chavali, Paul Dobson, Warwick~B Dunn, Lukas Endler, David
+  Hala, Michael Hucka, Duncan Hull, Daniel Jameson, Neema Jamshidi, Jon~J
+  Jonsson, Nick Juty, Sarah Keating, Intawat Nookaew, Nicolas~Le Nov\`{e}re,
+  Naglis Malys, Alexander Mazein, Jason~A Papin, Nathan~D Price, Anatoly
+  Sorokin, Johannes H G M~Van Beek, Dieter Weichart, Igor Goryanin, and Jens
+  Nielsen.
+\newblock {A community-driven global reconstruction of human metabolism}.
+\newblock {\em Nature biotechnology}, (March 2013):1--9, 2013.
+
+\bibitem{Varma1994}
+A~Varma and Bernhard~\O Palsson.
+\newblock {Stoichiometric flux balance models quantitatively predict growth and
+  metabolic by-product secretion in wild-type Escherichia coli W3110.}
+\newblock {\em Applied and environmental microbiology}, 60(10):3724--31,
+  October 1994.
+
+\bibitem{Xu2012}
+Lin Xu, Brandon Barker, and Zhenglong Gu.
+\newblock {Dynamic epistasis for different alleles of the same gene.}
+\newblock {\em Proceedings of the National Academy of Sciences of the United
+  States of America}, June 2012.
 
 \end{thebibliography}
