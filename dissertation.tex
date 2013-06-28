@@ -629,7 +629,12 @@ peptide isoforms.
 \item Protein isoforms contributing to isozymes are considered part of the same enzyme complex.
 \item Assumes one copy of peptide per complex; exact isoform stoichiometry is not considered. 
 \item With the exception of complexes having identical rules, assumes each copy of a peptide 
-is available for all complexes in the model. 
+is available for all complexes in the model.
+\item If a particular subcomplex can be catalyzed by A, it can also be catalyzed by A and B (e.g.
+B acts as a coenzyme), but this just simplifies to A once expression values are substituted in.
+\item Holoenzymes are not considered in their full capacity (only the catalytic subunits); 
+similarly neither is allosteric regulation. But, cofactors may be considered separately in 
+the corresponding reaction stoichiometry. 
 \end{enumerate} \\
 \hline
 \vspace{2.5 mm} 
@@ -640,6 +645,24 @@ is available for all complexes in the model.
 \hline
 \end{tabular}
 \end{center}
+
+We do not make any special assumptions about requring the symmetry of
+a particular isoform within a complex. For instance, the fifth
+assumption listed gives an example where you might have one
+subcomponent composed of a single isoform, and another subcomponent
+composed of that gene in addition to another isoform. In this case, it
+is simply reduced to being the first gene only that is required, since
+clearly the second is strictly optional. That isn't to say that the
+second gene may not have some effect, such as (potentially) aiding in
+structural ability or altering the catalytic rate, but it should have
+no bearing on the formation of a functional catalytic
+complex. Holoenzymes---enzymes with metabolic cofactors or protein
+subunits that have a regulatory function for the complex---would
+likely be the only situation where this type of rule might need to be
+considered in more detail. But in the absence of detailed kinetic
+information, this consideration not be useful, much like allosteric
+regulation.
+
 
 \vspace{5 mm} 
 \begin{tikzpicture}[scale=2, node distance = 2cm, auto]
