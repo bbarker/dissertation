@@ -43,6 +43,7 @@
 
 % ************* End of TODO ***********************************************
 %Added by Brandon:
+\usepackage{soul} %For highlights
 \usepackage{amsmath}
 \usepackage{hyperref}
 \usepackage{float}
@@ -597,7 +598,7 @@ same reaction--in our notion of enzyme complex. Isozymes may arise by having one
 protein isoforms, and even though these isoforms may not be present in the same complex at the same
 moment, we consider them to be part of the enzyme complex since one could be substituted for the other.
 
-As an example, take the F1 subcomplex of ATP Synthase (figure
+As an example, take the $F_1$ subcomplex of ATP Synthase (figure
 ~\ref{fig:2F43}), which is composed of seven protein subunits
 (distinguised by color, left). On the right-hand side we see different
 isoforms depicted as different colors.  Error in expression data
@@ -605,35 +606,46 @@ aside, instead of considering the copy numbers with multiplicity and
 dividing their expression values by their multiplicity, it may be
 easier to simply note that the axle peptide (shown in red in the
 center of the complex) only has one copy in the complex, so its
-expression should be an overall good estimation of the F1 subcomplex
+expression should be an overall good estimation of the $F_1$ subcomplex
 copy number. This reasoning will be useful later in considering why
 GPRs may be largely adequate for estimating the abundance of most
 enzyme complexes.
 
 \begin{figure}[H]
-\caption{Illustration of the F1 part of the ATP Synthase complex.}
+\caption{Illustration of the $F_1$ part of the ATP Synthase complex.}
 \label{fig:2F43}
 \centering
 \includegraphics[clip=true,trim=0cm 0cm 0cm 0cm, width=12cm]{2F43}
 \end{figure}
 
-The modeling of enzyme complex copy number can be thought of as nested
-(but terminating) sets: each enzyme complex consists of
-several functional groups of protein subunits. These functional groups
-are required for the enzyme complex to function (AND
-relationships). However, there may be alternative versions of each
-functional set (given by OR relationships). Eventually, the
-recursion terminates with a base-level functional set (i.e. a set of
-protein isoforms--usually only one--fulfilling the same function). 
-In the case of ATP Synthase, one of its functional sets is represented
-by the F1 subcomplex. The F1 subcomplex itself can be viewed as having 
-three other subcomplexes: \textbf{double check text book on this}
-It is obvious that one of these base-level functional subcomplexes
-will be in most limited supply, and that it will best represent the 
-overall enzyme complex copy number.
+The modeling of enzyme complex copy number can be tackled by using
+nested sets of subcomplexes; each enzyme complex consists of multiple
+subcomplexes, unlesss it is only a single protein or family of protein
+isozymes.  These subcomplexes are required for the enzyme complex to
+function (AND relationships), and can be thought of as the division of
+the complex in to distinct units that each have some necessary
+function for the complex, with the exception that we do not keep track
+of the multiplicity of subcomplexes within a complex since this
+information is, in the current state of affaris, not always known.
+However, there may be alternative versions of each functional set
+(given by OR relationships). Eventually, this nested embedding
+terminates with a single protein or set of peptide isoforms
+(e.g. isozymes).  In the case of ATP Synthase, one of its functional
+sets is represented by the $F_1$ subcomplex. The $F_1$ subcomplex
+itself can be viewed as having three other subcomplexes: the single
+$\gamma$ (axel) subunit and three subcomplexes each made of an
+$\alpha$ and $\beta$ subunit Each $\alpha\beta$ pair works together to bind
+ADP and catalyze the reaction (cite). It is obvious that one of these
+base-level functional subcomplexes (in this example, either $\gamma$ or $\alpha\beta$
+will be in most limited supply, and
+that it will best represent the overall enzyme complex copy number. 
 
+%
+% Need to show that any GPR rule will do: distribution over ands/ors gives rise
+% to a different but ultimately equivalent subcomplex structure
+%
 Note that it is possible for an enzyme complex to catalyze different reactions. In fact, some transporter
-complexes can transfer many different metabolites \textbf{across a lipid bilayer--up to} . Another example is the
+complexes can transfer many different metabolites \hl{across a lipid bilayer--up to} . Another example is the
 ligation or hydrolysis of nucleotide, fatty acid, or peptide chains, where chains of different length may
 all be substrates or products of the same enzyme complex. 
 

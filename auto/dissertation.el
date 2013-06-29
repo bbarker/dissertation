@@ -20,6 +20,7 @@
      "float"
      "hyperref"
      "amsmath"
+     "soul"
      ""
      "latex2e"
      "cornell10"
