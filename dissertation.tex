@@ -340,7 +340,7 @@ Eukaryotic models are somewhat more difficult to generate due to the
 necessity of protein localization and metabolite transporter
 information34. Automatic reconstruction going beyond enzymatic gene
 information, such as rFBA models, should also be possible40,41; the
-automated generation of boolean and higher-order discrete regulatory
+automated generation of Boolean and higher-order discrete regulatory
 models using time-series expression data has been explored as well,
 though to date these regulatory models have not been coupled to
 metabolic reconstructions42–45. These approaches and other families of
@@ -555,7 +555,7 @@ the most simple version of linear MoMA which assumes the existence of a constant
 Because eMoMA deals with expression data instead of flux, normalization must be addressed in the method.
 Further adding to the complexity, expression data has no directionality, so a method to determine 
 reaction direction given the model and expression data must be devised. Most genome-scale models have
-attached boolean gene rules (without negation) to aid in determining whether or not a gene deletion will
+attached Boolean gene rules (without negation) to aid in determining whether or not a gene deletion will
 completely disable a reaction. These rules are a requirement for eMoMA, and their validity, like the
 stoichimoetric matrix, will undoubtedly be important for generating accurate predictions.
 
@@ -632,33 +632,38 @@ However, there may be alternative versions of each functional set
 terminates with a single protein or set of peptide isoforms
 (e.g. isozymes).  In the case of ATP Synthase, one of its functional
 sets is represented by the $F_1$ subcomplex. The $F_1$ subcomplex
-itself can be viewed as having three other subcomplexes: the single
-$\gamma$ (axel) subunit and three subcomplexes each made of an
-$\alpha$ and $\beta$ subunit Each $\alpha\beta$ pair works together to
-bind ADP and catalyze the reaction (cite). It is obvious that one of
-these base-level functional subcomplexes (in this example, either
-$\gamma$ or $\alpha\beta$ will be in most limited supply, and that it
-will best represent the overall enzyme complex copy number.
+itself can be viewed as having two immediate subcomplexes: the single
+$\gamma$ (axel) subunit and three identical subcomplexes each made of
+an $\alpha$ and $\beta$ subunit. Each $\alpha\beta$ pair works
+together to bind ADP and catalyze the reaction (cite). The
+$\alpha\beta$ subcomplex itself then has two subcomplexes composed of
+just an $\alpha$ subunit on the one hand and the $\beta$ subunit on
+the other.  It is obvious that one of these base-level functional
+subcomplexes (in this example, either $\gamma$ or $\alpha\beta$) will
+be in most limited supply, and that it will best represent the overall
+enzyme complex copy number (discounting the issues of multiplicity for
+$\alpha\beta$, discussed above).
 
-%
-% Need to show that any GPR rule will do: distribution over ands/ors gives rise
-% to a different but ultimately equivalent subcomplex structure
-%
-Note that it is possible for an enzyme complex to catalyze different reactions. In fact, some transporter
-complexes can transfer many different metabolites \hl{across a lipid bilayer--up to} . Another example is the
-ligation or hydrolysis of nucleotide, fatty acid, or peptide chains, where chains of different length may
-all be substrates or products of the same enzyme complex. 
+The hierarhical structure just described, when written out in Boolean,
+will give a rule in CNF (conjunctive normal form). This is because all
+relations are ANDs (conjunctions), except possibly at the inner-most
+subcomplexes that have alternative isoforms, which are expressed as
+ORs (disjunctions). Since GPR rules alone only specify the
+requirements for enzyme complex formation, we will see that not all
+forms of boolean rules are equally useful in evaluating the enzyme
+complex copy number, but we have established assumptions
+~\ref{ECAssume} and an alternative and logically equivalent rule
+\hl{(cite logic book)} under which we can estimate enzyme complex copy
+number.
 
-\emph{It may prove useful to formalize the above concept to show that what the algorithm below achieves is
-in fact the copy number of this enzyme complex. I have attempted this in another document.}
+\hl{Consider adding one more illustrative figure for these CNF<-> enzyme complexes (before sending to Mike).}
 
+\label{ECAssume}
 \begin{center}
 \begin{tabular}{| p{14cm} |}
 \hline
-\textbf{Box 1. Assumptions in GPR-based Enzyme Complex Formation} \\
+\textbf{Box ~\ref{ECAssume}. Assumptions in GPR-based Enzyme Complex Formation} \\
 \hline
-\vspace{2.5 mm} 
-\textbf{Assumptions} \\
 \begin{enumerate}
 \item Expression values faithfully represent the relative copy number of their corresponding 
 peptide isoforms. 
@@ -670,17 +675,30 @@ is available for all complexes in the model.
 B acts as a coenzyme), but this just simplifies to A once expression values are substituted in.
 \item Holoenzymes are not considered in their full capacity (only the catalytic subunits); 
 similarly neither is allosteric regulation. But, cofactors may be considered separately in 
-the corresponding reaction stoichiometry. 
-\end{enumerate} \\
-\hline
-\vspace{2.5 mm} 
-\textbf{Other Caveats} \\
-\begin{enumerate}
-\item GPR rules may be erroneous even at their level of specification.
+the corresponding reaction stoichiometry.
+\item Any enzyme complex can be described as a hierarchical subset of (possibly redundant)
+subcomplexes; redundant subcomplexes---as elaborated in (2) above---are not currently modeled. 
 \end{enumerate} \\
 \hline
 \end{tabular}
 \end{center}
+
+There is no gaurantee a GPR rule has been written down with this
+hierarchical structure in mind, though it is likely the case most of
+the time, as this is a natural way to think about complexes. However,
+we now argue that any GPR rule can be interpreted in the context of
+this hierarchical view.
+
+%
+% Need to show that any GPR rule will do: distribution over ands/ors gives rise
+% to a different but ultimately equivalent subcomplex structure
+%
+Note that it is possible for an enzyme complex to catalyze different
+reactions. In fact, some transporter complexes can transfer many
+different metabolites \hl{across a lipid bilayer--up to} . Another
+example is the ligation or hydrolysis of nucleotide, fatty acid, or
+peptide chains, where chains of different length may all be substrates
+or products of the same enzyme complex.
 
 We do not make any special assumptions about requring the symmetry of
 a particular isoform within a complex. For instance, the fifth
@@ -754,7 +772,7 @@ that makes use of expression data, outlined below. The algorithm is basically th
 
 \begin{algorithmic}
 \REQUIRE $g_i$ are genes. 
-\REQUIRE $x_i$ are expressions in the boolean language.
+\REQUIRE $x_i$ are expressions in Boolean logic.
 \WHILE{$rule \neq AND(d_1,...,d_n)$ where $d_i$ has the form: $OR(g_1,...,g_m)$}
   \STATE $\mathbf{1}$: check for sequence of ANDs $\rightarrow$ reduce to gene with minimum \\
     \hspace{4.8 mm} expression 
@@ -839,6 +857,16 @@ such as transport reactions or highly spontaneous chemical reactions. To illustr
 this point, Table XXXX shows the correlation matrix for the above quantities and 
 the distributions of each quantity for a single eMoMA run (XXXX).
 
+\section{Discussion}
+We have formalized and improved an existing method for estimating flux
+from expression data, as well as listing assumptions in the model that
+may be useful to address in later attempts ~\ref{ECAssume}. Another
+caveat is that GPR rules or stoichiometry may be inaccurate or
+incomplete in any given model. In fact, for the forseeable future,
+this is a given. By using the GPR and not just the stoichiometry to
+estimate flux, it is possible that future work could make use of this
+framework to debug not just stoichiometry as some methods currently do
+\hl{(cite e.g. grow match, etc.)}, but also GPR rules.
 
 \section{Future Analysis}
 \subsection{An Analysis of Cancer Tissue Metabolism}
@@ -857,14 +885,14 @@ This problem is compounded by the increase in the number of genes in the human m
 consumes space and time as $O(n^2)$ where $n$ is the number of genes in the model. More important than this issue,
 which might be overcome with enough computational resources, is the issue of an objective function. It has been shown
 numerous times that FBA with a biomass objective can be a reasonable approximation to what a microbe is trying to 
-achieve metabolically \cite{Schuetz2012} \cite{Fong2004} \cite{Varma1994} . While Recon 2 is equipped with a ``generalized biomass reaction'', it is not clear
+achieve metabolically ~\cite{Schuetz2012}~\cite{Fong2004}~\cite{Varma1994} . While Recon 2 is equipped with a ``generalized biomass reaction'', it is not clear
 what the meaning of this is, and it certainly seems unlikely to estimate the metabolism even of fast-growing cancer
 cells (cite Locasale?). We propose eMoMA as a method to get around this issue for non-microbial models.
 
 Another advantage to eMoMA is that it allows one to directly probe mutations that are represented as gene expresion
 perturbations. A decreased level of gene expression may also be metabolically equivalent to the effect of a missense
 mutation, for example. This allows a different sampling strategy than before; for instance, we could observe how uniform 
-expression restriction compares to uniform flux restriction\cite{Xu2012}. Assuming an accurate model of enzyme-complex
+expression restriction compares to uniform flux restriction~\cite{Xu2012}. Assuming an accurate model of enzyme-complex
 expression measurement, the former should be the more realistic model.
 
 One issue discussed elsewhere is that combining traditional flux restriction mutations, which are known as 
@@ -882,7 +910,7 @@ investigation is necessary.}
 
 The following code is written in ATS, a type-safe language including syntax similar to SML while
 having direct access to C types \cite{ATStypes03}.
-GREXP describes a datatype that is used for storing the parse trees of boolean rules (without negation).
+GREXP describes a datatype that is used for storing the parse trees of Boolean rules (without negation).
 A GREXP can then be manipulated by the function toCNF to be converted to a conjunctive normal form.
 We make use of the reduction rule mentioned previously by calling the minConj function. The 
 conjunctivize function is a helper function to deal with different structures for a GRconj
