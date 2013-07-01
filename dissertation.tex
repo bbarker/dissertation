@@ -621,6 +621,7 @@ enzyme complexes.
 \includegraphics[clip=true,trim=0cm 0cm 0cm 0cm, width=12cm]{2F43}
 \end{figure}
 
+\subsubsection{Assumptions for Enzyme Complex Formation}
 The modeling of enzyme complex copy number can be tackled by using
 nested sets of subcomplexes; each enzyme complex consists of multiple
 subcomplexes, unlesss it is only a single protein or family of protein
@@ -661,6 +662,11 @@ number.
 
 \hl{Consider adding one more illustrative figure for these CNF<-> enzyme complexes (before sending to Mike).}
 
+% !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+% Need to discuss each assumption in turn. Maybe emphasize the text at the 
+% start of each paragraph with e.g. \emph{Assumptions 4-5}.
+% !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 \label{ECAssume}
 \begin{center}
 \begin{tabular}{| p{14cm} |}
@@ -668,34 +674,47 @@ number.
 \textbf{Box ~\ref{ECAssume}. Assumptions in GPR-based Enzyme Complex Formation} \\
 \hline
 \begin{enumerate}
-\item Expression values faithfully represent the relative copy number of their corresponding 
+\item Expression values are highly correlated the copy numbers of their corresponding 
 peptide isoforms. 
 \item Protein isoforms contributing to isozymes are considered part of the same enzyme complex.
 \item Assumes one copy of peptide per complex; exact isoform stoichiometry is not considered. 
-\item With the exception of complexes having identical rules, assumes each copy of a peptide 
+\item With the exception of complexes having identical rules (i.e. the same complex listed for 
+different reactions), assume each copy of a peptide 
 is available for all complexes in the model.
 \item If a particular subcomplex can be catalyzed by A, it can also be catalyzed by A and B (e.g.
 B acts as a coenzyme), but this just simplifies to A once expression values are substituted in.
-\item Holoenzymes are not considered in their full capacity (only the catalytic subunits); 
-similarly neither is allosteric regulation. But, cofactors may be considered separately in 
+\item Holoenzymes (complexes with regulatory subunits) are not considered in their full capacity 
+(only the catalytic subunits);  similarly neither is allosteric regulation. Relately, there are no
+NOT operations in GPR rules (just ANDs and ORs). However, cofactors may be considered separately in 
 the corresponding reaction stoichiometry.
 \item Any enzyme complex can be described as a hierarchical subset of (possibly redundant)
-subcomplexes; redundant subcomplexes---as elaborated in (2) above---are not currently modeled. 
+subcomplexes; redundant subcomplexes---as elaborated in (3) above---are not currently modeled. 
 \end{enumerate} \\
 \hline
 \end{tabular}
 \end{center}
 
 There is no gaurantee a GPR rule has been written down with this
-hierarchical structure in mind, though it is likely the case most of
-the time, as this is a natural way to think about complexes. However,
-we now argue that any GPR rule can be interpreted in the context of
-this hierarchical view.
+hierarchical structure in mind, though it is likely the case much of
+the time as it is a natural way to model complexes.  However, any GPR
+rule can be interpreted in the context of this hierarchical view due
+to the existence of a logically equivlaent CNF rule for any non-CNF
+rule, and it is obvious that logical equivalence is all that is
+required to check for enzyme complex formation when exact isoform
+stoichiometry is unknown.  As an example, we consider another common
+formulation for GPRs, and a way to think about enzyme
+structure---disjunctive normal form (DNF).  A DNF rule is a
+disjunctive list of conjunctions of peptide isoforms, where each
+conjunction is some variation of the enzyme complex due to
+substituting in different isoforms for some of the required
+subunits. A rule with a more complicated structure and compatible
+isoforms across subcomplexes may be written more succinctinly in CNF,
+whereas a rule with only very few alternatives derived from isoform
+variants may be reprsented clearly with DNF.  In rare cases, it is
+possible that a GPR rule is written in neither DNF or CNF, perhaps
+because neither of these two alternatives above are stricly the case,
+and some other rule is more succinct.
 
-%
-% Need to show that any GPR rule will do: distribution over ands/ors gives rise
-% to a different but ultimately equivalent subcomplex structure
-%
 Note that it is possible for an enzyme complex to catalyze different
 reactions. In fact, some transporter complexes can transfer many
 different metabolites \hl{across a lipid bilayer--up to} . Another
