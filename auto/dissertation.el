@@ -1,9 +1,14 @@
 (TeX-add-style-hook "dissertation"
  (lambda ()
     (LaTeX-add-bibliographies)
+    (LaTeX-add-environments
+     "Theorem"
+     "Algorithm")
     (LaTeX-add-labels
      "fig:2F43"
-     "ECAssume")
+     "ECAssume"
+     "alg:ReductionToCNF"
+     "thm:ReductionToCNF")
     (TeX-add-symbols
      "ifpdf")
     (TeX-run-style-hooks
@@ -16,6 +21,9 @@
      "graphics"
      "pstricks"
      "graphicx"
+     "ntheorem"
+     "thmmarks"
+     "amsthm"
      "algorithmic"
      "tikz"
      "float"
