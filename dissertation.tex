@@ -722,8 +722,8 @@ example is the ligation or hydrolysis of nucleotide, fatty acid, or
 peptide chains, where chains of different length may all be substrates
 or products of the same enzyme complex.
 
-We do not make any special assumptions about requring the symmetry of
-a particular isoform within a complex. For instance, the fifth
+We do not make any special assumptions requring symmetry of
+isoforms within a complex. For instance, the fifth
 assumption listed gives an example where you might have one
 subcomponent composed of a single isoform, and another subcomponent
 composed of that gene in addition to another isoform. In this case, it
@@ -809,6 +809,26 @@ that makes use of expression data, outlined below. The algorithm is basically th
 The third step greatly simplifies numeric manipluations later, as well as checking for
 the terminating condition.
 Please see below for the code for the core part of the algorithm.
+
+Now we show that the reduction step does not change the result from
+the algorithm. The third step in the while-loop does not affect the
+underlying logic, so we only need to consider the effect of step one
+on step two.  Let us first consider when expressions $x_1, ..., x_4$
+are all literals in step two to simplify the analysis, and that
+$x_i^{(e)}$ denotes the expression measurement for gene $x_i$. Assume
+WLOG that $x_1 \lor x_3$ attains the minimum expression among the
+disjunctions. Then we have:
+
+\begin{align*}
+&x_{1}^{(e)} + x_{3}^{(e)} \leq x_{1}^{(e)} + x_{4}^{(e)} \Rightarrow x_{3}^{(e)} \leq x_{4}^{(e)} \\
+&x_{1}^{(e)} + x_{3}^{(e)} \leq x_{2}^{(e)} + x_{3}^{(e)} \Rightarrow x_{1}^{(e)} \leq x_{2}^{(e)} 
+\end{align*}
+
+Applying this result in conjunction to step one in the while-loop to
+the original expression, $(x_1 \land x_2) \lor (x_3 \land x_4)$, we
+immediately arrive at $(x_1) \lor (x_3)$, which is our originally
+assumed minimum.
+
 
 The method presented here for enzyme complex copy number estimation can be used as a stand-alone method,
 as long as gene-protein-reaction (GPR) rules from a metabolic construction are present. For instance, it 
