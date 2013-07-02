@@ -87,6 +87,9 @@
 \copyrightholder{Brandon Elam Barker}
 \copyrightyear{2013}
 
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
 \newtheorem{Theorem}{Theorem}
 \theoremstyle{break}
 \newtheorem{Algorithm}{Algorithm}
@@ -515,7 +518,12 @@ optimum for our fitness objective.
 
 \chapter{eMoMA section (Get a new name for eMoMA)}
 
-\section{Methods Introduction}
+\hl{Put Introduction here}
+
+\section{Methods}
+
+\hl{Briefly state how MoMA will give us a lead in to the problem?}
+
 \subsection{MoMA: Minimization of Metabolic Adjustment}
 
 The minimization of metabolic adjustment (MoMA) method \cite{Segre2002}, 
@@ -730,8 +738,8 @@ same enzyme complex.
 \end{assume}
 \item \begin{assume} \label{ass:hierarchy}
 Any enzyme complex can be described as a hierarchical subset of
-(possibly redundant) subcomplexes; redundant subcomplexes---as
-elaborated in (\ref{ass:nostoich})---are not currently modeled.
+(possibly redundant) subcomplexes; redundant subcomplexes, as
+elaborated in (\ref{ass:nostoich}), are not currently modeled.
 \end{assume}
 \item \begin{assume} \label{ass:nostoich} 
 Assumes one copy of peptide per complex; exact isoform stoichiometry
@@ -841,32 +849,35 @@ the repeated use of $a$. However, other potential issues aside, we can see that 
 cause problems rather quickly. For instance, suppose $b = a$ and $c = 0$; then min($a$,$b+c$) 
 $=b=a$ appears to be correct, not min($\frac{a}{2},b$) + min($\frac{a}{2},c$) = $\frac{a}{2} + 0$. 
 
-In practice, for biological rules, DNF usually appears to be more readable and easier to reason about.
-Attempting to symbolically convert the human ATP Synthase rule in Human Recon 2 to conjunctive normal form (CNF) 
-appears to be impossible due to an exponential increase in memory \cite{Thiele2013}. Therefore, we use a reduction rule
-that makes use of expression data, outlined below. The algorithm is basically the following:  \\
+Attempting to symbolically convert the human ATP Synthase rule in
+Human Recon 2 to CNF is computationally intractable due to an
+exponential increase in memory \cite{Thiele2013}. Therefore, we use a
+reduction rule that makes use of expression data, outlined below. The
+algorithm can be represented as follows: \\
 
+\pagebreak
 \begin{Algorithm}
 \label{alg:ReductionToCNF}
 \begin{algorithmic}
 \REQUIRE $g_i$ are genes. 
 \REQUIRE $x_i$ are expressions in Boolean logic.
-\WHILE{$rule \neq AND(d_1,...,d_n)$ where $d_i$ has the form: $OR(g_1,...,g_m)$}
-  \STATE $\mathbf{1}$: check for sequence of ANDs $\rightarrow$ reduce to gene with minimum \\
-    \hspace{4.8 mm} expression 
+\WHILE{$rule \neq AND(o_1,...,o_n)$ where $o_i$ has the form: $OR(g_1,...,g_m)$}
+  \STATE $\mathbf{1}$: check for sequence of ANDs of literals (genes)\\ 
+    \hspace{4.8 mm} $\rightarrow$ reduce to gene with minimum expression 
   \STATE $\mathbf{2}$: Distribute ORs over ANDs, e.g.: $(x_1 \land x_2) \lor (x_3 \land x_4)$ \\ 
     \hspace{4.8 mm} $\rightarrow (x_1 \lor x_3) \land (x_1 \lor x_4) \land (x_2 \lor x_3) \land (x_2 \lor x_4)$
   \STATE $\mathbf{3}$: Change adjacent gene arguments to sets, e.g: \\
     \hspace{4.8 mm} $g_1 \land g_2 \rightarrow AND(g_1,g_2)$;  \\
     \hspace{4.8 mm} $g_1 \land AND(g_2,g_3) \rightarrow AND(g_1,g_2,g_3)$ 
 \ENDWHILE
+\ENSURE $o_{min}$ where $o_{min}$ has the form: $OR(g_1,...,g_m)$
 \end{algorithmic} 
 \end{Algorithm}
 
 The third step greatly simplifies numeric manipulations and checking
 for the terminating condition. Please see below for the code for the
 core part of the algorithm. Now we show that the reduction step does
-not change the result from the algorithm.
+not change the desired result of the algorithm.
 
 \begin{Theorem}
 \label{thm:ReductionToCNF}
@@ -878,7 +889,7 @@ minimum expression value among all disjunctions of a rule in CNF.
 The third step in the while-loop does not affect the
 underlying logic, so we only need to consider the effect of step one
 on step two.  Let us first consider when expressions $x_1, ..., x_4$
-are all literals in step two to simplify the analysis, and that
+are all literals in step two to cover the most complex case, and that
 $x_i^{(e)}$ denotes the expression measurement for gene $x_i$. Assume
 WLOG that $x_1 \lor x_3$ attains the minimum expression among the
 disjunctions. Then we have:
@@ -897,7 +908,10 @@ each $x_i$ that is not a literal to arrive at two different
 evaluations for $x_i^{(e)}$. Since the process cannot continue
 indefinitely, eventually there is a base case involving only literals,
 and the above result shows that both evaluations will be
-identical. Propagating back will yield the desired result.
+identical. Propagating back will yield the desired result. Because
+Algorithm~\ref{alg:ReductionToCNF} without step one simply yields CNF,
+it follows that adding step one will yield the disjunction with 
+minimum expression value of the rule in CNF.
 \end{proof}
 
 The method presented here for enzyme complex copy number estimation can be used as a stand-alone method,
@@ -922,6 +936,8 @@ in the original model is split into a forward and backward reaction that take st
 values: $v_f$ and $v_b$. Given an indexed family $R$ of reactions with the identical gene rules in each
 set and estimated expression values $e_i$, we can describe the new problem as:
 
+\vspace{5 mm} 
+\hl{(Need to describe iterative process in Algorithm.)}
 \begin{Algorithm}[eMoMA]
 \label{alg:eMoMA}
 \begin{align*}
@@ -1001,7 +1017,7 @@ which might be overcome with enough computational resources, is the issue of an 
 numerous times that FBA with a biomass objective can be a reasonable approximation to what a microbe is trying to 
 achieve metabolically ~\cite{Schuetz2012}~\cite{Fong2004}~\cite{Varma1994} . While Recon 2 is equipped with a ``generalized biomass reaction'', it is not clear
 what the meaning of this is, and it certainly seems unlikely to estimate the metabolism even of fast-growing cancer
-cells (cite Locasale?). We propose eMoMA as a method to get around this issue for non-microbial models.
+cells \hl{(cite Locasale?)}. We propose eMoMA as a method to get around this issue for non-microbial models.
 
 Another advantage to eMoMA is that it allows one to directly probe mutations that are represented as gene expresion
 perturbations. A decreased level of gene expression may also be metabolically equivalent to the effect of a missense
