@@ -3,12 +3,20 @@
     (LaTeX-add-bibliographies)
     (LaTeX-add-environments
      "Theorem"
-     "Algorithm")
+     "Algorithm"
+     "assume")
     (LaTeX-add-labels
      "fig:2F43"
      "ECAssume"
+     "ass:expcorr"
+     "ass:isozyme"
+     "ass:hierarchy"
+     "ass:nostoich"
+     "ass:sharing"
+     "ass:holo"
      "alg:ReductionToCNF"
-     "thm:ReductionToCNF")
+     "thm:ReductionToCNF"
+     "alg:eMoMA")
     (TeX-add-symbols
      "ifpdf")
     (TeX-run-style-hooks

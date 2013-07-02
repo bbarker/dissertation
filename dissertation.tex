@@ -90,6 +90,8 @@
 \newtheorem{Theorem}{Theorem}
 \theoremstyle{break}
 \newtheorem{Algorithm}{Algorithm}
+\theoremstyle{empty}
+\newtheorem{assume}{}
 
 \begin{document}
 % Define block styles
@@ -558,13 +560,13 @@ the most simple version of linear MoMA which assumes the existence of a constant
 &d_i \ge 0
 \end{align*}
 
-\subsection{Premises and a Flowchart for eMoMA}
+\subsection{Some Background and a Flowchart for\\ Estimating Flux from Expression}
 Because eMoMA deals with expression data instead of flux, normalization must be addressed in the method.
 Further adding to the complexity, expression data has no directionality, so a method to determine 
 reaction direction given the model and expression data must be devised. Most genome-scale models have
 attached Boolean gene rules (without negation) to aid in determining whether or not a gene deletion will
 completely disable a reaction. These rules are a requirement for eMoMA, and their validity, like the
-stoichimoetric matrix, will undoubtedly be important for generating accurate predictions.
+stoichiometric matrix, will undoubtedly be important for generating accurate predictions.
 
 Also important are the assumptions and limitations of mapping expression data to complexes. Due to 
 current models not containing negations in their gene rules, which might correspond to inhibitors,
@@ -581,6 +583,24 @@ approach may not be useful, as it has been shown that many reactions in central 
 metabolism tend to operate well below $v_{max}$ \cite{Bennett2010}. Still, this is an area that should
 be explored in more detail later.
 
+\vspace{5 mm} 
+\begin{tikzpicture}[scale=2, node distance = 2cm, auto]
+    % Place nodes
+    \node [block] (start) {start};
+    \node [iogram, below of=start, left of=start, text width=3cm] (exp) {\{[Gene, Mean, STDEV]\}};
+    \node [iogram, below of=start, right of=start, text width=2.5cm] (rules) {[Reaction, Rule]};
+    \node [block, below of=rules] (parse) {Parse Rule};
+    \node [block, below of=parse, left of=parse, text width=3cm] (mindisj) {Find Min. Disjunction};
+    \node [iogram, below of=mindisj, text width=3cm] (expstd) {Effective STDEV and Mean Expression};
+    % Draw edges
+    \path [line] (start) -- (exp);
+    \path [line] (start) -- (rules);
+    \path [line] (rules) -- (parse);
+    \path [line] (exp.south) -- (mindisj);
+    \path [line] (parse) |- (mindisj);
+    \path [line] (mindisj) -- (expstd);
+\end{tikzpicture} 
+
 \subsection{A Formalism for Enzyme Complex Formation}
 
 Given the abundance of genome-scale expression datasets available, either as microarray or more
@@ -594,6 +614,24 @@ in genome-scale annotations. For better curated models, the approach described i
 use for understanding metabolism, as well as being a scaffold to find problems for
 existing GPRs, and more broadly the GPR formalism itself.
 
+\subsubsection{Assumptions for Enzyme Complex Formation}
+\emph{Assumption~\ref{ass:expcorr}.}
+The first assumption that we need in order to guarantee an accurate
+estimate of (relative) enzyme complex copy number are accurate
+measurements of their component subunits. Unfortunately, this is
+currently not possible, and we almost always must make do with mRNA
+measurements, which may even have some degree of inaccuracy in
+measuring the mRNA copy number. What has been seen is that Spearman's
+$\rho = 0.6$ for correlation between RNA-Seq and protein inensity in
+datasets from HeLa cells \hl{(cite MSB paper)}. This implies that much
+can likely still be gleamed from analyzing RNA-Seq data, but, an
+appropriate degree of caution must be used in interpreting results
+based on RNA-Seq data. By incorporating more information, such as
+metabolic constaints, we hope to obviate some of the error in
+estimating protein intensity from RNA-Seq data. \hl{(cite subsection
+and figures when added.)}
+
+\emph{Assumption~\ref{ass:isozyme}.}
 In order to  quantify enzyme complex formation, the notion of an enzyme complex as described in English 
 should be formalized.
 A protein complex typically refers to two or more physically associated polypeptide chains, which is
@@ -625,7 +663,7 @@ enzyme complexes.
 \includegraphics[clip=true,trim=0cm 0cm 0cm 0cm, width=12cm]{2F43}
 \end{figure}
 
-\subsubsection{Assumptions for Enzyme Complex Formation}
+\emph{Assumption~\ref{ass:hierarchy}.}
 The modeling of enzyme complex copy number can be tackled by using
 nested sets of subcomplexes; each enzyme complex consists of multiple
 subcomplexes, unlesss it is only a single protein or family of protein
@@ -651,6 +689,10 @@ subcomplexes (in this example, either $\gamma$ or $\alpha\beta$) will
 be in most limited supply, and that it will best represent the overall
 enzyme complex copy number (discounting the issues of multiplicity for
 $\alpha\beta$, discussed above).
+
+%
+% Consider adding this as a Theorem/Proof:
+%
 
 The hierarhical structure just described, when written out in Boolean,
 will give a rule in CNF (conjunctive normal form). This is because all
@@ -678,21 +720,37 @@ number.
 \textbf{Box ~\ref{ECAssume}. Assumptions in GPR-based Enzyme Complex Formation} \\
 \hline
 \begin{enumerate}
-\item Expression values are highly correlated the copy numbers of their corresponding 
-peptide isoforms. 
-\item Protein isoforms contributing to isozymes are considered part of the same enzyme complex.
-\item Assumes one copy of peptide per complex; exact isoform stoichiometry is not considered. 
-\item With the exception of complexes having identical rules (i.e. the same complex listed for 
-different reactions), assume each copy of a peptide 
+\item \begin{assume} \label{ass:expcorr}
+Expression values are highly correlated the copy numbers of their
+corresponding peptide isoforms.
+\end{assume}
+\item \begin{assume} \label{ass:isozyme} 
+Protein isoforms contributing to isozymes are considered part of the
+same enzyme complex.
+\end{assume}
+\item \begin{assume} \label{ass:hierarchy}
+Any enzyme complex can be described as a hierarchical subset of
+(possibly redundant) subcomplexes; redundant subcomplexes---as
+elaborated in (\ref{ass:nostoich})---are not currently modeled.
+\end{assume}
+\item \begin{assume} \label{ass:nostoich} 
+Assumes one copy of peptide per complex; exact isoform stoichiometry
+is not considered.
+\end{assume}
+\item \begin{assume} \label{ass:sharing} 
+With the exception of complexes having identical rules (i.e. the same
+complex listed for different reactions), assume each copy of a peptide
 is available for all complexes in the model.
-\item If a particular subcomplex can be catalyzed by A, it can also be catalyzed by A and B (e.g.
-B acts as a coenzyme), but this just simplifies to A once expression values are substituted in.
-\item Holoenzymes (complexes with regulatory subunits) are not considered in their full capacity 
-(only the catalytic subunits);  similarly neither is allosteric regulation. Relately, there are no
-NOT operations in GPR rules (just ANDs and ORs). However, cofactors may be considered separately in 
-the corresponding reaction stoichiometry.
-\item Any enzyme complex can be described as a hierarchical subset of (possibly redundant)
-subcomplexes; redundant subcomplexes---as elaborated in (3) above---are not currently modeled. 
+\end{assume}
+\item \begin{assume} \label{ass:holo} 
+If a particular subcomplex can be catalyzed by A, it can also be
+catalyzed by A and B (e.g.  B acts as a regulatory unit, as in
+holoenzymes), but this just simplifies to A once expression values are
+substituted in. Similarly, allosteric regulation is not
+modeled. Relately, there are no NOT operations in GPR rules (just ANDs
+and ORs). However, cofactors may be considered separately in the
+corresponding reaction stoichiometry.
+\end{assume}
 \end{enumerate} \\
 \hline
 \end{tabular}
@@ -719,16 +777,28 @@ possible that a GPR rule is written in neither DNF or CNF, perhaps
 because neither of these two alternatives above are stricly the case,
 and some other rule is more succinct.
 
+\emph{Assumptions~\ref{ass:nostoich}~and~\ref{ass:sharing}.}
 Note that it is possible for an enzyme complex to catalyze different
 reactions. In fact, some transporter complexes can transfer many
-different metabolites \hl{across a lipid bilayer--up to} . Another
+different metabolites \hl{across a lipid bilayer--up to}. Another
 example is the ligation or hydrolysis of nucleotide, fatty acid, or
 peptide chains, where chains of different length may all be substrates
-or products of the same enzyme complex.
+or products of the same enzyme complex. While we do not explicitly
+consider these in Algorithm~\ref{alg:ReductionToCNF}, these
+redundancies are taken into account subsequently in
+Algorithm~\ref{alg:eMoMA}.  What is currently not considered in our
+process is that some peptide isoforms may find use in completely
+different complexes; in this case, we assume an unrealistic case of
+superposition where the isoform can simultaneously function in more
+than one complex. The primary reason we have not tackled this problem
+is because exact subunit stoichiometry of most enzyme complexes is not
+accurately known, but an increasing abundance of data on BRENDA gives
+some hope to this problem \hl{(cite BRENDA)}.
 
-We do not make any special assumptions requring symmetry of
-isoforms within a complex. For instance, the fifth
-assumption listed gives an example where you might have one
+\emph{Assumption~\ref{ass:holo}.}
+We do not make any special assumptions requring symmetry of an isoform
+within a complex. For instance, the example in
+assumption~\ref{ass:holo} shows how you might have one
 subcomponent composed of a single isoform, and another subcomponent
 composed of that gene in addition to another isoform. In this case, it
 is simply reduced to being the first gene only that is required, since
@@ -743,26 +813,6 @@ considered in more detail. But in the absence of detailed kinetic
 information, this consideration not be useful, much like allosteric
 regulation.
 
-
-\vspace{5 mm} 
-\begin{tikzpicture}[scale=2, node distance = 2cm, auto]
-    % Place nodes
-    \node [block] (start) {start};
-    \node [iogram, below of=start, left of=start, text width=3cm] (exp) {\{[Gene, Mean, STDEV]\}};
-    \node [iogram, below of=start, right of=start, text width=2.5cm] (rules) {[Reaction, Rule]};
-    \node [block, below of=rules] (parse) {Parse Rule};
-    \node [block, below of=parse, left of=parse, text width=3cm] (mindisj) {Find Min. Disjunction};
-    \node [iogram, below of=mindisj, text width=3cm] (expstd) {Effective STDEV and Mean Expression};
-    % Draw edges
-    \path [line] (start) -- (exp);
-    \path [line] (start) -- (rules);
-    \path [line] (rules) -- (parse);
-    \path [line] (exp.south) -- (mindisj);
-    \path [line] (parse) |- (mindisj);
-    \path [line] (mindisj) -- (expstd);
-\end{tikzpicture} 
-
-
 \subsection{Orignal eMoMA Formulation}
 
 The prior work does not use an acronym for labeling their method \cite{Lee2012}.
@@ -771,7 +821,7 @@ so we also consider this a form of eMoMA. Please also see this paper for example
 of mapping gene expression data to expression and variation of enzyme complex
 copy number.
 
-\subsection{Motivational Gene-Rule Examples for Conjunctive Normal Form}
+\subsection{Motivational Gene-Rule Examples for\\ Conjunctive Normal Form}
 The previous direct evaluation of gene rule expression values can lead to some problems.
 Below, lower case letters denote expression level (i.e. copy number of mRNA) of their
 corresponding upper case letter, which denotes the gene name. The $r_i$ are different reaction
@@ -872,6 +922,8 @@ in the original model is split into a forward and backward reaction that take st
 values: $v_f$ and $v_b$. Given an indexed family $R$ of reactions with the identical gene rules in each
 set and estimated expression values $e_i$, we can describe the new problem as:
 
+\begin{Algorithm}[eMoMA]
+\label{alg:eMoMA}
 \begin{align*}
 &\textnormal{minimize}\ \sum^N_{i=1}\frac{d_i}{n \sigma_i}  \\
 &s.t. \\
@@ -879,7 +931,7 @@ set and estimated expression values $e_i$, we can describe the new problem as:
 &d_i \geq 0 \\
 &n > 0
 \end{align*}
-
+\end{Algorithm}
 Note that as in the original eMoMA paper, $\sigma_i$ is an optional weighting of variation
 in biological or technical replicates. 
 
