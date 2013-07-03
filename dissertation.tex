@@ -580,8 +580,10 @@ Because eMoMA deals with expression data instead of flux, normalization must be 
 Further adding to the complexity, expression data has no directionality, so a method to determine 
 reaction direction given the model and expression data must be devised. Most genome-scale models have
 attached Boolean gene rules (without negation) to aid in determining whether or not a gene deletion will
-completely disable a reaction. These rules are a requirement for eMoMA, and their validity, like the
-stoichiometric matrix, will undoubtedly be important for generating accurate predictions.
+completely disable a reaction. These are typically called GPR
+(gene-protein-reaction) rules and are a requirement for eMoMA; their
+validity, like the stoichiometric matrix, will undoubtedly be
+important for generating accurate predictions.
 
 Also important are the assumptions and limitations of mapping expression data to complexes. Due to 
 current models not containing negations in their gene rules, which might correspond to inhibitors,
@@ -623,7 +625,7 @@ recently RNA-Seq, it could be useful to actually gauge the number of enzyme comp
 in a cell. This isn't much of an issue for the simplest case where a reaction is
 catalyzed by only one polypeptide, and that polypeptide does not catalyze any other reactions.
 Frequently the situation is not so simple, so a model of enzyme complex formation is called for.
-We formalize a model such a model for enzyme complex formation based 
+We formalize such a model for enzyme complex formation based 
 on GPR (gene-protein-reaction) rules that are frequently available
 in genome-scale annotations. For better curated models, the approach described immediately finds
 use for understanding metabolism, as well as being a scaffold to find problems for
@@ -758,9 +760,9 @@ complex listed for different reactions), assume each copy of a peptide
 is available for all complexes in the model.
 \end{assume}
 \item \begin{assume} \label{ass:holo} 
-If a particular subcomplex can be catalyzed by A, it can also be
-catalyzed by A and B (e.g.  B acts as a regulatory unit, as in
-holoenzymes), but this just simplifies to A once expression values are
+If a particular subcomplex can be catalyzed by A and it can also be
+catalyzed by A and B (e.g. B acts as a regulatory unit, as in
+holoenzymes), this just simplifies to A once expression values are
 substituted in. Similarly, allosteric regulation is not
 modeled. Relately, there are no NOT operations in GPR rules (just ANDs
 and ORs). However, cofactors may be considered separately in the
@@ -922,7 +924,7 @@ minimum expression value of the rule in CNF.
 \end{proof}
 
 The method presented here for enzyme complex copy number estimation can be used as a stand-alone method,
-as long as gene-protein-reaction (GPR) rules from a metabolic construction are present. For instance, it 
+as long as GPR rules from a metabolic reconstruction are present. For instance, it 
 may not always be desirable to directly compute a flux. As an example, the relative copy number of
 enzyme complexes present in secretions from various biological tissues, such as milk or pancreatic
 secretions. Perhaps more importantly, this approach to estimating relative complex levels can be employed
