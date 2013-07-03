@@ -46,10 +46,16 @@
 %
 % Tie in motivating rules example with previous section
 % showing the merits of CNF
-
-
+%
+% Add another illustrative figure.
+%
+% Add a table/figure comparing estimated EC abundance using
+% e.g. original method vs our method, also for fluxes.
+% - Benchmark these against cancer data in Chapter 5
+%
 % Figure out how copyright registration is handled; apparently it is necesasry.
 % I assume it is handled by Cornell.
+%
 
 % ************* End of TODO ***********************************************
 %Added by Brandon:
@@ -191,7 +197,7 @@ provided much experimental advice, training, and data.
 I would also like to thank many other colleagues for their help,
 friendship, scientific discussion, or some combination of
 the three. These include Ms. Diana Chang, Mr. Elijah Bogart, 
-Dr. Hong Chian, Mr. Lei Huang,
+Dr. Hong Chian, Dr. Martha Field, Mr. Lei Huang,
 Ms. Haley Hunter-Zinck, Dr. Ben Heavner, Dr. Xiaojing Liu, Ms. Anuttama Mohan,
 Mr. Lonnie Princehouse, Mr. Narayanan Sadagopan, and Mr. Kaixiong Ye.
 
@@ -523,22 +529,50 @@ these types of mutations as well as their epistatic interactions (cite the work 
 Clearly, using FBA with the growth objective alone is not enough--we only ever get the 
 optimum for our fitness objective.
 
-\chapter{eMoMA section (Get a new name for eMoMA)}
+\chapter{eMoMA (Get a new name for eMoMA)}
 
-\hl{Put Introduction here}
+A major theme in constraint-based modeling is unifying small-scale
+experimental data, such as biochemical information about the reactions
+that occur in a system or the composition and localization of enzyme
+complexes, with high-throughput data including expression data,
+metabolomics, or DNA sequencing. The desired result is to improve
+understanding about the metabolic pathways that are being used in a
+specific organism, type of cell, or environmental condition.  In this
+work, we extend a method originally used in Yeast that employs
+metabolic network reconstructions along with expression data to work
+with large models, such as the recently released Human Recon 2.
 
 \section{Methods}
+%
+% Thanks to Martha Fields for discussion on adapting mammalian cells
+% to synthetic media.
+%
+FBA has become extremely popular, in part, due to its simplicity in
+calculating reasonably accurate microbial fluxes. For many microbes, a
+simple synthetic environment where all chemical species are known
+suffices to allow proliferation. Additionally, it has been found that
+their biological objectives can be largely expressed as linear
+objectives of fluxes.  Neither of these assumptions necessarily hold
+for mammalian cells growing \emph{in vitro} or \emph{in vivo}, and in
+particular the environment is far more complex for mammalian cell
+cultures, which have to undergo gradual metabolic adaptation via
+titration to grow on synthetic media. In what follows we first discuss
+the MoMA algorithm since it is heavily extended in order to allow us
+to use expression data for the estimation of flux data.
 
-\hl{Briefly state how MoMA will give us a lead in to the problem?}
+\hl{The following subsection on MoMA will probably be moved to the
+preceding chapter which also makes use of MoMA.}
 
 \subsection{MoMA: Minimization of Metabolic Adjustment}
 
 The minimization of metabolic adjustment (MoMA) method \cite{Segre2002}, 
 which is framed as a least-squares optimization problem, is typically employed
 to calculate the flux vector of an \emph{in silico} organism after a
-mutation.  The biological intuition is that the organism has not had
-time to adapt to the restricted metabolic capacity and will maintain
-a similar flux to the wild-type (WT).
+mutation by minimizing the distance between the wild-type flux and the
+mutant flux. The biological intuition is that the organism has not had
+time to adapt to the restricted metabolic capacity and will maintain a
+similar flux to the wild-type (WT) except where the perturbations due
+to the mutation dictate necessary alterations in fluxes \hl{(cite ROOM)}.
 
 Suppose $\mathbf{a}$ is the WT flux vector obtained by an optimization procedure, 
 such as min-norm FBA (flux balance analysis), empirical measurements, or a
@@ -553,27 +587,38 @@ $(v_i-a_i)^2$ from the objective). In metabolomics, for instance, it is always t
 labeled isotope tracers that only a relatively small subset of all fluxes are able to be estimated 
 with metabolic flux analysis (MFA). Combining MoMA with MFA provides a technique to 
 potentially estimate other fluxes in the network. 
-Additional constant bounds on fluxes are often present, such as substrate uptake limits,
-or experimental $v_{max}$ estimates, so we write 
-$\mathbf{v}_{lb} \preceq \mathbf{v} \preceq \mathbf{v}_{ub}$.  
+Constant bounds on fluxes are often present, such as substrate uptake
+limits, or experimental $v_{max}$ estimates, so we write these as the
+constraints $\mathbf{v}_{lb} \preceq \mathbf{v} \preceq
+\mathbf{v}_{ub}$.
 
 The objective may be equivalently expressed in the 
 canonical quadratic programming (QP) form as
 
 \[ \textnormal{minimize}\ \frac{1}{2}\mathbf{v}^T \mathbf{v} - \mathbf{a}^T \mathbf{v}\textnormal{.}\]
 
-A variant of MoMA can be expressed by minimizing the absolute values of individual fluxes.
-This variant has some advantages, as it is not biased towards penalizing large magnitude fluxes. Additionally,
-it is expressed as the following linear program, making it amenable to additional changes that
-may not always be suitable for the quadratic problem. Assuming the usual stoichiometric constraints,
-the most simple version of linear MoMA which assumes the existence of a constant wild-type flux vector is:
+A variant of MoMA exists that minimizes the absolute value of the
+difference between $a_i$ and $v_i$ for all known $a_i$. To our
+knowledge, the following linear program is the simplest version of
+linear MoMA, which assumes the existence of a constant flux vector
+$\mathbf{a}$ and is expressed as the following linear program:
 
 \begin{align*}
 &\textnormal{minimize}\ \sum^N_{i=1}d_i  \\
 &s.t.\\
+&\mathbf{S v} = \mathbf{0} \\
+&\mathbf{v}_{lb} \preceq \mathbf{v} \preceq \mathbf{v}_{ub} \\
 &\forall i: -d_i \le v_i-a_i \le d_i \\
 &d_i \ge 0
+
 \end{align*}
+
+The $d_i$ have no physical meaning and are minimized to force model
+fluxes to be as close as possible to the measured flux.  Linear MoMA
+has the advantage that it is not biased towards penalizing large
+magnitude fluxes or conversely under-penalizing fluxes that are less
+than one. Additionally, linear programs are often amenable to more
+changes that maintain convexity than a quadratic program.
 
 \subsection{Some Background and a Flowchart for\\ Estimating Flux from Expression}
 Because eMoMA deals with expression data instead of flux, normalization must be addressed in the method.
