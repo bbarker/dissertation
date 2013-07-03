@@ -608,9 +608,8 @@ $\mathbf{a}$ and is expressed as the following linear program:
 &s.t.\\
 &\mathbf{S v} = \mathbf{0} \\
 &\mathbf{v}_{lb} \preceq \mathbf{v} \preceq \mathbf{v}_{ub} \\
-&\forall i: -d_i \le v_i-a_i \le d_i \\
+\forall i:~~&-d_i \le v_i-a_i \le d_i \\
 &d_i \ge 0
-
 \end{align*}
 
 The $d_i$ have no physical meaning and are minimized to force model
@@ -620,32 +619,35 @@ magnitude fluxes or conversely under-penalizing fluxes that are less
 than one. Additionally, linear programs are often amenable to more
 changes that maintain convexity than a quadratic program.
 
-\subsection{Some Background and a Flowchart for\\ Estimating Flux from Expression}
-Because eMoMA deals with expression data instead of flux, normalization must be addressed in the method.
-Further adding to the complexity, expression data has no directionality, so a method to determine 
-reaction direction given the model and expression data must be devised. Most genome-scale models have
-attached Boolean gene rules (without negation) to aid in determining whether or not a gene deletion will
+\subsection{Some Background and a Flowchart for\\ Enzyme Complex Copy Number from Expression}
+If we wish to apply MoMA to expression data rather than flux data, the
+original MoMA objective must be altered in several ways. Scaling of
+expression values must be addressed so they can be comparable to
+fluxes in the minimization. Also, expression data has no
+directionality, so a method to determine reaction direction given the
+model and expression data must be devised. Prior work that served as
+an inspiration for this method used Flux Variability Analysis (FVA) to
+determine reaction direction \cite{Lee2012}. Briefly, this involves
+two FBA simulations per reaction catalyzed by an enzyme, and as the
+algorithm is iterative, this global (and costly) procedure may be run
+several times before converging to a flux vector. We term any
+MoMA-like algorithm applied to expression data as eMoMA. To our
+knowledge, there are only two such algorithms including the present
+work \cite{Lee2012}.
+
+Most genome-scale models have attached Boolean gene rules (without
+negation) to aid in determining whether or not a gene deletion will
 completely disable a reaction. These are typically called GPR
 (gene-protein-reaction) rules and are a requirement for eMoMA; their
 validity, like the stoichiometric matrix, will undoubtedly be
-important for generating accurate predictions.
-
-Also important are the assumptions and limitations of mapping expression data to complexes. Due to 
-current models not containing negations in their gene rules, which might correspond to inhibitors,
-this has been omitted from the current expression mapping algorithm. We see no reason why it could not
-be added in later. Another limitation that relates to lack of biological information is that we always
-assume a one-to-one copy number for each gene in a complex. Once more information on enzyme complex
-structure and reaction mechanism becomes available, an extension to the current method could make use
-of this information.
-
-An obvious issue is that we are assuming flux correlates with expression. Prior
-work showed this type of modeling is nonetheless useful in yeast \cite{Lee2012}. One possibility
-is to attempt to use empirically obtained kinetic parameters to estimate $v_{max}$, but this
-approach may not be useful, as it has been shown that many reactions in central carbon
-metabolism tend to operate well below $v_{max}$ \cite{Bennett2010}. Still, this is an area that should
-be explored in more detail later.
+important for generating accurate predictions. Also important are the
+assumptions and limitations for the process of mapping expression data
+to complexes. We address these in the next section and have attached a
+flow chart to illustrate the overall process of mapping expression of
+individual genes to enzyme complexes (figure~\ref{ECCN_flowchart}).
 
 \vspace{5 mm} 
+\begin{figure}
 \begin{tikzpicture}[scale=2, node distance = 2cm, auto]
     % Place nodes
     \node [block] (start) {start};
@@ -661,7 +663,16 @@ be explored in more detail later.
     \path [line] (exp.south) -- (mindisj);
     \path [line] (parse) |- (mindisj);
     \path [line] (mindisj) -- (expstd);
-\end{tikzpicture} 
+\end{tikzpicture}
+\caption{Flowchart illustrating the process of estimating enzyme
+complex copy number, with an emphasis on finding the minimum
+disjunction of a GPR rule.}
+\label{ECCN_flowchart}
+\end{figure}
+
+The last step, \emph{Find Min. Disjunction} is an algorithm we have
+developed to estimate the expression as accurately as possible given
+the assumptions that are elaborated in the next section.
 
 \subsection{A Formalism for Enzyme Complex Formation}
 
@@ -669,7 +680,8 @@ Given the abundance of genome-scale expression datasets available, either as mic
 recently RNA-Seq, it could be useful to actually gauge the number of enzyme complexes present 
 in a cell. This isn't much of an issue for the simplest case where a reaction is
 catalyzed by only one polypeptide, and that polypeptide does not catalyze any other reactions.
-Frequently the situation is not so simple, so a model of enzyme complex formation is called for.
+Frequently the situation is not so simple (e.g. figure~\ref{fig:2F43}), 
+so a model of enzyme complex formation is called for.
 We formalize such a model for enzyme complex formation based 
 on GPR (gene-protein-reaction) rules that are frequently available
 in genome-scale annotations. For better curated models, the approach described immediately finds
@@ -726,6 +738,33 @@ enzyme complexes.
 \end{figure}
 
 \emph{Assumption~\ref{ass:hierarchy}.}
+The eMoMA method used up until now performed a direct evaluation of
+gene rule expression values---replacing gene names with their
+expression values, ANDs with minimums, and ORs with sums, without
+altering the logical expression of the GPR rule in any way---can lead
+to some problems~\cite{Lee2012}. We illustrate this below, lower case
+letters denote expression level (i.e. copy number of mRNA) of their
+corresponding upper case letter, which denotes the gene name. The
+$r_i$ are different reaction rules and the $e_i$ are the corresponding
+estimated complex expression levels.
+
+We need some way to guarantee that we don’t count anything twice or
+more across disjunctions: \\
+\begin{tabular}{cccccccc}
+& $r_1$ & := & [A and B] or [A and C] & $\rightarrow$ & $e_1$  &=& min($a,b$) + min($a,c$) \\ 
+& $r_2$ & := & [A and (B or C)]       & $\rightarrow$ & $e_2$  &=&  min($a, b + c$) 
+\end{tabular} \\
+Supposing A is the minimum, then if we just evaluate $r_1$ directly (a
+rule in disjunctive normal form, or DNF), A will be counted twice.
+
+Another possibility is divvying up expression for a rule in DNF. For
+instance, in $r_1$ above, we could evaluate it as $e_1$ =
+min($\frac{a}{2},b$) + min($\frac{a}{2},c$) to account for the
+repeated use of $a$. However, other potential issues aside, we can see
+that this can cause problems rather quickly. For instance, suppose $b
+= a$ and $c = 0$; then min($a$,$b+c$) $=b=a$ appears to be correct,
+not min($\frac{a}{2},b$) + min($\frac{a}{2},c$) = $\frac{a}{2} + 0$.
+
 The modeling of enzyme complex copy number can be tackled by using
 nested sets of subcomplexes; each enzyme complex consists of multiple
 subcomplexes, unlesss it is only a single protein or family of protein
@@ -734,7 +773,7 @@ function (AND relationships), and can be thought of as the division of
 the complex in to distinct units that each have some necessary
 function for the complex, with the exception that we do not keep track
 of the multiplicity of subcomplexes within a complex since this
-information is, in the current state of affaris, not always known.
+information is, in the current state of affairs, not always known.
 However, there may be alternative versions of each functional set
 (given by OR relationships). Eventually, this nested embedding
 terminates with a single protein or set of peptide isoforms
@@ -763,8 +802,8 @@ subcomplexes that have alternative isoforms, which are expressed as
 ORs (disjunctions). Since GPR rules alone only specify the
 requirements for enzyme complex formation, we will see that not all
 forms of boolean rules are equally useful in evaluating the enzyme
-complex copy number, but we have established assumptions
-~\ref{ECAssume} and an alternative and logically equivalent rule
+complex copy number, but we have established the assumptions in
+Box~\ref{ECAssume} and an alternative and logically equivalent rule
 \hl{(cite logic book)} under which we can estimate enzyme complex copy
 number.
 
@@ -783,7 +822,7 @@ number.
 \hline
 \begin{enumerate}
 \item \begin{assume} \label{ass:expcorr}
-Expression values are highly correlated the copy numbers of their
+Expression values are highly correlated with the copy numbers of their
 corresponding peptide isoforms.
 \end{assume}
 \item \begin{assume} \label{ass:isozyme} 
@@ -796,12 +835,12 @@ Any enzyme complex can be described as a hierarchical subset of
 elaborated in (\ref{ass:nostoich}), are not currently modeled.
 \end{assume}
 \item \begin{assume} \label{ass:nostoich} 
-Assumes one copy of peptide per complex; exact isoform stoichiometry
+Assume one copy of peptide per complex; exact isoform stoichiometry
 is not considered.
 \end{assume}
 \item \begin{assume} \label{ass:sharing} 
 With the exception of complexes having identical rules (i.e. the same
-complex listed for different reactions), assume each copy of a peptide
+complex listed for different reactions), each copy of a peptide
 is available for all complexes in the model.
 \end{assume}
 \item \begin{assume} \label{ass:holo} 
@@ -809,16 +848,15 @@ If a particular subcomplex can be catalyzed by A and it can also be
 catalyzed by A and B (e.g. B acts as a regulatory unit, as in
 holoenzymes), this just simplifies to A once expression values are
 substituted in. Similarly, allosteric regulation is not
-modeled. Relately, there are no NOT operations in GPR rules (just ANDs
-and ORs). However, cofactors may be considered separately in the
-corresponding reaction stoichiometry.
+modeled. Relatedly, there are no NOT operations in GPR rules (just ANDs
+and ORs).
 \end{assume}
 \end{enumerate} \\
 \hline
 \end{tabular}
 \end{center}
 
-There is no gaurantee a GPR rule has been written down with this
+There is no guarantee that a GPR rule has been written down with this
 hierarchical structure in mind, though it is likely the case much of
 the time as it is a natural way to model complexes.  However, any GPR
 rule can be interpreted in the context of this hierarchical view due
@@ -875,35 +913,11 @@ considered in more detail. But in the absence of detailed kinetic
 information, this consideration not be useful, much like allosteric
 regulation.
 
-\subsection{Orignal eMoMA Formulation}
+\subsection{The Min Disjunction Algorithm Estimates \\Enzyme Complex Copy Number}
 
-The prior work does not use an acronym for labeling their method \cite{Lee2012}.
-However, their work was a direct inspiration for the current approach, 
-so we also consider this a form of eMoMA. Please also see this paper for examples
-of mapping gene expression data to expression and variation of enzyme complex
-copy number.
-
-\subsection{Motivational Gene-Rule Examples for\\ Conjunctive Normal Form}
-The previous direct evaluation of gene rule expression values can lead to some problems.
-Below, lower case letters denote expression level (i.e. copy number of mRNA) of their
-corresponding upper case letter, which denotes the gene name. The $r_i$ are different reaction
-rules and the $e_i$ are the corresponding estimated complex expression levels.
-
-We need some way to guarantee that we don’t count anything twice or more across disjunctions: \\
-\begin{tabular}{cccccccc}
-& $r_1$ & := & [A and B] or [A and C] & $\rightarrow$ & $e_1$  &=& min($a,b$) + min($a,c$) \\ 
-& $r_2$ & := & [A and (B or C)]       & $\rightarrow$ & $e_2$  &=&  min($a, b + c$) 
-\end{tabular} \\
-Supposing A is the minimum, then if we just evaluate $r_1$ directly (a rule in 
-disjunctive normal form, or DNF), A will be counted twice. 
-
-Another possibility is divvying up expression as seen in DNF. For instance, in $r_1$ above,
-we could evaluate it as $e_1$ = min($\frac{a}{2},b$) + min($\frac{a}{2},c$) to account for
-the repeated use of $a$. However, other potential issues aside, we can see that this can
-cause problems rather quickly. For instance, suppose $b = a$ and $c = 0$; then min($a$,$b+c$) 
-$=b=a$ appears to be correct, not min($\frac{a}{2},b$) + min($\frac{a}{2},c$) = $\frac{a}{2} + 0$. 
-
-Attempting to symbolically convert the human ATP Synthase rule in
+In the previous section, we showed that converting a rule to CNF is a
+sound method to aid in the estimation of enzyme complex copy number.
+However, attempting to symbolically convert the human ATP Synthase rule in
 Human Recon 2 to CNF is computationally intractable due to an
 exponential increase in memory \cite{Thiele2013}. Therefore, we use a
 reduction rule that makes use of expression data, outlined below. The
@@ -1051,6 +1065,20 @@ this is a given. By using the GPR and not just the stoichiometry to
 estimate flux, it is possible that future work could make use of this
 framework to debug not just stoichiometry as some methods currently do
 \hl{(cite e.g. grow match, etc.)}, but also GPR rules.
+Another limitation that relates to lack of biological information is
+that we always assume a one-to-one copy number for each gene in a
+complex. Once more information on enzyme complex structure and
+reaction mechanism becomes available, an extension to the current
+method could make use of this information.
+
+An obvious issue is that we are assuming flux correlates with
+expression. Prior work has shown that this type of modeling is
+nonetheless useful in yeast \cite{Lee2012}. One alternative is to
+attempt to use empirically obtained kinetic parameters to estimate
+$v_{max}$, but this approach may not be useful, as it has been shown
+that many reactions in central carbon metabolism tend to operate well
+below $v_{max}$ \cite{Bennett2010}. Still, this is an area that should
+be explored in more detail later.
 
 \section{Future Analysis}
 \subsection{An Analysis of Cancer Tissue Metabolism}
