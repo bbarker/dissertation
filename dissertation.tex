@@ -807,13 +807,6 @@ Box~\ref{ECAssume} and an alternative and logically equivalent rule
 \hl{(cite logic book)} under which we can estimate enzyme complex copy
 number.
 
-\hl{Consider adding one more illustrative figure for these CNF<-> enzyme complexes (before sending to Mike).}
-
-% !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-% Need to discuss each assumption in turn. Maybe emphasize the text at the 
-% start of each paragraph with e.g. \emph{Assumptions 4-5}.
-% !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 \label{ECAssume}
 \begin{center}
 \begin{tabular}{| p{14cm} |}
@@ -842,6 +835,12 @@ is not considered.
 With the exception of complexes having identical rules (i.e. the same
 complex listed for different reactions), each copy of a peptide
 is available for all complexes in the model.
+\end{assume}
+\item \begin{assume} \label{ass:active_site}
+There is only one active site per enzyme complex, so that an enzyme
+complex can only catalyze one reaction at a time. Multimeric complexes
+with one active site per identical subunit would be considered as one
+enzyme complex per subunit in this model.
 \end{assume}
 \item \begin{assume} \label{ass:holo} 
 If a particular subcomplex can be catalyzed by A and it can also be
@@ -877,7 +876,7 @@ possible that a GPR rule is written in neither DNF or CNF, perhaps
 because neither of these two alternatives above are stricly the case,
 and some other rule is more succinct.
 
-\emph{Assumptions~\ref{ass:nostoich}~and~\ref{ass:sharing}.}
+\emph{Assumptions~\ref{ass:nostoich},~\ref{ass:sharing}~and~\ref{ass:active_site}.}
 Note that it is possible for an enzyme complex to catalyze different
 reactions. In fact, some transporter complexes can transfer many
 different metabolites \hl{across a lipid bilayer--up to}. Another
@@ -893,7 +892,10 @@ superposition where the isoform can simultaneously function in more
 than one complex. The primary reason we have not tackled this problem
 is because exact subunit stoichiometry of most enzyme complexes is not
 accurately known, but an increasing abundance of data on BRENDA gives
-some hope to this problem \hl{(cite BRENDA)}.
+some hope to this problem \hl{(cite BRENDA)}. Similarly, there are a
+few enzymes where a single polpeptide may have multiple active sites
+(e.g. fatty acid synthase), and this is not currently taken into 
+account in our model. 
 
 \emph{Assumption~\ref{ass:holo}.}
 We do not make any special assumptions requring symmetry of an isoform
@@ -920,16 +922,19 @@ sound method to aid in the estimation of enzyme complex copy number.
 However, attempting to symbolically convert the human ATP Synthase rule in
 Human Recon 2 to CNF is computationally intractable due to an
 exponential increase in memory \cite{Thiele2013}. Therefore, we use a
-reduction rule that makes use of expression data, outlined below. The
-algorithm can be represented as follows: \\
+reduction rule that makes use of expression data, outlined below.
+Note that the $AND$ and $OR$ notation is used to illustrate a
+data structure that represents a set of literals that are
+conjunctively or disjunctively joined together. The algorithm can be
+represented as follows: \\
 
 \pagebreak
 \begin{Algorithm}
 \label{alg:ReductionToCNF}
 \begin{algorithmic}
-\REQUIRE $g_i$ are genes. 
-\REQUIRE $x_i$ are expressions in Boolean logic.
-\WHILE{$rule \neq AND(o_1,...,o_n)$ where $o_i$ has the form: $OR(g_1,...,g_m)$}
+\REQUIRE $g_i~s.t.~i \in{1, ..., m}$ are genes. 
+\REQUIRE $x_i~s.t.~i \in{1, ..., n}$ are expressions in Boolean logic.
+\WHILE{$rule \neq AND(o_1,...,o_p)$ where each $o_i$ has the form: $OR(...,g_j,...)~s.t.~j \leq m$}
   \STATE $\mathbf{1}$: check for sequence of ANDs of literals (genes)\\ 
     \hspace{4.8 mm} $\rightarrow$ reduce to gene with minimum expression 
   \STATE $\mathbf{2}$: Distribute ORs over ANDs, e.g.: $(x_1 \land x_2) \lor (x_3 \land x_4)$ \\ 
@@ -982,14 +987,18 @@ it follows that adding step one will yield the disjunction with
 minimum expression value of the rule in CNF.
 \end{proof}
 
-The method presented here for enzyme complex copy number estimation can be used as a stand-alone method,
-as long as GPR rules from a metabolic reconstruction are present. For instance, it 
-may not always be desirable to directly compute a flux. As an example, the relative copy number of
-enzyme complexes present in secretions from various biological tissues, such as milk or pancreatic
-secretions. Perhaps more importantly, this approach to estimating relative complex levels can be employed
-with regulatory models such as PROM or other regulatory network models that can estimate individual gene
-expression levels at time $t+1$ given the state of the model at a time $t$ (cites PROM, some other bayesian
-regulatory/signalling model).
+The method presented here for enzyme complex copy number estimation
+can be used as a stand-alone method, as long as GPR rules from a
+metabolic reconstruction are present. For instance, it may not always
+be desirable to directly compute a flux. As an example, the relative
+copy number of enzyme complexes present in secretions from various
+biological tissues, such as milk or pancreatic secretions, may still
+be of interest even without any intracellular flux data.  Perhaps more
+importantly, this approach to estimating relative complex levels can
+be employed with regulatory models such as PROM or other regulatory
+network models that can estimate individual gene expression levels at
+time $t+1$ given the state of the model at a time $t$ (\hl{cite PROM,
+some other bayesian regulatory/signalling model}).
 
 \subsection{Formulation with Automatic Normalization and Fast Direction Assignment}
 Unlike the original formulation of eMoMA, we employ a normalization variable $n$ in the problem
