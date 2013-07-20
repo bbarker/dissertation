@@ -6,6 +6,7 @@
      "Algorithm"
      "assume")
     (LaTeX-add-labels
+     "ECCN_flowchart"
      "fig:2F43"
      "ECAssume"
      "ass:expcorr"
@@ -13,6 +14,7 @@
      "ass:hierarchy"
      "ass:nostoich"
      "ass:sharing"
+     "ass:active_site"
      "ass:holo"
      "alg:ReductionToCNF"
      "thm:ReductionToCNF"
