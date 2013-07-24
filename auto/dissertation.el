@@ -20,6 +20,7 @@
      "thm:ReductionToCNF"
      "alg:eMoMA")
     (TeX-add-symbols
+     '("INDSTATE" ["argument"] 0)
      "ifpdf")
     (TeX-run-style-hooks
      "palatino"

@@ -107,6 +107,7 @@
 
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
 \renewcommand{\algorithmicensure}{\textbf{Output:}}
+\newcommand{\INDSTATE}[1][1]{\STATE\hspace{#1\algorithmicindent}}
 
 \newtheorem{Theorem}{Theorem}
 \theoremstyle{break}
@@ -1039,17 +1040,29 @@ in the original model is split into a forward and backward reaction that take st
 values: $v_f$ and $v_b$. Given an indexed family $R$ of reactions with the identical gene rules in each
 set and estimated expression values $e_i$, we can describe the new problem as:
 
-\vspace{5 mm} 
-\hl{(Need to describe iterative process in Algorithm.)}
+\pagebreak
 \begin{Algorithm}[eMoMA]
 \label{alg:eMoMA}
-\begin{align*}
-&\textnormal{minimize}\ \sum^N_{i=1}\frac{d_i}{n \sigma_i}  \\
-&s.t. \\
-&\forall i: -d_i \leq \sum_{j \in R_i}(v_{j,f} + v_{j,b}) - n e_i \leq d_i \\
-&d_i \geq 0 \\
-&n > 0
-\end{align*}
+\begin{algorithmic}
+\WHILE{$rxns_{irrev} > rxns_{irrev,prior}$}
+  \IF {first iteration}
+  \STATE {Constrain a user-specified flux (either forward or backward) $v_{scale}$ to a nonzero value.}
+  \STATE {Scale $e_i$ so that $e_{scale} = v_{scale}$.}
+  \ELSE 
+  \STATE {Restore original constraints for user specified flux.}
+  \ENDIF
+  %\begin{align*}
+  \STATE {Call LP Solver:}
+  \INDSTATE $\textnormal{minimize}\ \sum^N_{i=1}\frac{d_i}{n \sigma_i}$  \\
+  \INDSTATE s.t. \\
+  \INDSTATE $\forall i: -d_i \leq \sum_{j \in R_i}(v_{j,f} + v_{j,b}) - n e_i \leq d_i$ \\
+  \INDSTATE $d_i \geq 0$ \\
+  \INDSTATE $n > 0$
+  %\end{align*}
+  \FORALL {$v_{i,forward}$}
+  \IF 
+\ENDWHILE
+\end{algorithmic}
 \end{Algorithm}
 Note that as in the original eMoMA paper, $\sigma_i$ is an optional weighting of variation
 in biological or technical replicates. 
