@@ -1040,12 +1040,14 @@ immediately arrive at $(x_1) \lor (x_3)$, which gives our originally
 assumed minimum. To show that this result doesn't depend on the $x_i$
 being literals, merely consider repeating this process recursively for
 each $x_i$ that is not a literal to arrive at two different
-evaluations for $x_i^{(e)}$. Since the process cannot continue
+evaluations for $x_i^{(e)}$ (one where each evaluation is done with reduction, 
+and one where we evaluate entirely without reduction). 
+Since the process cannot continue
 indefinitely, eventually there is a base case involving only literals,
-and the above result shows that both evaluations will be
-identical. Propagating back will yield the desired result. Because
-Algorithm~\ref{alg:ReductionToCNF} without step one simply yields CNF,
-it follows that adding step one will yield the disjunction with 
+and the above result shows that, at each step, as we propagate back,
+both evaluations will be identical. The desired result is obtained
+because Algorithm~\ref{alg:ReductionToCNF} without step one simply yields CNF,
+and it follows that adding step one will yield the disjunction with 
 minimum expression value of the rule in CNF.
 \end{proof}
 
@@ -1067,6 +1069,13 @@ Unlike the original formulation of eMoMA, we employ a normalization variable $n$
 to find the most agreeable scaling of expression data. Additional technical constraints not shown
 from Linear Fractional Programming (LFP) require $n$ to be non-zero \cite{Boyd2004}. The
 LFP shown below can be converted to a linear program by the Charnes-Cooper transformation.
+However, in the first iteration of the algorithm, we ask the user to
+specify an enzyme-associated reaction $v_{scale}$ and associated flux
+constant $c_{scale}$ so that when the $e_i$ are scaled, we have
+$e_{scale} = v_{scale} = c_{scale}$. This guarantees that the
+optimization problem will yield a non-zero flux vector and also helps
+to put the fluxes and expression measures on the same order of
+magnitude, which can be important for numerical stability.
 
 Additionally, the original formulation
 used repeated iterations of FVA (Flux Variability Analysis). This is a very costly procedure. 
@@ -1086,9 +1095,9 @@ estimated expression values $e_i$, we can describe the new problem as:
 \WHILE{$rxns_{irrev} > rxns_{irrev,prior}$}
   \STATE {$rxns_{irrev,prior} := rxns_{irrev}$}
   \IF {first iteration}
-  \STATE {Constrain a user-specified flux $v_{scale}$} 
+  \STATE {Constrain a user-specified flux $v_{scale} = c_{scale}$} 
   \INDSTATE {(either forward or backward) to a nonzero value.}
-  \STATE {Scale $e_i$ so that $e_{scale} = v_{scale}$.}
+  \STATE {Scale $e_i$ so that $e_{scale} = v_{scale} = c_{scale}$.}
   \ELSE 
   \STATE {Restore original constraints for user specified flux.}
   \ENDIF
@@ -1106,7 +1115,7 @@ estimated expression values $e_i$, we can describe the new problem as:
   \STATE {$rxns_{irrev}$++}
   \ENDIF
   \IF {$v_{i,b} > 0$}
-  \STATE {Constrain $min(v_{i,f}, v_{i,b}) = 0$.}  
+  \STATE {Constrain the smaller of $v_{i,f}$ and $v_{i,b}$ to be $0$.}  
   \STATE {$rxns_{irrev}$++}
   \ENDIF
   \ENDFOR
@@ -1137,8 +1146,16 @@ The disadvantage is that the time for completing eMoMA goes up from about 70s to
 AMD Athlon Magny-Cours system running the Gurobi 5.1 solver. This is still a major improvement 
 in efficiency over the FVA method, which could take several hours per Human Recon 2 eMoMA run.
 
-Futher work on improving convergence speed should be kept in mind, or at least, making use of prior
-eMoMA flux estimations (see the section below about mutational models and epistasis).
+Further work on improving convergence speed should be kept in mind, or
+at least, making use of prior eMoMA flux estimations (see the section
+below about mutational models and epistasis) to give the algorithm a
+warm start.  Regularization is one technique that may prove useful in
+attaining better convergence speed by somewhat simplifying the flux
+vector; regularization has been found to be a biologically important
+objective in microbes (cite Uwe Sauer).
+
+
+
 
 \subsection{Applications and Insights from GPR formalisms and eMoMA}
 When should an investigator simply look at gene expression levels rather than
