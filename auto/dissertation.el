@@ -16,6 +16,8 @@
      "ass:sharing"
      "ass:active_site"
      "ass:holo"
+     "ass:chap"
+     "ass:rate"
      "alg:ReductionToCNF"
      "thm:ReductionToCNF"
      "alg:eMoMA")

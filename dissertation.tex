@@ -46,7 +46,15 @@
 
 %Chapter 4:
 %
-% Add iteration loop to algorithm 2. 
+% Consider discussing ass:chap and ass:rate in the text.
+% Perhaps discuss related to ass:rate that a penalty deriving
+% from mass-action considerations is warranted - cite Karr2012
+%
+% Relatedly, discuss how how min(a,b) is a good approximation
+% to mass-action assumptions -- need to think about this:
+% since mass action would propose r = [a][b], then we would have
+% log(r) = log(a) + log(b) ... hmm
+%
 % Fix missing references.
 %
 % Tie in motivating rules example with previous section
@@ -212,7 +220,7 @@ I would also like to thank many other colleagues for their help,
 friendship, scientific discussion, or some combination of
 the three. These include Diana Chang, Elijah Bogart, 
 Hong Chian, Martha Field, Lei Huang,
-Haley Hunter-Zinck, Ben Heavner, Xiaojing Liu, Anuttama Mohan,
+Haley Hunter-Zinck, Ben Heavner, Xiaojing Liu, Henry Lu, Anuttama Mohan,
 Lonnie Princehouse, Narayanan Sadagopan, and Kaixiong Ye.
 
 Without the stimulus, confidence, and aid from my early mentors at the
@@ -864,10 +872,7 @@ complex listed for different reactions), each copy of a peptide
 is available for all complexes in the model.
 \end{assume}
 \item \begin{assume} \label{ass:active_site}
-There is only one active site per enzyme complex, so that an enzyme
-complex can only catalyze one reaction at a time. Multimeric complexes
-with one active site per identical subunit would be considered as one
-enzyme complex per subunit in this model.
+There is only one active site per enzyme complex.
 \end{assume}
 \item \begin{assume} \label{ass:holo} 
 If a particular subcomplex can be catalyzed by A and it can also be
@@ -876,6 +881,14 @@ holoenzymes), this just simplifies to A once expression values are
 substituted in. Similarly, allosteric regulation is not
 modeled. Relatedly, there are no NOT operations in GPR rules (just ANDs
 and ORs).
+\end{assume}
+\item \begin{assume} \label{ass:chap} 
+Enzyme complexes form without the assistance of protein chaperones and
+formation is not coupled to other reactions.  
+\end{assume}
+\item \begin{assume} \label{ass:rate} 
+Rate of formation and degradation of complexes doesn't play a role,
+since we assume steady-state. 
 \end{assume}
 \end{enumerate} \\
 \hline
@@ -904,6 +917,10 @@ because neither of these two alternatives above are stricly the case,
 and some other rule is more succinct.
 
 \emph{Assumptions~\ref{ass:nostoich},~\ref{ass:sharing}~and~\ref{ass:active_site}.}
+One active site per enzyme complex implies a single
+complex can only catalyze one reaction at a time. Multimeric complexes
+with one active site per identical subunit would be considered as one
+enzyme complex per subunit in this model.
 Note that it is possible for an enzyme complex to catalyze different
 reactions. In fact, some transporter complexes can transfer many
 different metabolites \hl{across a lipid bilayer--up to}. Another
@@ -912,20 +929,23 @@ peptide chains, where chains of different length may all be substrates
 or products of the same enzyme complex. While we do not explicitly
 consider these in Algorithm~\ref{alg:ReductionToCNF}, these
 redundancies are taken into account subsequently in
-Algorithm~\ref{alg:eMoMA}.  What is currently not considered in our
+Algorithm~\ref{alg:eMoMA}.  
+
+What is currently not considered in our
 process is that some peptide isoforms may find use in completely
-different complexes; in this case, we assume an unrealistic case of
+different complexes, and in some cases, individual peptides may
+have multiple active sites; in the first case, we assume an unrealistic case of
 superposition where the isoform can simultaneously function in more
 than one complex. The primary reason we have not tackled this problem
 is because exact subunit stoichiometry of most enzyme complexes is not
 accurately known, but an increasing abundance of data on BRENDA gives
-some hope to this problem \hl{(cite BRENDA)}. Similarly, there are a
+some hope to this problem \hl{(cite BRENDA)}. For the second point, there are a
 few enzymes where a single polpeptide may have multiple active sites
 (e.g. fatty acid synthase), and this is not currently taken into 
 account in our model. 
 
 \emph{Assumption~\ref{ass:holo}.}
-We do not make any special assumptions requring symmetry of an isoform
+We do not make any special assumptions requiring symmetry of an isoform
 within a complex. For instance, the example in
 assumption~\ref{ass:holo} shows how you might have one
 subcomponent composed of a single isoform, and another subcomponent
@@ -941,6 +961,21 @@ likely be the only situation where this type of rule might need to be
 considered in more detail. But in the absence of detailed kinetic
 information, this consideration not be useful, much like allosteric
 regulation.
+
+\emph{Assumptions~\ref{ass:chap}~and~\ref{ass:rate}.}
+Due to the quickness, stability, and energetic favorability of enzyme
+complex formation, the absence of chaperones or coupled metabolic
+reactions required for complex formation may be reasonable
+assumptions, but further research is warranted \cite{Karr2012}.
+Additionally, as in metabolism, we assume a steady state for complex
+formation, so that rate laws regarding complex formation aren't
+needed. However, further research may be warranted to investigate the
+use of a penalty for complex levels based on mass action and
+protein-docking information. Requisite to this would be addressing
+assumption~\ref{ass:nostoich}. It would be surprising if such a
+penalty were significant, however, due to the cost this would imply
+for many of the large and important enzyme complexes present in all
+organisms.
 
 \subsection{The Min Disjunction Algorithm Estimates \\Enzyme Complex Copy Number}
 
