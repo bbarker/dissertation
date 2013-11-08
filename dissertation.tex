@@ -15,7 +15,7 @@
 %General
 % Figure out the best way to modularize chapters/sections in different files.
 %
-% Verify bibliography working; check eMoMA script and add to Makefile?
+% Verify bibliography working; check FALCON script and add to Makefile?
 %
 % Appendix can work as a place for supplementary notes and figures?
 %
@@ -46,7 +46,7 @@
 
 %Chapter 4:
 %
-% Do I discuss the issue of negative fluxes in the eMoMA objective?
+% Do I discuss the issue of negative fluxes in the FALCON objective?
 %
 % Parameter sensitivity analysis for initial flux
 % scaling value.
@@ -577,7 +577,7 @@ these types of mutations as well as their epistatic interactions (cite the work 
 Clearly, using FBA with the growth objective alone is not enough--we only ever get the 
 optimum for our fitness objective.
 
-\chapter{eMoMA (Get a new name for eMoMA)}
+\chapter{FALCON: Flux Assignment (with) LAD Convex Objectives}
 
 A major theme in constraint-based modeling is unifying small-scale
 experimental data, such as biochemical information about the reactions
@@ -679,14 +679,14 @@ determine reaction direction \cite{Lee2012}. Briefly, this involves
 two FBA simulations per reaction catalyzed by an enzyme, and as the
 algorithm is iterative, this global (and costly) procedure may be run
 several times before converging to a flux vector. We term any
-MoMA-like algorithm applied to expression data as eMoMA. To our
+MoMA-like algorithm applied to expression data as FALCON. To our
 knowledge, there are only two such algorithms including the present
 work \cite{Lee2012}.
 
 Most genome-scale models have attached Boolean gene rules (without
 negation) to aid in determining whether or not a gene deletion will
 completely disable a reaction. These are typically called GPR
-(gene-protein-reaction) rules and are a requirement for eMoMA; their
+(gene-protein-reaction) rules and are a requirement for FALCON; their
 validity, like the stoichiometric matrix, will undoubtedly be
 important for generating accurate predictions. Also important are the
 assumptions and limitations for the process of mapping expression data
@@ -786,7 +786,7 @@ enzyme complexes.
 \end{figure}
 
 \emph{Assumption~\ref{ass:hierarchy}.}
-The eMoMA method used up until now performed a direct evaluation of
+The FALCON method used up until now performed a direct evaluation of
 gene rule expression values---replacing gene names with their
 expression values, ANDs with minimums, and ORs with sums, without
 altering the logical expression of the GPR rule in any way---can lead
@@ -942,7 +942,7 @@ peptide chains, where chains of different length may all be substrates
 or products of the same enzyme complex. While we do not explicitly
 consider these in Algorithm~\ref{alg:ReductionToCNF}, these
 redundancies are taken into account subsequently in
-Algorithm~\ref{alg:eMoMA}.  
+Algorithm~\ref{alg:FALCON}.  
 
 What is currently not considered in our
 process is that some peptide isoforms may find use in completely
@@ -1078,7 +1078,7 @@ time $t+1$ given the state of the model at a time $t$ (\hl{cite PROM,
 some other bayesian regulatory/signalling model}).
 
 \subsection{Formulation with Automatic Normalization and Fast Direction Assignment}
-Unlike the original formulation of eMoMA, we employ a normalization variable $n$ in the problem
+Unlike the original formulation of FALCON, we employ a normalization variable $n$ in the problem
 to find the most agreeable scaling of expression data. Additional technical constraints not shown
 from Linear Fractional Programming (LFP) require $n$ to be non-zero \cite{Boyd2004}. The
 LFP shown below can be converted to a linear program by the Charnes-Cooper transformation.
@@ -1102,8 +1102,8 @@ $R_i$ of reactions with the identical gene rules in each set and
 estimated expression values $e_i$, we can describe the new problem as:
 
 \pagebreak
-\begin{Algorithm}[eMoMA]
-\label{alg:eMoMA}
+\begin{Algorithm}[FALCON]
+\label{alg:FALCON}
 \begin{algorithmic}
 \WHILE{$rxns_{irrev} > rxns_{irrev,prior}$}
   \STATE {$rxns_{irrev,prior} := rxns_{irrev}$}
@@ -1135,12 +1135,12 @@ estimated expression values $e_i$, we can describe the new problem as:
 \ENDWHILE
 \end{algorithmic}
 \end{Algorithm}
-Note that as in the original eMoMA paper, $\sigma_i$ is an optional weighting of variation
+Note that as in the original FALCON paper, $\sigma_i$ is an optional weighting of variation
 in biological or technical replicates. 
 
 In the original formulation, FVA uses an objective with a $-1$ or $+1$ for each reversible reaction 
 with all other reactions having a 0. If having a non-zero flux in the negative or positive direction
-does not increase the residuals' magnitude (which is the objective of the eMoMA problem), then 
+does not increase the residuals' magnitude (which is the objective of the FALCON problem), then 
 the reaction is made irreversible for subsequent iterations. Eventually this process terminates
 when the number of reversible reactions remains constant. 
 
@@ -1154,13 +1154,13 @@ directions determined).
 
 If $v_f = v_b$ after an iteration, we constrain both reactions to be zero, since this
 is a futile cycle. Otherwise, the flux through these reactions may be inadvertently affecting
-the obective. If we don't do this, we actually see about 100 fewer reactions active in an eMoMA run.
-The disadvantage is that the time for completing eMoMA goes up from about 70s to 200s on a recent
+the obective. If we don't do this, we actually see about 100 fewer reactions active in an FALCON run.
+The disadvantage is that the time for completing FALCON goes up from about 70s to 200s on a recent
 AMD Athlon Magny-Cours system running the Gurobi 5.1 solver. This is still a major improvement 
-in efficiency over the FVA method, which could take several hours per Human Recon 2 eMoMA run.
+in efficiency over the FVA method, which could take several hours per Human Recon 2 FALCON run.
 
 Further work on improving convergence speed should be kept in mind, or
-at least, making use of prior eMoMA flux estimations (see the section
+at least, making use of prior FALCON flux estimations (see the section
 below about mutational models and epistasis) to give the algorithm a
 warm start.  Regularization is one technique that may prove useful in
 attaining better convergence speed by somewhat simplifying the flux
@@ -1170,9 +1170,9 @@ objective in microbes (cite Uwe Sauer).
 
 
 
-\subsection{Applications and Insights from GPR formalisms and eMoMA}
+\subsection{Applications and Insights from GPR formalisms and FALCON}
 When should an investigator simply look at gene expression levels rather than
-worrying about the additional complexities of GPRs and flux estimation as in eMoMA?
+worrying about the additional complexities of GPRs and flux estimation as in FALCON?
 Perhaps the most obvious example is attempting to estimate actual enzyme-catalyzed 
 fluxes rather than expression levels, since individual gene expression levels
 may not be straight-forward to draw conclusions from due to non-linearities
@@ -1180,7 +1180,7 @@ from the GPRs, as well as network-related effects. Additionally, methods like th
 allow us to impute fluxes for reactions that are not catalyzed by enzymes,
 such as transport reactions or highly spontaneous chemical reactions. To illustrate
 this point, Table XXXX shows the correlation matrix for the above quantities and 
-the distributions of each quantity for a single eMoMA run (XXXX).
+the distributions of each quantity for a single FALCON run (XXXX).
 
 \section{Discussion}
 We have formalized and improved an existing method for estimating flux
@@ -1226,9 +1226,9 @@ which might be overcome with enough computational resources, is the issue of an 
 numerous times that FBA with a biomass objective can be a reasonable approximation to what a microbe is trying to 
 achieve metabolically ~\cite{Schuetz2012}~\cite{Fong2004}~\cite{Varma1994} . While Recon 2 is equipped with a ``generalized biomass reaction'', it is not clear
 what the meaning of this is, and it certainly seems unlikely to estimate the metabolism even of fast-growing cancer
-cells \hl{(cite Locasale?)}. We propose eMoMA as a method to get around this issue for non-microbial models.
+cells \hl{(cite Locasale?)}. We propose FALCON as a method to get around this issue for non-microbial models.
 
-Another advantage to eMoMA is that it allows one to directly probe mutations that are represented as gene expresion
+Another advantage to FALCON is that it allows one to directly probe mutations that are represented as gene expresion
 perturbations. A decreased level of gene expression may also be metabolically equivalent to the effect of a missense
 mutation, for example. This allows a different sampling strategy than before; for instance, we could observe how uniform 
 expression restriction compares to uniform flux restriction~\cite{Xu2012}. Assuming an accurate model of enzyme-complex
@@ -1240,7 +1240,7 @@ of this mutation modeling formalism. Instead, it would be better if mutations co
 \emph{soft constraints}. Concretely, whereas hard constraints are enacted in the actual constraints of the 
 optimization problem, soft constraints merely change the objective. This means that multiple soft constaints
 combined together under some mutational model would be compatible in the sense that they wouldn't unexpectedly
-result in an unsolvable system. eMoMA provides two possible avenues for soft constraints: expression level 
+result in an unsolvable system. FALCON provides two possible avenues for soft constraints: expression level 
 and expression variation. \emph{However, it is not clear yet what expression variation really means, so further
 investigation is necessary.}
 
@@ -1324,7 +1324,7 @@ toCNF (bexp, emap): GREXP = let
 \end{verbatim}
 
 
-\chapter{Cancer Phenotypes and eMoMA}
+\chapter{Cancer Phenotypes and FALCON}
 
 \appendix
 \chapter{Chapter 1 of appendix}
