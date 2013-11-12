@@ -615,25 +615,71 @@ row4 & row4 & row4 & row4\\\botrule
 \caption{Caption, caption.}\label{fig:02}
 \end{figure}
 
-\section{Discussion}
-
-Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text. Figure \ref{fig:02} shows that the above method  Text Text Text Text  Text Text Text Text Text Text  Text Text.  \citealp{Boffelli03} might want to know about  text text text text
-Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text. Figure \ref{fig:02} shows that the above method  Text Text Text Text  Text Text Text Text Text Text  Text Text.  \citealp{Boffelli03} might want to know about  text text text text
-Text Text Text Text Text Text  Text Text Text Text.
+\section{Results and Discussion}
 
 
+We have formalized and improved an existing method for estimating flux
+from expression data, as well as listing detailed assumptions in the
+model that may be useful to address in later attempts ~\ref{ECAssume}.
+Although we show that expression does not correlate well with flux, we
+are still essentially trying to fit fluxes to expression levels.  The
+number of constraints presents in metabolic models (even the minimally
+constrained models) makes it impossible to achieve a good correlation
+between the two. However, as with all CBMs, constraints are only half
+the story in any largely underdetermined system, and we show that gene
+expression can prove to be a valuable basis for forming an objective,
+as opposed to methods that continue to use expression to further
+constrain the model by creating tissue-specific or condition-specific
+models \hl{(cite Tissue Specific modeling papers)}.
 
 
-Table~\ref{Tab:01} shows that Text Text Text Text Text  Text Text Text Text Text Text. Figure \ref{fig:02} shows that
-the above method Text Text. Text Text Text  Text Text Text Text Text Text. Figure \ref{fig:02} shows that
-the above method Text Text. Text Text Text  Text Text Text Text Text Text. Figure \ref{fig:02} shows that
-the above method Text Text.
+Another caveat is that GPR rules or stoichiometry may be inaccurate or
+incomplete in any given model. In fact, for the forseeable future,
+this is a given. By using the GPR and not just the stoichiometry to
+estimate flux, it is possible that future work could make use of this
+framework to debug not just stoichiometry as some methods currently do
+\hl{(cite e.g. grow match, etc.)}, but also GPR rules.  Hope for
+improved gene rule annotation may come from many different avenues of
+current research. For instance, a recent algorithm for reconstructing
+biological process information from large-scale datasets, such as the
+NeXO algorithm, could be tuned to aid in the annotation of gene-rules
+\hl{(cite NeXO)}. Flexible metabolic reconstruction pipelines such as
+GLOBUS may also be extended to incorporate GPRs into their output, and
+in so doing, extend this type of modeling to many non-model organisms
+\hl{(cite GLOBUS)}.  Another limitation that relates to lack of
+biological information is that we always assume a one-to-one copy
+number for each gene in a complex. Once more information on enzyme
+complex structure and reaction mechanism becomes available, an
+extension to the current method could make use of this information.
 
 
+One may wonder why the present work doesn't attempt to use empirically
+obtained kinetic parameters to estimate $v_{max}$, but this approach
+does not seem as promising in light of experimental evidence that many
+reactions in central carbon metabolism tend to operate well below
+$v_{max}$ \cite{Bennett2010}. Still, a better understanding of these
+phenomena may make it possible to improve flux estimation methods such
+as the one presented here, or more traditional forms of MFA \hl{(cite
+  our review)} by incorporating kinetic information.  The present
+results and admissions of what our method currently lacks, but could
+incorporate, shows that there is much promise in this direction, and
+that it can already be a useful tool for performing flux estimation
+and analysis.
 
 
+\subsection{Applications and Insights from GPR formalisms and FALCON}
+When should an investigator simply look at gene expression levels rather than
+worrying about the additional complexities of GPRs and flux estimation as in FALCON?
+Perhaps the most obvious example is attempting to estimate actual enzyme-catalyzed 
+fluxes rather than expression levels, since individual gene expression levels
+may not be straight-forward to draw conclusions from due to non-linearities
+from the GPRs, as well as network-related effects. Additionally, methods like these
+allow us to impute fluxes for reactions that are not catalyzed by enzymes,
+such as transport reactions or highly spontaneous chemical reactions. To illustrate
+this point, Table XXXX shows the correlation matrix for the above quantities and 
+the distributions of each quantity for a single FALCON run (XXXX).
 
-
+% Need to show heatmap figure in this section %
 
 
 
@@ -645,22 +691,7 @@ the above method Text Text.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-
-
-
 \section{Conclusion}
-
-(Table~\ref{Tab:01}) Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text. Figure \ref{fig:02} shows that the above method  Text Text Text Text  Text Text Text Text Text Text  Text Text.  \citealp{Boffelli03} might want to know about  text text text text
-Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text. Figure \ref{fig:02} shows that the above method  Text Text Text Text  Text Text Text Text Text Text  Text Text.  \citealp{Boffelli03} might want to know about  text text text text
-Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text. Figure \ref{fig:02} shows that the above method  Text Text Text Text  Text Text Text Text Text Text  Text Text.
-
-
-
-Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text. Figure \ref{fig:02} shows that the above method  Text Text Text Text  Text Text Text Text Text Text  Text Text.  \citealp{Boffelli03} might want to know about  text text text text
-
-
-
 
 
 \begin{enumerate}
@@ -668,15 +699,4 @@ Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Tex
 \item this is item, use enumerate
 \item this is item, use enumerate
 \end{enumerate}
-
-Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text. Figure \ref{fig:02} shows that the above method  Text Text Text Text  Text Text Text Text Text Text  Text Text.  \citealp{Boffelli03} might want to know about  text text text text
-Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text. Figure \ref{fig:02} shows that the above method  Text Text Text Text  Text Text Text Text Text Text  Text Text.  \citealp{Boffelli03} might want to know about  text text text text
-Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text.
-
-
-
-
-
-
-Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text. Figure \ref{fig:02} shows that the above method  Text Text Text Text
 
