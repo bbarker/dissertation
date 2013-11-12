@@ -6,7 +6,7 @@
 \usepackage{float}
 \usepackage{tikz}
 \usepackage{algorithmic}
-\usepackage[amsmath,amsthm,thmmarks]{ntheorem}
+% \usepackage[amsmath,amsthm,thmmarks]{ntheorem}
 
 %Some possible packages to include
 \usepackage{graphicx,pstricks}
@@ -19,17 +19,19 @@
 \usepackage{txfonts}
 \usepackage{palatino}
 
-\graphicspath{{./figures/}}
+% Eventually need to move all paper figures to the current directory
+% prior to submission.
+\graphicspath{{../figures/}}
 \usetikzlibrary{shapes,arrows}
 
 %if you're having problems with overfull boxes, you may need to increase
 %the tolerance to 9999
-\tolerance=9999
+%\tolerance=9999
 
 \bibliographystyle{natbib}
 %\bibliographystyle{IEEEbib}
 
-\renewcommand{\caption}[1]{\singlespacing\hangcaption{#1}\normalspacing}
+% \renewcommand{\caption}[1]{\singlespacing\hangcaption{#1}\normalspacing}
 \renewcommand{\topfraction}{0.85}
 \renewcommand{\textfraction}{0.1}
 \renewcommand{\floatpagefraction}{0.75}
@@ -48,16 +50,27 @@
 \copyrightyear{2013}
 \pubyear{2013}
 
-\bibliographystyle{plain}
-
 \begin{document}
 \firstpage{1}
+% Define block styles
+\tikzstyle{decision} = [diamond, draw, fill=blue!20,
+    text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20,
+    text width=5em, text centered, node distance=3cm, minimum height=4em]
+\tikzstyle{line} = [draw, very thick, color=black!50, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+    minimum height=2em]
+\tikzstyle{iogram} = [trapezium, draw, fill=pink!20,
+    trapezium left angle=70,trapezium right angle=-70, inner xsep=0pt,
+    text width=5em, text centered, node distance=3cm, minimum height=4em]
 
 \title[short Title]{FALCON: A fast method for estimating fluxes fluxes
-  from expression data} \author[Sample \textit{et~al}]{Brandon
-  Barker\,$^{1,*}$, Yiping Wang\,$^{2}$, Jason Locasale\,$^{2}$, and
-  Zhenglong Gu\,$^2$
-  \footnote{to whom correspondence should be addressed}} 
+  from expression data} 
+  \author[Sample \textit{et~al}]{Brandon Barker\,$^{1,*}$, 
+    Yiping Wang\,$^{2}$, Jason Locasale\,$^{2}$, and
+    Zhenglong Gu\,$^2$
+    \footnote{to whom correspondence should be addressed}
+  }
 
 \address{$^{1}$Tri-Institutional Training Program in
   Computational Biology and Medicine, Address XXXX
@@ -99,7 +112,7 @@ Text
 \input{falcon}
 
 \section*{Acknowledgement}
-Text Text Text Text Text Text  Text Text.  \citealp{Boffelli03} might want to know about  text text text text
+Text Text Text Text Text Text  Text Text. 
 
 \paragraph{Funding\textcolon} Text Text Text Text Text Text  Text Text.
 
