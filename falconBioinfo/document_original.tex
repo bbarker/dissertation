@@ -1,6 +1,77 @@
 \documentclass{bioinfo}
-\copyrightyear{2005}
-\pubyear{2005}
+
+%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+ \usepackage{soul} %For highlights
+%\usepackage{amsmath}
+%\usepackage{hyperref}
+
+
+%\usepackage{float}
+
+\usepackage{tikz}
+\usepackage{algorithmic}
+
+
+% \usepackage[amsmath,amsthm,thmmarks]{ntheorem}
+
+%Some possible packages to include
+\usepackage{graphicx,pstricks}
+\usepackage{graphics}
+%\usepackage{moreverb}
+\usepackage{subfigure}
+\usepackage{epsfig}
+\usepackage{subfigure}
+%\usepackage{hangcaption}
+\usepackage{txfonts}
+\usepackage{palatino}
+
+% Eventually need to move all paper figures to the current directory
+% prior to submission.
+\graphicspath{{../figures/}}
+
+
+%if you're having problems with overfull boxes, you may need to increase
+%the tolerance to 9999
+\tolerance=9999
+
+%\bibliographystyle{natbib}
+%\bibliographystyle{IEEEbib}
+
+% \renewcommand{\caption}[1]{\singlespacing\hangcaption{#1}\normalspacing}
+
+
+
+
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\newcommand{\INDSTATE}[1][1]{\STATE\hspace{#1\algorithmicindent}}
+
+\newtheorem{Theorem}{Theorem}
+\theoremstyle{break}
+\newtheorem{Algorithm}{Algorithm}
+\theoremstyle{empty}
+\newtheorem{assume}{}
+
+
+\copyrightyear{2013}
+\pubyear{2013}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 \firstpage{1}
@@ -15,6 +86,7 @@ $^{2}$Department of XXXXXXXX, Address XXXX etc.}
 \editor{Associate Editor: XXXXXXX}
 
 \maketitle
+\usetikzlibrary{shapes,arrows}
 
 \begin{abstract}
 
@@ -33,7 +105,7 @@ Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Tex
 
 \section{Introduction}
 
-Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text. Figure~\ref{fig:01} shows that the above method  Text Text Text Text  Text Text Text Text Text Text  Text Text.  \citep{Bag01} wants to know about …… text follows.
+Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text. Figure~\ref{fig:01} shows that the above method  Text Text Text Text  Text Text Text Text Text Text  Text Text. 
 
 \begin{equation}
 \sum x+ y =Z\label{eq:01}

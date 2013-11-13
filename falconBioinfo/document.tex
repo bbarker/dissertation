@@ -1,8 +1,10 @@
 \documentclass{bioinfo}
 
 \usepackage{soul} %For highlights
-\usepackage{amsmath}
-\usepackage{hyperref}
+
+%Along with the tikz arrows and such, these seem to conflict with the bionfo header:
+%%% \usepackage{amsmath}
+%%% \usepackage{hyperref}
 \usepackage{float}
 \usepackage{tikz}
 \usepackage{algorithmic}
@@ -22,7 +24,6 @@
 % Eventually need to move all paper figures to the current directory
 % prior to submission.
 \graphicspath{{../figures/}}
-\usetikzlibrary{shapes,arrows}
 
 %if you're having problems with overfull boxes, you may need to increase
 %the tolerance to 9999
@@ -52,17 +53,6 @@
 
 \begin{document}
 \firstpage{1}
-% Define block styles
-\tikzstyle{decision} = [diamond, draw, fill=blue!20,
-    text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
-\tikzstyle{block} = [rectangle, draw, fill=blue!20,
-    text width=5em, text centered, node distance=3cm, minimum height=4em]
-\tikzstyle{line} = [draw, very thick, color=black!50, -latex']
-\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
-    minimum height=2em]
-\tikzstyle{iogram} = [trapezium, draw, fill=pink!20,
-    trapezium left angle=70,trapezium right angle=-70, inner xsep=0pt,
-    text width=5em, text centered, node distance=3cm, minimum height=4em]
 
 \title[short Title]{FALCON: A fast method for estimating fluxes fluxes
   from expression data} 
@@ -81,6 +71,19 @@
 \editor{Associate Editor: XXXXXXX}
 
 \maketitle
+
+% Define block styles
+\usetikzlibrary{shapes,arrows}
+\tikzstyle{decision} = [diamond, draw, fill=blue!20,
+    text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20,
+    text width=5em, text centered, node distance=3cm, minimum height=4em]
+\tikzstyle{line} = [draw, very thick, color=black!50, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+    minimum height=2em]
+\tikzstyle{iogram} = [trapezium, draw, fill=pink!20,
+    trapezium left angle=70,trapezium right angle=-70, inner xsep=0pt,
+    text width=5em, text centered, node distance=3cm, minimum height=4em]
 
 \begin{abstract}
 
