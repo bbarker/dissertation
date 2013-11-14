@@ -1,5 +1,8 @@
 \documentclass{bioinfo}
 
+\usepackage{xr}
+\externaldocument{supplement}
+
 \usepackage{soul} %For highlights
 
 %Along with the tikz arrows and such, these seem to conflict with the bionfo header:
@@ -23,7 +26,7 @@
 
 % Eventually need to move all paper figures to the current directory
 % prior to submission.
-\graphicspath{{../figures/}}
+\graphicspath{{./figures/}}
 
 %if you're having problems with overfull boxes, you may need to increase
 %the tolerance to 9999
@@ -57,7 +60,7 @@
 \title[short Title]{FALCON: A fast method for estimating fluxes fluxes
   from expression data} 
   \author[Sample \textit{et~al}]{Brandon Barker\,$^{1,*}$, 
-    Yiping Wang\,$^{2}$, Jason Locasale\,$^{2}$, and
+    Yiping Wang\,$^{2}$, Narayanan Sadagopan\,$^{2}$, Jason Locasale\,$^{2}$, and
     Zhenglong Gu\,$^2$
     \footnote{to whom correspondence should be addressed}
   }

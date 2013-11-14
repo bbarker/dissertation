@@ -1,0 +1,43 @@
+
+\section{Proof for the minDisjunction algorithm}
+
+Although the logic in the main text may be straightforward, we show
+here in more verbosity that Algorithm~\ref{alg:ReductionToCNF} works
+as described.
+
+\begin{Theorem}
+\label{thm:ReductionToCNF}
+Algorithm~\ref{alg:ReductionToCNF} returns the disjunction with
+minimum expression value among all disjunctions of a rule in CNF.
+\end{Theorem}
+
+\begin{proof}
+The third step in the while-loop does not affect the
+underlying logic, so we only need to consider the effect of step one
+on step two.  Let us first consider when expressions $x_1, ..., x_4$
+are all literals in step two to cover the most complex case, and that
+$x_i^{(e)}$ denotes the expression measurement for gene $x_i$. Assume
+WLOG that $x_1 \lor x_3$ attains the minimum expression among the
+disjunctions. Then we have:
+
+\begin{align*}
+&x_{1}^{(e)} + x_{3}^{(e)} \leq x_{1}^{(e)} + x_{4}^{(e)} \Rightarrow x_{3}^{(e)} \leq x_{4}^{(e)} \\
+&x_{1}^{(e)} + x_{3}^{(e)} \leq x_{2}^{(e)} + x_{3}^{(e)} \Rightarrow x_{1}^{(e)} \leq x_{2}^{(e)} 
+\end{align*}
+
+Applying this result in conjunction to step one in the while-loop to
+the original expression, $(x_1 \land x_2) \lor (x_3 \land x_4)$, we
+immediately arrive at $(x_1) \lor (x_3)$, which gives our originally
+assumed minimum. To show that this result doesn't depend on the $x_i$
+being literals, merely consider repeating this process recursively for
+each $x_i$ that is not a literal to arrive at two different
+evaluations for $x_i^{(e)}$ (one where each evaluation is done with reduction, 
+and one where we evaluate entirely without reduction). 
+Since the process cannot continue
+indefinitely, eventually there is a base case involving only literals,
+and the above result shows that, at each step, as we backtrack from the base case,
+both evaluations will be identical. The desired result is obtained
+because Algorithm~\ref{alg:ReductionToCNF} without step one simply yields CNF,
+and it follows that adding step one will yield the disjunction with 
+minimum expression value of the rule in CNF.
+\end{proof}
