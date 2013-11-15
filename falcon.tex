@@ -125,14 +125,14 @@ individual genes to enzyme complexes (figure~\ref{ECCN_flowchart}).
     % Place nodes
     \node [block] (start) {start}; 
     \node [iogram, below of=start, left of=start] (exp) {Gene: 
-      $\mu$,~$\sigma$}; 
+      $\mu$,~$\sigma^2$}; 
     \node [iogram, below of=start, right of=start] (rules) {Reaction:
       Gene Rule}; 
     \node [block, below of=rules] (parse) {Parse Rule}; 
-    \node [block, below of=parse, left of=parse] (mindisj) {Find
-      minimum disjunction};
+    \node [block, below of=parse, left of=parse, xshift=-0.5cm]
+      (mindisj) {Find minimum disjunction};
     \node [iogram, below of=mindisj] (expstd)
-          {Reaction (enzyme~complex): $\mu$,~$\sigma$};
+          {Reaction\\(enzyme~complex): $\mu$,~$\sigma^2$};
     % Draw edges
     \path [line] (start) -- (exp);
     \path [line] (start) -- (rules);
@@ -142,8 +142,15 @@ individual genes to enzyme complexes (figure~\ref{ECCN_flowchart}).
     \path [line] (mindisj) -- (expstd);
 \end{tikzpicture}
 \caption{Flowchart illustrating the process of estimating enzyme
-complex copy number, with an emphasis on finding the minimum
-disjunction of a GPR rule.}
+  complex copy number. First, for each gene in the model with
+  available expression data, the mean and (if available) variance or
+  some other measure of uncertainty are read in. Gene rules (also
+  called GPR rules) are also read in for each enzymatic reaction. The
+  reaction rules are parsed and the minimum disjunction algorithm
+  (Algorithm~\ref{alg:ReductionToCNF}) is applied, making use of the
+  gene's mean expression. Finally, the estimated and unitless enzyme
+  complex copy number and variance are output for each enzymatic
+  reaction.}
 \label{ECCN_flowchart}
 \end{figure}
 
