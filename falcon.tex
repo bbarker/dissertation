@@ -121,14 +121,18 @@ individual genes to enzyme complexes (figure~\ref{ECCN_flowchart}).
 
 \vspace{5 mm} 
 \begin{figure}
-\begin{tikzpicture}[scale=2, node distance = 2cm, auto]
+\begin{tikzpicture}[scale=0.8, node distance = 1cm, auto]
     % Place nodes
-    \node [block] (start) {start};
-    \node [iogram, below of=start, left of=start, text width=3cm] (exp) {\{[Gene, Mean, STDEV]\}};
-    \node [iogram, below of=start, right of=start, text width=2.5cm] (rules) {[Reaction, Rule]};
-    \node [block, below of=rules] (parse) {Parse Rule};
-    \node [block, below of=parse, left of=parse, text width=3cm] (mindisj) {Find Min. Disjunction};
-    \node [iogram, below of=mindisj, text width=3cm] (expstd) {Effective STDEV and Mean Expression};
+    \node [block] (start) {start}; 
+    \node [iogram, below of=start, left of=start] (exp) {Gene: 
+      $\mu$,~$\sigma$}; 
+    \node [iogram, below of=start, right of=start] (rules) {Reaction:
+      Gene Rule}; 
+    \node [block, below of=rules] (parse) {Parse Rule}; 
+    \node [block, below of=parse, left of=parse] (mindisj) {Find
+      minimum disjunction};
+    \node [iogram, below of=mindisj] (expstd)
+          {Reaction (enzyme~complex): $\mu$,~$\sigma$};
     % Draw edges
     \path [line] (start) -- (exp);
     \path [line] (start) -- (rules);
@@ -149,17 +153,19 @@ the assumptions that are elaborated in the next section.
 
 \subsection{A Formalism for Enzyme Complex Formation}
 
-Given the abundance of genome-scale expression datasets available, either as microarray or more
-recently RNA-Seq, it could be useful to actually gauge the number of enzyme complexes present 
-in a cell. This isn't much of an issue for the simplest case where a reaction is
-catalyzed by only one polypeptide, and that polypeptide does not catalyze any other reactions.
-Frequently the situation is not so simple (e.g. figure~\ref{fig:2F43}), 
-so a model of enzyme complex formation is called for.
-We formalize such a model for enzyme complex formation based 
-on GPR (gene-protein-reaction) rules that are frequently available
-in genome-scale annotations. For better curated models, the approach described immediately finds
-use for understanding metabolism, as well as being a scaffold to find problems for
-existing GPRs, and more broadly the GPR formalism itself.
+Given the abundance of genome-scale expression datasets available,
+either as microarray or more recently RNA-Seq, it could be useful to
+actually gauge the number of enzyme complexes present in a cell. This
+isn't much of an issue for the simplest case where a reaction is
+catalyzed by only one polypeptide, and that polypeptide does not
+catalyze any other reactions.  Frequently the situation is not so
+simple (e.g. figure~\ref{fig:2F43}), so a model of enzyme complex
+formation is called for.  We formalize such a model for enzyme complex
+formation based on GPR (gene-protein-reaction) rules that are
+frequently available in genome-scale annotations. For better curated
+models, the approach described immediately finds use for understanding
+metabolism, as well as being a scaffold to find problems for existing
+GPRs, and more broadly the GPR formalism itself.
 
 \subsubsection{Assumptions for Enzyme Complex Formation}
 \emph{Assumption~\ref{ass:expcorr}.}

@@ -4,12 +4,15 @@
 \externaldocument{supplement}
 
 \usepackage{soul} %For highlights
+\usepackage{url}
 
 %Along with the tikz arrows and such, these seem to conflict with the bionfo header:
 %%% \usepackage{amsmath}
 %%% \usepackage{hyperref}
 \usepackage{float}
+\def\pgfsysdriver{pgfsys-dvipdfm.def}
 \usepackage{tikz}
+\usepackage{varwidth}
 \usepackage{algorithmic}
 % \usepackage[amsmath,amsthm,thmmarks]{ntheorem}
 
@@ -81,16 +84,18 @@
 
 % Define block styles
 \usetikzlibrary{shapes,arrows}
-\tikzstyle{decision} = [diamond, draw, fill=blue!20,
-    text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
-\tikzstyle{block} = [rectangle, draw, fill=blue!20,
-    text width=5em, text centered, node distance=3cm, minimum height=4em]
 \tikzstyle{line} = [draw, very thick, color=black!50, -latex']
-\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
-    minimum height=2em]
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=2cm]
+    %minimum height=2em]
+\tikzstyle{decision} = [diamond, draw, fill=blue!20,
+    text badly centered, node distance=2cm, inner sep=0pt] % text width=4.5em, 
+\tikzstyle{block} = [rectangle, draw, fill=blue!20,
+    text centered, node distance=2cm] % text width=5em, minimum height=4em 
 \tikzstyle{iogram} = [trapezium, draw, fill=pink!20,
-    trapezium left angle=70,trapezium right angle=-70, inner xsep=0pt,
-    text width=5em, text centered, node distance=3cm, minimum height=4em]
+    trapezium left angle=70, trapezium right angle=-70,
+    text centered, node distance=2cm, %minimum height=4em,
+    execute at begin node={\begin{varwidth}{3cm}},
+    execute at end node={\end{varwidth}}]
 
 \begin{abstract}
 
@@ -112,9 +117,12 @@ Text Text Text Text Text Text Text Text Text Text Text Text Text Text
 Text Text Text Text Text Text
 
 \section{Availability:}
-Text Text Text Text Text Text Text Text Text Text Text Text Text Text
-Text Text Text Text Text Text Text Text Text Text Text Text Text Text
-Text
+FALCON has been implemented in MATLAB and ATS, and can be downloaded
+from: \url{https://github.com/bbarker/FALCON}. ATS is not required to
+compile the software, as intermediate C source code is available, and
+binaries are provided for Linux x86-64 systems.  FALCON requires use
+of the COBRA Toolbox, also implemented in MATLAB. The version of 
+FALCON used for analyses in this study is commit XXXXXXXXXXXXXXXXXX.
 
 \section{Contact:} \href{name@bio.com}{name@bio.com}
 \end{abstract}
@@ -122,7 +130,11 @@ Text
 \input{falcon}
 
 \section*{Acknowledgement}
-Text Text Text Text Text Text  Text Text. 
+We thank Kieran Smallbone and Neil Swainston for their previous work
+on these research issues and many helpful discussions. We also thank
+Hongwei Xi for introducing us to his programming language,
+ATS. Finally we thank Alex Shestov, Lei Huang, Eli Bogart, and Chris
+Myers for many helpful discussions about metabolism.
 
 \paragraph{Funding\textcolon} Text Text Text Text Text Text  Text Text.
 
