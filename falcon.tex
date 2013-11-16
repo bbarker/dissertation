@@ -294,22 +294,23 @@ Box~\ref{ECAssume} and an alternative and logically equivalent rule
 \hl{(cite logic book)} under which we can estimate enzyme complex copy
 number.
 
-\label{ECAssume}
-%\caption{Your caption here}
-\ifthenelse{\boolean{thesisStyle}}{
-  \begin{center}
-  \begin{tabular}{| p{17cm} |}
-  \hline
-  \textbf{Box ~\ref{ECAssume}. Assumptions in GPR-based Enzyme Complex Formation} \\
-} {
-  % For Bioinformatics:
   \begin{table*}[!t]
-  %\processtable{testing\label{ECAssume}}
-  \begin{center}
+\label{ECAssume}
+%%%\caption{Your caption here}
+%% \ifthenelse{\boolean{thesisStyle}}{
+%%   \begin{center}
+%%   \begin{tabular}{| p{17cm} |}
+%%   \hline
+%%   \textbf{Box ~\ref{ECAssume}. Assumptions in GPR-based Enzyme Complex Formation} \\
+%% } {
+  % For Bioinformatics:
+
+  %\processtable{testing\label{ECAssume}} {
+  %\begin{center}
   \begin{tabular}{| p{15cm} |}
   \hline
-  \textbf{Assumptions in GPR-based Enzyme Complex Formation} \\
-}
+  \textbf{Table ~\ref{ECAssume} Assumptions in GPR-based Enzyme Complex Formation} \\
+%%}
 \hline
 \ifthenelse{\boolean{thesisStyle}}{\begin{enumerate}} {}
 \ifthenelse{\boolean{thesisStyle}}{\item} {} \begin{assume} \label{asm:expcorr}
@@ -345,21 +346,41 @@ substituted in. Similarly, allosteric regulation is not
 modeled. Relatedly, there are no NOT operations in GPR rules (just ANDs
 and ORs).
 \end{assume}
-\item \begin{assume} \label{asm:chap} 
+\ifthenelse{\boolean{thesisStyle}}{\item} {} \begin{assume} \label{asm:chap} 
 Enzyme complexes form without the assistance of protein chaperones and
 formation is not coupled to other reactions.  
 \end{assume}
-\item \begin{assume} \label{asm:rate} 
+\ifthenelse{\boolean{thesisStyle}}{\item} {} \begin{assume} \label{asm:rate} 
 Rate of formation and degradation of complexes doesn't play a role,
 since we assume steady-state. 
 \end{assume}
 \ifthenelse{\boolean{thesisStyle}}{\end{enumerate}} {} \\
 \hline
 \end{tabular}
-\end{center}
-\ifthenelse{\boolean{thesisStyle}}{} {
-  \end{table*}
-}
+\end{table*}
+
+%\end{center}
+%\ifthenelse{\boolean{thesisStyle}}{} {
+%} \end{table*}
+%}
+
+
+\begin{table}[!t]
+%So we know processtable is required to make the
+%table numbers
+%\processtable{This is table caption\label{Tab:01}}{
+\begin{tabular}{| p{4cm} |}
+head1\\
+row1\\
+row2\\
+row3\\
+row4\\
+\end{tabular}
+%}
+{This is a footnote}
+\end{table}
+
+
 There is no guarantee that a GPR rule has been written down with this
 hierarchical structure in mind, though it is likely the case much of
 the time as it is a natural way to model complexes.  However, any GPR
