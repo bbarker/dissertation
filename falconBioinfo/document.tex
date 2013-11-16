@@ -1,6 +1,7 @@
 \documentclass{bioinfo}
 
 \usepackage{xr}
+\usepackage{ifthen}
 \externaldocument{supplement}
 
 \usepackage{soul} %For highlights
@@ -58,11 +59,13 @@
 \pubyear{2013}
 
 \begin{document}
+\newboolean{thesisStyle}
+\setboolean{thesisStyle}{false}
 \firstpage{1}
 
 \title[short Title]{FALCON: A fast method for estimating fluxes fluxes
   from expression data} 
-  \author[Sample \textit{et~al}]{Brandon Barker\,$^{1,2,*}$, 
+  \author[Barker \textit{et~al}]{Brandon Barker\,$^{1,2,*}$, 
     Narayanan Sadagopan\,$^{3}$, Yiping Wang\,$^{1,2}$, \\
     Jason Locasale\,$^{1,4}$, and Zhenglong Gu\,$^{1,4}$
     \footnote{to whom correspondence should be addressed}

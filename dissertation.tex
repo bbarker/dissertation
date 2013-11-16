@@ -91,6 +91,7 @@
 
 % ************* End of TODO ***********************************************
 %Added by Brandon:
+\usepackage{ifthen}
 \usepackage{soul} %For highlights
 \usepackage{amsmath}
 \usepackage{hyperref}
@@ -143,6 +144,8 @@
 \newtheorem{assume}{}
 
 \begin{document}
+\newboolean{thesisStyle}
+\setboolean{thesisStyle}{true}
 % Define block styles
 \tikzstyle{decision} = [diamond, draw, fill=blue!20,
     text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]

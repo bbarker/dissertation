@@ -86,12 +86,9 @@ changes that maintain convexity than a quadratic program.
 % Equation~(\ref{eq:01}) Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text. Figure \ref{fig:02} shows that the above method  Text Text Text Text  Text Text Text Text Text Text  Text Text.  \citealp{Boffelli03} might want to know about  text text text text
 Blah blah
 
-% can we use this without the bioinfo document class:?
+% can we use this without the bioinfo document clasm:?
 %\begin{methods}
 \section{Methods}
-
-
-
 
 If we wish to apply MoMA to expression data rather than flux data, the
 original MoMA objective must be altered in several ways. Scaling of
@@ -175,7 +172,7 @@ metabolism, as well as being a scaffold to find problems for existing
 GPRs, and more broadly the GPR formalism itself.
 
 \subsubsection{Assumptions for Enzyme Complex Formation}
-\emph{Assumption~\ref{ass:expcorr}.}
+\emph{Assumption~\ref{asm:expcorr}.}
 The first assumption that we need in order to guarantee an accurate
 estimate of (relative) enzyme complex copy number are accurate
 measurements of their component subunits. Unfortunately, this is
@@ -191,7 +188,7 @@ metabolic constaints, we hope to obviate some of the error in
 estimating protein intensity from RNA-Seq data. \hl{(cite subsection
 and figures when added.)}
 
-\emph{Assumption~\ref{ass:isozyme}.}
+\emph{Assumption~\ref{asm:isozyme}.}
 In order to quantify enzyme complex formation, the notion of an enzyme
 complex should be formalized.
 A protein complex typically refers to two or more physically associated polypeptide chains, which is
@@ -216,14 +213,18 @@ copy number. This reasoning will be useful later in considering why
 GPRs may be largely adequate for estimating the abundance of most
 enzyme complexes.
 
-\begin{figure}[H]
-\caption{Illustration of the $F_1$ part of the ATP Synthase complex.}
+\begin{figure*}%[H]
 \label{fig:2F43}
 \centering
 \includegraphics[clip=true,trim=0cm 0cm 0cm 0cm, width=12cm]{2F43}
-\end{figure}
+\caption{Illustration of the $F_1$ part of the ATP Synthase complex.
+  This illustration demonstrates both how an enzyme complex may be
+  constituted by multiple subunits (left), and how some of those
+  subunits may be products of the same gene and have differing
+  stoichiometries within the complex (right).}
+\end{figure*}
 
-\emph{Assumption~\ref{ass:hierarchy}.}
+\emph{Assumption~\ref{asm:hierarchy}.}
 The FALCON method used up until now performed a direct evaluation of
 gene rule expression values---replacing gene names with their
 expression values, ANDs with minimums, and ORs with sums, without
@@ -294,38 +295,48 @@ Box~\ref{ECAssume} and an alternative and logically equivalent rule
 number.
 
 \label{ECAssume}
-\begin{center}
-\begin{tabular}{| p{14cm} |}
+\ifthenelse{\boolean{thesisStyle}}{
+  \begin{center}
+  \begin{tabular}%{| p{14cm} |}
+  \hline
+  \textbf{Box ~\ref{ECAssume}. Assumptions in GPR-based Enzyme Complex Formation} \\
+} {
+  % For Bioinformatics:
+  \begin{table*}[!t]
+  %\processtable{Test caption}
+  \begin{center}
+  \begin{tabular}{| p{14cm} |}
+  \hline
+  \textbf{Assumptions in GPR-based Enzyme Complex Formation} \\
+}
 \hline
-\textbf{Box ~\ref{ECAssume}. Assumptions in GPR-based Enzyme Complex Formation} \\
-\hline
-\begin{enumerate}
-\item \begin{assume} \label{ass:expcorr}
+\ifthenelse{\boolean{thesisStyle}}{\begin{enumerate}} {}
+\ifthenelse{\boolean{thesisStyle}}{\item} {} \begin{assume} \label{asm:expcorr}
 Expression values are highly correlated with the copy numbers of their
 corresponding peptide isoforms.
 \end{assume}
-\item \begin{assume} \label{ass:isozyme} 
+\ifthenelse{\boolean{thesisStyle}}{\item} {} \begin{assume} \label{asm:isozyme} 
 Protein isoforms contributing to isozymes are considered part of the
 same enzyme complex.
 \end{assume}
-\item \begin{assume} \label{ass:hierarchy}
+\ifthenelse{\boolean{thesisStyle}}{\item} {} \begin{assume} \label{asm:hierarchy}
 Any enzyme complex can be described as a hierarchical subset of
 (possibly redundant) subcomplexes; redundant subcomplexes, as
-elaborated in (\ref{ass:nostoich}), are not currently modeled.
+elaborated in (\ref{asm:nostoich}), are not currently modeled.
 \end{assume}
-\item \begin{assume} \label{ass:nostoich} 
+\ifthenelse{\boolean{thesisStyle}}{\item} {} \begin{assume} \label{asm:nostoich} 
 Assume one copy of peptide per complex; exact isoform stoichiometry
 is not considered.
 \end{assume}
-\item \begin{assume} \label{ass:sharing} 
+\ifthenelse{\boolean{thesisStyle}}{\item} {} \begin{assume} \label{asm:sharing} 
 With the exception of complexes having identical rules (i.e. the same
 complex listed for different reactions), each copy of a peptide
 is available for all complexes in the model.
 \end{assume}
-\item \begin{assume} \label{ass:active_site}
+\ifthenelse{\boolean{thesisStyle}}{\item} {} \begin{assume} \label{asm:active_site}
 There is only one active site per enzyme complex.
 \end{assume}
-\item \begin{assume} \label{ass:holo} 
+\ifthenelse{\boolean{thesisStyle}}{\item} {} \begin{assume} \label{asm:holo} 
 If a particular subcomplex can be catalyzed by A and it can also be
 catalyzed by A and B (e.g. B acts as a regulatory unit, as in
 holoenzymes), this just simplifies to A once expression values are
@@ -333,19 +344,21 @@ substituted in. Similarly, allosteric regulation is not
 modeled. Relatedly, there are no NOT operations in GPR rules (just ANDs
 and ORs).
 \end{assume}
-\item \begin{assume} \label{ass:chap} 
+\item \begin{assume} \label{asm:chap} 
 Enzyme complexes form without the assistance of protein chaperones and
 formation is not coupled to other reactions.  
 \end{assume}
-\item \begin{assume} \label{ass:rate} 
+\item \begin{assume} \label{asm:rate} 
 Rate of formation and degradation of complexes doesn't play a role,
 since we assume steady-state. 
 \end{assume}
-\end{enumerate} \\
+\ifthenelse{\boolean{thesisStyle}}{\end{enumerate}} {} \\
 \hline
 \end{tabular}
 \end{center}
-
+\ifthenelse{\boolean{thesisStyle}}{} {
+  \end{table*}
+}
 There is no guarantee that a GPR rule has been written down with this
 hierarchical structure in mind, though it is likely the case much of
 the time as it is a natural way to model complexes.  However, any GPR
@@ -367,7 +380,7 @@ possible that a GPR rule is written in neither DNF or CNF, perhaps
 because neither of these two alternatives above are stricly the case,
 and some other rule is more succinct.
 
-\emph{Assumptions~\ref{ass:nostoich},~\ref{ass:sharing}~and~\ref{ass:active_site}.}
+\emph{Assumptions~\ref{asm:nostoich},~\ref{asm:sharing}~and~\ref{asm:active_site}.}
 One active site per enzyme complex implies a single
 complex can only catalyze one reaction at a time. Multimeric complexes
 with one active site per identical subunit would be considered as one
@@ -398,10 +411,10 @@ few enzymes where a single polpeptide may have multiple active sites
 (e.g. fatty acid synthase), and this is not currently taken into 
 account in our model. 
 
-\emph{Assumption~\ref{ass:holo}.}
+\emph{Assumption~\ref{asm:holo}.}
 We do not make any special assumptions requiring symmetry of an isoform
 within a complex. For instance, the example in
-assumption~\ref{ass:holo} shows how you might have one
+assumption~\ref{asm:holo} shows how you might have one
 subcomponent composed of a single isoform, and another subcomponent
 composed of that gene in addition to another isoform. In this case, it
 is simply reduced to being the first gene only that is required, since
@@ -416,7 +429,7 @@ considered in more detail. But in the absence of detailed kinetic
 information, this consideration not be useful, much like allosteric
 regulation.
 
-\emph{Assumptions~\ref{ass:chap}~and~\ref{ass:rate}.}
+\emph{Assumptions~\ref{asm:chap}~and~\ref{asm:rate}.}
 Due to the quickness, stability, and energetic favorability of enzyme
 complex formation, the absence of chaperones or coupled metabolic
 reactions required for complex formation may be reasonable
@@ -426,7 +439,7 @@ formation, so that rate laws regarding complex formation aren't
 needed. However, further research may be warranted to investigate the
 use of a penalty for complex levels based on mass action and
 protein-docking information. Requisite to this would be addressing
-assumption~\ref{ass:nostoich}. It would be surprising if such a
+assumption~\ref{asm:nostoich}. It would be surprising if such a
 penalty were significant, however, due to the cost this would imply
 for many of the large and important enzyme complexes present in all
 organisms.
