@@ -294,91 +294,34 @@ Box~\ref{ECAssume} and an alternative and logically equivalent rule
 \hl{(cite logic book)} under which we can estimate enzyme complex copy
 number.
 
-  \begin{table*}[!t]
+
+\def \ECAssumeCap {Assumptions in GPR-based Enzyme Complex Formation}
 \label{ECAssume}
-%%%\caption{Your caption here}
-%% \ifthenelse{\boolean{thesisStyle}}{
-%%   \begin{center}
-%%   \begin{tabular}{| p{17cm} |}
-%%   \hline
-%%   \textbf{Box ~\ref{ECAssume}. Assumptions in GPR-based Enzyme Complex Formation} \\
-%% } {
-  % For Bioinformatics:
-
-  %\processtable{testing\label{ECAssume}} {
-  %\begin{center}
-  \begin{tabular}{| p{15cm} |}
+\ifthenelse{\boolean{thesisStyle}}{
+  \begin{tabular}{| p{\textwidth} |}
   \hline
-  \textbf{Table ~\ref{ECAssume} Assumptions in GPR-based Enzyme Complex Formation} \\
-%%}
-\hline
-\ifthenelse{\boolean{thesisStyle}}{\begin{enumerate}} {}
-\ifthenelse{\boolean{thesisStyle}}{\item} {} \begin{assume} \label{asm:expcorr}
-Expression values are highly correlated with the copy numbers of their
-corresponding peptide isoforms.
-\end{assume}
-\ifthenelse{\boolean{thesisStyle}}{\item} {} \begin{assume} \label{asm:isozyme} 
-Protein isoforms contributing to isozymes are considered part of the
-same enzyme complex.
-\end{assume}
-\ifthenelse{\boolean{thesisStyle}}{\item} {} \begin{assume} \label{asm:hierarchy}
-Any enzyme complex can be described as a hierarchical subset of
-(possibly redundant) subcomplexes; redundant subcomplexes, as
-elaborated in (\ref{asm:nostoich}), are not currently modeled.
-\end{assume}
-\ifthenelse{\boolean{thesisStyle}}{\item} {} \begin{assume} \label{asm:nostoich} 
-Assume one copy of peptide per complex; exact isoform stoichiometry
-is not considered.
-\end{assume}
-\ifthenelse{\boolean{thesisStyle}}{\item} {} \begin{assume} \label{asm:sharing} 
-With the exception of complexes having identical rules (i.e. the same
-complex listed for different reactions), each copy of a peptide
-is available for all complexes in the model.
-\end{assume}
-\ifthenelse{\boolean{thesisStyle}}{\item} {} \begin{assume} \label{asm:active_site}
-There is only one active site per enzyme complex.
-\end{assume}
-\ifthenelse{\boolean{thesisStyle}}{\item} {} \begin{assume} \label{asm:holo} 
-If a particular subcomplex can be catalyzed by A and it can also be
-catalyzed by A and B (e.g. B acts as a regulatory unit, as in
-holoenzymes), this just simplifies to A once expression values are
-substituted in. Similarly, allosteric regulation is not
-modeled. Relatedly, there are no NOT operations in GPR rules (just ANDs
-and ORs).
-\end{assume}
-\ifthenelse{\boolean{thesisStyle}}{\item} {} \begin{assume} \label{asm:chap} 
-Enzyme complexes form without the assistance of protein chaperones and
-formation is not coupled to other reactions.  
-\end{assume}
-\ifthenelse{\boolean{thesisStyle}}{\item} {} \begin{assume} \label{asm:rate} 
-Rate of formation and degradation of complexes doesn't play a role,
-since we assume steady-state. 
-\end{assume}
-\ifthenelse{\boolean{thesisStyle}}{\end{enumerate}} {} \\
-\hline
-\end{tabular}
-\end{table*}
+  \textbf{Box ~\ref{ECAssume}. \ECAssumeCap} \\
+  \hline
+  \input{falcon_assumptions}
+  \\ \hline
+  \end{tabular}
 
-%\end{center}
-%\ifthenelse{\boolean{thesisStyle}}{} {
-%} \end{table*}
-%}
+} {
+  % For Bioinformatics:
+  \begin{table*}[!t]
+  \processtable{\ECAssumeCap \label{ECAssume}}{
+  \begin{tabular}{| p{\textwidth} |}
+  \hline
+  \input{falcon_assumptions}
+  \\ \hline
+  \end{tabular}
+  }
+  {} % caption
+  \end{table*}
+}
 
 
-\begin{table}[!t]
-%So we know processtable is required to make the
-%table numbers
-%\processtable{This is table caption\label{Tab:01}}{
-\begin{tabular}{| p{4cm} |}
-head1\\
-row1\\
-row2\\
-row3\\
-row4\\
-\end{tabular}
-%}
-{This is a footnote}
-\end{table}
+
 
 
 There is no guarantee that a GPR rule has been written down with this

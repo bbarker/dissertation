@@ -1,0 +1,40 @@
+% I put this in to a separate file because formatting the table in different ways
+% is difficult; it may even be better to have multiple versions of this table
+% for different documents, but hopefully we can avoid such code duplication.
+
+%Internal part of the table:
+
+\begin{enumerate}
+\item \label{asm:expcorr}
+Expression values are highly correlated with the copy numbers of their
+corresponding peptide isoforms.
+\ifthenelse{\boolean{thesisStyle}}{\item} {}  \label{asm:isozyme} 
+Protein isoforms contributing to isozymes are considered part of the
+same enzyme complex.
+\item \label{asm:hierarchy}
+Any enzyme complex can be described as a hierarchical subset of
+(possibly redundant) subcomplexes; redundant subcomplexes, as
+elaborated in (\ref{asm:nostoich}), are not currently modeled.
+\item \label{asm:nostoich} 
+Assume one copy of peptide per complex; exact isoform stoichiometry
+is not considered.
+\item \label{asm:sharing} 
+With the exception of complexes having identical rules (i.e. the same
+complex listed for different reactions), each copy of a peptide
+is available for all complexes in the model.
+\item \label{asm:active_site}
+There is only one active site per enzyme complex.
+\item  \label{asm:holo} 
+If a particular subcomplex can be catalyzed by A and it can also be
+catalyzed by A and B (e.g. B acts as a regulatory unit, as in
+holoenzymes), this just simplifies to A once expression values are
+substituted in. Similarly, allosteric regulation is not
+modeled. Relatedly, there are no NOT operations in GPR rules (just ANDs
+and ORs).
+\item \label{asm:chap} 
+Enzyme complexes form without the assistance of protein chaperones and
+formation is not coupled to other reactions.  
+\item  \label{asm:rate} 
+Rate of formation and degradation of complexes doesn't play a role,
+since we assume steady-state. 
+\end{enumerate}
