@@ -96,9 +96,15 @@
 \usepackage{amsmath}
 \usepackage{hyperref}
 \usepackage{float}
+\def\pgfsysdriver{pgfsys-dvipdfm.def}
 \usepackage{tikz}
 \usepackage{algorithmic}
-\usepackage[amsmath,amsthm,thmmarks]{ntheorem}
+%\usepackage[amsmath,amsthm,thmmarks]{ntheorem}
+\usepackage{amsthm}
+
+\usepackage{float}
+\newfloat{AlgFloat}{t}{lop}
+
 
 %Some possible packages to include
 \usepackage{graphicx,pstricks}
@@ -146,17 +152,17 @@
 \begin{document}
 \newboolean{thesisStyle}
 \setboolean{thesisStyle}{true}
-% Define block styles
-\tikzstyle{decision} = [diamond, draw, fill=blue!20,
-    text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
-\tikzstyle{block} = [rectangle, draw, fill=blue!20,
-    text width=5em, text centered, node distance=3cm, minimum height=4em]
+% Define block styls
+\usetikzlibrary{shapes,arrows}
 \tikzstyle{line} = [draw, very thick, color=black!50, -latex']
-\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
-    minimum height=2em]
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=2em]
+\tikzstyle{decision} = [diamond, draw, fill=blue!20,
+    text badly centered, node distance=6em, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20,
+    text centered, node distance=4em]
 \tikzstyle{iogram} = [trapezium, draw, fill=pink!20,
-    trapezium left angle=70,trapezium right angle=-70, inner xsep=0pt,
-    text width=5em, text centered, node distance=3cm, minimum height=4em]
+    trapezium left angle=70, trapezium right angle=-70,
+    text centered, align=center, node distance=5em]
 
 
 \maketitle
