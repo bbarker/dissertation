@@ -8,3 +8,37 @@
 \tikzstyle{iogram} = [trapezium, draw, fill=pink!20,
     trapezium left angle=70, trapezium right angle=-70,
     text centered, align=center, node distance=5em]
+
+\newcommand{\suppOrApp}{
+  \ifthenelse{\boolean{thesisStyle}}
+    {appendix}
+    {supplementary information}
+}
+
+\newcommand{\falconAbstractMotivation}{
+A major theme in constraint-based modeling is unifying small-scale
+experimental data, such as biochemical information about the reactions
+that occur in a system or the composition and localization of enzyme
+complexes, with high-throughput data including expression data,
+metabolomics, or DNA sequencing. The desired result is to improve
+understanding about the metabolic pathways that are being used in a
+specific organism, type of cell, or environmental condition. The
+approach typically employed when only gene (or protein) intensities
+are available is the creation of tissue-specific models, which reduces
+the available reactions in an organism model, and does not provide an
+objective function for the estimation of fluxes, which is an important
+limitation in many modeling applications.
+}
+
+\newcommand{\falconAbstractResults}{
+We develop a method based on a technique originally applied in Yeast
+that employs metabolic network reconstructions along with expression
+data that estimates fluxes without needing to reduce the reaction set
+of the model.  Our extensions to the original technique include the
+capability to work with large models, an improved analysis of enzyme
+complex formation logic, the ability to handle very large complex
+rules that may incorporate multiple isoforms, significantly improved
+runtime, and depending on the model constraints, either maintained or
+significantly improved correlation with experimentally measured
+fluxes.
+}

@@ -41,3 +41,88 @@ because Algorithm~\ref{alg:ReductionToCNF} without step one simply yields CNF,
 and it follows that adding step one will yield the disjunction with 
 minimum expression value of the rule in CNF.
 \end{proof}
+
+\section{Code excerpt for minimum disjunction algorithm}
+\label{sec:code}
+
+The following code is written in ATS, a type-safe language including
+syntax similar to SML while having direct access to C types
+\cite{ATStypes03}.  GREXP describes a datatype that is used for
+storing the parse trees of Boolean rules (without negation).  A GREXP
+can then be manipulated by the function toCNF to be converted to a
+conjunctive normal form.  We make use of the reduction rule mentioned
+previously by calling the minConj function. The conjunctivize function
+is a helper function to deal with different structures for a GRconj
+and GRdisj (one is set based, one is parse-tree based; note this
+described in the data(view)type defintion). We note that this is a
+recursive, functional implementation of
+Algorithm~\ref{alg:ReductionToCNF}, which seems more straightforward
+than a procedural implementation.
+
+\begin{verbatim}
+dataviewtype GREXP = 
+  | GRgenes of genes
+  | GRconj of genes
+  | GRconj of (GREXP,GREXP)
+  | GRdisj of genes
+  | GRdisj of (GREXP,GREXP)
+
+extern
+fun toCNF (bexp: GREXP, emap: &gDMap): GREXP
+
+implement
+toCNF (bexp, emap): GREXP = let     
+  val LR:GREXP = (case+ bexp of 
+    | ~GRconj(ex1,ex2) => GRconj (toCNF(ex1,emap),toCNF(ex2,emap))
+    | ~GRdisj(ex1,ex2) => GRdisj (toCNF(ex1,emap),toCNF(ex2,emap))   
+    | GR => GR):GREXP
+  in (case+ LR of  
+    | ~GRconj(ex1,ex2) => minConj(GRconj(ex1,ex2),emap) 
+    | ~GRdisj(ex1,ex2) => (case+ (ex1,ex2) of
+      // Handle disjunctive leaf cases:         
+      | (~GRdisj(lx), ~GRgenes(g)) => GRdisj (lx + g) 
+      | (~GRgenes(g), ~GRdisj(rx)) => GRdisj (rx + g)
+      | (~GRdisj(lx), ~GRdisj(rx)) => GRdisj (lx + rx)
+      | (~GRgenes(g1), ~GRgenes(g2)) => GRdisj (g1 + g2)
+
+      // Distribute OR over ANDs:
+      | (~GRconj(x1,x2), ~GRconj(g)) => conj1(x1,x2,g,emap) 
+      | (~GRconj(g), ~GRconj(x1,x2)) => conj1(x1,x2,g,emap) 
+      | (~GRconj(g1), ~GRconj(g2)) => conj2(g1,g2,emap)
+      | (~GRconj(lx1,lx2), ~GRconj(rx1,rx2)) => let
+        val lx1c = GREXP_copy(lx1)
+        val lx2c = GREXP_copy(lx2) 
+        val rx1c = GREXP_copy(rx1)
+        val rx2c = GREXP_copy(rx2) 
+        in GRconj(GRconj(GRconj(toCNF(GRdisj(lx1,rx1),emap), 
+          toCNF(GRdisj (lx2, rx1c ),emap)),
+          toCNF(GRdisj (lx1c, rx2),emap)), 
+          toCNF(GRdisj (lx2c, rx2c),emap)) 
+        end
+
+      // Handle e.g.: (.. OR ..) OR (.. AND ...) 
+      | (~GRconj(lx1,lx2), RX) => let
+        val RXc = GREXP_copy(RX)
+        in GRconj(toCNF(GRdisj(lx1,RX),emap),
+          toCNF(GRdisj(lx2,RXc),emap)) 
+        end
+      | (LX ,~GRconj(rx1,rx2)) => let
+        val LXc = GREXP_copy(LX)
+        in GRconj(toCNF(GRdisj(LX,rx1),emap),
+          toCNF(GRdisj(LXc,rx2),emap)) 
+        end
+      | (~GRconj(gc), RX) => let
+        val retGR = toCNF(conjunctivize(RX, gc,emap),emap)
+        val _ = genes_free(gc)
+        in retGR end
+      | (LX, ~GRconj(gc)) => let
+        val retGR = toCNF (conjunctivize(LX, gc,emap),emap)
+        val _ = genes_free(gc)
+        in retGR end
+      // All other disjunctive cases
+      | (_,_) => GRdisj(toCNF(ex1,emap),toCNF(ex2,emap))
+      ):GREXP
+    | EX => EX
+    ):GREXP
+  end
+\end{verbatim}

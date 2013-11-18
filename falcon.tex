@@ -329,10 +329,6 @@ number.
   \end{table*}
 }
 
-
-
-
-
 There is no guarantee that a GPR rule has been written down with this
 hierarchical structure in mind, though it is likely the case much of
 the time as it is a natural way to model complexes.  However, any GPR
@@ -422,14 +418,14 @@ organisms.
 
 In the previous section, we showed that converting a rule to CNF is a
 sound method to aid in the estimation of enzyme complex copy number.
-However, attempting to symbolically convert the human ATP Synthase rule in
-Human Recon 2 to CNF is computationally intractable due to an
-exponential increase in memory \cite{Thiele2013}. Therefore, we use a
-reduction rule that makes use of expression data, outlined below.
-Note that the $AND$ and $OR$ notation is used to illustrate a
+However, attempting to symbolically convert some rules in YeastNet and
+many rules in Human Recon 2 to CNF is computationally intractable due
+to an exponential increase in memory \hl{(cite CS book)}. Therefore,
+we use a reduction rule that makes use of expression data, outlined
+below.  Note that the $AND$ and $OR$ notation is used to illustrate a
 data structure that represents a set of literals that are
 conjunctively or disjunctively joined together. The algorithm can be
-represented as follows: 
+described as follows:
 
 \begin{AlgFloat}[H]
 \begin{Algorithm}[min disjunction]
@@ -454,10 +450,15 @@ represented as follows:
 \end{AlgFloat}
 
 The third step greatly simplifies numeric manipulations and checking
-for the terminating condition. Please see below for the code for the
-core part of the algorithm. Now we show that the reduction step does
-not change the desired result of the algorithm.
-
+for the terminating condition. Please see the
+\suppOrApp~(\ref{sec:code}) for code for the core part of the
+algorithm. This algorithm returns the minimum disjunction because at
+each iteration, we select the literal with smallest value in a
+conjunction and remove all other literals in the conjuction;
+distributing ORs over ANDs and subsequently evaluating the associated
+expression values will not change which disjunction attains the
+minimum value. A slightly more detailed proof is given in the
+\suppOrApp~(\ref{thm:ReductionToCNF}).
 
 The method presented here for enzyme complex copy number estimation
 can be used as a stand-alone method, as long as GPR rules from a

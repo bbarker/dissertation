@@ -562,16 +562,7 @@ optimum for our fitness objective.
 
 \chapter{FALCON: Flux Assignment (with) LAD Convex Objectives}
 
-A major theme in constraint-based modeling is unifying small-scale
-experimental data, such as biochemical information about the reactions
-that occur in a system or the composition and localization of enzyme
-complexes, with high-throughput data including expression data,
-metabolomics, or DNA sequencing. The desired result is to improve
-understanding about the metabolic pathways that are being used in a
-specific organism, type of cell, or environmental condition.  In this
-work, we extend a method originally used in Yeast that employs
-metabolic network reconstructions along with expression data to work
-with large models, such as the recently released Human Recon 2.
+\falconAbstractMotivation \falconAbstractResults
 
 %%%%%%%%%%%%%%%%%%%
 %                 %
@@ -640,86 +631,6 @@ system. FALCON provides two possible avenues for soft constraints:
 expression level and expression variation. \emph{However, it is not
   clear yet what expression variation really means, so further
   investigation is necessary.}
-
-\section{Code}
-\subsection{minDisjunction}
-
-The following code is written in ATS, a type-safe language including syntax similar to SML while
-having direct access to C types \cite{ATStypes03}.
-GREXP describes a datatype that is used for storing the parse trees of Boolean rules (without negation).
-A GREXP can then be manipulated by the function toCNF to be converted to a conjunctive normal form.
-We make use of the reduction rule mentioned previously by calling the minConj function. The 
-conjunctivize function is a helper function to deal with different structures for a GRconj
-and GRdisj (one is set based, one is parse-tree based; note this described in the data(view)type defintion).
-
-\begin{verbatim}
-dataviewtype GREXP = 
-  | GRgenes of genes
-  | GRconj of genes
-  | GRconj of (GREXP,GREXP)
-  | GRdisj of genes
-  | GRdisj of (GREXP,GREXP)
-
-extern
-fun toCNF (bexp: GREXP, emap: &gDMap): GREXP
-
-implement
-toCNF (bexp, emap): GREXP = let     
-  val LR:GREXP = (case+ bexp of 
-    | ~GRconj(ex1,ex2) => GRconj (toCNF(ex1,emap),toCNF(ex2,emap))
-    | ~GRdisj(ex1,ex2) => GRdisj (toCNF(ex1,emap),toCNF(ex2,emap))   
-    | GR => GR):GREXP
-  in (case+ LR of  
-    | ~GRconj(ex1,ex2) => minConj(GRconj(ex1,ex2),emap) 
-    | ~GRdisj(ex1,ex2) => (case+ (ex1,ex2) of
-      // Handle disjunctive leaf cases:         
-      | (~GRdisj(lx), ~GRgenes(g)) => GRdisj (lx + g) 
-      | (~GRgenes(g), ~GRdisj(rx)) => GRdisj (rx + g)
-      | (~GRdisj(lx), ~GRdisj(rx)) => GRdisj (lx + rx)
-      | (~GRgenes(g1), ~GRgenes(g2)) => GRdisj (g1 + g2)
-
-      // Distribute OR over ANDs:
-      | (~GRconj(x1,x2), ~GRconj(g)) => conj1(x1,x2,g,emap) 
-      | (~GRconj(g), ~GRconj(x1,x2)) => conj1(x1,x2,g,emap) 
-      | (~GRconj(g1), ~GRconj(g2)) => conj2(g1,g2,emap)
-      | (~GRconj(lx1,lx2), ~GRconj(rx1,rx2)) => let
-        val lx1c = GREXP_copy(lx1)
-        val lx2c = GREXP_copy(lx2) 
-        val rx1c = GREXP_copy(rx1)
-        val rx2c = GREXP_copy(rx2) 
-        in GRconj(GRconj(GRconj(toCNF(GRdisj(lx1,rx1),emap), 
-          toCNF(GRdisj (lx2, rx1c ),emap)),
-          toCNF(GRdisj (lx1c, rx2),emap)), 
-          toCNF(GRdisj (lx2c, rx2c),emap)) 
-        end
-
-      // Handle e.g.: (.. OR ..) OR (.. AND ...) 
-      | (~GRconj(lx1,lx2), RX) => let
-        val RXc = GREXP_copy(RX)
-        in GRconj(toCNF(GRdisj(lx1,RX),emap),
-          toCNF(GRdisj(lx2,RXc),emap)) 
-        end
-      | (LX ,~GRconj(rx1,rx2)) => let
-        val LXc = GREXP_copy(LX)
-        in GRconj(toCNF(GRdisj(LX,rx1),emap),
-          toCNF(GRdisj(LXc,rx2),emap)) 
-        end
-      | (~GRconj(gc), RX) => let
-        val retGR = toCNF(conjunctivize(RX, gc,emap),emap)
-        val _ = genes_free(gc)
-        in retGR end
-      | (LX, ~GRconj(gc)) => let
-        val retGR = toCNF (conjunctivize(LX, gc,emap),emap)
-        val _ = genes_free(gc)
-        in retGR end
-      // All other disjunctive cases
-      | (_,_) => GRdisj(toCNF(ex1,emap),toCNF(ex2,emap))
-      ):GREXP
-    | EX => EX
-    ):GREXP
-  end
-\end{verbatim}
-
 
 \chapter{Cancer Phenotypes and FALCON}
 
