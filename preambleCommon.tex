@@ -1,0 +1,50 @@
+\def\pgfsysdriver{pgfsys-dvipdfm.def}
+
+\usepackage{algorithmic}
+\usepackage{float}
+\usepackage{ifthen}
+\usepackage{soul} %For highlights
+\usepackage{tikz}
+
+%Some possible packages to include
+\usepackage{epsfig}
+\usepackage{graphicx,pstricks}
+\usepackage{graphics}
+\usepackage{hangcaption}
+\usepackage{palatino}
+\usepackage{subfigure}
+\usepackage{txfonts}
+
+
+\graphicspath{{./figures/}}
+
+\usetikzlibrary{shapes, arrows}
+
+\makeatletter
+\newlength{\parskipsave}
+\newcommand\floatc@plainthin[2]{
+\setbox\@tempboxa\hbox{{\@fs@cfont #1:} #2}
+   \hbox to\hsize{\hfil\box\@tempboxa\hfil}\fi}
+\newcommand\fs@plainthin{
+  \def\@fs@cfont{\rmfamily}\let\@fs@capt\floatc@plainthin
+  \def\@fs@pre{}
+  \def\@fs@post{\vspace{-2.5em}}
+  \def\@fs@mid{\vspace\abovecaptionskip\relax}
+  \let\@fs@iftopcapt\iffalse}
+\makeatother
+
+\floatstyle{plainthin}
+\newfloat{AlgFloat}{h}{lop}
+
+
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\newcommand{\INDSTATE}[1][1]{\STATE\hspace{#1\algorithmicindent}}
+
+
+\newtheorem{Theorem}{Theorem}
+\theoremstyle{break}
+\newtheorem{Algorithm}{Algorithm}
