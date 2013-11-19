@@ -37,7 +37,7 @@ procedure, such as min-norm FBA (flux balance analysis), empirical
 measurements, or a combination of these. Then for an undetermined flux
 vector $\mathbf{v}$ in a model with $N$ reactions the optimization
 objective can be expressed as
-\[ \textnormal{minimize}\ \sum^N_{i=1}(v_i-a_i)^2 \] subject to the
+\[ \textnormal{minimize}\ \sum\limits_{i=1}^N (v_i-a_i)^2 \] subject to the
 stoichiometric constraints $\mathbf{S v} = \mathbf{0}$ where
 $\mathbf{v} = (v_1, \ldots, v_N)^T$. This assumes that each $a_i$ is
 measured, but it is also possible and sometimes even more useful to
@@ -65,7 +65,7 @@ linear MoMA, which assumes the existence of a constant flux vector
 $\mathbf{a}$ and is expressed as the following linear program:
 
 \begin{align*}
-&\textnormal{minimize}\ \sum^N_{i=1}d_i  \\
+&\textnormal{minimize}\ \sum\limits_{i=1}^N d_i  \\
 &s.t.\\
 &\mathbf{S v} = \mathbf{0} \\
 &\mathbf{v}_{lb} \preceq \mathbf{v} \preceq \mathbf{v}_{ub} \\
@@ -506,9 +506,11 @@ estimated expression values $e_i$, we can describe the new problem as:
   \ENDIF
   %\begin{align*}
   \STATE {Call LP Solver:}
-  \INDSTATE $\textnormal{minimize}\ \sum^N_{i=1}\frac{d_i}{n \sigma_i}$  \\
+  \INDSTATE $\textnormal{minimize}\ \sum\nolimits_{i=1}^N \frac{d_i}{n
+    \sigma_i}$ \\
   \INDSTATE s.t. \\
-  \INDSTATE $\forall i: -d_i \leq \sum_{j \in R_i}(v_{j,f} + v_{j,b}) - n e_i \leq d_i$ \\
+  \INDSTATE $\forall i: -d_i \leq \sum\nolimits_{j \in R_i} (v_{j,f} +
+    v_{j,b}) - n e_i \leq d_i$ \\
   \INDSTATE $d_i, v_{j,f}, v_{j,b} \geq 0$ \\
   \INDSTATE $n > 0$
   %\end{align*}
