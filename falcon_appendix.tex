@@ -126,3 +126,47 @@ toCNF (bexp, emap): GREXP = let
     ):GREXP
   end
 \end{verbatim}
+
+\section{FALCON internals and experimental features}
+\label{sec:internals}
+
+\subsection{EXPCON: expression constraints for $V_{max}$}
+An experimental feature that has been implemented is to constrain
+enzymatic fluxes to be strictly less than or equal to the
+automatically scaled enzyme intensity level. For example, in the
+notation of Algorithm~\ref{alg:FALCON}, for each reversible $v_j$
+associated to enzyme complex $i$, we would have the additional
+constraints:
+
+\[ v_{j,f} \leq n e_i \]
+\[ v_{j,b} \leq n e_i \]
+
+This feature may be employed by setting the \texttt{EXPCON} parameter
+to \texttt{true} when calling \texttt{falcon}. We implemented this
+feature because we have seen and heard of others seeing promising
+results when naively using scaled expression to act as a surrogate for
+$V_{max}$ in standard FBA. In the present study, we observed similar
+results when using this parameter, suggesting that---at least for the
+yeast models---this parameter may provide additional benefit when
+appended to the existing FALCON machinery. We speculate that larger
+and less constrained models may benefit from employing this parameter.
+
+\subsection{Debugging and developing falcon}
+The \texttt{FDEBUG} parameter to \texttt{falcon} can be used to
+display additional information while the FALCON algorithm is
+running. As this can potentially be quite verbose, \texttt{FDEBUG} is
+normally set to \texttt{false}. \texttt{FDEBUG} is also a parameter to
+\texttt{computeMinDisj}, the MATLAB wrapper function for the
+\texttt{minDisj} executable, and is used similarly there.
+
+
+\subsection{Including reversible reactions in the FALCON objective}
+Since FALCON has been designed for use with irreversible models, there
+is no mathematical problem with including both the forward and
+backward reactions of a reversible reaction in the FALCON objective,
+but this may give undesired results in some cases, such as cycles
+between the forward and backward reactions (the cycles are not a
+problem directly because they can be removed: see the functions
+\texttt{setFBRxnDirection} in \texttt{falcom.m}.  These cycles can
+then give rise to objective values that may be quite high simply due
+to having many cycles.
