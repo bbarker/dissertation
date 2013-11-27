@@ -17,9 +17,8 @@ titration to grow on synthetic media. In what follows we first discuss
 the MoMA algorithm since it is heavily extended in order to allow us
 to use expression data for the estimation of flux data.
 
-\hl{The following subsection on MoMA will probably be moved to the
-preceding chapter which also makes use of MoMA.}
-
+% May eventually want to make this a conditional include section
+% and include it earlier in dissertation.
 \subsection{MoMA: Minimization of Metabolic Adjustment}
 
 The minimization of metabolic adjustment (MoMA) method
@@ -349,7 +348,7 @@ with one active site per identical subunit would be considered as one
 enzyme complex per subunit in this model.
 Note that it is possible for an enzyme complex to catalyze different
 reactions. In fact, some transporter complexes can transfer many
-different metabolites \hl{across a lipid bilayer--up to}. Another
+different metabolites \hl{across a lipid bilayer---up to}. Another
 example is the ligation or hydrolysis of nucleotide, fatty acid, or
 peptide chains, where chains of different length may all be substrates
 or products of the same enzyme complex. While we do not explicitly
@@ -596,7 +595,7 @@ benchmarking in \cite{Lee2012}, we find that our algorithm has
 significant improvements in time efficiency while maintaining
 correlation with experimental fluxes, and \hl{GIMME speed?} is as fast as all tested
 methods with the exception of standard FBA, which does not use
-expression data as input (\ref{Table XX}). Furthermore, when we remove
+expression data as input (\ref{Table XX}, \ref{Figure Barplots}). Furthermore, when we remove
 many bounds constraining the direction of enzymatic reactions that
 aren't explicitly annotated as being irreversible in \cite{Lee2012},
 we find that our formulation of the approach seems to be more robust
@@ -637,12 +636,17 @@ of constraint-based methods also estimating fluxes for non-enzymatic
 reactions, and assigning a direction for reversible enzymatic
 reactions, we see that in general, our method does not predict a
 strong correlation between enzyme complex levels and fluxes
-(\ref{Figure XX}).  A recent study has also shown that many fluxes are
-not under direct control of their associated enzyme complex expression
-level (\hl{cite Sauer et al.}), which gives experimental support to
-the idea that perhaps a network-based approach with soft contraints,
-such as that presented in this paper, may be useful in understanding
-how fluxes may be constrained by expression data.
+(\ref{Figure XX}). \cite{Chubukov2013} show that many fluxes are not
+under direct control of their associated enzyme complex expression
+level, which gives experimental support to the idea that a
+network-based approach with soft contraints, such as that presented in
+this paper, may be useful in understanding how fluxes may be
+constrained by expression data. \cite{Chubukov2013} also note that
+enzymes may be overexpressed in some cases, either for robustness or
+because of noise in transcriptional regulation. This will not usually
+be a problem in FALCON, unless entire pathways are overexpressed,
+which would be unusual as it would represent a seemingly large
+energetic inefficiency.
 
 We have formalized and improved an existing method for estimating flux
 from expression data, as well as listing detailed assumptions in the
@@ -658,12 +662,6 @@ as opposed to methods that continue to use expression to further
 constrain the model by creating tissue-specific or condition-specific
 models \hl{(cite Tissue Specific modeling papers)}.
 
-%%%%
-\hl{Either here or below, cite recent Sauer paper: note that:
-1: enzymes may be present in excess (but as long as not all
-enzymes in a pathway have this problem, our method is likely
-to combat this issue)}
-%%%%
 Another caveat is that GPR rules or stoichiometry may be inaccurate or
 incomplete in any given model. In fact, for the forseeable future,
 this is a given. By using the GPR and not just the stoichiometry to
