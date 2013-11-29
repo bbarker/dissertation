@@ -6,12 +6,13 @@ Becker, S.~a. and Palsson, B.~O. (2008).
   experiments.}
 \newblock {\em PLoS Comput. Biol.}, {\bf 4}(5), 1--10.
 
-\bibitem[Bennett {\em et~al.}(2010)Bennett, Kimball, Gao, Osterhout, Van, and
-  Rabinowitz]{Bennett2010}
-Bennett, B.~D., Kimball, E.~H., Gao, M., Osterhout, R., Van, S.~J., and
-  Rabinowitz, J.~D. (2010).
-\newblock {NIH Public Access}.
-\newblock {\bf 5}(8), 593--599.
+\bibitem[Bennett {\em et~al.}(2009)Bennett, Kimball, Gao, Osterhout, {Van
+  Dien}, and Rabinowitz]{Bennett2009}
+Bennett, B.~D., Kimball, E.~H., Gao, M., Osterhout, R., {Van Dien}, S.~J., and
+  Rabinowitz, J.~D. (2009).
+\newblock {Absolute metabolite concentrations and implied enzyme active site
+  occupancy in Escherichia coli}.
+\newblock {\em Nat Chem Biol\/}, {\bf 5}(8), 593--599.
 
 \bibitem[Bernstein {\em et~al.}(1978)Bernstein, Koetzle, Williams, {Meyer Jr.},
   Brice, Rodgers, Kennard, Shimanouchi, and Tasumi]{Bernstein1978}
@@ -42,8 +43,8 @@ Chubukov, V., Uhr, M., {Le Chat}, L., Kleijn, R.~J., Jules, M., Link, H.,
   substrate-induced flux changes in Bacillus subtilis}.
 \newblock {\em Mol Syst Biol\/}, {\bf 9}.
 
-\bibitem[Gezelter {\em et~al.}(????)Gezelter, Smith, and Willighagen]{Gezelter}
-Gezelter, D., Smith, B.~A., and Willighagen, E. (????).
+\bibitem[Gezelter {\em et~al.}(2013)Gezelter, Smith, and Willighagen]{Gezelter}
+Gezelter, D., Smith, B.~A., and Willighagen, E. (2013).
 \newblock {Jmol: an open-source Java viewer for chemical structures in 3D}.
 
 \bibitem[Gibbons {\em et~al.}(2000)Gibbons, Montgomery, Leslie, and
@@ -148,7 +149,7 @@ Segr\`{e}, D., Vitkup, D., and Church, G.~M. (2002).
   Locasale]{Shestov2013a}
 Shestov, A.~A., Barker, B., Gu, Z., and Locasale, J.~W. (2013).
 \newblock {Computational approaches for understanding energy metabolism}.
-\newblock {\em Wiley Interdiscip. Rev. Syst. Biol. Med.}, pages n/a--n/a.
+\newblock {\em Wiley Interdiscip. Rev. Syst. Biol. Med.}, {\bf 5}(6), 733--750.
 
 \bibitem[Shlomi {\em et~al.}(2005)Shlomi, Berkman, and Ruppin]{Shlomi2005}
 Shlomi, T., Berkman, O., and Ruppin, E. (2005).

@@ -210,7 +210,7 @@ enzyme complexes.
 \centering
 \includegraphics[clip=true,trim=0cm 0cm 0cm 0cm, width=12cm]{2F43}
 \caption{Illustration of the $F_1$ part of the ATP Synthase complex
-  (PDB ID 1E79; \citet{Gibbons2000,Bernstein1978,Gezelter}).
+  (PDB ID 1E79; \citealt{Gibbons2000,Bernstein1978,Gezelter}).
   This illustration demonstrates both how an enzyme complex may be
   constituted by multiple subunits (left), and how some of those
   subunits may be products of the same gene and have differing
@@ -394,7 +394,7 @@ regulation.
 Due to the quickness, stability, and energetic favorability of enzyme
 complex formation, the absence of chaperones or coupled metabolic
 reactions required for complex formation may be reasonable
-assumptions, but further research is warranted \cite{Karr2012}.
+assumptions, but further research is warranted \citep{Karr2012}.
 Additionally, as in metabolism, we assume a steady state for complex
 formation, so that rate laws regarding complex formation aren't
 needed. However, further research may be warranted to investigate the
@@ -467,7 +467,7 @@ state of the model at a time $t$.
 \subsection{Formulation with Automatic Normalization and Fast Direction Assignment}
 Unlike the original formulation of FALCON, we employ a normalization variable $n$ in the problem
 to find the most agreeable scaling of expression data. Additional technical constraints not shown
-from Linear Fractional Programming (LFP) require $n$ to be non-zero \cite{Boyd2004}. The
+from Linear Fractional Programming (LFP) require $n$ to be non-zero \citep{Boyd2004}. The
 LFP shown below can be converted to a linear program by the Charnes-Cooper transformation.
 However, in the first iteration of the algorithm, we ask the user to
 specify an enzyme-associated reaction $v_{scale}$ and associated flux
@@ -673,7 +673,7 @@ incomplete in any given model. In fact, for the forseeable future,
 this is a given. By using the GPR and not just the stoichiometry to
 estimate flux, it is possible that future work could make use of this
 framework to debug not just stoichiometry as some methods currently do
-(e.g.\ \citet{Reed14112006}) , but also GPR rules.  Hope for
+(e.g.\ \citealt{Reed14112006}) , but also GPR rules.  Hope for
 improved gene rule annotation may come from many different avenues of
 current research. For instance, algorithms exist for reconstructing
 biological process information from large-scale datasets, and
@@ -692,7 +692,7 @@ One may wonder why the present work doesn't attempt to use empirically
 obtained kinetic parameters to estimate $v_{max}$, but this approach
 does not seem as promising in light of experimental evidence that many
 reactions in central carbon metabolism tend to operate well below
-$v_{max}$ \cite{Bennett2010}. Still, a better understanding of these
+$v_{max}$ \citep{Bennett2009}. Still, a better understanding of these
 phenomena may make it possible to improve flux estimation methods such
 as the one presented here, or more traditional forms of MFA
 \citep{Shestov2013a} by incorporating enzyme complexation and kinetic
