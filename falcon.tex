@@ -465,88 +465,100 @@ can estimate individual gene expression levels at time $t+1$ given the
 state of the model at a time $t$.
 
 \subsection{Formulation with Automatic Normalization and Fast Direction Assignment}
-Unlike the original formulation of FALCON, we employ a normalization variable $n$ in the problem
-to find the most agreeable scaling of expression data. Additional technical constraints not shown
-from Linear Fractional Programming (LFP) require $n$ to be non-zero \citep{Boyd2004}. The
-LFP shown below can be converted to a linear program by the Charnes-Cooper transformation.
-However, in the first iteration of the algorithm, we ask the user to
-specify an enzyme-associated reaction $v_{scale}$ and associated flux
-constant $c_{scale}$ so that when the $e_i$ are scaled, we have
-$e_{scale} = v_{scale} = c_{scale}$. This guarantees that the
+We employ a normalization variable $n$ in the problem
+to find the most agreeable scaling of expression data. The
+LFP shown below can be converted to a linear program by the Charnes-Cooper transformation
+ \citep{Boyd2004}.
+To avoid the need for fixing a specific flux, which may introduce bias,
+we introduce the bound
+
+This guarantees that the
 optimization problem will yield a non-zero flux vector and also helps
 to put the fluxes and expression measures on the same order of
 magnitude, which can be important for numerical stability.
 
-Additionally, the original formulation
-used repeated iterations of FVA (Flux Variability Analysis). This is a very costly procedure. 
-To address this, we convert the model to an irreversible model, where each reversible flux $v_j$
-in the original model is split into a forward and backward reaction that take strictly positive
-values: $v_{j,f}$ and $v_{j,b}$. To keep track of how many reactions
-are currently irreversible, we use the variables $rxns_{irrev}$ and
-$rxns_{irrev,prior}$. The algorithm terminates when no more reactions
-can be found to have a definite direction.  Given indexed families
-$R_i$ of reactions with the identical gene rules in each set and
-estimated expression values $e_i$, we can describe the new problem as:
+The original formulation used repeated iterations of FVA (Flux Variability Analysis)
+\citep{Lee2012}. We removed FVA to mitigate some of the cost, and instead 
+assign flux direction in batch; while it is possible that the objective value
+may decrease using this approach, this is not an issue since the objetive
+function increases to include more irreversible fluxes at each iteration,
+and the objective value of a function with more fluxes should supersede
+the importance of one with fewer fluxes.
+ 
+To make working with irreversible fluxes simpler, we convert the model
+to an irreversible model, where each reversible flux $v_j$ in the
+original model is split into a forward and backward reaction that take
+strictly positive values: $v_{j,f}$ and $v_{j,b}$. If $v_j$ is
+specified without a forward or backward subscript and it is in the
+context of an irreversible model, this implies that the reaction
+direction is irreversible. We also account for enzyme complexes
+catalyzing multiple reactions (i.e.\ reactions with identical gene
+rules in each set) by including all the reactions in the same residual
+constraint; indexed sets of reactions are denoted $R_i$ and their
+corresponding estimated enzyme intensity is $e_i$. Note that we use a
+slight abuse of notation, since we also choose to index enzyme
+intensity as $e_j$ for a specific reaction, where $j = i$ does not
+imply $e_i = e_j$.  The standard deviation of enzyme intensity,
+$\sigma_i$, is an optional weighting of uncertainty in biological or
+technical replicates.
+
+To keep track of how many reactions are irreversible in the current
+and prior iteration, we use the variables $rxns_{irrev}$ and
+$rxns_{irrev,prior}$. The algorithm terminates when the number of
+reversible reactions remains constant after an iteration.
 
 \begin{AlgFloat}[H]
 \begin{Algorithm}[FALCON]
 \label{alg:FALCON}
 \begin{algorithmic}
 \ifthenelse{\boolean{thesisStyle}}{\singlespacing}{}
-~
+~\\
+$u_{min} = min_j\ V_{j,max} $ s.t. $V_{j,max} > 0$\\
+$V_{lb}^{\Sigma} = u_{min} \sum\nolimits_{j=1}^N 
+  isIrreversible(v_j) \land exists(e_j)$\\
+\FORALL {j}
+  \STATE $e_j = \frac{e_j V_{lb}^{\Sigma}}
+    {\sum\nolimits_{j=1}^N e_j}$\\ 
+  \STATE $\sigma_j = \frac{\sigma_j V_{lb}^{\Sigma}}
+    {\sum\nolimits_{j=1}^N \sigma_j}$\\ 
+\ENDFOR
 \WHILE{$rxns_{irrev} > rxns_{irrev,prior}$}
   \STATE {$rxns_{irrev,prior} := rxns_{irrev}$}
-  \IF {first iteration}
-  \STATE {Constrain a user-specified flux $v_{scale} = c_{scale}$} 
-  \INDSTATE {(either forward or backward) to a nonzero value.}
-  \STATE {Scale $e_i$ so that $e_{scale} = v_{scale} = c_{scale}$.}
-  \ELSE 
-  \STATE {Restore original constraints for user specified flux.}
-  \ENDIF
+  \STATE $V_{lb}^{\Sigma} = u_{min} \sum\nolimits_{j=1}^N 
+    isIrreversible(v_j) \land exists(e_j)$\\
+  %\IF {first iteration}
+  %\STATE {Constrain a user-specified flux $v_{scale} = c_{scale}$} 
+  %\INDSTATE {(either forward or backward) to a nonzero value.}
+  %\STATE {Scale $e_i$ so that $e_{scale} = v_{scale} = c_{scale}$.}
+  %\ELSE 
+  %\STATE {Restore original constraints for user specified flux.}
+  %\ENDIF
   %\begin{align*}
   \STATE {Call LP Solver:}
-  \INDSTATE $\textnormal{minimize}\ \sum\nolimits_{i=1}^N \frac{d_i}{n
+  \INDSTATE $\textnormal{minimize}\ \sum\limits_{i=1} \frac{d_i}{n
     \sigma_i}$ \\
   \INDSTATE s.t. \\
+  \INDSTATE $\sum_{j \textnormal{\ with existing\ } e_j}^N v_j \geq V_{lb}^{\Sigma}$ 
   \INDSTATE $\forall i: -d_i \leq \sum\nolimits_{j \in R_i} (v_{j,f} +
     v_{j,b}) - n e_i \leq d_i$ \\
   \INDSTATE $d_i, v_{j,f}, v_{j,b} \geq 0$ \\
   \INDSTATE $n > 0$
   %\end{align*}
-  \FORALL {$v_{i,f} > 0$}
-  \IF {$v_{i,f} = v_{i,b}$}
-  \STATE {Constrain $v_{i,f}, v_{i,b} = 0$.}  
+  %\FORALL {$v_{i,f} > 0$}
+  %\IF {$v_{i,f} = v_{i,b}$}
+  %\STATE {Constrain $v_{i,f}, v_{i,b} = 0$.}  
+  %\STATE {$rxns_{irrev}$++}
+  %\ENDIF
+  %\IF {$v_{i,b} > 0$}
+  \FORALL {$v_j$}
+  \STATE {Constrain the smaller of $v_{j,f}$ and $v_{j,b}$ to be $0$.}  
   \STATE {$rxns_{irrev}$++}
-  \ENDIF
-  \IF {$v_{i,b} > 0$}
-  \STATE {Constrain the smaller of $v_{i,f}$ and $v_{i,b}$ to be $0$.}  
-  \STATE {$rxns_{irrev}$++}
-  \ENDIF
   \ENDFOR
 \ENDWHILE
 \end{algorithmic}
 \end{Algorithm}
 \end{AlgFloat}
 
-Note that as in the original FALCON paper, $\sigma_i$ is an optional weighting of variation
-in biological or technical replicates. 
-
-In the original formulation, FVA uses an objective with a $-1$ or $+1$ for each reversible reaction 
-with all other reactions having a 0. If having a non-zero flux in the negative or positive direction
-does not increase the residuals' magnitude (which is the objective of the FALCON problem), then 
-the reaction is made irreversible for subsequent iterations. Eventually this process terminates
-when the number of reversible reactions remains constant. 
-
-\hl{Need to check the following 3 paragraphs for changes.}
-During each iteration we allow flux through both $v_f$ and $v_b$;
-  if one of these is is greater than the other, then the lesser flux
-  is constrained to be zero in subsequent iterations. What can be done
-  in practice is to pick a parameter $\alpha \in [0.5,1)$ so that if
-    $\frac{v_f}{v_f+v_b} > \alpha$ then $v_b$ is constrained to be 0
-    subsequently. This parameter could also be changed as iterations
-    progress, but so far there appears to be no advantage to using
-    anything other than $0.5$ (larger values terminate more quickly,
-    but with slightly fewer reaction directions determined).
 
 If $v_f = v_b$ after an iteration, we constrain both reactions to be
 zero, since this is a futile cycle. Otherwise, the flux through these
