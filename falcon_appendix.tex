@@ -1,4 +1,3 @@
-
 \section{Proof for the minDisjunction algorithm}
 
 Although the logic in the main text may be straightforward, we show
@@ -31,14 +30,14 @@ immediately arrive at $(x_1) \lor (x_3)$, which gives our originally
 assumed minimum. To show that this result doesn't depend on the $x_i$
 being literals, merely consider repeating this process recursively for
 each $x_i$ that is not a literal to arrive at two different
-evaluations for $x_i^{(e)}$ (one where each evaluation is done with reduction, 
-and one where we evaluate entirely without reduction). 
-Since the process cannot continue
-indefinitely, eventually there is a base case involving only literals,
-and the above result shows that, at each step, as we backtrack from the base case,
-both evaluations will be identical. The desired result is obtained
-because Algorithm~\ref{alg:ReductionToCNF} without step one simply yields CNF,
-and it follows that adding step one will yield the disjunction with 
+evaluations for $x_i^{(e)}$ (one where each evaluation is done with
+reduction, and one where we evaluate entirely without reduction).
+Since the process cannot continue indefinitely, eventually there is a
+base case involving only literals, and the above result shows that, at
+each step, as we backtrack from the base case, both evaluations will
+be identical. The desired result is obtained because
+Algorithm~\ref{alg:ReductionToCNF} without step one simply yields CNF,
+and it follows that adding step one will yield the disjunction with
 minimum expression value of the rule in CNF.
 \end{proof}
 
@@ -133,7 +132,7 @@ toCNF (bexp, emap): GREXP = let
 \subsection{EXPCON: expression constraints for $V_{max}$}
 An experimental feature that has been implemented is to constrain
 enzymatic fluxes to be strictly less than or equal to the
-automatically scaled enzyme intensity level. For example, in the
+automatically scaled enzyme abundance. For example, in the
 notation of Algorithm~\ref{alg:FALCON}, for each reversible $v_j$
 associated to enzyme complex $i$, we would have the additional
 constraints:

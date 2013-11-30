@@ -48,7 +48,7 @@ small subset of all fluxes are able to be estimated with metabolic
 flux analysis (MFA). Combining MoMA with MFA provides a technique to
 potentially estimate other fluxes in the network.  Constant bounds on
 fluxes are often present, such as substrate uptake limits, or
-experimental $V_{max}$ estimates, so we write these as the constraints
+experimental $V_{\max}$ estimates, so we write these as the constraints
 $\mathbf{v}_{lb} \preceq \mathbf{v} \preceq \mathbf{v}_{ub}$.
 
 The objective may be equivalently expressed in the canonical quadratic
@@ -119,9 +119,11 @@ completely disable a reaction. These are typically called GPR
 validity, like the stoichiometric matrix, will undoubtedly be
 important for generating accurate predictions. Also important are the
 assumptions and limitations for the process of mapping expression data
-to complexes. We address these in the next section and have attached a
-flow chart to illustrate the overall process of mapping expression of
-individual genes to enzyme complexes (figure~\ref{ECCN_flowchart}).
+to complexes so that a scaled enzyme complex copy number (hereafter
+referred to as complex abundance) can be estimated.  We address these
+in the next section and have attached a flow chart to illustrate the
+overall process of mapping expression of individual genes to enzyme
+complexes (figure~\ref{ECCN_flowchart}).
 
 \vspace{5 mm} 
 \begin{figure}
@@ -148,7 +150,7 @@ individual genes to enzyme complexes (figure~\ref{ECCN_flowchart}).
 \end{tikzpicture}
 \end{center}
 \caption{Flowchart illustrating the process of estimating enzyme
-  complex copy number. First, for each gene in the model with
+  complex abundance. First, for each gene in the model with
   available expression data, the mean and (if available) variance or
   some other measure of uncertainty are read in. Gene rules (also
   called GPR rules) are also read in for each enzymatic reaction. The
@@ -237,7 +239,7 @@ abundance of most enzyme complexes.
 \end{figure*}
 
 \emph{Assumption~\ref{asm:hierarchy}.}
-The original expression to complex-intensity mapping procedure
+The original expression to complex abundance mapping procedure
 performed a direct evaluation of gene rule expression
 values---replacing gene names with their expression values, ANDs with
 minimums, and ORs with sums, without altering the logical expression
@@ -253,8 +255,8 @@ more across disjunctions:
 \begin{AlgFloat}[H]
 {\setlength{\tabcolsep}{.16667em}
 \begin{tabular}{cccccccc}
-& $r_1$ & := & [A and B] or [A and C] & $\rightarrow$ & $e_1$  &=& min($a,b$) + min($a,c$) \\ 
-& $r_2$ & := & [A and (B or C)]       & $\rightarrow$ & $e_2$  &=&  min($a, b + c$) 
+& $r_1$ & := & [A and B] or [A and C] & $\rightarrow$ & $e_1$  &=& $\min(a,b$) + $\min(a,c$) \\ 
+& $r_2$ & := & [A and (B or C)]       & $\rightarrow$ & $e_2$  &=&  $\min(a, b + c$) 
 \end{tabular} 
 }
 \end{AlgFloat}
@@ -423,7 +425,7 @@ impossible) if such a penalty were very larege due to the cost this
 would imply for many of the large and important enzyme complexes
 present in all organisms \citep{Nelson2008}.
 
-\subsection{The Min Disjunction Algorithm Estimates \\Enzyme Complex Copy Number}
+\subsection{The min-disjunction algorithm estimates \\enzyme complex abundance}
 
 In the previous section, we showed that converting a rule to CNF is a
 sound method to aid in the estimation of enzyme complex copy number.
@@ -453,7 +455,7 @@ described as follows:
     \hspace{4.8 mm} $g_1 \land g_2 \rightarrow AND(g_1,g_2)$;  \\
     \hspace{4.8 mm} $g_1 \land AND(g_2,g_3) \rightarrow AND(g_1,g_2,g_3)$ 
 \ENDWHILE
-\ENSURE $o_{min}$ where $o_{min}$ has the form: $OR(g_1,...,g_m)$
+\ENSURE $o_{\min}$ where $o_{\min}$ has the form: $OR(g_1,...,g_m)$
 \end{algorithmic} 
 \end{Algorithm}
 \end{AlgFloat}
@@ -469,28 +471,16 @@ expression values will not change which disjunction attains the
 minimum value. A slightly more detailed proof is given in the
 \suppOrApp~(\ref{thm:ReductionToCNF}).
 
-The method presented here for enzyme complex copy number estimation
-can be used as a stand-alone method, as long as GPR rules from a
-metabolic reconstruction are present. For instance, it may not always
-be desirable to directly compute a flux. As an example, the relative
-copy number of enzyme complexes present in secretions from various
-biological tissues, such as milk or pancreatic secretions, may still
-be of interest even without any intracellular flux data.  Perhaps more
-importantly, this approach to estimating relative complex levels can
-be employed with regulatory models such as PROM
-\citep{Chandrasekaran2010a} or other regulatory network models that
-can estimate individual gene expression levels at time $t+1$ given the
-state of the model at a time $t$.
-
 \subsection{Formulation with Automatic Normalization and Fast Direction Assignment}
 
-The original formulation used repeated iterations of FVA (Flux Variability Analysis)
-\citep{Lee2012}. We removed FVA to mitigate some of the cost, and instead 
-assign flux direction in batch; while it is possible that the objective value
-may decrease using this approach, this is not an issue since the objetive
-function increases to include more irreversible fluxes at each iteration,
-and the objective value of a function with more fluxes should supersede
-the importance of one with fewer fluxes.
+The original formulation used repeated iterations of FVA (Flux
+Variability Analysis) \citep{Lee2012}. We removed FVA to mitigate some
+of the cost, and instead assign flux direction in batch; while it is
+possible that the objective value may decrease using this approach,
+this is not an issue since the objetive function increases to include
+more irreversible fluxes at each iteration, and the objective value of
+a function with more fluxes should supersede the importance of one
+with fewer fluxes.
  
 To make working with irreversible fluxes simpler, we convert the model
 to an irreversible model, where each reversible flux $v_j$ in the
@@ -502,12 +492,12 @@ direction is irreversible. We also account for enzyme complexes
 catalyzing multiple reactions (i.e.\ reactions with identical gene
 rules in each set) by including all the reactions in the same residual
 constraint; indexed sets of reactions are denoted $R_i$ and their
-corresponding estimated enzyme intensity is $e_i$. Note that we use a
+corresponding estimated enzyme abundance is $e_i$. Note that we use a
 slight abuse of notation, since we also choose to index enzyme
-intensity as $e_j$ for a specific reaction, where $j = i$ does not
+abundance as $e_j$ for a specific reaction, where $j = i$ does not
 imply $e_i = e_j$. $N$ is the number of reversible reactions, and a
 superscript $E$ denotes an enzymatic reaction. The standard deviation
-of enzyme intensity, $\sigma_i$, is an optional weighting of
+of enzyme abundance, $\sigma_i$, is an optional weighting of
 uncertainty in biological or technical replicates.
 
 We employ a normalization variable $n$ in the problem to find the most
@@ -519,7 +509,7 @@ may introduce bias, we introduce the bound $\sum_{j \textnormal{ with
 the optimization problem will yield a non-zero flux vector and also
 helps to put the fluxes and expression measures on the same order of
 magnitude, which can be important for numerical stability. The actual
-value of V_{lb}^{\Sigma} is not very important due to the scaling
+value of $V_{lb}^{\Sigma}$ is not very important due to the scaling
 introduced by $n$, but we do update it at each iteration to reflection
 potentially large changes in magnitude as more irreversible reactions
 are found. To keep track of how many reactions are irreversible in the
@@ -533,8 +523,8 @@ reversible reactions remains constant after an iteration.
 \begin{algorithmic}
 \ifthenelse{\boolean{thesisStyle}}{\singlespacing}{}
 ~\\
-$u_{min} = min_j\ \{V_{j,max} : V_{j,max} > 0\}$\\
-$V_{lb}^{\Sigma} = u_{min} \left|\{v_j^E : e_j \textnormal{ exists}\}\right|$\\
+$u_{\min} = \min_j\ \{V_{j,\max} : V_{j,\max} > 0\}$\\
+$V_{lb}^{\Sigma} = u_{\min} \left|\{v_j^E : e_j \textnormal{ exists}\}\right|$\\
 \STATE {Scale data to be of similar size for numeric stability:}
 \FORALL {j}
   \STATE $e_j := \frac{e_j V_{lb}^{\Sigma}}
@@ -544,7 +534,7 @@ $V_{lb}^{\Sigma} = u_{min} \left|\{v_j^E : e_j \textnormal{ exists}\}\right|$\\
 \ENDFOR
 \WHILE{$rxns_{irrev} > rxns_{irrev,prior}$}
   \STATE {$rxns_{irrev,prior} := rxns_{irrev}$}
-  \STATE $V_{lb}^{\Sigma} = u_{min} \left|\{v_j^E : 
+  \STATE $V_{lb}^{\Sigma} = u_{\min} \left|\{v_j^E : 
     e_j \textnormal{ exists}\}\right|$\\
   %\IF {first iteration}
   %\STATE {Constrain a user-specified flux $v_{scale} = c_{scale}$} 
@@ -652,7 +642,7 @@ yeast model (A) are far more similar in their sensitivities than the
 heavily constrained yeast model (C).
 
 It is not an unreasonable hypothesis that fluxes would correlate well
-with their associated enzyme complex intensities. Given this
+with their associated enzyme complex abundances. Given this
 possibility, it is informative to see if we get more information back
 than just enzyme complex expression. Aside from the obvious benefits
 of constraint-based methods also estimating fluxes for non-enzymatic
@@ -686,6 +676,20 @@ that continue to use expression to further constrain the model by
 creating tissue-specific or condition-specific models
 \citep{Wang2012,Shlomi2008,Becker2008}.
 
+Still, enzyme complex abundance may have uses aside from being a first
+step in FALCON. The method presented here for enzyme complex copy
+number estimation can be used as a stand-alone method, as long as GPR
+rules from a metabolic reconstruction are present. For instance, it
+may not always be desirable to directly compute a flux. As an example,
+the relative copy number of enzyme complexes present in secretions
+from various biological tissues, such as milk or pancreatic
+secretions, may still be of interest even without any intracellular
+flux data.  Perhaps more importantly, this approach to estimating
+relative complex levels can be employed with regulatory models such as
+PROM \citep{Chandrasekaran2010a} or other regulatory network models
+that can estimate individual gene expression levels at time $t+1$
+given the state of the model at a time $t$.
+
 Another caveat is that GPR rules or stoichiometry may be inaccurate or
 incomplete in any given model. In fact, for the forseeable future,
 this is a given. By using the GPR and not just the stoichiometry to
@@ -707,10 +711,10 @@ extension to the current method could make use of this information.
 
 
 One may wonder why the present work doesn't attempt to use empirically
-obtained kinetic parameters to estimate $V_{max}$, but this approach
+obtained kinetic parameters to estimate $V_{\max}$, but this approach
 does not seem as promising in light of experimental evidence that many
 reactions in central carbon metabolism tend to operate well below
-$V_{max}$ \citep{Bennett2009}. Still, a better understanding of these
+$V_{\max}$ \citep{Bennett2009}. Still, a better understanding of these
 phenomena may make it possible to improve flux estimation methods such
 as the one presented here, or more traditional forms of MFA
 \citep{Shestov2013a} by incorporating enzyme complexation and kinetic
@@ -718,21 +722,6 @@ information. The present results and avenues for future improvement
 show that there is much promise for using expression to estimate
 fluxes, and that it can already be a useful tool for performing flux
 estimation and analysis.
-
-
-\subsection{Applications and Insights from GPR formalisms and FALCON}
-When should an investigator simply look at gene expression levels
-rather than worrying about the additional complexities of GPRs and
-flux estimation as in FALCON?  Perhaps the most obvious example is
-attempting to estimate actual enzyme-catalyzed fluxes rather than
-expression levels, since individual gene expression levels may not be
-straight-forward to draw conclusions from due to non-linearities from
-the GPRs, as well as network-related effects. Additionally, methods
-like these allow us to impute fluxes for reactions that are not
-catalyzed by enzymes, such as transport reactions or highly
-spontaneous chemical reactions. To illustrate this point, Table XXXX
-shows the correlation matrix for the above quantities and the
-distributions of each quantity for a single FALCON run (XXXX).
 
 % Need to show heatmap figure in this section %
 
