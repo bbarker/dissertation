@@ -609,6 +609,16 @@ objective in microbes \citep{Schuetz2012}.
 
 \section{Results and Discussion}
 
+In order to develop software that shares a common API and ease of use,
+our software is largely implemented in MATLAB, using the COBRA
+Toolbox \citep{Hyduke2011}, which seems to be the most widely used package for
+contraint-based modeling to date. The first algorithm the technique
+has been implemented in ATS, a C-code generating language with rich
+safety features, in order to attain good time-efficiency without sacrificing
+safety and stability \citep{ATStypes03}. The only expensive operations in the
+MATLAB code are actually external calls to a linear program (LP) solver,
+so the efficiency in this case depends on the solver used.
+
 Using the same exometabolic and expression data employed for
 benchmarking in a recent study \citep{Lee2012}, we find that our algorithm has
 significant improvements in time efficiency while maintaining
@@ -618,10 +628,11 @@ expression data as input (\ref{Table XX}, \ref{Figure Barplots}). Furthermore, w
 many bounds constraining the direction of enzymatic reactions that
 aren't explicitly annotated as being irreversible in prior work \citep{Lee2012},
 we find that our formulation of the approach seems to be more robust
-than other methods (\ref{Table XX}). A MILP formulation did not finish
-after three days of run-time (despite using a parallel solver making
-full use of 16 cores \citep{gurobi} on the minimally constrained
-Yeast 7 model, likely due to the number of branches incurred from
+than other methods (\ref{Table XX}). iMAT, a MILP formulation, took
+several days of run-time to finish on the minimally constrained Yeast
+7 model, despite using a parallel solver making full use of 16 cores
+\citep{gurobi} on Yeast 7 model, likely due to the number of branches
+incurred from
 reversible reactions. This is somewhat unfortunate, as a MILP
 formulation would be appealing for this family of techniques as well,
 but the current time efficiency would be extremely prohibitive for the

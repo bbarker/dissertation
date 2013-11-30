@@ -47,10 +47,10 @@ minimum expression value of the rule in CNF.
 
 The following code is written in ATS, a type-safe language including
 syntax similar to SML while having direct access to C types
-\cite{ATStypes03}.  GREXP describes a datatype that is used for
+\citep{ATStypes03}. GREXP describes a datatype that is used for
 storing the parse trees of Boolean rules (without negation).  A GREXP
 can then be manipulated by the function toCNF to be converted to a
-conjunctive normal form.  We make use of the reduction rule mentioned
+conjunctive normal form. We make use of the reduction rule mentioned
 previously by calling the minConj function. The conjunctivize function
 is a helper function to deal with different structures for a GRconj
 and GRdisj (one is set based, one is parse-tree based; note this

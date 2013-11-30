@@ -58,6 +58,14 @@ Gibbons, C., Montgomery, M.~G., Leslie, A. G.~W., and Walker, J.~E. (2000).
 {Gurobi Optimization}, I. (2013).
 \newblock {Gurobi Optimizer Reference Manual}.
 
+\bibitem[Hyduke {\em et~al.}(2011)Hyduke, Schellenberger, Que, Fleming, Thiele,
+  Orth, Feist, Zielinski, Bordbar, Lewis, Rahmanian, Kang, and
+  Palsson]{Hyduke2011}
+Hyduke, D., Schellenberger, J., Que, R., Fleming, R., Thiele, I., Orth, J.,
+  Feist, A., Zielinski, D., Bordbar, A., Lewis, N., Rahmanian, S., Kang, J.,
+  and Palsson, B.~O. (2011).
+\newblock {COBRA Toolbox 2.0}.
+
 \bibitem[Karr {\em et~al.}(2012)Karr, Sanghvi, Macklin, Gutschow, Jacobs,
   Bolival, Assad-Garcia, Glass, and Covert]{Karr2012}
 Karr, J.~R., Sanghvi, J.~C., Macklin, D.~N., Gutschow, M.~V., Jacobs, J.~M.,
@@ -168,5 +176,11 @@ Wang, Y., Eddy, J.~a., and Price, N.~D. (2012).
 \newblock {Reconstruction of genome-scale metabolic models for 126 human
   tissues using mCADRE.}
 \newblock {\em BMC Syst. Biol.}, {\bf 6}, 153.
+
+\bibitem[Xi(2004)Xi]{ATStypes03}
+Xi, H. (2004).
+\newblock {Applied Type System (extended abstract)}.
+\newblock In {\em post-workshop Proc. TYPES 2003\/}, pages 394--408.
+  Springer-Verlag LNCS 3085.
 
 \end{thebibliography}
