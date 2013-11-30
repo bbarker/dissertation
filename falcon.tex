@@ -81,6 +81,22 @@ changes that maintain convexity than a quadratic program.
 
 \section{Methods}
 
+In order to develop software that shares a common API and ease of use,
+our software is largely implemented in MATLAB, using the COBRA
+Toolbox \citep{Hyduke2011}, which seems to be the most widely used package for
+contraint-based modeling to date. The first algorithm the technique
+has been implemented in ATS, a C-code generating language with rich
+safety features, in order to attain good time-efficiency without sacrificing
+safety and stability \citep{ATStypes03}. The only expensive operations in the
+MATLAB code are actually external calls to a linear program (LP) solver,
+so the efficiency in this case depends on the solver and the metabolic
+model in a complicated manner due to diverse algorithms and
+implementions as well as sensitivity to the model parameters
+\citep{Mittelmann2013,Todd2002}, so we discuss statistics for several
+models below using a state-of-the-art solver \ref{Table XX, Supp Note
+  XX}. Before comparing this approach to related methods, we describe
+our rationale and algorithms.
+
 If we wish to apply MoMA to expression data rather than flux data, the
 original MoMA objective must be altered in several ways. Scaling of
 expression values must be addressed so they can be comparable to
@@ -608,16 +624,6 @@ objective in microbes \citep{Schuetz2012}.
 %% \end{figure}
 
 \section{Results and Discussion}
-
-In order to develop software that shares a common API and ease of use,
-our software is largely implemented in MATLAB, using the COBRA
-Toolbox \citep{Hyduke2011}, which seems to be the most widely used package for
-contraint-based modeling to date. The first algorithm the technique
-has been implemented in ATS, a C-code generating language with rich
-safety features, in order to attain good time-efficiency without sacrificing
-safety and stability \citep{ATStypes03}. The only expensive operations in the
-MATLAB code are actually external calls to a linear program (LP) solver,
-so the efficiency in this case depends on the solver used.
 
 Using the same exometabolic and expression data employed for
 benchmarking in a recent study \citep{Lee2012}, we find that our algorithm has

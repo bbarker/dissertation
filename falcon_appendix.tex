@@ -170,3 +170,12 @@ problem directly because they can be removed: see the functions
 \texttt{setFBRxnDirection} in \texttt{falcom.m}.  These cycles can
 then give rise to objective values that may be quite high simply due
 to having many cycles.
+
+\subsection{LP solver settings}
+We have exclusively used the Gurobi solver \citep{gurobi} for this
+work, which is a highly competitive solver that employs by default a
+parallel strategy to solving problems: a different algorithm is run
+simultaneously, and as soon as one algorithm finished the others
+terminate. Of course, if there is a clear choice of algorithm for a
+particular problem class, this should be used in production settings
+to avoid wasted CPU time.
