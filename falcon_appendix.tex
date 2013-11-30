@@ -151,6 +151,29 @@ yeast models---this parameter may provide additional benefit when
 appended to the existing FALCON machinery. We speculate that larger
 and less constrained models may benefit from employing this parameter.
 
+\subsection{Regularization}
+Although sometimes called by different names, regularization is an
+optimization technique that alters a problem so that there is some
+penalty for variables taking on large values, where large may be
+defined in different ways. In our case, since we are using a linear
+programming problem, it is most convenient to use the $L_1$-norm to
+assess how large a penalty should be given. We employ this as an
+optional parameter to \texttt{falcon}, \texttt{rc} that is applied to
+all flux values.  Regularization has been found to be a biologically
+important objective in microbes \citep{Schuetz2012}, but we didn't
+find any significant differences when using it in the present study.
+
+\subsection{Growth rates}
+Sometimes a growth rate may be known or we may wish to simulate a
+growth rate. If we have a high-confidence biomass pseudo-reaction in
+our model, the optional \texttt{minFit} parameter to \texttt{falcon}
+can be used to set the minimum growth rate. Since biomass is a
+complicated sink in the model, it is apparentl unlikely that the
+FALCON objective will direct flux into biomass directly, so other
+measures of growth rate may also be warranted, such as accounting
+for individual sink reactions. This part of \texttt{falcon} could
+easily be modified to support more reactions beyond biomass.
+
 \subsection{Debugging and developing falcon}
 The \texttt{FDEBUG} parameter to \texttt{falcon} can be used to
 display additional information while the FALCON algorithm is
@@ -178,4 +201,17 @@ parallel strategy to solving problems: a different algorithm is run
 simultaneously, and as soon as one algorithm finished the others
 terminate. Of course, if there is a clear choice of algorithm for a
 particular problem class, this should be used in production settings
-to avoid wasted CPU time.
+to avoid wasted CPU time and memory.
+
+\section{Generation of figures and tables}
+
+\subsection{Minimally constrained yeast models}
+The MATLAB function \texttt{removeEnzymeIrrevs} was written to find
+all enzymatic reactions in a model that are annotated as reversible
+but are constrained to operate in one direction only. The script then
+changes the bounds to allow flux in both directions. The fuction
+\texttt{useYN5irrevs} copies the irreversible annotations found in
+Yeast 5.21 \citep{Lee2012} to a newer yeast model, but could in
+principle be used for any two models; this script is coded to first
+call \texttt{removeEnzymeIrrevs} on both models before copying
+irreversible annotations.

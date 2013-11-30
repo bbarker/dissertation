@@ -425,8 +425,8 @@ present in all organisms \citep{Nelson2008}.
 
 In the previous section, we showed that converting a rule to CNF is a
 sound method to aid in the estimation of enzyme complex copy number.
-However, attempting to symbolically convert some rules in Yeast model and
-many rules in Human Recon 2 to CNF is computationally intractable due
+However, attempting to symbolically convert some rules in yeast models and
+many rules in human models to CNF is computationally intractable due
 to an exponential increase in memory \citep{Russell2009}. Therefore,
 we use a reduction rule that makes use of expression data, outlined
 below.  Note that the $AND$ and $OR$ notation is used to illustrate a
@@ -577,23 +577,6 @@ $V_{lb}^{\Sigma} = u_{min} \left|\{v_j^E : e_j \textnormal{ exists}\}\right|$\\
 \end{AlgFloat}
 
 
-If $v_f = v_b$ after an iteration, we constrain both reactions to be
-zero, since this is a futile cycle. Otherwise, the flux through these
-reactions may be inadvertently affecting the obective. If we don't do
-this, we actually see about 100 fewer reactions active in an FALCON
-run.  The disadvantage is that the time for completing FALCON goes up
-from about 70s to 200s on a recent AMD Athlon Magny-Cours system
-running the Gurobi 5.6 solver \citep{gurobi}. This is still a major
-improvement in efficiency over the FVA method, which could take
-several hours per Human Recon 2 FALCON run.
-
-Further work on improving convergence speed should be kept in mind, or
-at least, making use of prior FALCON flux estimations (see the section
-below about mutational models and epistasis) to give the algorithm a
-warm start.  Regularization is one technique that may prove useful in
-attaining better convergence speed by somewhat simplifying the flux
-vector; regularization has been found to be a biologically important
-objective in microbes \citep{Schuetz2012}.
 
 
 % Make performance tables like this? 
@@ -625,8 +608,9 @@ objective in microbes \citep{Schuetz2012}.
 
 \section{Results and Discussion}
 
-Using the same exometabolic and expression data employed for
-benchmarking in a recent study \citep{Lee2012}, we find that our algorithm has
+Using the same yeast exometabolic and expression data employed for
+benchmarking in a recent study \citep{Lee2012} that included an updated version 
+of the Yeast 5 model \citep{Heavner2012}, we find that our algorithm has
 significant improvements in time efficiency while maintaining
 correlation with experimental fluxes, and \hl{GIMME speed?} is as fast as all tested
 methods with the exception of standard FBA, which does not use
@@ -637,7 +621,7 @@ we find that our formulation of the approach seems to be more robust
 than other methods (\ref{Table XX}). iMAT, a MILP formulation, took
 several days of run-time to finish on the minimally constrained Yeast
 7 model, despite using a parallel solver making full use of 16 cores
-\citep{gurobi} on Yeast 7 model, likely due to the number of branches
+\citep{gurobi} on Yeast 7 model \citep{Aung2013}, likely due to the number of branches
 incurred from
 reversible reactions. This is somewhat unfortunate, as a MILP
 formulation would be appealing for this family of techniques as well,
