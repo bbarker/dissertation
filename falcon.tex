@@ -181,32 +181,35 @@ metabolism, as well as being a scaffold to find problems for existing
 GPRs, and more broadly the GPR formalism itself.
 
 \subsubsection{Assumptions for Enzyme Complex Formation}
-\emph{Assumption~\ref{asm:expcorr}.}
-The first assumption that we need in order to guarantee an accurate
-estimate of (relative) enzyme complex copy number are accurate
-measurements of their component subunits. Unfortunately, this is
-currently not possible, and we almost always must make do with mRNA
-measurements, which may even have some degree of inaccuracy in
-measuring the mRNA copy number. What has been seen is that Spearman's
-$\rho = 0.6$ for correlation between RNA-Seq and protein inensity in
-datasets from HeLa cells \citep{Nagaraj2011}. This implies that much
-can likely still be gleamed from analyzing RNA-Seq data, but, an
-appropriate degree of caution must be used in interpreting results
-based on RNA-Seq data. By incorporating more information, such as
-metabolic constaints, we hope to obviate some of the error in
-estimating protein intensity from RNA-Seq data. 
+\emph{Assumption~\ref{asm:expcorr}.}  The first assumption that we
+need in order to guarantee an accurate estimate of (relative) enzyme
+complex copy number are accurate measurements of their component
+subunits. Unfortunately, this is currently not possible, and we almost
+always must make do with mRNA measurements, which may even have some
+degree of inaccuracy in measuring the mRNA copy number. What has been
+seen is that Spearman's $\rho = 0.6$ for correlation between RNA-Seq
+and protein inensity in datasets from HeLa cells
+\citep{Nagaraj2011}. This implies that much can likely still be
+gleamed from analyzing RNA-Seq data, but, an appropriate degree of
+caution must be used in interpreting results based on RNA-Seq data. By
+incorporating more information, such as metabolic constaints, we hope
+to obviate some of the error in estimating protein intensity from
+RNA-Seq data.
 
-\emph{Assumption~\ref{asm:isozyme}.}
-In order to quantify enzyme complex formation, the notion of an enzyme
-complex should be formalized.
-A protein complex typically refers to two or more physically associated polypeptide chains, which is
-sometimes called a quaternary structure. Since we
-are not exclusively dealing with multiprotein complexes, we refer to an enzyme complex as being
-one or more polypeptide chains that act together to carry out metabolic catalysis. Also, to simply
-our English, we also include the notion of isozymes--different proteins that catalyze the 
-same reaction--in our notion of enzyme complex. Isozymes may arise by having one or more differing
-protein isoforms, and even though these isoforms may not be present in the same complex at the same
-moment, we consider them to be part of the enzyme complex since one could be substituted for the other.
+\emph{Assumption~\ref{asm:isozyme}.}  In order to quantify enzyme
+complex formation, the notion of an enzyme complex should be
+formalized.  A protein complex typically refers to two or more
+physically associated polypeptide chains, which is sometimes called a
+quaternary structure. Since we are not exclusively dealing with
+multiprotein complexes, we refer to an enzyme complex as being one or
+more polypeptide chains that act together to carry out metabolic
+catalysis. Also, to simply our English, we also include the notion of
+isozymes--different proteins that catalyze the same reaction--in our
+notion of enzyme complex. Isozymes may arise by having one or more
+differing protein isoforms, and even though these isoforms may not be
+present in the same complex at the same moment, we consider them to be
+part of the enzyme complex since one could be substituted for the
+other.
 
 As an example, take the $F_1$ subcomplex of ATP Synthase (figure
 ~\ref{fig:2F43}), which is composed of seven protein subunits
@@ -216,10 +219,10 @@ aside, instead of considering the copy numbers with multiplicity and
 dividing their expression values by their multiplicity, it may be
 easier to simply note that the axle peptide (shown in red in the
 center of the complex) only has one copy in the complex, so its
-expression should be an overall good estimation of the $F_1$ subcomplex
-copy number. This reasoning will be useful later in considering why
-GPRs may be largely adequate for estimating the abundance of most
-enzyme complexes.
+expression should be an overall good estimation of the $F_1$
+subcomplex copy number. This reasoning will be useful later in
+considering why GPRs may be largely adequate for estimating the
+abundance of most enzyme complexes.
 
 \begin{figure*}%[H]
 \label{fig:2F43}
@@ -359,44 +362,43 @@ because neither of these two alternatives above are stricly the case,
 and some other rule is more succinct.
 
 \emph{Assumptions~\ref{asm:nostoich},~\ref{asm:sharing}~and~\ref{asm:active_site}.}
-One active site per enzyme complex implies a single
-complex can only catalyze one reaction at a time. Multimeric complexes
-with one active site per identical subunit would be considered as one
-enzyme complex per subunit in this model.
-Note that it is possible for an enzyme complex to catalyze different
-reactions. In fact, some transporter complexes can transfer many
-different metabolites \hl{across a lipid bilayer---up to}. Another
-example is the ligation or hydrolysis of nucleotide, fatty acid, or
-peptide chains, where chains of different length may all be substrates
-or products of the same enzyme complex. While we do not explicitly
-consider these in Algorithm~\ref{alg:ReductionToCNF}, these
-redundancies are taken into account subsequently in
-Algorithm~\ref{alg:FALCON}.  
+One active site per enzyme complex implies a single complex can only
+catalyze one reaction at a time. Multimeric complexes with one active
+site per identical subunit would be considered as one enzyme complex
+per subunit in this model.  Note that it is possible for an enzyme
+complex to catalyze different reactions. In fact, some transporter
+complexes can transfer many different metabolites \hl{across a lipid
+  bilayer---up to}. Another example is the ligation or hydrolysis of
+nucleotide, fatty acid, or peptide chains, where chains of different
+length may all be substrates or products of the same enzyme
+complex. While we do not explicitly consider these in
+Algorithm~\ref{alg:ReductionToCNF}, these redundancies are taken into
+account subsequently in Algorithm~\ref{alg:FALCON}.
 
-What is currently not considered in our
-process is that some peptide isoforms may find use in completely
-different complexes, and in some cases, individual peptides may
-have multiple active sites; in the first case, we assume an unrealistic case of
-superposition where the isoform can simultaneously function in more
-than one complex. The primary reason we have not tackled this problem
-is because exact subunit stoichiometry of most enzyme complexes is not
-accurately known, but an increasing abundance of data on BRENDA
+What is currently not considered in our process is that some peptide
+isoforms may find use in completely different complexes, and in some
+cases, individual peptides may have multiple active sites; in the
+first case, we assume an unrealistic case of superposition where the
+isoform can simultaneously function in more than one complex. The
+primary reason we have not tackled this problem is because exact
+subunit stoichiometry of most enzyme complexes is not accurately
+known, but an increasing abundance of data on BRENDA
 \citep{Schomburg2013} gives some hope to this problem. A recent
-\emph{E. coli} ME-model \citep{O'Brien2013} incorporates putative enzyme
-complex stoichiometry into GPRs. For the second point, there are a
-few enzymes where a single polpeptide may have multiple active sites
-(e.g. fatty acid synthase), and this is not currently taken into 
-account in our model. 
+\emph{E. coli} ME-model \citep{O'Brien2013} incorporates putative
+enzyme complex stoichiometry into GPRs. For the second point, there
+are a few enzymes where a single polpeptide may have multiple active
+sites (e.g. fatty acid synthase), and this is not currently taken into
+account in our model.
 
 \emph{Assumption~\ref{asm:holo}.}
-We do not make any special assumptions requiring symmetry of an isoform
-within a complex. For instance, the example in
-assumption~\ref{asm:holo} shows how you might have one
-subcomponent composed of a single isoform, and another subcomponent
-composed of that gene in addition to another isoform. In this case, it
-is simply reduced to being the first gene only that is required, since
-clearly the second is strictly optional. That isn't to say that the
-second gene may not have some effect, such as (potentially) aiding in
+We do not make any special assumptions requiring symmetry of an
+isoform within a complex. For instance, the example in
+assumption~\ref{asm:holo} shows how you might have one subcomponent
+composed of a single isoform, and another subcomponent composed of
+that gene in addition to another isoform. In this case, it is simply
+reduced to being the first gene only that is required, since clearly
+the second is strictly optional. That isn't to say that the second
+gene may not have some effect, such as (potentially) aiding in
 structural ability or altering the catalytic rate, but it should have
 no bearing on the formation of a functional catalytic
 complex. Holoenzymes---enzymes with metabolic cofactors or protein
@@ -481,17 +483,6 @@ can estimate individual gene expression levels at time $t+1$ given the
 state of the model at a time $t$.
 
 \subsection{Formulation with Automatic Normalization and Fast Direction Assignment}
-We employ a normalization variable $n$ in the problem
-to find the most agreeable scaling of expression data. The
-LFP shown below can be converted to a linear program by the Charnes-Cooper transformation
- \citep{Boyd2004}.
-To avoid the need for fixing a specific flux, which may introduce bias,
-we introduce the bound
-
-This guarantees that the
-optimization problem will yield a non-zero flux vector and also helps
-to put the fluxes and expression measures on the same order of
-magnitude, which can be important for numerical stability.
 
 The original formulation used repeated iterations of FVA (Flux Variability Analysis)
 \citep{Lee2012}. We removed FVA to mitigate some of the cost, and instead 
@@ -519,8 +510,20 @@ superscript $E$ denotes an enzymatic reaction. The standard deviation
 of enzyme intensity, $\sigma_i$, is an optional weighting of
 uncertainty in biological or technical replicates.
 
-To keep track of how many reactions are irreversible in the current
-and prior iteration, we use the variables $rxns_{irrev}$ and
+We employ a normalization variable $n$ in the problem to find the most
+agreeable scaling of expression data. The LFP shown below can be
+converted to a linear program by the Charnes-Cooper transformation
+\citep{Boyd2004}. To avoid the need for fixing a specific flux, which
+may introduce bias, we introduce the bound $\sum_{j \textnormal{ with
+    existing\ } e_j}^N v_j \geq V_{lb}^{\Sigma}$. This guarantees that
+the optimization problem will yield a non-zero flux vector and also
+helps to put the fluxes and expression measures on the same order of
+magnitude, which can be important for numerical stability. The actual
+value of V_{lb}^{\Sigma} is not very important due to the scaling
+introduced by $n$, but we do update it at each iteration to reflection
+potentially large changes in magnitude as more irreversible reactions
+are found. To keep track of how many reactions are irreversible in the
+current and prior iteration, we use the variables $rxns_{irrev}$ and
 $rxns_{irrev,prior}$. The algorithm terminates when the number of
 reversible reactions remains constant after an iteration.
 
@@ -577,8 +580,6 @@ $V_{lb}^{\Sigma} = u_{min} \left|\{v_j^E : e_j \textnormal{ exists}\}\right|$\\
 \end{AlgFloat}
 
 
-
-
 % Make performance tables like this? 
 % Apparently the processtable and rules below are not
 % standard latex
@@ -609,26 +610,28 @@ $V_{lb}^{\Sigma} = u_{min} \left|\{v_j^E : e_j \textnormal{ exists}\}\right|$\\
 \section{Results and Discussion}
 
 Using the same yeast exometabolic and expression data employed for
-benchmarking in a recent study \citep{Lee2012} that included an updated version 
-of the Yeast 5 model \citep{Heavner2012}, we find that our algorithm has
-significant improvements in time efficiency while maintaining
-correlation with experimental fluxes, and \hl{GIMME speed?} is as fast as all tested
-methods with the exception of standard FBA, which does not use
-expression data as input (\ref{Table XX}, \ref{Figure Barplots}). Furthermore, when we remove
-many bounds constraining the direction of enzymatic reactions that
-aren't explicitly annotated as being irreversible in prior work \citep{Lee2012},
-we find that our formulation of the approach seems to be more robust
-than other methods (\ref{Table XX}). iMAT, a MILP formulation, took
-several days of run-time to finish on the minimally constrained Yeast
-7 model, despite using a parallel solver making full use of 16 cores
-\citep{gurobi} on Yeast 7 model \citep{Aung2013}, likely due to the number of branches
-incurred from
-reversible reactions. This is somewhat unfortunate, as a MILP
-formulation would be appealing for this family of techniques as well,
-but the current time efficiency would be extremely prohibitive for the
-forseeable future. We see that the prognostic ability of the algorithm
-does not appear to be artifact; when FALCON is run on permuted expression data,
-it doesn't do as well as the actual expression vector(\ref{Figure XX}).
+benchmarking in a recent study \citep{Lee2012} that included an
+updated version of the Yeast 5 model \citep{Heavner2012}, we find that
+our algorithm has significant improvements in time efficiency while
+maintaining correlation with experimental fluxes, and \hl{GIMME
+  speed?} is as fast as all tested methods with the exception of
+standard FBA, which does not use expression data as input (\ref{Table
+  XX}, \ref{Figure Barplots}). Furthermore, when we remove many bounds
+constraining the direction of enzymatic reactions that aren't
+explicitly annotated as being irreversible in prior work
+\citep{Lee2012}, we find that our formulation of the approach seems to
+be more robust than other methods (\ref{Table XX}). iMAT, a MILP
+formulation, took several days of run-time to finish on the minimally
+constrained Yeast 7 model, despite using a parallel solver making full
+use of 16 cores \citep{gurobi} on Yeast 7 model \citep{Aung2013},
+likely due to the number of branches incurred from reversible
+reactions. This is somewhat unfortunate, as a MILP formulation would
+be appealing for this family of techniques as well, but the current
+time efficiency would be extremely prohibitive for the forseeable
+future. We see that the prognostic ability of the algorithm does not
+appear to be artifact; when FALCON is run on permuted expression data,
+it doesn't do as well as the actual expression vector(\ref{Figure
+  XX}).
 
 The full-sized flux vectors estimated from permuted expression as a
 whole also does not correlate well with the flux vector estimated from
@@ -658,29 +661,30 @@ reactions, we see that in general, our method does not predict a
 strong correlation between enzyme complex levels and fluxes
 (\ref{Figure XX}). Recently it has been shown that many fluxes are not
 under direct control of their associated enzyme complex expression
-level \citep{Chubukov2013}, which gives experimental support to the idea that a
-network-based approach with soft contraints, such as that presented in
-this paper, may be useful in understanding how fluxes may be
-constrained by expression data. The authors also note that
-enzymes may be overexpressed in some cases, either for robustness or
-because of noise in transcriptional regulation. This will not usually
-be a problem in FALCON, unless entire pathways are overexpressed,
-which would be unusual as it would represent a seemingly large
-energetic inefficiency.
+level \citep{Chubukov2013}, which gives experimental support to the
+idea that a network-based approach with soft contraints, such as that
+presented in this paper, may be useful in understanding how fluxes may
+be constrained by expression data. The authors also note that enzymes
+may be overexpressed in some cases, either for robustness or because
+of noise in transcriptional regulation. This will not usually be a
+problem in FALCON, unless entire pathways are overexpressed, which
+would be unusual as it would represent a seemingly large energetic
+inefficiency.
 
 We have formalized and improved an existing method for estimating flux
 from expression data, as well as listing detailed assumptions in the
-model that may be useful to address in later attempts Table~\ref{ECAssume}.
-Although we show that expression does not correlate well with flux, we
-are still essentially trying to fit fluxes to expression levels.  The
-number of constraints presents in metabolic models (even the minimally
-constrained models) makes it impossible to achieve a good correlation
-between the two. However, as with all CBMs, constraints are only half
-the story in any largely underdetermined system, and we show that gene
-expression can prove to be a valuable basis for forming an objective,
-as opposed to methods that continue to use expression to further
-constrain the model by creating tissue-specific or condition-specific
-models \citep{Wang2012,Shlomi2008,Becker2008}.
+model that may be useful to address in later attempts
+Table~\ref{ECAssume}.  Although we show that expression does not
+correlate well with flux, we are still essentially trying to fit
+fluxes to expression levels.  The number of constraints presents in
+metabolic models (even the minimally constrained models) makes it
+impossible to achieve a good correlation between the two. However, as
+with all CBMs, constraints are only half the story in any largely
+underdetermined system, and we show that gene expression can prove to
+be a valuable basis for forming an objective, as opposed to methods
+that continue to use expression to further constrain the model by
+creating tissue-specific or condition-specific models
+\citep{Wang2012,Shlomi2008,Becker2008}.
 
 Another caveat is that GPR rules or stoichiometry may be inaccurate or
 incomplete in any given model. In fact, for the forseeable future,
@@ -690,8 +694,8 @@ framework to debug not just stoichiometry as some methods currently do
 (e.g.\ \citealt{Reed14112006}) , but also GPR rules.  Hope for
 improved gene rule annotation may come from many different avenues of
 current research. For instance, algorithms exist for reconstructing
-biological process information from large-scale datasets, and
-could be tuned to aid in the annotation of gene-rules
+biological process information from large-scale datasets, and could be
+tuned to aid in the annotation of gene-rules
 \citep{Mitra2013}. Flexible metabolic reconstruction pipelines such as
 GLOBUS may also be extended to incorporate GPRs into their output, and
 in so doing, extend this type of modeling to many non-model organisms
@@ -717,16 +721,18 @@ estimation and analysis.
 
 
 \subsection{Applications and Insights from GPR formalisms and FALCON}
-When should an investigator simply look at gene expression levels rather than
-worrying about the additional complexities of GPRs and flux estimation as in FALCON?
-Perhaps the most obvious example is attempting to estimate actual enzyme-catalyzed 
-fluxes rather than expression levels, since individual gene expression levels
-may not be straight-forward to draw conclusions from due to non-linearities
-from the GPRs, as well as network-related effects. Additionally, methods like these
-allow us to impute fluxes for reactions that are not catalyzed by enzymes,
-such as transport reactions or highly spontaneous chemical reactions. To illustrate
-this point, Table XXXX shows the correlation matrix for the above quantities and 
-the distributions of each quantity for a single FALCON run (XXXX).
+When should an investigator simply look at gene expression levels
+rather than worrying about the additional complexities of GPRs and
+flux estimation as in FALCON?  Perhaps the most obvious example is
+attempting to estimate actual enzyme-catalyzed fluxes rather than
+expression levels, since individual gene expression levels may not be
+straight-forward to draw conclusions from due to non-linearities from
+the GPRs, as well as network-related effects. Additionally, methods
+like these allow us to impute fluxes for reactions that are not
+catalyzed by enzymes, such as transport reactions or highly
+spontaneous chemical reactions. To illustrate this point, Table XXXX
+shows the correlation matrix for the above quantities and the
+distributions of each quantity for a single FALCON run (XXXX).
 
 % Need to show heatmap figure in this section %
 
