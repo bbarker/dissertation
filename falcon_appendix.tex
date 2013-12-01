@@ -1,6 +1,215 @@
 \section{Assumptions for enzyme complex formation}
 \label{sec:complexation}
-Enzyme complex formation, or enzyme complexation ...
+
+In order to quantify enzyme complex formation (sometimes called enzyme
+complexation), the notion of an enzyme complex should be formalized.
+A protein complex typically refers to two or more physically
+associated polypeptide chains, which is sometimes called a quaternary
+structure. Since we are not exclusively dealing with multiprotein
+complexes, we refer to an enzyme complex as being one or more
+polypeptide chains that act together to carry out metabolic
+catalysis. Also, to simply our English, we also include the notion of
+isozymes--different proteins that catalyze the same reaction--in our
+notion of enzyme complex. Isozymes may arise by having one or more
+differing protein isoforms, and even though these isoforms may not be
+present in the same complex at the same moment, we consider them to be
+part of the enzyme complex since one could be substituted for the
+other.
+
+As an example, take the $F_1$ subcomplex of ATP Synthase (Figure
+~\ref{fig:2F43}), which is composed of seven protein subunits
+(distinguised by color, left). On the right-hand side we see different
+isoforms depicted as different colors.  Error in expression data
+aside, instead of considering the copy numbers with multiplicity and
+dividing their expression values by their multiplicity, it may be
+easier to simply note that the axle peptide (shown in red in the
+center of the complex) only has one copy in the complex, so its
+expression should be an overall good estimation of the $F_1$
+subcomplex copy number. This reasoning will be useful later in
+considering why GPRs may be largely adequate for estimating the
+abundance of most enzyme complexes.
+
+\emph{Assumption~\ref{asm:expcorr}.}  The first assumption that we
+need in order to guarantee an accurate estimate of (relative) enzyme
+complex copy number are accurate measurements of their component
+subunits. Unfortunately, this is currently not possible, and we almost
+always must make do with mRNA measurements, which may even have some
+degree of inaccuracy in measuring the mRNA copy number. What has been
+seen is that Spearman's $\rho = 0.6$ for correlation between RNA-Seq
+and protein inensity in datasets from HeLa cells
+\citep{Nagaraj2011}. This implies that much can likely still be
+gleamed from analyzing RNA-Seq data, but, an appropriate degree of
+caution must be used in interpreting results based on RNA-Seq data. By
+incorporating more information, such as metabolic constaints, we hope
+to obviate some of the error in estimating protein intensity from
+RNA-Seq data.
+
+\emph{Assumption~\ref{asm:isozyme}.}  
+
+\begin{figure*}%[H]
+\label{fig:2F43}
+\centering
+\includegraphics[clip=true,trim=0cm 0cm 0cm 0cm, width=12cm]{2F43}
+\caption{Illustration of the $F_1$ part of the ATP Synthase complex
+  (PDB ID 1E79; \citealt{Gibbons2000,Bernstein1978,Gezelter}).
+  This illustration demonstrates both how an enzyme complex may be
+  constituted by multiple subunits (left), and how some of those
+  subunits may be products of the same gene and have differing
+  stoichiometries within the complex (right).}
+\end{figure*}
+
+\emph{Assumption~\ref{asm:hierarchy}.}
+
+The modeling of enzyme complex copy number can be tackled by using
+nested sets of subcomplexes; each enzyme complex consists of multiple
+subcomplexes, unlesss it is only a single protein or family of protein
+isozymes.  These subcomplexes are required for the enzyme complex to
+function (AND relationships), and can be thought of as the division of
+the complex in to distinct units that each have some necessary
+function for the complex, with the exception that we do not keep track
+of the multiplicity of subcomplexes within a complex since this
+information is, in the current state of affairs, not always known.
+However, there may be alternative versions of each functional set
+(given by OR relationships). Eventually, this nested embedding
+terminates with a single protein or set of peptide isoforms
+(e.g.\ isozymes).  In the case of ATP Synthase, one of its functional
+sets is represented by the $F_1$ subcomplex. The $F_1$ subcomplex
+itself can be viewed as having two immediate subcomplexes: the single
+$\gamma$ (axle) subunit and three identical subcomplexes each made of
+an $\alpha$ and $\beta$ subunit. Each $\alpha\beta$ pair works
+together to bind ADP and catalyze the reaction \citep{Oster2003}. The
+$\alpha\beta$ subcomplex itself then has two subcomplexes composed of
+just an $\alpha$ subunit on the one hand and the $\beta$ subunit on
+the other.  It is obvious that one of these base-level functional
+subcomplexes (in this example, either $\gamma$ or $\alpha\beta$) will
+be in most limited supply, and that it will best represent the overall
+enzyme complex copy number (discounting the issues of multiplicity for
+$\alpha\beta$, discussed above).
+
+%
+% Consider adding this as a Theorem/Proof:
+%
+
+The hierarhical structure just described, when written out in Boolean,
+will give a rule in CNF (conjunctive normal form). This is because all
+relations are ANDs (conjunctions), except possibly at the inner-most
+subcomplexes that have alternative isoforms, which are expressed as
+ORs (disjunctions). Since GPR rules alone only specify the
+requirements for enzyme complex formation, we will see that not all
+forms of boolean rules are equally useful in evaluating the enzyme
+complex copy number, but we have established the assumptions in
+Table~\ref{ECAssume} and an alternative and logically equivalent rule
+\citep{Russell2009} under which we can estimate enzyme complex copy
+number.
+
+
+\def \ECAssumeCap {Assumptions in GPR-based Enzyme Complex Formation}
+\label{ECAssume}
+\ifthenelse{\boolean{thesisStyle}}{
+  \begin{tabular}{| p{\textwidth} |}
+  \hline
+  \textbf{Table ~\ref{ECAssume}. \ECAssumeCap} \\
+  \hline
+  \input{falcon_assumptions}
+  \\ \hline
+  \end{tabular}
+
+} {
+  % For Bioinformatics:
+  \begin{table*}[!t]
+  \processtable{\ECAssumeCap \label{ECAssume}}{
+  \begin{tabular}{| p{\textwidth} |}
+  \hline
+  \input{falcon_assumptions}
+  \\ \hline
+  \end{tabular}
+  }
+  {} % caption
+  \end{table*}
+}
+
+There is no guarantee that a GPR rule has been written down with this
+hierarchical structure in mind, though it is likely the case much of
+the time as it is a natural way to model complexes.  However, any GPR
+rule can be interpreted in the context of this hierarchical view due
+to the existence of a logically equivlaent CNF rule for any non-CNF
+rule, and it is obvious that logical equivalence is all that is
+required to check for enzyme complex formation when exact isoform
+stoichiometry is unknown.  As an example, we consider another common
+formulation for GPRs, and a way to think about enzyme
+structure---disjunctive normal form (DNF).  A DNF rule is a
+disjunctive list of conjunctions of peptide isoforms, where each
+conjunction is some variation of the enzyme complex due to
+substituting in different isoforms for some of the required
+subunits. A rule with a more complicated structure and compatible
+isoforms across subcomplexes may be written more succinctinly in CNF,
+whereas a rule with only very few alternatives derived from isoform
+variants may be reprsented clearly with DNF.  In rare cases, it is
+possible that a GPR rule is written in neither DNF or CNF, perhaps
+because neither of these two alternatives above are stricly the case,
+and some other rule is more succinct.
+
+\emph{Assumptions~\ref{asm:nostoich},~\ref{asm:sharing}~and~\ref{asm:active_site}.}
+One active site per enzyme complex implies a single complex can only
+catalyze one reaction at a time. Multimeric complexes with one active
+site per identical subunit would be considered as one enzyme complex
+per subunit in this model.  Note that it is possible for an enzyme
+complex to catalyze different reactions. In fact, some transporter
+complexes can transfer many different metabolites \hl{across a lipid
+  bilayer---up to}. Another example is the ligation or hydrolysis of
+nucleotide, fatty acid, or peptide chains, where chains of different
+length may all be substrates or products of the same enzyme
+complex. While we do not explicitly consider these in
+Algorithm~\ref{alg:ReductionToCNF}, these redundancies are taken into
+account subsequently in Algorithm~\ref{alg:FALCON}.
+
+What is currently not considered in our process is that some peptide
+isoforms may find use in completely different complexes, and in some
+cases, individual peptides may have multiple active sites; in the
+first case, we assume an unrealistic case of superposition where the
+isoform can simultaneously function in more than one complex. The
+primary reason we have not tackled this problem is because exact
+subunit stoichiometry of most enzyme complexes is not accurately
+known, but an increasing abundance of data on BRENDA
+\citep{Schomburg2013} gives some hope to this problem. A recent
+\textit{E. coli} ME-model \citep{O'Brien2013} incorporates putative
+enzyme complex stoichiometry into GPRs. For the second point, there
+are a few enzymes where a single polpeptide may have multiple active
+sites (e.g.\ fatty acid synthase), and this is not currently taken into
+account in our model.
+
+\emph{Assumption~\ref{asm:holo}.}
+We do not make any special assumptions requiring symmetry of an
+isoform within a complex. For instance, the example in
+assumption~\ref{asm:holo} shows how you might have one subcomponent
+composed of a single isoform, and another subcomponent composed of
+that gene in addition to another isoform. In this case, it is simply
+reduced to being the first gene only that is required, since clearly
+the second is strictly optional. That isn't to say that the second
+gene may not have some effect, such as (potentially) aiding in
+structural ability or altering the catalytic rate, but it should have
+no bearing on the formation of a functional catalytic
+complex. Holoenzymes---enzymes with metabolic cofactors or protein
+subunits that have a regulatory function for the complex---would
+likely be the only situation where this type of rule might need to be
+considered in more detail. But in the absence of detailed kinetic
+information, this consideration not be useful, much like allosteric
+regulation.
+
+\emph{Assumptions~\ref{asm:chap}~and~\ref{asm:rate}.}
+Due to the quickness, stability, and energetic favorability of enzyme
+complex formation, the absence of chaperones or coupled metabolic
+reactions required for complex formation may be reasonable
+assumptions, but further research is warranted \citep{Karr2012}.
+Additionally, as in metabolism, we assume a steady state for complex
+formation, so that rate laws regarding complex formation aren't
+needed. However, further research may be warranted to investigate the
+use of a penalty for complex levels based on mass action and
+protein-docking information. Requisite to this would be addressing
+assumption~\ref{asm:nostoich}. It would be surprising (but not
+impossible) if such a penalty were very larege due to the cost this
+would imply for many of the large and important enzyme complexes
+present in all organisms \citep{Nelson2008}.
 
 \section{Proof for the minDisjunction algorithm}
 
