@@ -79,54 +79,51 @@ their corresponding fitted fluxes.  Linear MoMA has the advantage that
 it is not biased towards penalizing large magnitude fluxes or
 under-penalizing fluxes that are less than one
 \citep{Boyd2004,Shlomi2005}. Additionally, linear programs are often
-amenable to more changes that maintain convexity than a quadratic
+amenable to more alterations that maintain convexity than a quadratic
 program.
 
 \section{Methods}
 
-In order to develop software that shares a common API and ease of use,
-our software is largely implemented in MATLAB, using the COBRA
-Toolbox \citep{Hyduke2011}, which seems to be the most widely used package for
-contraint-based modeling to date. The first algorithm the technique
+In order to develop software that is easy to use and shares a popular API,
+our software is largely implemented in MATLAB using the COBRA
+Toolbox \citep{Hyduke2011}. The first algorithm in the technique
 has been implemented in ATS, a C-code generating language with rich
 safety features, in order to attain good time-efficiency without sacrificing
 safety and stability \citep{ATStypes03}. The only expensive operations in the
-MATLAB code are actually external calls to a linear program (LP) solver,
+MATLAB code are external calls to a linear program (LP) solver,
 so the efficiency in this case depends on the solver and the metabolic
 model in a complicated manner due to diverse algorithms and
 implementions as well as sensitivity to the model parameters
-\citep{Mittelmann2013,Todd2002}, so we discuss statistics for several
-models below using a state-of-the-art solver \ref{Table XX, Supp Note
-  XX}. Before comparing this approach to related methods, we describe
-our rationale and algorithms.
+\citep{Mittelmann2013,Todd2002}. We discuss performance statistics for
+several models below using a state-of-the-art solver \ref{Table XX,
+  Supp Note XX}. Before comparing this approach to related methods, we
+describe our rationale and algorithms.
 
 If we wish to apply MoMA to expression data rather than flux data, the
 original MoMA objective must be altered in several ways. Scaling of
 expression values must be addressed so they can be comparable to
 fluxes in the minimization. Also, expression data has no
-directionality, so a method to determine reaction direction given the
-model and expression data must be devised. Prior work that served as
-an inspiration for this method used Flux Variability Analysis (FVA) to
-determine reaction direction \citep{Lee2012}. Briefly, this involves
-two FBA simulations per reaction catalyzed by an enzyme, and as the
-algorithm is iterative, this global (and costly) procedure may be run
-several times before converging to a flux vector. We term any
-MoMA-like algorithm applied to expression data as FALCON. To our
-knowledge, there are only two such algorithms including the present
-work \citep{Lee2012}.
+directionality, necessitating reaction direction assignment in order
+to compare enzyme complex copy number and flux directly in the
+optimization problem \citep{Lee2012}.
 
-Most genome-scale models have attached Boolean gene rules (without
-negation) to aid in determining whether or not a gene deletion will
+Most genome-scale models have attached Boolean (\textit{sans}
+negation) gene rules to aid in determining whether or not a gene
+deletion will
 completely disable a reaction. These are typically called GPR
 (gene-protein-reaction) rules and are a requirement for FALCON; their
 validity, like the stoichiometric matrix, will undoubtedly be
 important for generating accurate predictions. Also important are the
 assumptions and limitations for the process of mapping expression data
 to complexes so that a scaled enzyme complex copy number (hereafter
-referred to as complex abundance) can be estimated.  We address these
+referred to as complex abundance) can be estimated. We address these
 in the next section and have attached a flow chart to illustrate the
 overall process of mapping expression of individual genes to enzyme
-complexes (figure~\ref{ECCN_flowchart}).
+complexes (Figure~\ref{ECCN_flowchart}). We develop an algorithm for
+this step---finding the minimum disjunction---where complex abundance
+is estimated efficiently and as accurately as possible given the
+assumptions (due primarily to limitations in data quality; \suppOrApp
+Section~\ref{sec:complexation}).
 
 \vspace{5 mm} 
 \begin{figure}
@@ -165,10 +162,6 @@ complexes (figure~\ref{ECCN_flowchart}).
 \label{ECCN_flowchart}
 \end{figure}
 
-The last step, \emph{Find Min. Disjunction} is an algorithm we have
-developed to estimate the expression as accurately as possible given
-the assumptions that are elaborated in the next section.
-
 \subsection{A Formalism for Enzyme Complex Formation}
 
 Given the abundance of genome-scale expression datasets available,
@@ -177,7 +170,7 @@ actually gauge the number of enzyme complexes present in a cell. This
 isn't much of an issue for the simplest case where a reaction is
 catalyzed by only one polypeptide, and that polypeptide does not
 catalyze any other reactions.  Frequently the situation is not so
-simple (e.g.\ figure~\ref{fig:2F43}), so a model of enzyme complex
+simple (e.g.\ Figure~\ref{fig:2F43}), so a model of enzyme complex
 formation is called for.  We formalize such a model for enzyme complex
 formation based on GPR (gene-protein-reaction) rules that are
 frequently available in genome-scale annotations. For better curated
@@ -216,7 +209,7 @@ present in the same complex at the same moment, we consider them to be
 part of the enzyme complex since one could be substituted for the
 other.
 
-As an example, take the $F_1$ subcomplex of ATP Synthase (figure
+As an example, take the $F_1$ subcomplex of ATP Synthase (Figure
 ~\ref{fig:2F43}), which is composed of seven protein subunits
 (distinguised by color, left). On the right-hand side we see different
 isoforms depicted as different colors.  Error in expression data
@@ -465,8 +458,8 @@ described as follows:
 
 The third step greatly simplifies numeric manipulations and checking
 for the terminating condition. Please see the
-\suppOrApp~(\ref{sec:code}) for code for the core part of the
-algorithm. This algorithm returns the minimum disjunction because at
+\suppOrApp (Section~\ref{sec:code}) for the related core algorithmic 
+code. This algorithm returns the minimum disjunction because at
 each iteration, we select the literal with smallest value in a
 conjunction and remove all other literals in the conjuction;
 distributing ORs over ANDs and subsequently evaluating the associated
@@ -476,8 +469,12 @@ minimum value. A slightly more detailed proof is given in the
 
 \subsection{Formulation with Automatic Normalization and Fast Direction Assignment}
 
-The original formulation used repeated iterations of FVA (Flux
-Variability Analysis) \citep{Lee2012}. We removed FVA to mitigate some
+Prior work that served as an inspiration for this method used Flux
+Variability Analysis (FVA) to determine reaction direction
+\citep{Lee2012}. Briefly, this involves two FBA simulations per
+reaction catalyzed by an enzyme, and as the algorithm is iterative,
+this global procedure may be run several times before converging to a
+flux vector.  We removed FVA to mitigate some
 of the cost, and instead assign flux direction in batch; while it is
 possible that the objective value may decrease using this approach,
 this is not an issue since the objetive function increases to include
@@ -645,15 +642,13 @@ yeast model (A) are far more similar in their sensitivities than the
 heavily constrained yeast model (C).
 
 It is not an unreasonable hypothesis that fluxes would correlate well
-with their associated enzyme complex abundances. Given this
-possibility, it is informative to see if we get more information back
-than just enzyme complex expression. Aside from the obvious benefits
+with their associated complex abundances. Aside from the obvious benefits
 of constraint-based methods also estimating fluxes for non-enzymatic
 reactions, and assigning a direction for reversible enzymatic
 reactions, we see that in general, our method does not predict a
-strong correlation between enzyme complex levels and fluxes
+strong correlation between complex abundance and flux
 (\ref{Figure XX}). Recently it has been shown that many fluxes are not
-under direct control of their associated enzyme complex expression
+under direct control of their associated enzyme expression
 level \citep{Chubukov2013}, which gives experimental support to the
 idea that a network-based approach with soft contraints, such as that
 presented in this paper, may be useful in understanding how fluxes may
@@ -679,9 +674,9 @@ that continue to use expression to further constrain the model by
 creating tissue-specific or condition-specific models
 \citep{Wang2012,Shlomi2008,Becker2008}.
 
-Still, enzyme complex abundance may have uses aside from being a first
-step in FALCON. The method presented here for enzyme complex copy
-number estimation can be used as a stand-alone method, as long as GPR
+Still, complex abundance may have uses aside from being a first
+step in FALCON. The method presented here for complex abundance
+estimation can be used as a stand-alone method, as long as GPR
 rules from a metabolic reconstruction are present. For instance, it
 may not always be desirable to directly compute a flux. As an example,
 the relative copy number of enzyme complexes present in secretions
