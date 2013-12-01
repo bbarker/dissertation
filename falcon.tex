@@ -4,27 +4,30 @@
 % Thanks to Martha Field for discussion on adapting mammalian cells
 % to synthetic media.
 %
-FBA has become extremely popular, in part, due to its simplicity in
-calculating reasonably accurate microbial fluxes. For many microbes, a
-simple synthetic environment where all chemical species are known
-suffices to allow proliferation. Additionally, it has been found that
-their biological objectives can be largely expressed as linear
-objectives of fluxes.  Neither of these assumptions necessarily hold
-for mammalian cells growing \emph{in vitro} or \emph{in vivo}, and in
-particular the environment is far more complex for mammalian cell
-cultures, which have to undergo gradual metabolic adaptation via
-titration to grow on synthetic media. In what follows we first discuss
-the MoMA algorithm since it is heavily extended in order to allow us
-to use expression data for the estimation of flux data.
+FBA (flux balance analysis) has become extremely popular, in part, due
+to its simplicity in calculating reasonably accurate microbial fluxes
+or growth rates (e.g.\ \citealt{Schuetz2012,Fong2004_sb2013}); for
+many microbes, a simple synthetic environment where all chemical
+species are known suffices to allow proliferation, giving fairly
+complete constraints on model inputs. Additionally, it has been found
+that their biological objectives can be largely expressed as linear
+objectives of fluxes \citep{Schuetz2012}.  Neither of these
+assumptions necessarily hold for mammalian cells growing \textit{in
+  vitro} or \textit{in vivo}, and in particular the environment is far
+more complex for mammalian cell cultures, which have to undergo
+gradual metabolic adaptation via titration to grow on synthetic media
+\citep{Pirkmajer2011}. In what follows we first discuss the MoMA
+algorithm since it is heavily extended in order to allow us to use
+expression data for the estimation of flux data.
 
 % May eventually want to make this a conditional include section
 % and include it earlier in dissertation.
-\subsection{MoMA: Minimization of Metabolic Adjustment}
+%\subsection{MoMA: Minimization of Metabolic Adjustment}
 
 The minimization of metabolic adjustment (MoMA) method
-\citep{Segre2002}, which is framed as a least-squares optimization
+\citep{Segre2002}, which is framed as a constrained least-squares optimization
 problem, is typically employed to calculate the flux vector of an
-\emph{in silico} organism after a mutation by minimizing the distance
+\textit{in silico} organism after a mutation by minimizing the distance
 between the wild-type flux and the mutant flux. The biological
 intuition is that the organism has not had time to adapt to the
 restricted metabolic capacity and will maintain a similar flux to the
@@ -32,30 +35,28 @@ wild-type (WT) except where the perturbations due to the mutation
 dictate necessary alterations in fluxes \citep{Shlomi2005}.
 
 Suppose $\mathbf{a}$ is the WT flux vector obtained by an optimization
-procedure, such as min-norm FBA (flux balance analysis), empirical
-measurements, or a combination of these. Then for an undetermined flux
-vector $\mathbf{v}$ in a model with $N$ reactions the optimization
-objective can be expressed as
-\[ \textnormal{minimize}\ \sum\limits_{i=1}^N (v_i-a_i)^2 \] subject to the
-stoichiometric constraints $\mathbf{S v} = \mathbf{0}$ where
-$\mathbf{v} = (v_1, \ldots, v_N)^T$. This assumes that each $a_i$ is
-measured, but it is also possible and sometimes even more useful to
+procedure such as FBA, empirical measurements, or a combination of
+these. For an undetermined flux vector $\mathbf{v}$ in a model with
+$N$ reactions the objective can be expressed as
+\[ \textnormal{minimize}\ \sum\limits_{i=1}^N (v_i-a_i)^2 \] 
+subject to the stoichiometric constraints $\mathbf{S v}\nolinebreak
+=\nolinebreak \mathbf{0}$ where $\mathbf{v} = (v_1, \ldots,
+v_N)^T$. The objective may be equivalently expressed in the canonical
+quadratic programming (QP) vector form as
+$\textnormal{min.\ }\ \frac{1}{2}\mathbf{v}^T \mathbf{v}\nolinebreak
+-\nolinebreak \mathbf{a}^T \mathbf{v}$. This assumes that each $a_i$
+is measured, but it is also possible and sometimes even more useful to
 employ this objective when only a subset of the $a_i$ are measured (if
 $a_i$ is not measured for some $i$, then we omit $(v_i-a_i)^2$ from
 the objective). In metabolomics, for instance, it is always the case
 in experiments with labeled isotope tracers that only a relatively
 small subset of all fluxes are able to be estimated with metabolic
-flux analysis (MFA). Combining MoMA with MFA provides a technique to
-potentially estimate other fluxes in the network.  Constant bounds on
-fluxes are often present, such as substrate uptake limits, or
-experimental $V_{\max}$ estimates, so we write these as the constraints
-$\mathbf{v}_{lb} \preceq \mathbf{v} \preceq \mathbf{v}_{ub}$.
-
-The objective may be equivalently expressed in the canonical quadratic
-programming (QP) form as
-
-\[ \textnormal{minimize}\ \frac{1}{2}\mathbf{v}^T \mathbf{v} -
-\mathbf{a}^T \mathbf{v}\textnormal{.}\]
+flux analysis (MFA; \citealt{Shestov2013}). Combining MoMA with MFA
+provides a technique to potentially estimate other fluxes in the
+network.  Constant bounds on fluxes are often present, such as
+substrate uptake limits, or experimental $V_{\max}$ estimates, so we
+write these as the constraints $\mathbf{v}_{lb}\nolinebreak
+\preceq\nolinebreak \mathbf{v}\nolinebreak \preceq \mathbf{v}_{ub}$.
 
 A variant of MoMA exists that minimizes the absolute value of the
 difference between $a_i$ and $v_i$ for all known $a_i$. To our
@@ -63,67 +64,66 @@ knowledge, the following linear program is the simplest version of
 linear MoMA, which assumes the existence of a constant flux vector
 $\mathbf{a}$ and is expressed as the following linear program:
 
-\begin{align*}
-&\textnormal{minimize}\ \sum\limits_{i=1}^N d_i  \\
-&s.t.\\
-&\mathbf{S v} = \mathbf{0} \\
-&\mathbf{v}_{lb} \preceq \mathbf{v} \preceq \mathbf{v}_{ub} \\
-\forall i:~~&-d_i \le v_i-a_i \le d_i \\
-&d_i \ge 0
-\end{align*}
+\begin{center}
+\begin{tabular}{rl}
+minimize & $\sum\limits_{i=1}^N d_i$  \\
+subject to & $\mathbf{S v} = \mathbf{0}$ \\
+ & $\mathbf{v}_{lb} \preceq \mathbf{v} \preceq \mathbf{v}_{ub}$ \\
+$\forall i:$ & $-d_i \le v_i-a_i \le d_i$ \\
+ & $d_i \ge 0$
+\end{tabular}
+\end{center}
 
-The $d_i$ have no physical meaning and are minimized to force model
-fluxes to be as close as possible to the measured flux.  Linear MoMA
-has the advantage that it is not biased towards penalizing large
-magnitude fluxes or conversely under-penalizing fluxes that are less
-than one. Additionally, linear programs are often amenable to more
-changes that maintain convexity than a quadratic program.
+The $d_i$ are just the distances from \textit{a priori} fluxes to
+their corresponding fitted fluxes.  Linear MoMA has the advantage that
+it is not biased towards penalizing large magnitude fluxes or
+under-penalizing fluxes that are less than one
+\citep{Boyd2004,Shlomi2005}. Additionally, linear programs are often
+amenable to more alterations that maintain convexity than a quadratic
+program.
 
 \section{Methods}
 
-In order to develop software that shares a common API and ease of use,
-our software is largely implemented in MATLAB, using the COBRA
-Toolbox \citep{Hyduke2011}, which seems to be the most widely used package for
-contraint-based modeling to date. The first algorithm the technique
+In order to develop software that is easy to use and shares a popular API,
+our software is largely implemented in MATLAB using the COBRA
+Toolbox \citep{Hyduke2011}. The first algorithm in the technique
 has been implemented in ATS, a C-code generating language with rich
 safety features, in order to attain good time-efficiency without sacrificing
 safety and stability \citep{ATStypes03}. The only expensive operations in the
-MATLAB code are actually external calls to a linear program (LP) solver,
+MATLAB code are external calls to a linear program (LP) solver,
 so the efficiency in this case depends on the solver and the metabolic
 model in a complicated manner due to diverse algorithms and
 implementions as well as sensitivity to the model parameters
-\citep{Mittelmann2013,Todd2002}, so we discuss statistics for several
-models below using a state-of-the-art solver \ref{Table XX, Supp Note
-  XX}. Before comparing this approach to related methods, we describe
-our rationale and algorithms.
+\citep{Mittelmann2013,Todd2002}. We discuss performance statistics for
+several models below using a state-of-the-art solver \ref{Table XX,
+  Supp Note XX}. Before comparing this approach to related methods, we
+describe our rationale and algorithms.
 
 If we wish to apply MoMA to expression data rather than flux data, the
 original MoMA objective must be altered in several ways. Scaling of
 expression values must be addressed so they can be comparable to
 fluxes in the minimization. Also, expression data has no
-directionality, so a method to determine reaction direction given the
-model and expression data must be devised. Prior work that served as
-an inspiration for this method used Flux Variability Analysis (FVA) to
-determine reaction direction \citep{Lee2012}. Briefly, this involves
-two FBA simulations per reaction catalyzed by an enzyme, and as the
-algorithm is iterative, this global (and costly) procedure may be run
-several times before converging to a flux vector. We term any
-MoMA-like algorithm applied to expression data as FALCON. To our
-knowledge, there are only two such algorithms including the present
-work \citep{Lee2012}.
+directionality, necessitating reaction direction assignment in order
+to compare enzyme complex copy number and flux directly in the
+optimization problem \citep{Lee2012}.
 
-Most genome-scale models have attached Boolean gene rules (without
-negation) to aid in determining whether or not a gene deletion will
+Most genome-scale models have attached Boolean (\textit{sans}
+negation) gene rules to aid in determining whether or not a gene
+deletion will
 completely disable a reaction. These are typically called GPR
 (gene-protein-reaction) rules and are a requirement for FALCON; their
 validity, like the stoichiometric matrix, will undoubtedly be
 important for generating accurate predictions. Also important are the
 assumptions and limitations for the process of mapping expression data
 to complexes so that a scaled enzyme complex copy number (hereafter
-referred to as complex abundance) can be estimated.  We address these
+referred to as complex abundance) can be estimated. We address these
 in the next section and have attached a flow chart to illustrate the
 overall process of mapping expression of individual genes to enzyme
-complexes (figure~\ref{ECCN_flowchart}).
+complexes (Figure~\ref{ECCN_flowchart}). We develop an algorithm for
+this step---finding the minimum disjunction---where complex abundance
+is estimated efficiently and as accurately as possible given the
+assumptions (due primarily to limitations in data quality; \suppOrApp
+Section~\ref{sec:complexation}).
 
 \vspace{5 mm} 
 \begin{figure}
@@ -162,10 +162,6 @@ complexes (figure~\ref{ECCN_flowchart}).
 \label{ECCN_flowchart}
 \end{figure}
 
-The last step, \emph{Find Min. Disjunction} is an algorithm we have
-developed to estimate the expression as accurately as possible given
-the assumptions that are elaborated in the next section.
-
 \subsection{A Formalism for Enzyme Complex Formation}
 
 Given the abundance of genome-scale expression datasets available,
@@ -174,7 +170,7 @@ actually gauge the number of enzyme complexes present in a cell. This
 isn't much of an issue for the simplest case where a reaction is
 catalyzed by only one polypeptide, and that polypeptide does not
 catalyze any other reactions.  Frequently the situation is not so
-simple (e.g. figure~\ref{fig:2F43}), so a model of enzyme complex
+simple (e.g.\ Figure~\ref{fig:2F43}), so a model of enzyme complex
 formation is called for.  We formalize such a model for enzyme complex
 formation based on GPR (gene-protein-reaction) rules that are
 frequently available in genome-scale annotations. For better curated
@@ -213,7 +209,7 @@ present in the same complex at the same moment, we consider them to be
 part of the enzyme complex since one could be substituted for the
 other.
 
-As an example, take the $F_1$ subcomplex of ATP Synthase (figure
+As an example, take the $F_1$ subcomplex of ATP Synthase (Figure
 ~\ref{fig:2F43}), which is composed of seven protein subunits
 (distinguised by color, left). On the right-hand side we see different
 isoforms depicted as different colors.  Error in expression data
@@ -245,7 +241,7 @@ values---replacing gene names with their expression values, ANDs with
 minimums, and ORs with sums, without altering the logical expression
 of the GPR rule in any way---can lead to problems in some
 cases~\citep{Lee2012}. We illustrate this below; lower case letters
-denote expression level (i.e. copy number of mRNA) of their
+denote expression level (i.e.\ copy number of mRNA) of their
 corresponding upper case letter, which denotes the gene name. The
 $r_i$ are different reaction rules and the $e_i$ are the corresponding
 estimated complex expression levels.
@@ -286,7 +282,7 @@ information is, in the current state of affairs, not always known.
 However, there may be alternative versions of each functional set
 (given by OR relationships). Eventually, this nested embedding
 terminates with a single protein or set of peptide isoforms
-(e.g. isozymes).  In the case of ATP Synthase, one of its functional
+(e.g.\ isozymes).  In the case of ATP Synthase, one of its functional
 sets is represented by the $F_1$ subcomplex. The $F_1$ subcomplex
 itself can be viewed as having two immediate subcomplexes: the single
 $\gamma$ (axle) subunit and three identical subcomplexes each made of
@@ -386,10 +382,10 @@ primary reason we have not tackled this problem is because exact
 subunit stoichiometry of most enzyme complexes is not accurately
 known, but an increasing abundance of data on BRENDA
 \citep{Schomburg2013} gives some hope to this problem. A recent
-\emph{E. coli} ME-model \citep{O'Brien2013} incorporates putative
+\textit{E. coli} ME-model \citep{O'Brien2013} incorporates putative
 enzyme complex stoichiometry into GPRs. For the second point, there
 are a few enzymes where a single polpeptide may have multiple active
-sites (e.g. fatty acid synthase), and this is not currently taken into
+sites (e.g.\ fatty acid synthase), and this is not currently taken into
 account in our model.
 
 \emph{Assumption~\ref{asm:holo}.}
@@ -462,8 +458,8 @@ described as follows:
 
 The third step greatly simplifies numeric manipulations and checking
 for the terminating condition. Please see the
-\suppOrApp~(\ref{sec:code}) for code for the core part of the
-algorithm. This algorithm returns the minimum disjunction because at
+\suppOrApp (Section~\ref{sec:code}) for the related core algorithmic 
+code. This algorithm returns the minimum disjunction because at
 each iteration, we select the literal with smallest value in a
 conjunction and remove all other literals in the conjuction;
 distributing ORs over ANDs and subsequently evaluating the associated
@@ -473,8 +469,12 @@ minimum value. A slightly more detailed proof is given in the
 
 \subsection{Formulation with Automatic Normalization and Fast Direction Assignment}
 
-The original formulation used repeated iterations of FVA (Flux
-Variability Analysis) \citep{Lee2012}. We removed FVA to mitigate some
+Prior work that served as an inspiration for this method used Flux
+Variability Analysis (FVA) to determine reaction direction
+\citep{Lee2012}. Briefly, this involves two FBA simulations per
+reaction catalyzed by an enzyme, and as the algorithm is iterative,
+this global procedure may be run several times before converging to a
+flux vector.  We removed FVA to mitigate some
 of the cost, and instead assign flux direction in batch; while it is
 possible that the objective value may decrease using this approach,
 this is not an issue since the objetive function increases to include
@@ -634,7 +634,7 @@ estimated fluxes. We find that enzymatic reaction directionality
 constraints influence the sensitivity of the model to expression
 perturbation (\ref{Figure XX}). It is important to note that mere
 presence of the constraints does not help us determine the correct
-experimental fluxes when other types of methods (e.g. FBA, \ref{Table
+experimental fluxes when other types of methods (e.g.\ FBA, \ref{Table
   XX}) are used. However, as shown in the previous figures, it is
 possible to obtain good predictions even without a heavily constrained
 model. Below we see that the human model (B) and minimally constrained
@@ -642,15 +642,13 @@ yeast model (A) are far more similar in their sensitivities than the
 heavily constrained yeast model (C).
 
 It is not an unreasonable hypothesis that fluxes would correlate well
-with their associated enzyme complex abundances. Given this
-possibility, it is informative to see if we get more information back
-than just enzyme complex expression. Aside from the obvious benefits
+with their associated complex abundances. Aside from the obvious benefits
 of constraint-based methods also estimating fluxes for non-enzymatic
 reactions, and assigning a direction for reversible enzymatic
 reactions, we see that in general, our method does not predict a
-strong correlation between enzyme complex levels and fluxes
+strong correlation between complex abundance and flux
 (\ref{Figure XX}). Recently it has been shown that many fluxes are not
-under direct control of their associated enzyme complex expression
+under direct control of their associated enzyme expression
 level \citep{Chubukov2013}, which gives experimental support to the
 idea that a network-based approach with soft contraints, such as that
 presented in this paper, may be useful in understanding how fluxes may
@@ -676,9 +674,9 @@ that continue to use expression to further constrain the model by
 creating tissue-specific or condition-specific models
 \citep{Wang2012,Shlomi2008,Becker2008}.
 
-Still, enzyme complex abundance may have uses aside from being a first
-step in FALCON. The method presented here for enzyme complex copy
-number estimation can be used as a stand-alone method, as long as GPR
+Still, complex abundance may have uses aside from being a first
+step in FALCON. The method presented here for complex abundance
+estimation can be used as a stand-alone method, as long as GPR
 rules from a metabolic reconstruction are present. For instance, it
 may not always be desirable to directly compute a flux. As an example,
 the relative copy number of enzyme complexes present in secretions
