@@ -53,7 +53,7 @@ in experiments with labeled isotope tracers that only a relatively
 small subset of all fluxes are able to be estimated with metabolic
 flux analysis (MFA; \citealt{Shestov2013a}). Combining MoMA with MFA
 provides a technique to potentially estimate other fluxes in the
-network.  Constant bounds on fluxes are often present, such as
+network. Constant bounds on fluxes are often present, such as
 substrate uptake limits, or experimental $V_{\max}$ estimates, so we
 write these as the constraints $\mathbf{v}_{lb}\nolinebreak
 \preceq\nolinebreak \mathbf{v}\nolinebreak \preceq \mathbf{v}_{ub}$.
@@ -170,9 +170,13 @@ actually gauge the number of enzyme complexes present in a cell. This
 isn't much of an issue for the simplest case where a reaction is
 catalyzed by only one polypeptide, and that polypeptide does not
 catalyze any other reactions.  Frequently the situation is not so
-simple, so a model of enzyme complex formation is called for.  We
-formalize such a model for enzyme complex formation based on GPR
-rules that are frequently available in genome-scale annotations.
+simple, so a model of enzyme complex formation is called for. A recent
+study has even found that only 11\% of annotated \textit{Drosophila}
+protein complexes have subunits that are co-regulated
+\citep{Juschke2013}, so it cannot be assumed that any given protein
+subunit level represents the actual complex abundance. We formalize a
+model for enzyme complex formation based on GPR rules that are
+frequently available in genome-scale annotations.
 
 The original expression to complex abundance mapping procedure
 performed a direct evaluation of GPR rule expression
