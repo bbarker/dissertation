@@ -172,11 +172,10 @@ catalyzed by only one polypeptide, and that polypeptide does not
 catalyze any other reactions.  Frequently the situation is not so
 simple, so a model of enzyme complex formation is called for.  We
 formalize such a model for enzyme complex formation based on GPR
-(gene-protein-reaction) rules that are frequently available in
-genome-scale annotations.
+rules that are frequently available in genome-scale annotations.
 
 The original expression to complex abundance mapping procedure
-performed a direct evaluation of gene rule expression
+performed a direct evaluation of GPR rule expression
 values---replacing gene names with their expression values, ANDs with
 minimums, and ORs with sums, without altering the logical expression
 of the GPR rule in any way \citep{Lee2012}. Below we illustrate a 
@@ -186,8 +185,7 @@ corresponding upper case letter, which denotes the gene name. The
 $r_i$ are different reaction rules and the $e_i$ are the corresponding
 estimated complex expression levels.
 
-We need some way to guarantee that we don’t count anything twice or
-more across disjunctions: 
+We need some way to guarantee that we don’t count any gene more than once: 
 \begin{AlgFloat}[H]
 {\setlength{\tabcolsep}{.16667em}
 \begin{tabular}{cccccccc}
@@ -212,14 +210,16 @@ not min($\frac{a}{2},b$) + min($\frac{a}{2},c$) = $\frac{a}{2} + 0$.
 
 \subsection{The min-disjunction algorithm estimates \\enzyme complex abundance}
 
-In the previous section, we showed that converting a rule to CNF is a
-sound method to aid in the estimation of enzyme complex copy number.
-However, attempting to symbolically convert some rules in yeast models and
-many rules in human models to CNF is computationally intractable due
-to an exponential increase in memory \citep{Russell2009}. Therefore,
-we use a reduction rule that makes use of expression data, outlined
-below.  Note that the $AND$ and $OR$ notation is used to illustrate a
-data structure that represents a set of literals that are
+In the \suppOrApp (Section~\ref{sec:complexation}), we showed that
+converting a rule to CNF is a sound method to aid in the estimation of
+enzyme complex copy number.  However, attempting to symbolically
+convert some rules in yeast models and many rules in human models to
+CNF is computationally intractable due to an exponential increase in
+memory \citep{Russell2009}. Therefore, we use a reduction rule that
+makes use of expression data, outlined below. What this does is to
+find the \emph{rate-limiting} component of enzyme-complex
+formation. Note that the \ANDw and \ORw notation is used to illustrate
+a data structure that represents a set of literals that are
 conjunctively or disjunctively joined together. The algorithm can be
 described as follows:
 
@@ -229,18 +229,18 @@ described as follows:
 \begin{algorithmic}
 \ifthenelse{\boolean{thesisStyle}}{\singlespacing}{}
 ~
-\REQUIRE $g_i~s.t.~i \in{1, ..., m}$ are genes. 
-\REQUIRE $x_i~s.t.~i \in{1, ..., n}$ are expressions in Boolean logic.
-\WHILE{$rule \neq AND(o_1,...,o_p)$ where each $o_i$ has the form: $OR(...,g_j,...)~s.t.~j \leq m$}
-  \STATE $\mathbf{1}$: check for sequence of ANDs of literals (genes)\\ 
+\REQUIRE $\left\{g_i~\mid~i \in{1, ..., m}\right\}$ are genes. 
+\REQUIRE $\left\{x_i~\mid~i \in{1, ..., n}\right\}$ are expressions in Boolean logic.
+\WHILE{$rule \neq \ANDw(o_1,...,o_p)$ where each $o_i$ has the form: $\ORw(...,g_j,...)$,}
+  \STATE $\mathbf{1}$: check for sequence of \ANDw s of literals (genes)\\ 
     \hspace{4.8 mm} $\rightarrow$ reduce to gene with minimum expression 
-  \STATE $\mathbf{2}$: Distribute ORs over ANDs, e.g.: $(x_1 \land x_2) \lor (x_3 \land x_4)$ \\ 
+  \STATE $\mathbf{2}$: Distribute $\lor$ over $\land$, e.g.: $(x_1 \land x_2) \lor (x_3 \land x_4)$ \\ 
     \hspace{4.8 mm} $\rightarrow (x_1 \lor x_3) \land (x_1 \lor x_4) \land (x_2 \lor x_3) \land (x_2 \lor x_4)$
   \STATE $\mathbf{3}$: Change adjacent gene arguments to sets, e.g: \\
-    \hspace{4.8 mm} $g_1 \land g_2 \rightarrow AND(g_1,g_2)$;  \\
-    \hspace{4.8 mm} $g_1 \land AND(g_2,g_3) \rightarrow AND(g_1,g_2,g_3)$ 
+    \hspace{4.8 mm} $g_1 \land g_2 \rightarrow \ANDw(g_1,g_2)$;  \\
+    \hspace{4.8 mm} $g_1 \land \ANDw(g_2,g_3) \rightarrow \ANDw(g_1,g_2,g_3)$ 
 \ENDWHILE
-\ENSURE $o_{\min}$ where $o_{\min}$ has the form: $OR(g_1,...,g_m)$
+\ENSURE $o_{\min}$ where $o_{\min}$ has the form: $\ORw(g_1,...,g_m)$
 \end{algorithmic} 
 \end{Algorithm}
 \end{AlgFloat}
@@ -251,12 +251,12 @@ for the terminating condition. Please see the
 code. This algorithm returns the minimum disjunction because at
 each iteration, we select the literal with smallest value in a
 conjunction and remove all other literals in the conjuction;
-distributing ORs over ANDs and subsequently evaluating the associated
+distributing $\lor$ over $\land$ and subsequently evaluating the associated
 expression values will not change which disjunction attains the
 minimum value. A slightly more detailed proof is given in the
-\suppOrApp~(\ref{thm:ReductionToCNF}).
+\suppOrApp (Section~\ref{thm:ReductionToCNF}).
 
-\subsection{Formulation with Automatic Normalization and Fast Direction Assignment}
+\subsection{Formulation with automatic normalization and batch direction assignment}
 
 Prior work that served as an inspiration for this method used Flux
 Variability Analysis (FVA) to determine reaction direction
@@ -273,31 +273,32 @@ with fewer fluxes.
  
 To make working with irreversible fluxes simpler, we convert the model
 to an irreversible model, where each reversible flux $v_j$ in the
-original model is split into a forward and backward reaction that take
+original model is split into a forward and a backward reaction that take
 strictly positive values: $v_{j,f}$ and $v_{j,b}$. If $v_j$ is
 specified without a forward or backward subscript and it is in the
 context of an irreversible model, this implies that the reaction
 direction is irreversible. We also account for enzyme complexes
-catalyzing multiple reactions (i.e.\ reactions with identical gene
-rules in each set) by including all the reactions in the same residual
+catalyzing multiple reactions by including all reactions with identical
+GPR rules in the same residual
 constraint; indexed sets of reactions are denoted $R_i$ and their
 corresponding estimated enzyme abundance is $e_i$. Note that we use a
 slight abuse of notation, since we also choose to index enzyme
 abundance as $e_j$ for a specific reaction, where $j = i$ does not
-imply $e_i = e_j$. $N$ is the number of reversible reactions, and a
-superscript $E$ denotes an enzymatic reaction. The standard deviation
-of enzyme abundance, $\sigma_i$, is an optional weighting of
-uncertainty in biological or technical replicates.
+imply $e_i = e_j$. The \emph{existence} of $e_j$ merely means that
+some expression data is available for some of the genes for $e_j$;
+missing genes are removed from the rule during the call to
+min-disjunction---values known to be zero can always be specified as
+such. The standard deviation of enzyme abundance, $\sigma_i$, is an
+optional weighting of uncertainty in biological or technical
+replicates.
 
 We employ a normalization variable $n$ in the problem to find the most
 agreeable scaling of expression data. The LFP shown below can be
 converted to a linear program by the Charnes-Cooper transformation
 \citep{Boyd2004}. To avoid the need for fixing a specific flux, which
-may introduce bias, we introduce the bound $\sum_{j \textnormal{ with
-    existing\ } e_j}^N v_j \geq V_{lb}^{\Sigma}$. This guarantees that
-the optimization problem will yield a non-zero flux vector and also
-helps to put the fluxes and expression measures on the same order of
-magnitude, which can be important for numerical stability. The actual
+may introduce bias, we introduce the bound $\sum_{j \mid e_j 
+\textnormal{ exists }} v_j \geq V_{lb}^{\Sigma}$. This guarantees that
+the optimization problem will yield a non-zero flux vector. The actual
 value of $V_{lb}^{\Sigma}$ is not very important due to the scaling
 introduced by $n$, but we do update it at each iteration to reflection
 potentially large changes in magnitude as more irreversible reactions
@@ -313,17 +314,17 @@ reversible reactions remains constant after an iteration.
 \ifthenelse{\boolean{thesisStyle}}{\singlespacing}{}
 ~\\
 $u_{\min} = \min_j\ \{V_{j,\max} : V_{j,\max} > 0\}$\\
-$V_{lb}^{\Sigma} = u_{\min} \left|\{v_j^E : e_j \textnormal{ exists}\}\right|$\\
+$V_{lb}^{\Sigma} = u_{\min} \left|\{v_j : e_j \textnormal{ exists}\}\right|$\\
 \STATE {Scale data to be of similar size for numeric stability:}
 \FORALL {j}
   \STATE $e_j := \frac{e_j V_{lb}^{\Sigma}}
-    {\sum\nolimits_{j=1}^N e_j}$\\ 
+    {\sum\limits_{j} e_j}$\\ 
   \STATE $\sigma_j := \frac{\sigma_j V_{lb}^{\Sigma}}
-    {\sum\nolimits_{j=1}^N e_j}$\\ 
+    {\sum\limits_{j} e_j}$\\ 
 \ENDFOR
 \WHILE{$rxns_{irrev} > rxns_{irrev,prior}$}
   \STATE {$rxns_{irrev,prior} := rxns_{irrev}$}
-  \STATE $V_{lb}^{\Sigma} = u_{\min} \left|\{v_j^E : 
+  \STATE $V_{lb}^{\Sigma} = u_{\min} \left|\{v_j : 
     e_j \textnormal{ exists}\}\right|$\\
   %\IF {first iteration}
   %\STATE {Constrain a user-specified flux $v_{scale} = c_{scale}$} 
@@ -337,7 +338,7 @@ $V_{lb}^{\Sigma} = u_{\min} \left|\{v_j^E : e_j \textnormal{ exists}\}\right|$\\
   \INDSTATE $\textnormal{minimize}\ \sum\limits_i \frac{d_i}{n
     \sigma_i}$ \\
   \INDSTATE s.t. \\
-  \INDSTATE $\sum_{j \textnormal{ with existing\ } e_j}^N v_j \geq V_{lb}^{\Sigma}$ 
+  \INDSTATE $\sum_{j \mid e_j \textnormal{ exists }} v_j \geq V_{lb}^{\Sigma}$ 
   \INDSTATE $\forall i: -d_i \leq \sum\nolimits_{j \in R_i} (v_{j,f} +
     v_{j,b}) - n e_i \leq d_i$ \\
   \INDSTATE $d_i, v_{j,f}, v_{j,b} \geq 0$ \\
@@ -349,7 +350,7 @@ $V_{lb}^{\Sigma} = u_{\min} \left|\{v_j^E : e_j \textnormal{ exists}\}\right|$\\
   %\STATE {$rxns_{irrev}$++}
   %\ENDIF
   %\IF {$v_{i,b} > 0$}
-  \FORALL {$v_j$}
+  \FORALL {$\left\{j \mid v_{j,f} + v_{j,b} > 0, v_{j,f} \neq v_{j,b} \right\}$}
   \STATE {Constrain the smaller of $v_{j,f}$ and $v_{j,b}$ to be $0$.}  
   \STATE {$rxns_{irrev}$++}
   \ENDFOR
@@ -389,18 +390,18 @@ $V_{lb}^{\Sigma} = u_{\min} \left|\{v_j^E : e_j \textnormal{ exists}\}\right|$\\
 \section{Results and Discussion}
 
 Using the same yeast exometabolic and expression data employed for
-benchmarking in a recent study \citep{Lee2012} that included an
+benchmarking in the antecedent study \citep{Lee2012} that included an
 updated version of the Yeast 5 model \citep{Heavner2012}, we find that
 our algorithm has significant improvements in time efficiency while
-maintaining correlation with experimental fluxes, and \hl{GIMME
-  speed?} is as fast as all tested methods with the exception of
-standard FBA, which does not use expression data as input (\ref{Table
-  XX}, \ref{Figure Barplots}). Furthermore, when we remove many bounds
+maintaining correlation with experimental fluxes, and \hl{(GIMME
+  speed?)} is as fast as all tested methods with the exception of
+standard FBA, which does not use expression data as input (Table~\ref{Table
+  XX}; Figure~\ref{Figure Barplots}). Furthermore, when we remove many bounds
 constraining the direction of enzymatic reactions that aren't
 explicitly annotated as being irreversible in prior work
 \citep{Lee2012}, we find that our formulation of the approach seems to
-be more robust than other methods (\ref{Table XX}). iMAT, a MILP
-formulation, took several days of run-time to finish on the minimally
+be more robust than other methods (Table~\ref{Table XX}). iMAT, a MILP
+formulation, took several days of run-time (Table~\ref{Table XX}) to finish on the minimally
 constrained Yeast 7 model, despite using a parallel solver making full
 use of 16 cores \citep{gurobi} on Yeast 7 model \citep{Aung2013},
 likely due to the number of branches incurred from reversible
@@ -408,7 +409,7 @@ reactions. This is somewhat unfortunate, as a MILP formulation would
 be appealing for this family of techniques as well, but the current
 time efficiency would be extremely prohibitive for the forseeable
 future. We see that the prognostic ability of the algorithm does not
-appear to be artifact; when FALCON is run on permuted expression data,
+appear to be an artifact; when FALCON is run on permuted expression data,
 it doesn't do as well as the actual expression vector(\ref{Figure
   XX}).
 
@@ -448,21 +449,6 @@ problem in FALCON, unless entire pathways are overexpressed, which
 would be unusual as it would represent a seemingly large energetic
 inefficiency.
 
-We have formalized and improved an existing method for estimating flux
-from expression data, as well as listing detailed assumptions in the
-model that may be useful to address in later attempts
-Table~\ref{ECAssume}.  Although we show that expression does not
-correlate well with flux, we are still essentially trying to fit
-fluxes to expression levels.  The number of constraints presents in
-metabolic models (even the minimally constrained models) makes it
-impossible to achieve a good correlation between the two. However, as
-with all CBMs, constraints are only half the story in any largely
-underdetermined system, and we show that gene expression can prove to
-be a valuable basis for forming an objective, as opposed to methods
-that continue to use expression to further constrain the model by
-creating tissue-specific or condition-specific models
-\citep{Wang2012,Shlomi2008,Becker2008}.
-
 Still, complex abundance may have uses aside from being a first
 step in FALCON. The method presented here for complex abundance
 estimation can be used as a stand-alone method, as long as GPR
@@ -477,16 +463,16 @@ PROM \citep{Chandrasekaran2010a} or other regulatory network models
 that can estimate individual gene expression levels at time $t+1$
 given the state of the model at a time $t$.
 
-Another caveat is that GPR rules or stoichiometry may be inaccurate or
+GPR rules and stoichiometry may be inaccurate or
 incomplete in any given model. In fact, for the forseeable future,
 this is a given. By using the GPR and not just the stoichiometry to
 estimate flux, it is possible that future work could make use of this
 framework to debug not just stoichiometry as some methods currently do
 (e.g.\ \citealt{Reed14112006}) , but also GPR rules.  Hope for
-improved gene rule annotation may come from many different avenues of
+improved GPR rule annotation may come from many different avenues of
 current research. For instance, algorithms exist for reconstructing
 biological process information from large-scale datasets, and could be
-tuned to aid in the annotation of gene-rules
+tuned to aid in the annotation of GPR rules.
 \citep{Mitra2013}. Flexible metabolic reconstruction pipelines such as
 GLOBUS may also be extended to incorporate GPRs into their output, and
 in so doing, extend this type of modeling to many non-model organisms
@@ -496,7 +482,6 @@ number for each gene in a complex. Once more information on enzyme
 complex structure and reaction mechanism becomes available, an
 extension to the current method could make use of this information.
 
-
 One may wonder why the present work doesn't attempt to use empirically
 obtained kinetic parameters to estimate $V_{\max}$, but this approach
 does not seem as promising in light of experimental evidence that many
@@ -505,10 +490,7 @@ $V_{\max}$ \citep{Bennett2009}. Still, a better understanding of these
 phenomena may make it possible to improve flux estimation methods such
 as the one presented here, or more traditional forms of MFA
 \citep{Shestov2013a} by incorporating enzyme complexation and kinetic
-information. The present results and avenues for future improvement
-show that there is much promise for using expression to estimate
-fluxes, and that it can already be a useful tool for performing flux
-estimation and analysis.
+information.
 
 % Need to show heatmap figure in this section %
 
@@ -524,13 +506,26 @@ estimation and analysis.
 
 \section{Conclusion}
 
+We have formalized and improved an existing method for estimating flux
+from expression data, as well as listing detailed assumptions in the
+model that may be useful to address in later attempts
+Table~\ref{ECAssume}.  Although we show that expression does not
+correlate well with flux, we are still essentially trying to fit
+fluxes to expression levels.  The number of constraints presents in
+metabolic models (even the minimally constrained models) makes it
+impossible to achieve a good correlation between the two. However, as
+with all CBMs, constraints are only half the story in any largely
+underdetermined system, and we show that gene expression can prove to
+be a valuable basis for forming an objective, as opposed to methods
+that continue to use expression to further constrain the model by
+creating tissue-specific or condition-specific models
+\citep{Wang2012,Shlomi2008,Becker2008}.
+
 For better curated models, the approach described immediately finds
 use for understanding metabolism, as well as being a scaffold to find
 problems for existing GPRs, and more broadly the GPR formalism itself.
-
-\begin{enumerate}
-\item this is item, use enumerate
-\item this is item, use enumerate
-\item this is item, use enumerate
-\end{enumerate}
+The present results and avenues for future improvement
+show that there is much promise for using expression to estimate
+fluxes, and that it can already be a useful tool for performing flux
+estimation and analysis.
 

@@ -8,26 +8,7 @@ associated polypeptide chains, which is sometimes called a quaternary
 structure. Since we are not exclusively dealing with multiprotein
 complexes, we refer to an enzyme complex as being one or more
 polypeptide chains that act together to carry out metabolic
-catalysis. Also, to simply our English, we also include the notion of
-isozymes--different proteins that catalyze the same reaction--in our
-notion of enzyme complex. Isozymes may arise by having one or more
-differing protein isoforms, and even though these isoforms may not be
-present in the same complex at the same moment, we consider them to be
-part of the enzyme complex since one could be substituted for the
-other.
-
-As an example, take the $F_1$ subcomplex of ATP Synthase (Figure
-~\ref{fig:2F43}), which is composed of seven protein subunits
-(distinguised by color, left). On the right-hand side we see different
-isoforms depicted as different colors.  Error in expression data
-aside, instead of considering the copy numbers with multiplicity and
-dividing their expression values by their multiplicity, it may be
-easier to simply note that the axle peptide (shown in red in the
-center of the complex) only has one copy in the complex, so its
-expression should be an overall good estimation of the $F_1$
-subcomplex copy number. This reasoning will be useful later in
-considering why GPRs may be largely adequate for estimating the
-abundance of most enzyme complexes.
+catalysis.
 
 \emph{Assumption~\ref{asm:expcorr}.}  The first assumption that we
 need in order to guarantee an accurate estimate of (relative) enzyme
@@ -42,9 +23,28 @@ gleamed from analyzing RNA-Seq data, but, an appropriate degree of
 caution must be used in interpreting results based on RNA-Seq data. By
 incorporating more information, such as metabolic constaints, we hope
 to obviate some of the error in estimating protein intensity from
-RNA-Seq data.
+RNA-Seq data.  
 
-\emph{Assumption~\ref{asm:isozyme}.}  
+\emph{Assumption~\ref{asm:isozyme}.} We also include the notion of
+isozymes--different proteins that catalyze the same reaction--in our
+notion of enzyme complex. Isozymes may arise by having one or more
+differing protein isoforms, and even though these isoforms may not be
+present in the same complex at the same moment, we consider them to be
+part of the enzyme complex since one could be substituted for the
+other.
+
+As an example for assumptions described so far, take the $F_1$
+subcomplex of ATP Synthase (Figure ~\ref{fig:2F43}), which is composed
+of seven protein subunits (distinguised by color, left). On the
+right-hand side we see different isoforms depicted as different
+colors.  Error in expression data aside, instead of considering the
+copy numbers with multiplicity and dividing their expression values by
+their multiplicity, it may be easier to simply note that the axle
+peptide (shown in red in the center of the complex) only has one copy
+in the complex, so its expression should be an overall good estimation
+of the $F_1$ subcomplex copy number. This reasoning will be useful
+later in considering why GPRs may be largely adequate for estimating
+the abundance of most enzyme complexes.
 
 \begin{figure*}%[H]
 \label{fig:2F43}
@@ -156,7 +156,7 @@ site per identical subunit would be considered as one enzyme complex
 per subunit in this model.  Note that it is possible for an enzyme
 complex to catalyze different reactions. In fact, some transporter
 complexes can transfer many different metabolites \hl{across a lipid
-  bilayer---up to}. Another example is the ligation or hydrolysis of
+  bilayer---up to X in the case of Y}. Another example is the ligation or hydrolysis of
 nucleotide, fatty acid, or peptide chains, where chains of different
 length may all be substrates or products of the same enzyme
 complex. While we do not explicitly consider these in
@@ -172,8 +172,9 @@ primary reason we have not tackled this problem is because exact
 subunit stoichiometry of most enzyme complexes is not accurately
 known, but an increasing abundance of data on BRENDA
 \citep{Schomburg2013} gives some hope to this problem. A recent
-\textit{E. coli} ME-model \citep{O'Brien2013} incorporates putative
-enzyme complex stoichiometry into GPRs. For the second point, there
+\textit{E. coli} metabolic model incorporating the metabolism of all
+known gene products \citep{O'Brien2013} also includes putative
+enzyme complex stoichiometry in GPRs. For the second point, there
 are a few enzymes where a single polpeptide may have multiple active
 sites (e.g.\ fatty acid synthase), and this is not currently taken into
 account in our model.
@@ -193,8 +194,8 @@ complex. Holoenzymes---enzymes with metabolic cofactors or protein
 subunits that have a regulatory function for the complex---would
 likely be the only situation where this type of rule might need to be
 considered in more detail. But in the absence of detailed kinetic
-information, this consideration not be useful, much like allosteric
-regulation.
+information, this consideration (much like allosteric
+regulation) is not useful.
 
 \emph{Assumptions~\ref{asm:chap}~and~\ref{asm:rate}.}
 Due to the quickness, stability, and energetic favorability of enzyme
@@ -259,17 +260,17 @@ minimum expression value of the rule in CNF.
 
 The following code is written in ATS, a type-safe language including
 syntax similar to SML while having direct access to C types
-\citep{ATStypes03}. GREXP describes a datatype that is used for
-storing the parse trees of Boolean rules (without negation).  A GREXP
-can then be manipulated by the function toCNF to be converted to a
-conjunctive normal form. We make use of the reduction rule mentioned
-previously by calling the minConj function. The conjunctivize function
-is a helper function to deal with different structures for a GRconj
-and GRdisj (one is set based, one is parse-tree based; note this
-described in the data(view)type defintion). We note that this is a
-recursive, functional implementation of
-Algorithm~\ref{alg:ReductionToCNF}, which seems more straightforward
-than a procedural implementation.
+\citep{ATStypes03}. \texttt{GREXP} describes a datatype that is used
+for storing the parse trees of Boolean rules (without negation).  A
+\texttt{GREXP} can then be manipulated by the function \texttt{toCNF}
+to be converted to a conjunctive normal form. We make use of the
+reduction rule mentioned previously by calling the \texttt{minConj}
+function. The \texttt{conjunctivize} function is a helper function to
+deal with different structures for \texttt{GRconj} and \texttt{GRdisj}
+(one is set based, one is parse-tree based; note this described in the
+data(view)type defintion). We note that this is a recursive,
+functional implementation of Algorithm~\ref{alg:ReductionToCNF}, which
+seems more straightforward than a procedural implementation.
 
 \begin{verbatim}
 dataviewtype GREXP = 
@@ -427,3 +428,6 @@ Yeast 5.21 \citep{Lee2012} to a newer yeast model, but could in
 principle be used for any two models; this script is coded to first
 call \texttt{removeEnzymeIrrevs} on both models before copying
 irreversible annotations.
+
+\subsection{Expression perturbation analysis}
+\hl{Describe log-normal noise sampling here first.}
