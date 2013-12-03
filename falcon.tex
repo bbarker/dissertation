@@ -405,9 +405,10 @@ constraining the direction of enzymatic reactions that aren't
 explicitly annotated as being irreversible in prior work
 \citep{Lee2012}, we find that our formulation of the approach seems to
 be more robust than other methods (Table~\ref{Table XX}). iMAT, a MILP
-formulation, took several days of run-time (Table~\ref{Table XX}) to finish on the minimally
-constrained Yeast 7 model, despite using a parallel solver making full
-use of 16 cores \citep{gurobi} on Yeast 7 model \citep{Aung2013},
+formulation \citep{Shlomi2008}, took several days of run-time to
+finish on the minimally constrained Yeast 7 model (Table~\ref{Table
+  XX}; \citealt{Aung2013}), despite using a parallel solver making
+full use of 16 cores \citep{gurobi},
 likely due to the number of branches incurred from reversible
 reactions. This is somewhat unfortunate, as a MILP formulation would
 be appealing for this family of techniques as well, but the current
@@ -523,7 +524,7 @@ underdetermined system, and we show that gene expression can prove to
 be a valuable basis for forming an objective, as opposed to methods
 that continue to use expression to further constrain the model by
 creating tissue-specific or condition-specific models
-\citep{Wang2012,Shlomi2008,Becker2008}.
+\citep{Shlomi2008,Becker2008}.
 
 For better curated models, the approach described immediately finds
 use for understanding metabolism, as well as being a scaffold to find
