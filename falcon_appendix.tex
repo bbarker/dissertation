@@ -416,6 +416,31 @@ terminate. Of course, if there is a clear choice of algorithm for a
 particular problem class, this should be used in production settings
 to avoid wasted CPU time and memory.
 
+In our case, we had the following results for Yeast 5 (with minimal
+directionality constraints) and an expanded
+Recon 2.1 \hl{cites} (to use relatively small and very large models):
+
+%Insert table here.
+
+It is not possible to pass the Gurobi \texttt{method} parameter to
+\texttt{gurboi} in the COBRA Toolbox by default, but to keep our code
+as close as possible to the COBRA Toolbox API, we have copied
+\texttt{solveCobraLP.m} to the file \texttt{solveFalconLP.m} and
+modified it to use the optimal method parameters. Other parameters
+could also be passed easily. \texttt{solveFalconLP} is only called if
+\texttt{gurobi} is detected as a MATLAB executable (MEX) file;
+otherwise the default solver specified for the COBRA Toolbox will be
+used.
+
+At the time of this release, \texttt{solveFalconLP} should be
+completely compatible with all other possible calls made to
+\texttt{solveCobraLP}, so in principle the latter could be replaced,
+but it is not reccommended in case the COBRA Toolbox API changes. If a
+user wishes to use some solver other than Gurobi, it should be easy to
+alter \texttt{solveFalconLP.m} and \texttt{falcon.m} to support custom
+parameters. The preferred parameter settings may change for future
+releases of FALCON or its successors.
+
 \section{Generation of figures and tables}
 
 \subsection{Minimally constrained yeast models}
