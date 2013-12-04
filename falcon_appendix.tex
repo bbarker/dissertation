@@ -425,9 +425,11 @@ but are constrained to operate in one direction only. The script then
 changes the bounds to allow flux in both directions. The fuction
 \texttt{useYN5irrevs} copies the irreversible annotations found in
 Yeast 5.21 \citep{Lee2012} to a newer yeast model, but could in
-principle be used for any two models; this script is coded to first
-call \texttt{removeEnzymeIrrevs} on both models before copying
-irreversible annotations.
+principle be used for any two models; by default, this script is coded
+to first call \texttt{removeEnzymeIrrevs} on both models before
+copying irreversible annotations. To change this setting so that
+\texttt{removeEnzymeIrrevs} is not applied to either model, set the
+\texttt{noDir} argument.
 
 \subsection{Expression perturbation analysis}
 \hl{Describe log-normal noise sampling here first.}
