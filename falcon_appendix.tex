@@ -414,7 +414,11 @@ parallel strategy to solving problems: a different algorithm is run
 simultaneously, and as soon as one algorithm finished the others
 terminate. Of course, if there is a clear choice of algorithm for a
 particular problem class, this should be used in production settings
-to avoid wasted CPU time and memory.
+to avoid wasted CPU time and memory. As we see in Table~\ref{xx}, the
+dual-simplex method is best for time-efficiency. The dual-simplex
+method is also recommended for memory-efficiency by Gurobi
+documentation, but as this waas not a problem for us even for the very
+large model, we did not benchmark memory use.
 
 In our case, we had the following results for Yeast 5 (with minimal
 directionality constraints) and an expanded
