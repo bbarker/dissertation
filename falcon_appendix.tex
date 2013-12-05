@@ -425,6 +425,27 @@ directionality constraints) and an expanded
 Recon 2.1 \hl{cites} (to use relatively small and very large models):
 
 %Insert table here.
+\begin{center}
+\begin{tabular}{rrrr}
+\emph{Model}               & \emph{Primal-Simplex} & \emph{Dual-Simplex} & \emph{Barrier} \\
+Yeast5 (2061 reactions)    & $7.4088 \pm 0.0171  $ & $7.9991 \pm 0.0171$ & $7.3267 \pm 0.0116$ \\ 
+Yeast7 (3498 reactions)    & $ $ & $72.4839 \pm 0.0430       $ & $51.7103 \pm 1.5659$ \\
+Recon 2.1 (xx reactions)   & $ $ & $ $ & \\
+\end{tabular}
+\end{center}
+
+Because the number of iterations depends non-trivially on the model
+and the expression data, it may be more helfpul to look at the 
+average time per iteration in the above examples.
+\begin{center}
+\begin{tabular}{rrrr}
+\emph{Model}               & \emph{Primal-Simplex} & \emph{Dual-Simplex} & \emph{Barrier} \\
+Yeast5 (2061 reactions)    & $ $ & $ $ & $ $ \\ 
+Yeast7 (3498 reactions)    & $ $ & $ $ & $ $ \\
+Recon 2.1 (xx reactions)   & $ $ & $ $ & $ $ \\
+\end{tabular}
+\end{center}
+
 
 It is not possible to pass the Gurobi \texttt{method} parameter to
 \texttt{gurboi} in the COBRA Toolbox by default, but to keep our code
@@ -434,16 +455,13 @@ modified it to use the optimal method parameters. Other parameters
 could also be passed easily. \texttt{solveFalconLP} is only called if
 \texttt{gurobi} is detected as a MATLAB executable (MEX) file;
 otherwise the default solver specified for the COBRA Toolbox will be
-used.
-
-At the time of this release, \texttt{solveFalconLP} should be
+used. At the time of this release, \texttt{solveFalconLP} should be
 completely compatible with all other possible calls made to
 \texttt{solveCobraLP}, so in principle the latter could be replaced,
 but it is not reccommended in case the COBRA Toolbox API changes. If a
 user wishes to use some solver other than Gurobi, it should be easy to
 alter \texttt{solveFalconLP.m} and \texttt{falcon.m} to support custom
-parameters. The preferred parameter settings may change for future
-releases of FALCON or its successors.
+parameters. 
 
 \section{Generation of figures and tables}
 
