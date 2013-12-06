@@ -4,9 +4,12 @@
 % Thanks to Martha Field for discussion on adapting mammalian cells
 % to synthetic media.
 %
-FBA (flux balance analysis) has become extremely popular, in part, due
-to its simplicity in calculating reasonably accurate microbial fluxes
-or growth rates (e.g.\ \citealt{Schuetz2012,Fong2004_sb2013}); for
+FBA (flux balance analysis) is the oldest, most simple, and perhaps
+most widely used linear constraint-based metabolic modelling approach
+\citep{Shestov2013a,Lewis2012}. FBA has become extremely popular, in
+part, due to its simplicity in calculating reasonably accurate
+microbial fluxes or growth rates
+(e.g.\ \citealt{Schuetz2012,Fong2004_sb2013}); for
 many microbes, a simple synthetic environment where all chemical
 species are known suffices to allow proliferation, giving fairly
 complete constraints on model inputs. Additionally, it has been found
@@ -16,9 +19,12 @@ assumptions necessarily hold for mammalian cells growing \textit{in
   vitro} or \textit{in vivo}, and in particular the environment is far
 more complex for mammalian cell cultures, which have to undergo
 gradual metabolic adaptation via titration to grow on synthetic media
-\citep{Pirkmajer2011}. In what follows we first discuss the MoMA
-algorithm since it is heavily extended in order to allow us to use
-expression data for the estimation of flux data.
+\citep{Pirkmajer2011}. Recently, there have been many efforts to 
+incorporate both absolute and differential expression data into metabolic 
+models \citep{Blazier2012}. In what follows we first discuss the MoMA
+algorithm since it is the simplest metabolic flux fitting algorithm that
+can be extended in order to allow the use of absolute expression data for 
+the estimation of flux.
 
 % May eventually want to make this a conditional include section
 % and include it earlier in dissertation.
@@ -317,8 +323,8 @@ reversible reactions remains constant after an iteration.
 \begin{algorithmic}
 \ifthenelse{\boolean{thesisStyle}}{\singlespacing}{}
 ~\\
-$u_{\min} = \min_j\ \{V_{j,\max} : V_{j,\max} > 0\}$\\
-$V_{lb}^{\Sigma} = u_{\min} \left|\{v_j : e_j \textnormal{ exists}\}\right|$\\
+$u_{\min} := \min_j\ \{V_{j,\max} : V_{j,\max} > 0\}$\\
+$V_{lb}^{\Sigma} := u_{\min} \left|\{v_j : e_j \textnormal{ exists}\}\right|$\\
 \STATE {Scale data to be of similar size for numeric stability:}
 \FORALL {j}
   \STATE $e_j := \frac{e_j V_{lb}^{\Sigma}}
@@ -328,8 +334,9 @@ $V_{lb}^{\Sigma} = u_{\min} \left|\{v_j : e_j \textnormal{ exists}\}\right|$\\
 \ENDFOR
 \WHILE{$rxns_{irrev} > rxns_{irrev,prior}$}
   \STATE {$rxns_{irrev,prior} := rxns_{irrev}$}
-  \STATE $V_{lb}^{\Sigma} = u_{\min} \left|\{v_j : 
-    e_j \textnormal{ exists}\}\right|$\\
+  \STATE $V_{lb}^{\Sigma} := \min\left(u_{\min} \left|\{v_j : 
+    e_j \textnormal{ exists}\}\right|, 
+    \sum_{j \mid e_j \textnormal{ exists }} v_{prior}^{E}\right)$\\
   %\IF {first iteration}
   %\STATE {Constrain a user-specified flux $v_{scale} = c_{scale}$} 
   %\INDSTATE {(either forward or backward) to a nonzero value.}

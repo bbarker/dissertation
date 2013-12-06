@@ -358,7 +358,8 @@ This feature may be employed by setting the \texttt{EXPCON} parameter
 to \texttt{true} when calling \texttt{falcon}. We implemented this
 feature because we have seen and heard of others seeing promising
 results when na\"ively using scaled expression to act as a surrogate for
-$V_{max}$ in standard FBA. In the present study, we observed similar
+$V_{max}$ in standard FBA (for an abstraction and example, see
+\citealt{Colijn2009}). In the present study, we observed similar
 results when using this parameter, suggesting that---at least for the
 yeast models---this parameter may provide additional benefit when
 appended to the existing FALCON machinery. We speculate that larger
@@ -434,9 +435,27 @@ Recon 2.1 (xx reactions)   & $ $ & $ $ & \\
 \end{tabular}
 \end{center}
 
+The time for completion of Yeast7 with the primal-simplex solver is
+less because fewer iterations were completed before the solver failed
+to find a feasible solution; we verified that this is a numeric issue
+in Gurobi and can be fixed by setting the Gurobi parameter
+\texttt{MarkowitzTol} to a larger value (which decreases
+time-efficiency but limits the numerical error in the
+simplex algorithm) and by substituting a less tight constraint in the
+update to $V_{lb}^{\Sigma}$ (the \texttt{flux\_sum} variable in
+\texttt{falcon}). In practice, failure for the algorithm to converge
+at an advanced iteration is rare and is not always a major problem (since the previous
+flux estimate by the advanced iteration should already be quite good), but it
+is certainly undesirable; a warning message will be printed by
+\texttt{falcon} if this occurs, at which point parameter settings can
+be investigated. In the future, we plan to improve \texttt{falcon} so
+that parameters will be adjusted as neeeded during progression of the
+algorithm after finding a good test suite of models and data.
+
 Because the number of iterations depends non-trivially on the model
 and the expression data, it may be more helfpul to look at the 
 average time per iteration in the above examples.
+
 \begin{center}
 \begin{tabular}{rrrr}
 \emph{Model}               & \emph{Primal-Simplex} & \emph{Dual-Simplex} & \emph{Barrier} \\
