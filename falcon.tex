@@ -310,9 +310,12 @@ may introduce bias, we introduce the bound $\sum_{j \mid e_j
 \textnormal{ exists }} v_j \geq V_{lb}^{\Sigma}$. This guarantees that
 the optimization problem will yield a non-zero flux vector. The actual
 value of $V_{lb}^{\Sigma}$ is not very important due to the scaling
-introduced by $n$, but we do update it at each iteration to reflection
+introduced by $n$, but we do update it at each iteration to reflect
 potentially large changes in magnitude as more irreversible reactions
-are found. To keep track of how many reactions are irreversible in the
+are found. Note that the $V_{lb}^{\Sigma}$ constraint does not have
+the Charnes-Cooper transformation applied, since the transformation
+would admit a zero flux vector. To keep track of how many reactions
+are irreversible in the
 current and prior iteration, we use the variables $rxns_{irrev}$ and
 $rxns_{irrev,prior}$. The algorithm terminates when the number of
 reversible reactions remains constant after an iteration.

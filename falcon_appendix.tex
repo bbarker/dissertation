@@ -418,7 +418,7 @@ particular problem class, this should be used in production settings
 to avoid wasted CPU time and memory. As we see in Table~\ref{xx}, the
 dual-simplex method is best for time-efficiency. The dual-simplex
 method is also recommended for memory-efficiency by Gurobi
-documentation, but as this waas not a problem for us even for the very
+documentation, but as this was not a problem for us even for the very
 large model, we did not benchmark memory use.
 
 In our case, we had the following results for Yeast 5 (with minimal
@@ -450,7 +450,9 @@ is certainly undesirable; a warning message will be printed by
 \texttt{falcon} if this occurs, at which point parameter settings can
 be investigated. In the future, we plan to improve \texttt{falcon} so
 that parameters will be adjusted as neeeded during progression of the
-algorithm after finding a good test suite of models and data.
+algorithm after finding a good test suite of models and data. For now,
+we use the dual-simplex solver, for which \hl{we have always had good}
+results.
 
 Because the number of iterations depends non-trivially on the model
 and the expression data, it may be more helfpul to look at the 
