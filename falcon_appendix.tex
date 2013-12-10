@@ -426,11 +426,17 @@ parallel strategy to solving problems: a different algorithm is run
 simultaneously, and as soon as one algorithm finished the others
 terminate. Of course, if there is a clear choice of algorithm for a
 particular problem class, this should be used in production settings
-to avoid wasted CPU time and memory. As we see in Table~\ref{xx}, the
+to avoid wasted CPU time and memory. In order to address this, we
+benchmarked the three non-parallel solver methods in Gurobi
+ (since parallel sovers simply use multiple methods simultaneously).
+The exception to this rule is the Barrier method, which can use
+multiple threads, but in practice for our models appears to use
+no more than about 6 full CPU cores simulatenously for our models.
+As we see in Table~\ref{xx}, the
 dual-simplex method is best for time-efficiency. The dual-simplex
 method is also recommended for memory-efficiency by Gurobi
 documentation, but we did not observe any differences in memory for
-different solver methods..
+different solver methods.
 
 In our case, we had the following results for Yeast 5 (with minimal
 directionality constraints) and an expanded
@@ -440,8 +446,8 @@ Recon 2.1 \hl{cites} (to use relatively small and very large models):
 \begin{center}
 \begin{tabular}{rrrr}
 \emph{Model}               & \emph{Primal-Simplex} & \emph{Dual-Simplex} & \emph{Barrier} \\
-Yeast5 (2061 reactions)    & $7.4088 \pm 0.0171  $ & $7.9991 \pm 0.0171$ & $7.3267 \pm 0.0116$ \\ 
-Yeast7 (3498 reactions)    & $ $ & $72.4839 \pm 0.0430       $ & $51.7103 \pm 1.5659$ \\
+Yeast5 (2061 reactions)    & $ 7.8413 \pm 1.6971$ & $ 7.6112 \pm 1.2674 $ & $ 10.8594 \pm 2.7881 $ \\ 
+Yeast7 (3498 reactions)    & $ $ & $ $ & $ \\
 Recon 2.1 (xx reactions)   & $ $ & $ $ & \\
 \end{tabular}
 \end{center}
@@ -472,7 +478,7 @@ average time per iteration in the above examples.
 \begin{center}
 \begin{tabular}{rrrr}
 \emph{Model}               & \emph{Primal-Simplex} & \emph{Dual-Simplex} & \emph{Barrier} \\
-Yeast5 (2061 reactions)    & $ $ & $ $ & $ $ \\ 
+Yeast5 (2061 reactions)    & $ 0.7206 \pm 0.0232 $ & $ 0.6515 \pm 0.0400 $ & $ 1.0997 \pm 0.1117 $ \\ 
 Yeast7 (3498 reactions)    & $ $ & $ $ & $ $ \\
 Recon 2.1 (xx reactions)   & $ $ & $ $ & $ $ \\
 \end{tabular}
