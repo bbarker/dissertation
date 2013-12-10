@@ -408,6 +408,13 @@ problem directly because they can be removed: see the functions
 then give rise to objective values that may be quite high simply due
 to having many cycles.
 
+\subsection{Linear Fractional Program (Charnes-Cooper) Transformation}
+Since our denominator is simply the variable $n$, it is always
+required to be equal to 1 in the transformed problem. However,
+this is scaled by $z$, which may vary. To be sure that $z$ never
+goes to zero, which we know is undesirable in our case since
+this would correspond to
+
 \subsection{LP solver settings}
 We have exclusively used the Gurobi solver \citep{gurobi} for this
 work, which is a highly competitive solver that employs by default a
