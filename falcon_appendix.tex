@@ -408,12 +408,16 @@ problem directly because they can be removed: see the functions
 then give rise to objective values that may be quite high simply due
 to having many cycles.
 
-\subsection{Linear Fractional Program (Charnes-Cooper) Transformation}
-Since our denominator is simply the variable $n$, it is always
-required to be equal to 1 in the transformed problem. However,
-this is scaled by $z$, which may vary. To be sure that $z$ never
-goes to zero, which we know is undesirable in our case since
-this would correspond to
+%\subsection{Linear Fractional Program (Charnes-Cooper) Transformation}
+%Since our denominator is simply the variable $n$, it is always
+%required to be equal to 1 in the transformed problem. However,
+%this is scaled by $z$, which may vary. To be sure that $z$ never
+%goes to zero, we set a lower about on $z$ with the \texttt{ZMIN}
+%variable. We know $z = 0$ is undesirable in our case since
+%we have $z = \frac{1}{n}$ and $v_original = n v_{LFP} = \frac{v_{LFP}}{z}$.
+%!! Actually, we should not need this, since dividing by small z would make for 
+% a very large original objective value. This may only be needed in cases
+% where we aren't using a true LFP.
 
 \subsection{LP solver settings}
 We have exclusively used the Gurobi solver \citep{gurobi} for this
@@ -425,8 +429,8 @@ particular problem class, this should be used in production settings
 to avoid wasted CPU time and memory. As we see in Table~\ref{xx}, the
 dual-simplex method is best for time-efficiency. The dual-simplex
 method is also recommended for memory-efficiency by Gurobi
-documentation, but as this was not a problem for us even for the very
-large model, we did not benchmark memory use.
+documentation, but we did not observe any differences in memory for
+different solver methods..
 
 In our case, we had the following results for Yeast 5 (with minimal
 directionality constraints) and an expanded
