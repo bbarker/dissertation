@@ -432,35 +432,34 @@ benchmarked the three non-parallel solver methods in Gurobi
 The exception to this rule is the Barrier method, which can use
 multiple threads, but in practice for our models appears to use
 no more than about 6 full CPU cores simulatenously for our models.
-As we see in Table~\ref{xx}, the
-dual-simplex method is best for time-efficiency. The dual-simplex
-method is also recommended for memory-efficiency by Gurobi
-documentation, but we did not observe any differences in memory for
-different solver methods.
 
 In our case, we had the following results for Yeast 5 (with minimal
 directionality constraints) and an expanded
 Recon 2.1 \hl{cites} (to use relatively small and very large models):
 
 %Insert table here.
+\begin{table}
 \begin{center}
 \begin{tabular}{rrrr}
-\emph{Model}               & \emph{Primal-Simplex} & \emph{Dual-Simplex} & \emph{Barrier} \\
-Yeast5 (2061 reactions)    & $ 7.8413 \pm 1.6971    $ & $ 7.6112 \pm 1.2674    $ & $ 10.8594 \pm 2.7881 $ \\ 
-Yeast7 (3498 reactions)    & $ 51.8627 \pm 22.7306  $ & $ 65.3167 \pm 12.7714  $ & $ 242.1373 \pm 57.1285 $\\
-Recon 2.03 (xx reactions)  & $ 159.0770 \pm 24.9028 $ & $ 152.2971 \pm 39.7825 $ & \\
+\emph{Model}                 & \emph{Primal-Simplex} & \emph{Dual-Simplex} & \emph{Barrier} \\
+Yeast 5.21 (2,061 reactions) & $ 7.841 \pm 1.697    $ & $ 7.611 \pm 1.267    $ & $ 10.859 \pm 2.788   $\\ 
+Yeast 7.0 (3,498 reactions)  & $ 51.863 \pm 22.731  $ & $ 65.317 \pm 12.771  $ & $ 242.137 \pm 57.129 $\\
+Human 2.03 (7,440 reactions) & $ 159.077 \pm 24.903 $ & $ 152.297 \pm 39.783 $ & $ 366.166 \pm 92.321 $\\
 \end{tabular}
 \end{center}
+\caption{Running times (in seconds, $\pm$ standard deviation) for
+  FALCON using various algorithms implemented in the Gurobi package.
+  For yeast models, 1,000 replicates were performed, and for the human
+  model, 100 replicates were performed.}
+\end{table}
 
-The time for completion of Yeast7 with the primal-simplex solver is
-less because fewer iterations were completed before the solver failed
-to find a feasible solution; we verified that this is a numeric issue
+We found that in Yeast7 with the primal-simplex solver, there is a
+chance the solver will fail to find a feasible solution.
+We verified that this is a numeric issue
 in Gurobi and can be fixed by setting the Gurobi parameter
 \texttt{MarkowitzTol} to a larger value (which decreases
 time-efficiency but limits the numerical error in the
-simplex algorithm) and by substituting a less tight constraint in the
-update to $V_{lb}^{\Sigma}$ (the \texttt{flux\_sum} variable in
-\texttt{falcon}). In practice, failure for the algorithm to converge
+simplex algorithm). In practice, failure for the algorithm to converge
 at an advanced iteration is rare and is not always a major problem (since the previous
 flux estimate by the advanced iteration should already be quite good), but it
 is certainly undesirable; a warning message will be printed by
@@ -475,15 +474,27 @@ Because the number of iterations depends non-trivially on the model
 and the expression data, it may be more helfpul to look at the 
 average time per iteration in the above examples.
 
+\begin{table}
 \begin{center}
 \begin{tabular}{rrrr}
-\emph{Model}               & \emph{Primal-Simplex} & \emph{Dual-Simplex} & \emph{Barrier} \\
-Yeast5 (2061 reactions)    & $ 0.7206 \pm 0.0232 $ & $ 0.6515 \pm 0.0400 $ & $ 1.0997 \pm 0.1117 $ \\ 
-Yeast7 (3498 reactions)    & $ 2.7246 \pm 0.2980 $ & $ 2.4689 \pm 0.2888 $ & $ 11.3090 \pm 1.5888 $ \\
-Recon 2.03 (xx reactions)  & $ 6.4222 \pm 0.4839 $ & $ 5.2328 \pm 0.6610 $ & $ $ \\ 
+\emph{Model}                 & \emph{Primal-Simplex} & \emph{Dual-Simplex} & \emph{Barrier} \\
+Yeast 5.21 (2,061 reactions) & $ 0.721 \pm 0.023 $ & $ 0.652 \pm 0.040 $ & $ 1.100 \pm 0.112  $\\ 
+Yeast 7.0 (3,498 reactions)  & $ 2.725 \pm 0.298 $ & $ 2.469 \pm 0.289 $ & $ 11.309 \pm 1.589 $\\
+Human 2.03 (7,440 reactions) & $ 6.422 \pm 0.484 $ & $ 5.233 \pm 0.661 $ & $ 15.782 \pm 3.209 $\\ 
 \end{tabular}
 \end{center}
+\caption{Running time per FALCON iteration (in seconds, $\pm$ standard
+  deviation) using various algorithms implemented in the Gurobi
+  package.  For yeast models, 1,000 replicates were performed, and for
+  the human model, 100 replicates were performed.}
+\end{table}
 
+Given the above rare trouble with primal simplex solver the universal
+best performance enjoyed by the dual-simplex method (Table~\ref{xx},
+Table~\ref{xx}), we would advise the dual-simplex algorithms, all else
+being equal. The dual-simplex method is also recommended for
+memory-efficiency by Gurobi documentation, but we did not observe any
+differences in memory for different solver methods.
 
 It is not possible to pass the Gurobi \texttt{method} parameter to
 \texttt{gurboi} in the COBRA Toolbox by default, but to keep our code
