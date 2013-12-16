@@ -437,7 +437,6 @@ In our case, we had the following results for Yeast 5 (with minimal
 directionality constraints) and an expanded
 Recon 2.1 \hl{cites} (to use relatively small and very large models):
 
-%Insert table here.
 \begin{table}
 \begin{center}
 \begin{tabular}{rrrr}
@@ -451,6 +450,7 @@ Human 2.03 (7,440 reactions) & $ 159.077 \pm 24.903 $ & $ 152.297 \pm 39.783 $ &
   FALCON using various algorithms implemented in the Gurobi package.
   For yeast models, 1,000 replicates were performed, and for the human
   model, 100 replicates were performed.}
+\label{tab:methodTime}
 \end{table}
 
 We found that in Yeast7 with the primal-simplex solver, there is a
@@ -487,6 +487,7 @@ Human 2.03 (7,440 reactions) & $ 6.422 \pm 0.484 $ & $ 5.233 \pm 0.661 $ & $ 15.
   deviation) using various algorithms implemented in the Gurobi
   package.  For yeast models, 1,000 replicates were performed, and for
   the human model, 100 replicates were performed.}
+\label{tab:methodTimeIter}
 \end{table}
 
 Given the above rare trouble with primal simplex solver the universal
@@ -514,6 +515,21 @@ parameters.
 
 \section{Generation of figures and tables}
 
+\subsection{Timing Analyses}
+All timing analyses were performed on a system with four 8-core AMD
+Opteron\texttrademark\ 6136 processors operating at 2.4
+GHz. Figure~\ref{xx} and \suppOrApp Table~\ref{xx} used a single
+unperturbed expression file per species (\textit{S. cerevisiae},
+\textit{E. coli}, and \textit{H. sapiens}; see
+\texttt{timingAnalysis.m} for details). Values for the FALCON method
+were averaged across 32 replicates, while values for the
+\citealt{Lee2012} method were averaged across 8 replicates. \suppOrApp
+Tables~\ref{tab:methodTime} and \ref{tab:methodTimeIter} used
+log-normal noise applied to the original expression vector (refer to
+Section~\ref{sec:noise} for details) to introduce more variance in the
+calculations; the human models were tested with 100 replicates and the
+yeast models with 500 replicates.
+
 \subsection{Minimally constrained yeast models}
 The MATLAB function \texttt{removeEnzymeIrrevs} was written to find
 all enzymatic reactions in a model that are annotated as reversible
@@ -528,4 +544,5 @@ copying irreversible annotations. To change this setting so that
 \texttt{noDir} argument.
 
 \subsection{Expression perturbation analysis}
+\label{sec:noise}
 \hl{Describe log-normal noise sampling here first.}
