@@ -266,6 +266,27 @@ expression values will not change which disjunction attains the
 minimum value. A slightly more detailed proof is given in the
 \suppOrApp (Section~\ref{thm:ReductionToCNF}).
 
+Application of the minimum-disjunction algorithm results in several
+differences from direct substitution and evaluation of yeast GPR
+rules. The first comparison (using unpermuted data) resulted in 14
+reactions with different expression levels, and after 11 permutations,
+39 reactions were observed to have differing expression. The number of
+differences did not change between 11 and 1,000 permutations of the
+expression data. In Human Recon 2, where GPR rules tend to be more
+complex, differences are much more pervasive. The unpermuted data
+resulted in 401 differences (nearly 10\% of the enzymatic
+reactions). Though not an issue for the yeast data where all genes
+were measured, missing gene data was handled differently in the direct
+substitution method, where a single gene's missing data would cause an
+entire reaction to have zero expression---In the minimum-disjunction
+implementation, missing data causes the gene to be removed from the
+rule. These differences were not taken into account in this figure,
+but would result in additional 2,465 differences for the human model
+with the unpermuted data (resulting in 59\% of enzymatic reactions
+differing), as well as additional cumulative differences due to
+expression permutation.
+
+
 \subsection{Formulation with automatic normalization and batch direction assignment}
 
 Prior work that served as an inspiration for this method used Flux
