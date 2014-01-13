@@ -7,7 +7,11 @@ Algorithm~\ref{alg:FALCON} is \textit{falcon.m}; this script takes
 many optional values, and the function signature is highly likely
 to change in the near future. For basic use, we suggest using
 the wrapper script \textit{runFalcon.m}, which assumes several
-parameter values.
+parameter values. This wrapper could be easily changed to use
+different parameter defaults, or to call \textit{falconMulti.m},
+itself a wrapper with a similar function signature for
+\textit{falcon.m} that calculates the mean and standard deviation of
+fluxes across multiple calls to \textit{falcon.m}.
 
 \section{Assumptions for enzyme complex formation}
 \label{sec:complexation}
