@@ -267,25 +267,24 @@ minimum value. A slightly more detailed proof is given in the
 \suppOrApp (Section~\ref{thm:ReductionToCNF}).
 
 Application of the minimum-disjunction algorithm results in several
-differences from direct substitution and evaluation of yeast GPR
-rules. The first comparison (using unpermuted data) resulted in 14
-reactions with different expression levels, and after 11 permutations,
-39 reactions were observed to have differing expression. The number of
-differences did not change between 11 and 1,000 permutations of the
-expression data. In Human Recon 2, where GPR rules tend to be more
-complex, differences are much more pervasive. The unpermuted data
-resulted in 401 differences (nearly 10\% of the enzymatic
-reactions). Though not an issue for the yeast data where all genes
-were measured, missing gene data was handled differently in the direct
-substitution method, where a single gene's missing data would cause an
-entire reaction to have zero expression---In the minimum-disjunction
-implementation, missing data causes the gene to be removed from the
-rule. These differences were not taken into account in this figure,
-but would result in additional 2,465 differences for the human model
-with the unpermuted data (resulting in 59\% of enzymatic reactions
-differing), as well as additional cumulative differences due to
-expression permutation.
-
+differences from direct substitution and evaluation in yeast GPR rules
+(Table~\ref{Table XXX}. The first comparison (using unpermuted data)
+resulted in 14 reactions with different expression levels, and after
+11 permutations, 39 reactions were observed to have differing
+expression. The number of differences did not change between 11 and
+1,000 permutations of the expression data. In Human Recon 2, where GPR
+rules tend to be more complex, differences are much more
+pervasive. The unpermuted data resulted in 401 differences (nearly
+10\% of the enzymatic reactions). Though not an issue for the yeast
+data where all genes were measured, missing gene data was handled
+differently in the direct substitution method, where a single gene's
+missing data would cause an entire reaction to have zero
+expression---In the minimum-disjunction implementation, missing data
+causes the gene to be removed from the rule. These differences were
+not taken into account in this figure, but would result in additional
+2,465 differences for the human model with the unpermuted data
+(resulting in 59\% of enzymatic reactions differing), as well as
+additional cumulative differences due to expression permutation.
 
 \subsection{Formulation with automatic normalization and batch direction assignment}
 
@@ -394,6 +393,16 @@ $V_{lb}^{\Sigma} := u_{\min} \left|\{v_j : e_j \textnormal{ exists}\}\right|$\\
 \end{Algorithm}
 \end{AlgFloat}
 
+Algorithm~\ref{alg:FALCON} and the method in \citealt{Lee2012} are
+both non-deterministic. In the first case, Algorithm~\ref{alg:FALCON}
+solves an LP during each iteration, and subsequent iterations depend
+on the LP solution, so that alternative optima may affect the outcome.
+In the latter case, alternative optima of individual LPs is not an
+issue, but the order in which reactions assigned to be irrersible can
+lead to alterantive solutions emitted from the algorithm. However, we
+found that the variation due to this stochasticity is relatively minor
+(Table~\ref{Table XXX}; \suppOrApp Table~\ref{STable XXX};
+Figure~\ref{XXX}).
 
 % Make performance tables like this? 
 % Apparently the processtable and rules below are not
