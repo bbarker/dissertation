@@ -293,7 +293,7 @@ Variability Analysis (FVA) to determine reaction direction
 \citep{Lee2012}. Briefly, this involves two FBA simulations per
 reaction catalyzed by an enzyme, and as the algorithm is iterative,
 this global procedure may be run several times before converging to a
-flux vector.  We removed FVA to mitigate some
+flux vector. We removed FVA to mitigate some
 of the cost, and instead assign flux direction in batch; while it is
 possible that the objective value may decrease using this approach,
 this is not an issue since the objetive function increases to include
@@ -325,10 +325,20 @@ replicates.
 We employ a normalization variable $n$ in the problem to find the most
 agreeable scaling of expression data. The LFP shown below can be
 converted to a linear program by the Charnes-Cooper transformation
-\citep{Boyd2004}. To avoid the need for fixing a specific flux, which
+\citep{Boyd2004}. To avoid the need for fixing any specific flux, which
 may introduce bias, we introduce the bound $\sum_{j \mid e_j 
 \textnormal{ exists }} v_j \geq V_{lb}^{\Sigma}$. This guarantees that
-the optimization problem will yield a non-zero flux vector. The actual
+the optimization problem will yield a non-zero flux vector. As an
+example of how this can be beneficial, this means we do not need to
+measure any fluxes or assume a flux is fixed to achieve good results;
+Algorithm~\ref{alg:FALCON} recovers the exact glucose uptake (which is
+fixed in the prior method) for heavily constrained models, and usually
+recovers a similar flux with a small amount of variation in the
+minimally constrained models (Figure~\ref{XXX}). We note that this does
+not downplay the value of obtaining experimentally-based constraints
+on flux when available.
+
+The actual
 value of $V_{lb}^{\Sigma}$ is not very important due to the scaling
 introduced by $n$, and we include a conservatively small value that
 should work with any reasonable model. However, for numeric reasons,
@@ -399,7 +409,7 @@ solves an LP during each iteration, and subsequent iterations depend
 on the LP solution, so that alternative optima may affect the outcome.
 In the latter case, alternative optima of individual LPs is not an
 issue, but the order in which reactions assigned to be irrersible can
-lead to alterantive solutions emitted from the algorithm. However, we
+lead to alterantive solutions. However, we
 found that the variation due to this stochasticity is relatively minor,
 particularly in cases where the model is more heavily constrained.
 (Table~\ref{Table XXX}; \suppOrApp Table~\ref{STable XXX};
@@ -558,8 +568,8 @@ model that may be useful to address in later attempts
 Table~\ref{ECAssume}.  Although we show that expression does not
 correlate well with flux, we are still essentially trying to fit
 fluxes to expression levels.  The number of constraints presents in
-metabolic models (even the minimally constrained models) makes it
-impossible to achieve a good correlation between the two. However, as
+metabolic models (even the minimally constrained models) prevents 
+a good correlation between the two. However, as
 with all CBMs, constraints are only half the story in any largely
 underdetermined system, and we show that gene expression can prove to
 be a valuable basis for forming an objective, as opposed to methods
