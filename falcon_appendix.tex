@@ -1,5 +1,7 @@
 \section{Installing FALCON}
 
+\hl {It is empty.}
+
 \section{Running FALCON}
 
 There are several ways to run FALCON. The script that implements
@@ -38,7 +40,7 @@ gleamed from analyzing RNA-Seq data, but, an appropriate degree of
 caution must be used in interpreting results based on RNA-Seq data. By
 incorporating more information, such as metabolic constaints, we hope
 to obviate some of the error in estimating protein intensity from
-RNA-Seq data.  
+RNA-Seq data. 
 
 \emph{Assumption~\ref{asm:isozyme}.} We also include the notion of
 isozymes--different proteins that catalyze the same reaction--in our
@@ -74,7 +76,6 @@ the abundance of most enzyme complexes.
 \end{figure*}
 
 \emph{Assumption~\ref{asm:hierarchy}.}
-
 The modeling of enzyme complex copy number can be tackled by using
 nested sets of subcomplexes; each enzyme complex consists of multiple
 subcomplexes, unlesss it is only a single protein or family of protein
@@ -113,26 +114,27 @@ ORs (disjunctions). Since GPR rules alone only specify the
 requirements for enzyme complex formation, we will see that not all
 forms of boolean rules are equally useful in evaluating the enzyme
 complex copy number, but we have established the assumptions in
-Table~\ref{ECAssume} and an alternative and logically equivalent rule
+Table~\ref{tab:ECAssume} and an alternative and logically equivalent rule
 \citep{Russell2009} under which we can estimate enzyme complex copy
 number.
 
-
+\begin{table}
 \def \ECAssumeCap {Assumptions in GPR-based Enzyme Complex Formation}
-\label{ECAssume}
 \ifthenelse{\boolean{thesisStyle}}{
-  \begin{tabular}{| p{\textwidth} |}
+  \begin{center} % also adds a little needed vspace
+  \begin{tabular}{| p{0.9\textwidth} |}
   \hline
-  \textbf{Table ~\ref{ECAssume}. \ECAssumeCap} \\
+  \textbf{Table ~\ref{tab:ECAssume}. \ECAssumeCap} \\
   \hline
   \input{falcon_assumptions}
   \\ \hline
   \end{tabular}
+  \end{center}
 
 } {
   % For Bioinformatics:
-  \begin{table*}[!t]
-  \processtable{\ECAssumeCap \label{ECAssume}}{
+  %\begin{table*}[!t]
+  \processtable{\ECAssumeCap \label{tab:ECAssume}}{
   \begin{tabular}{| p{\textwidth} |}
   \hline
   \input{falcon_assumptions}
@@ -140,8 +142,10 @@ number.
   \end{tabular}
   }
   {} % caption
-  \end{table*}
 }
+
+\label{tab:ECAssume}
+\end{table}
 
 There is no guarantee that a GPR rule has been written down with this
 hierarchical structure in mind, though it is likely the case much of
@@ -192,7 +196,7 @@ known gene products \citep{O'Brien2013} also includes putative
 enzyme complex stoichiometry in GPRs. For the second point, there
 are a few enzymes where a single polpeptide may have multiple active
 sites (e.g.\ fatty acid synthase), and this is not currently taken into
-account in our model.
+account in our model. 
 
 \emph{Assumption~\ref{asm:holo}.}
 We do not make any special assumptions requiring symmetry of an
@@ -211,6 +215,18 @@ likely be the only situation where this type of rule might need to be
 considered in more detail. But in the absence of detailed kinetic
 information, this consideration (much like allosteric
 regulation) is not useful.
+
+\emph{Assumption~\ref{asm:enzyme_sensitivity}.}
+Another important biochemical assumption is that reactions should
+operate in a regime where they are sensitive to changes in the overall
+enzyme level in the pathways that they belong in
+\citep{Bennett2009,Chubukov2013}. This is perhaps the most important
+issue to be explored further for methods like this, since if it is not
+true, some other adjustment factor would be needed to make the method
+realistic. For instance, if all reactions in a pathway are operateing
+far below $V_{max}$, but it is not the case in another pathway, the
+current method does not have information on this, and will try to put
+more flux through the first pathway than should be the case.
 
 \emph{Assumptions~\ref{asm:chap}~and~\ref{asm:rate}.}
 Due to the quickness, stability, and energetic favorability of enzyme
