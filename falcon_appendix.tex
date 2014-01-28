@@ -374,7 +374,8 @@ toCNF (bexp, emap): GREXP = let
   end
 \end{verbatim}
 
-\subsection{ssec:parsing}
+\subsection{Parsing functions and other GPR tools}
+\label{ssec:parsing}
 
 \hl{Need to include examples on how to construct a GREXP, how to call
 parser on de novo or IO-based GPR rule.}
@@ -585,6 +586,7 @@ calculations; the human models were tested with 100 replicates and the
 yeast models with 500 replicates.
 
 \subsection{Minimally constrained yeast models}
+\label{ssec:yeastcons}
 The MATLAB function \texttt{removeEnzymeIrrevs} was written to find
 all enzymatic reactions in a model that are annotated as reversible
 but are constrained to operate in one direction only. The script then
@@ -596,6 +598,12 @@ to first call \texttt{removeEnzymeIrrevs} on both models before
 copying irreversible annotations. To change this setting so that
 \texttt{removeEnzymeIrrevs} is not applied to either model, set the
 \texttt{noDir} argument.
+
+\subsection{Constraint sets for Human Recon 2}
+\label{ssec:humancons}
+\hl{it is mostly empty; reference scripts.}
+The most highly constrained human model in this study is not nearly
+as constrained as the most highly constrained yeast model.
 
 \subsection{Expression perturbation analysis}
 \label{sec:noise}

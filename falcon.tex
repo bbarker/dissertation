@@ -303,7 +303,7 @@ messages can be readily introduced in the parser for different
 scenarios that may not be desirable. Currently, line and column
 numbers of parsing errors are emitted, helping to quickly pinpoint any
 errors that occur in GPR rule annotation. Some examples of using
-the parser are given (Section~\ref{ssec:parsing}).
+the parser are given (\suppOrApp Section~\ref{ssec:parsing}).
 
 \subsection{Formulation with automatic normalization and batch direction assignment}
 
@@ -497,14 +497,17 @@ sensitivity of flux to expression, we multiply noise from log-normal
 distributions with the expression vector and see the effect on the
 estimated fluxes. We find that enzymatic reaction directionality
 constraints influence the sensitivity of the model to expression
-perturbation (\ref{Figure XX}). It is important to note that mere
+perturbation (Figure ExpSens). It is important to note that mere
 presence of the constraints does not help us determine the correct
 experimental fluxes when other types of methods (e.g.\ FBA, \ref{Table
   XX}) are used. However, as shown in the previous figures, it is
 possible to obtain good predictions even without a heavily constrained
-model. Below we see that the human model (B) and minimally constrained
-yeast model (A) are far more similar in their sensitivities than the
-heavily constrained yeast model (C).
+model. Still, the constraints for the human model appear to be not
+enough on their own, and more sophisticated means of constraining the
+human model, such as enzyme crowding constraints \citep{Shlomi2011},
+or using FALCON in conjunction with tissue specific modeling tools,
+may prove necessary.
+
 
 It is not an unreasonable hypothesis that fluxes would correlate well
 with their associated complex abundances. Aside from the obvious benefits
