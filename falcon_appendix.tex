@@ -289,6 +289,8 @@ minimum expression value of the rule in CNF.
 \section{Code excerpt for minimum disjunction algorithm}
 \label{sec:code}
 
+\hl{Need to update code here; consider using source highlighting.}
+
 The following code is written in ATS, a type-safe language including
 syntax similar to SML while having direct access to C types
 \citep{ATStypes03}. \texttt{GREXP} describes a datatype that is used
@@ -370,6 +372,11 @@ toCNF (bexp, emap): GREXP = let
     ):GREXP
   end
 \end{verbatim}
+
+\subsection{ssec:parsing}
+
+\hl{Need to include examples on how to construct a GREXP, how to call
+parser on de novo or IO-based GPR rule.}
 
 \section{FALCON internals and experimental features}
 \label{sec:internals}

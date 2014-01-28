@@ -286,6 +286,25 @@ not taken into account in this figure, but would result in additional
 (resulting in 59\% of enzymatic reactions differing), as well as
 additional cumulative differences due to expression permutation.
 
+GPR rules were traditionally used to evaluate whether a gene deletion
+would result in an enzyme complex being knocked out and the resulting
+lower and upper bounds on the associated reaction being set to
+zero. As we have shown that GPR rules can be used much more
+quantiatively, it may be worth standardizing the form GPR rules
+take. Towards that end, the software we have implemented for
+Algorithm~\ref{alg:ReductionToCNF} has been developed using a modular
+programming approach, making it easy for the user to experiment
+with. A simple exmample is that the parser is a separate function from
+the function implementing Algorithm~\ref{alg:ReductionToCNF}, allowing
+the user to only work at the parsing level if estimating expression
+levels is not the goal, or to substitute a different algorithm in in
+place of Algorithm~\ref{alg:ReductionToCNF}. Additionally, warning
+messages can be readily introduced in the parser for different
+scenarios that may not be desirable. Currently, line and column
+numbers of parsing errors are emitted, helping to quickly pinpoint any
+errors that occur in GPR rule annotation. Some examples of using
+the parser are given (Section~\ref{ssec:parsing}).
+
 \subsection{Formulation with automatic normalization and batch direction assignment}
 
 Prior work that served as an inspiration for this method used Flux
