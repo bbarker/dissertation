@@ -293,7 +293,8 @@ zero. As we have shown that GPR rules can be used much more
 quantiatively, it may be worth standardizing the form GPR rules
 take. Towards that end, the software we have implemented for
 Algorithm~\ref{alg:ReductionToCNF} has been developed using a modular
-programming approach, making it easy for the user to experiment
+programming approach and can be used from any language that supports
+a C API, making it easy for the user to experiment
 with. A simple exmample is that the parser is a separate function from
 the function implementing Algorithm~\ref{alg:ReductionToCNF}, allowing
 the user to only work at the parsing level if estimating expression
