@@ -460,6 +460,7 @@ to having many cycles.
 % where we aren't using a true LFP.
 
 \subsection{LP solver settings}
+\label{ssec:lpsettings}
 We have exclusively used the Gurobi solver \citep{gurobi} for this
 work, which is a highly competitive solver that employs by default a
 parallel strategy to solving problems: a different algorithm is run
@@ -531,8 +532,8 @@ Human 2.03 (7,440 reactions) & $ 6.422 \pm 0.484 $ & $ 5.233 \pm 0.661 $ & $ 15.
 \end{table}
 
 Given the above rare trouble with primal simplex solver the universal
-best performance enjoyed by the dual-simplex method (Table~\ref{xx},
-Table~\ref{xx}), we would advise the dual-simplex algorithms, all else
+best performance enjoyed by the dual-simplex method (Table~\ref{tab:methodTime},
+Table~\ref{tab:methodTimeIter}), we would advise the dual-simplex algorithms, all else
 being equal. The dual-simplex method is also recommended for
 memory-efficiency by Gurobi documentation, but we did not observe any
 differences in memory for different solver methods.
@@ -573,7 +574,8 @@ a graphical MATLAB session.
 \subsection{Timing Analyses}
 All timing analyses were performed on a system with four 8-core AMD
 Opteron\texttrademark\ 6136 processors operating at 2.4
-GHz. Figure~\ref{xx} and \suppOrApp Table~\ref{xx} used a single
+GHz. Figure FluxBars, and Tables FalcPerf, \ref{tab:methodTime} and 
+\ref{tab:methodTimeIter} used a single
 unperturbed expression file per species (\textit{S. cerevisiae},
 \textit{E. coli}, and \textit{H. sapiens}; see
 \texttt{timingAnalysis.m} for details). Values for the FALCON method

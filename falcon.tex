@@ -101,8 +101,8 @@ so the efficiency in this case depends on the solver and the metabolic
 model in a complicated manner due to diverse algorithms and
 implementions as well as sensitivity to the model parameters
 \citep{Mittelmann2013,Todd2002}. We discuss performance statistics for
-several models below using a state-of-the-art solver \ref{Table XX,
-  Supp Note XX}. Before comparing this approach to related methods, we
+several models below using a state-of-the-art solver (Table FalcPerf; 
+\ref{ssec:lpsettings}). Before comparing this approach to related methods, we
 describe our rationale and algorithms.
 
 If we wish to apply MoMA to expression data rather than flux data, the
@@ -268,11 +268,11 @@ minimum value. A slightly more detailed proof is given in the
 
 Application of the minimum-disjunction algorithm results in several
 differences from direct substitution and evaluation in yeast GPR rules
-(Table~\ref{Table XXX}. The first comparison (using unpermuted data)
+(Figure EnzAbundEval). The first comparison (using unpermuted data)
 resulted in 14 reactions with different expression levels, and after
 11 permutations, 39 reactions were observed to have differing
 expression. The number of differences did not change between 11 and
-1,000 permutations of the expression data. In Human Recon 2, where GPR
+1,000 permutations of the expression data. In Human Recon 2 \citep{Thiele2013}, where GPR
 rules tend to be more complex, differences are much more
 pervasive. The unpermuted data resulted in 401 differences (nearly
 10\% of the enzymatic reactions). Though not an issue for the yeast
@@ -353,12 +353,9 @@ may introduce bias, we introduce the bound $\sum_{j \mid e_j
 the optimization problem will yield a non-zero flux vector. As an
 example of how this can be beneficial, this means we do not need to
 measure any fluxes or assume a flux is fixed to achieve good results;
-Algorithm~\ref{alg:FALCON} recovers the exact glucose uptake (which is
-fixed in the prior method) for heavily constrained models, and usually
-recovers a similar flux with a small amount of variation in the
-minimally constrained models (Figure~\ref{XXX}). We note that this does
-not downplay the value of obtaining experimentally-based constraints
-on flux when available.
+though this does not downplay the value of obtaining
+experimentally-based constraints on flux when available (Figure
+FluxBars).
 
 The actual
 value of $V_{lb}^{\Sigma}$ is not very important due to the scaling
@@ -432,10 +429,9 @@ on the LP solution, so that alternative optima may affect the outcome.
 In the latter case, alternative optima of individual LPs is not an
 issue, but the order in which reactions assigned to be irrersible can
 lead to alterantive solutions. However, we
-found that the variation due to this stochasticity is relatively minor,
-particularly in cases where the model is more heavily constrained.
-(Table~\ref{Table XXX}; \suppOrApp Table~\ref{STable XXX};
-Figure~\ref{XXX}).
+found that the variation due to this stochasticity is typically 
+relatively minor, particularly in cases where the model is more 
+heavily constrained (Figure FluxBars; Figure EnzAbundEval).
 
 % Make performance tables like this? 
 % Apparently the processtable and rules below are not
@@ -468,42 +464,38 @@ Figure~\ref{XXX}).
 
 Using the same yeast exometabolic and expression data employed for
 benchmarking in the antecedent study \citep{Lee2012} that included an
-updated version of the Yeast 5 model \citep{Heavner2012}, we find that
+updated version of the Yeast 5 model \citep{Heavner2012} and the latest
+Yeast model \citep{Aung2013}, we find that
 our algorithm has significant improvements in time efficiency while
-maintaining correlation with experimental fluxes, and \hl{(GIMME
-  speed?)} is as fast as all tested methods with the exception of
-standard FBA, which does not use expression data as input (Table~\ref{Table
-  XX}; Figure~\ref{Figure Barplots}). Furthermore, when we remove many bounds
+maintaining correlation with experimental fluxes, and is much faster 
+than any similarly performing method (Table FalcPerf; Figure FluxBars).
+
+Furthermore, when we remove many bounds
 constraining the direction of enzymatic reactions that aren't
 explicitly annotated as being irreversible in prior work
 \citep{Lee2012}, we find that our formulation of the approach seems to
-be more robust than other methods (Table~\ref{Table XX}). iMAT, a MILP
-formulation \citep{Shlomi2008}, took several days of run-time to
-finish on the minimally constrained Yeast 7 model (Table~\ref{Table
-  XX}; \citealt{Aung2013}), despite using a parallel solver making
-full use of 16 cores \citep{gurobi},
-likely due to the number of branches incurred from reversible
-reactions. This is somewhat unfortunate, as a MILP formulation would
-be appealing for this family of techniques as well, but the current
-time efficiency would be extremely prohibitive for the forseeable
-future. We see that the prognostic ability of the algorithm does not
-appear to be an artifact; when FALCON is run on permuted expression data,
-it doesn't do as well as the actual expression vector(\ref{Figure
-  XX}).
+be more robust than other methods. The iMAT method is formulated as a MILP
+\citep{Shlomi2008}, and was able to use additional parallelization of
+the solver \citep{gurobi} whereas other methods only 
+used a single core (our system had 32 cores and
+iMAT with Gurobi would use all of them). 
 
+We see that the prognostic ability of the algorithm does not
+appear to be an artifact; when FALCON is run on permuted expression data,
+it doesn't do as well as the actual expression vector (Figure YpermCorr).
 The full-sized flux vectors estimated from permuted expression as a
 whole also does not correlate well with the flux vector estimated from
 the actual expression data, but we notice that the difference is
 visibly larger in the minimally constrained model compared to the
-highly constrained model (\ref{Sup Figs}). To further understand the
+highly constrained model (Figure YpermCorr). To further understand the
 sensitivity of flux to expression, we multiply noise from log-normal
 distributions with the expression vector and see the effect on the
 estimated fluxes. We find that enzymatic reaction directionality
 constraints influence the sensitivity of the model to expression
 perturbation (Figure ExpSens). It is important to note that mere
 presence of the constraints does not help us determine the correct
-experimental fluxes when other types of methods (e.g.\ FBA, \ref{Table
-  XX}) are used. However, as shown in the previous figures, it is
+experimental fluxes when other types of methods (e.g.\ FBA; Table FalcPerf) 
+are used. However, as shown in the previous figures, it is
 possible to obtain good predictions even without a heavily constrained
 model. Still, the constraints for the human model appear to be not
 enough on their own, and more sophisticated means of constraining the
@@ -518,7 +510,7 @@ of constraint-based methods also estimating fluxes for non-enzymatic
 reactions, and assigning a direction for reversible enzymatic
 reactions, we see that in general, our method does not predict a
 strong correlation between complex abundance and flux
-(\ref{Figure XX}). Recently it has been shown that many fluxes are not
+(Figure FluxExpCmp). Recently it has been shown that many fluxes are not
 under direct control of their associated enzyme expression
 level \citep{Chubukov2013}, which gives experimental support to the
 idea that a network-based approach with soft contraints, such as that
