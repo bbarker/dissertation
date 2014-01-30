@@ -473,10 +473,9 @@ benchmarked the three non-parallel solver methods in Gurobi
 The exception to this rule is the Barrier method, which can use
 multiple threads, but in practice for our models appears to use
 no more than about 6 full CPU cores simulatenously for our models.
-
-In our case, we had the following results for Yeast 5 (with minimal
-directionality constraints) and an expanded
-Recon 2.1 \hl{cites} (to use relatively small and very large models):
+Our results for Yeast 5 and Yeast 7 with minimal directionality constraints
+\citep{Heavner2012,Lee2012,Aung2013} and Human Recon 2 \citep{Thiele2013}
+are shown in Table~\ref{tab:methodTime}).
 
 \begin{table}
 \begin{center}
@@ -508,12 +507,12 @@ is certainly undesirable; a warning message will be printed by
 be investigated. In the future, we plan to improve \texttt{falcon} so
 that parameters will be adjusted as neeeded during progression of the
 algorithm after finding a good test suite of models and data. For now,
-we use the dual-simplex solver, for which \hl{we have always had good}
+we use the dual-simplex solver, for which we have always had good
 results.
 
 Because the number of iterations depends non-trivially on the model
 and the expression data, it may be more helfpul to look at the 
-average time per iteration in the above examples.
+average time per iteration in the above examples (Table~\ref{tab:methodTimeIter}).
 
 \begin{table}
 \begin{center}
