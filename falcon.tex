@@ -5,7 +5,7 @@
 % to synthetic media.
 %
 FBA (flux balance analysis) is the oldest, most simple, and perhaps
-most widely used linear constraint-based metabolic modelling approach
+most widely used linear constraint-based metabolic modeling approach
 \citep{Shestov2013a,Lewis2012}. FBA has become extremely popular, in
 part, due to its simplicity in calculating reasonably accurate
 microbial fluxes or growth rates
@@ -47,7 +47,9 @@ $N$ reactions the objective can be expressed as
 \[ \textnormal{minimize}\ \sum\limits_{i=1}^N (v_i-a_i)^2 \] 
 subject to the stoichiometric constraints $\mathbf{S v}\nolinebreak
 =\nolinebreak \mathbf{0}$ where $\mathbf{v} = (v_1, \ldots,
-v_N)^T$. The objective may be equivalently expressed in the canonical
+v_N)^T$ and $\mathbf{S}$ is the stoichiometric matrix (rows correspond
+to metabolites, columns to reactions, and entries to stoichiometric
+coefficients). The objective may be equivalently expressed in the canonical
 quadratic programming (QP) vector form as
 $\textnormal{min.\ }\ \frac{1}{2}\mathbf{v}^T \mathbf{v}\nolinebreak
 -\nolinebreak \mathbf{a}^T \mathbf{v}$. This assumes that each $a_i$
@@ -99,7 +101,7 @@ safety and stability \citep{ATStypes03}. The only expensive operations in the
 MATLAB code are external calls to a linear program (LP) solver,
 so the efficiency in this case depends on the solver and the metabolic
 model in a complicated manner due to diverse algorithms and
-implementions as well as sensitivity to the model parameters
+implementations as well as sensitivity to the model parameters
 \citep{Mittelmann2013,Todd2002}. We discuss performance statistics for
 several models below using a state-of-the-art solver (Table FalcPerf; 
 \ref{ssec:lpsettings}). Before comparing this approach to related methods, we
@@ -221,7 +223,7 @@ not min($\frac{a}{2},b$) + min($\frac{a}{2},c$) = $\frac{a}{2} + 0$.
 \subsection{The min-disjunction algorithm estimates \\enzyme complex abundance}
 
 In the \suppOrApp (Section~\ref{sec:complexation}), we showed that
-converting a rule to CNF is a sound method to aid in the estimation of
+converting a rule to conjunctive normal form (CNF) is a sound method to aid in the estimation of
 enzyme complex copy number.  However, attempting to symbolically
 convert some rules in yeast models and many rules in human models to
 CNF is computationally intractable due to an exponential increase in
@@ -260,7 +262,7 @@ for the terminating condition. Please see the
 \suppOrApp (Section~\ref{sec:code}) for the related core algorithmic 
 code. This algorithm returns the minimum disjunction because at
 each iteration, we select the literal with smallest value in a
-conjunction and remove all other literals in the conjuction;
+conjunction and remove all other literals in the conjunction;
 distributing $\lor$ over $\land$ and subsequently evaluating the associated
 expression values will not change which disjunction attains the
 minimum value. A slightly more detailed proof is given in the
@@ -290,12 +292,12 @@ GPR rules were traditionally used to evaluate whether a gene deletion
 would result in an enzyme complex being knocked out and the resulting
 lower and upper bounds on the associated reaction being set to
 zero. As we have shown that GPR rules can be used much more
-quantiatively, it may be worth standardizing the form GPR rules
+quantitatively, it may be worth standardizing the form GPR rules
 take. Towards that end, the software we have implemented for
 Algorithm~\ref{alg:ReductionToCNF} has been developed using a modular
 programming approach and can be used from any language that supports
 a C API, making it easy for the user to experiment
-with. A simple exmample is that the parser is a separate function from
+with. A simple example is that the parser is a separate function from
 the function implementing Algorithm~\ref{alg:ReductionToCNF}, allowing
 the user to only work at the parsing level if estimating expression
 levels is not the goal, or to substitute a different algorithm in in
@@ -316,7 +318,7 @@ this global procedure may be run several times before converging to a
 flux vector. We removed FVA to mitigate some
 of the cost, and instead assign flux direction in batch; while it is
 possible that the objective value may decrease using this approach,
-this is not an issue since the objetive function increases to include
+this is not an issue since the objective function increases to include
 more irreversible fluxes at each iteration, and the objective value of
 a function with more fluxes should supersede the importance of one
 with fewer fluxes.
@@ -345,7 +347,7 @@ optional weighting of uncertainty in biological or technical
 replicates.
 
 We employ a normalization variable $n$ in the problem to find the most
-agreeable scaling of expression data. The LFP shown below can be
+agreeable scaling of expression data. The linear fractional program shown below can be
 converted to a linear program by the Charnes-Cooper transformation
 \citep{Boyd2004}. To avoid the need for fixing any specific flux, which
 may introduce bias, we introduce the bound $\sum_{j \mid e_j 
@@ -366,8 +368,8 @@ the model. Similarly, if any fluxes are known or assumed to be
 non-zero, this constraint becomes unnecessary. To keep track of how
 many reactions are irreversible in the current and prior iteration, we
 use the variables $rxns_{irrev}$ and
-$rxns_{irrev,prior}$. The algorithm terminates when the number of
-reversible reactions remains constant after an iteration.
+$rxns_{irrev,prior}$. The algorithm terminates when no reactions are
+constrained to be exclusively forward or backward after an iteration.
 
 \begin{AlgFloat}[H]
 \begin{Algorithm}[FALCON]
@@ -427,8 +429,8 @@ both non-deterministic. In the first case, Algorithm~\ref{alg:FALCON}
 solves an LP during each iteration, and subsequent iterations depend
 on the LP solution, so that alternative optima may affect the outcome.
 In the latter case, alternative optima of individual LPs is not an
-issue, but the order in which reactions assigned to be irrersible can
-lead to alterantive solutions. However, we
+issue, but the order in which reactions assigned to be irreversible can
+lead to alternative solutions. However, we
 found that the variation due to this stochasticity is typically 
 relatively minor, particularly in cases where the model is more 
 heavily constrained (Figure FluxBars; Figure EnzAbundEval).
@@ -474,7 +476,7 @@ Furthermore, when we remove many bounds
 constraining the direction of enzymatic reactions that aren't
 explicitly annotated as being irreversible in prior work
 \citep{Lee2012}, we find that our formulation of the approach seems to
-be more robust than other methods. The iMAT method is formulated as a MILP
+be more robust than other methods. The iMAT method is formulated as a mixed integer program
 \citep{Shlomi2008}, and was able to use additional parallelization of
 the solver \citep{gurobi} whereas other methods only 
 used a single core (our system had 32 cores and
@@ -513,7 +515,7 @@ strong correlation between complex abundance and flux
 (Figure FluxExpCmp). Recently it has been shown that many fluxes are not
 under direct control of their associated enzyme expression
 level \citep{Chubukov2013}, which gives experimental support to the
-idea that a network-based approach with soft contraints, such as that
+idea that a network-based approach with soft constraints, such as that
 presented in this paper, may be useful in understanding how fluxes may
 be constrained by expression data. The authors also note that enzymes
 may be overexpressed in some cases, either for robustness or because
@@ -537,7 +539,7 @@ that can estimate individual gene expression levels at time $t+1$
 given the state of the model at a time $t$.
 
 GPR rules and stoichiometry may be inaccurate or
-incomplete in any given model. In fact, for the forseeable future,
+incomplete in any given model. In fact, for the foreseeable future,
 this is a given. By using the GPR and not just the stoichiometry to
 estimate flux, it is possible that future work could make use of this
 framework to debug not just stoichiometry as some methods currently do
@@ -547,7 +549,7 @@ current research. For instance, algorithms exist for reconstructing
 biological process information from large-scale datasets, and could be
 tuned to aid in the annotation of GPR rules.
 \citep{Mitra2013}. Flexible metabolic reconstruction pipelines such as
-GLOBUS may also be extended to incorporate GPRs into their output, and
+GLOBUS may also be extended to incorporate GPR rules into their output, and
 in so doing, extend this type of modeling to many non-model organisms
 \citep{Plata2012}.  Another limitation that relates to lack of
 biological information is that we always assume a one-to-one copy
@@ -587,7 +589,7 @@ correlate well with flux, we are still essentially trying to fit
 fluxes to expression levels.  The number of constraints presents in
 metabolic models (even the minimally constrained models) prevents 
 a good correlation between the two. However, as
-with all CBMs, constraints are only half the story in any largely
+with all constraint-based models, constraints are only half the story in any largely
 underdetermined system, and we show that gene expression can prove to
 be a valuable basis for forming an objective, as opposed to methods
 that continue to use expression to further constrain the model by
@@ -596,7 +598,7 @@ creating tissue-specific or condition-specific models
 
 For better curated models, the approach described immediately finds
 use for understanding metabolism, as well as being a scaffold to find
-problems for existing GPRs, and more broadly the GPR formalism itself.
+problems for existing GPR rules, and more broadly the GPR formalism itself.
 The present results and avenues for future improvement
 show that there is much promise for using expression to estimate
 fluxes, and that it can already be a useful tool for performing flux

@@ -34,11 +34,11 @@ subunits. Unfortunately, this is currently not possible, and we almost
 always must make do with mRNA measurements, which may even have some
 degree of inaccuracy in measuring the mRNA copy number. What has been
 seen is that Spearman's $\rho = 0.6$ for correlation between RNA-Seq
-and protein inensity in datasets from HeLa cells
+and protein intensity in datasets from HeLa cells
 \citep{Nagaraj2011}. This implies that much can likely still be
 gleamed from analyzing RNA-Seq data, but, an appropriate degree of
 caution must be used in interpreting results based on RNA-Seq data. By
-incorporating more information, such as metabolic constaints, we hope
+incorporating more information, such as metabolic constraints, we hope
 to obviate some of the error in estimating protein intensity from
 RNA-Seq data. 
 
@@ -52,7 +52,7 @@ other.
 
 As an example for assumptions described so far, take the $F_1$
 subcomplex of ATP Synthase (Figure ~\ref{fig:2F43}), which is composed
-of seven protein subunits (distinguised by color, left). On the
+of seven protein subunits (distinguished by color, left). On the
 right-hand side we see different isoforms depicted as different
 colors.  Error in expression data aside, instead of considering the
 copy numbers with multiplicity and dividing their expression values by
@@ -60,7 +60,7 @@ their multiplicity, it may be easier to simply note that the axle
 peptide (shown in red in the center of the complex) only has one copy
 in the complex, so its expression should be an overall good estimation
 of the $F_1$ subcomplex copy number. This reasoning will be useful
-later in considering why GPRs may be largely adequate for estimating
+later in considering why GPR rules may be largely adequate for estimating
 the abundance of most enzyme complexes.
 
 \begin{figure*}%[H]
@@ -78,7 +78,7 @@ the abundance of most enzyme complexes.
 \emph{Assumption~\ref{asm:hierarchy}.}
 The modeling of enzyme complex copy number can be tackled by using
 nested sets of subcomplexes; each enzyme complex consists of multiple
-subcomplexes, unlesss it is only a single protein or family of protein
+subcomplexes, unless it is only a single protein or family of protein
 isozymes.  These subcomplexes are required for the enzyme complex to
 function (AND relationships), and can be thought of as the division of
 the complex in to distinct units that each have some necessary
@@ -106,13 +106,13 @@ $\alpha\beta$, discussed above).
 % Consider adding this as a Theorem/Proof:
 %
 
-The hierarhical structure just described, when written out in Boolean,
+The hierarchical structure just described, when written out in Boolean,
 will give a rule in CNF (conjunctive normal form). This is because all
 relations are ANDs (conjunctions), except possibly at the inner-most
 subcomplexes that have alternative isoforms, which are expressed as
 ORs (disjunctions). Since GPR rules alone only specify the
 requirements for enzyme complex formation, we will see that not all
-forms of boolean rules are equally useful in evaluating the enzyme
+forms of Boolean rules are equally useful in evaluating the enzyme
 complex copy number, but we have established the assumptions in
 Table~\ref{tab:ECAssume} and an alternative and logically equivalent rule
 \citep{Russell2009} under which we can estimate enzyme complex copy
@@ -151,21 +151,21 @@ There is no guarantee that a GPR rule has been written down with this
 hierarchical structure in mind, though it is likely the case much of
 the time as it is a natural way to model complexes.  However, any GPR
 rule can be interpreted in the context of this hierarchical view due
-to the existence of a logically equivlaent CNF rule for any non-CNF
+to the existence of a logically equivalent CNF rule for any non-CNF
 rule, and it is obvious that logical equivalence is all that is
 required to check for enzyme complex formation when exact isoform
 stoichiometry is unknown.  As an example, we consider another common
-formulation for GPRs, and a way to think about enzyme
+formulation for GPR rules, and a way to think about enzyme
 structure---disjunctive normal form (DNF).  A DNF rule is a
 disjunctive list of conjunctions of peptide isoforms, where each
 conjunction is some variation of the enzyme complex due to
 substituting in different isoforms for some of the required
 subunits. A rule with a more complicated structure and compatible
-isoforms across subcomplexes may be written more succinctinly in CNF,
+isoforms across subcomplexes may be written more succinctly in CNF,
 whereas a rule with only very few alternatives derived from isoform
-variants may be reprsented clearly with DNF.  In rare cases, it is
+variants may be represented clearly with DNF.  In rare cases, it is
 possible that a GPR rule is written in neither DNF or CNF, perhaps
-because neither of these two alternatives above are stricly the case,
+because neither of these two alternatives above are strictly the case,
 and some other rule is more succinct.
 
 \emph{Assumptions~\ref{asm:nostoich},~\ref{asm:sharing}~and~\ref{asm:active_site}.}
@@ -193,8 +193,8 @@ known, but an increasing abundance of data on BRENDA
 \citep{Schomburg2013} gives some hope to this problem. A recent
 \textit{E. coli} metabolic model incorporating the metabolism of all
 known gene products \citep{O'Brien2013} also includes putative
-enzyme complex stoichiometry in GPRs. For the second point, there
-are a few enzymes where a single polpeptide may have multiple active
+enzyme complex stoichiometry in GPR rules. For the second point, there
+are a few enzymes where a single polypeptide may have multiple active
 sites (e.g.\ fatty acid synthase), and this is not currently taken into
 account in our model. 
 
@@ -223,7 +223,7 @@ enzyme level in the pathways that they belong in
 \citep{Bennett2009,Chubukov2013}. This is perhaps the most important
 issue to be explored further for methods like this, since if it is not
 true, some other adjustment factor would be needed to make the method
-realistic. For instance, if all reactions in a pathway are operateing
+realistic. For instance, if all reactions in a pathway are operating
 far below $V_{max}$, but it is not the case in another pathway, the
 current method does not have information on this, and will try to put
 more flux through the first pathway than should be the case.
@@ -239,7 +239,7 @@ needed. However, further research may be warranted to investigate the
 use of a penalty for complex levels based on mass action and
 protein-docking information. Requisite to this would be addressing
 assumption~\ref{asm:nostoich}. It would be surprising (but not
-impossible) if such a penalty were very larege due to the cost this
+impossible) if such a penalty were very large due to the cost this
 would imply for many of the large and important enzyme complexes
 present in all organisms \citep{Nelson2008}.
 
@@ -302,7 +302,7 @@ reduction rule mentioned previously by calling the \texttt{minConj}
 function. The \texttt{conjunctivize} function is a helper function to
 deal with different structures for \texttt{GRconj} and \texttt{GRdisj}
 (one is set based, one is parse-tree based; note this described in the
-data(view)type defintion). We note that this is a recursive,
+data(view)type definition). We note that this is a recursive,
 functional implementation of Algorithm~\ref{alg:ReductionToCNF}, which
 seems more straightforward than a procedural implementation.
 
@@ -422,7 +422,7 @@ Sometimes a growth rate may be known or we may wish to simulate a
 growth rate. If we have a high-confidence biomass pseudo-reaction in
 our model, the optional \texttt{minFit} parameter to \texttt{falcon}
 can be used to set the minimum growth rate. Since biomass is a
-complicated sink in the model, it is apparentl unlikely that the
+complicated sink in the model, it is apparently unlikely that the
 FALCON objective will direct flux into biomass directly, so other
 measures of growth rate may also be warranted, such as accounting
 for individual sink reactions. This part of \texttt{falcon} could
@@ -444,7 +444,7 @@ backward reactions of a reversible reaction in the FALCON objective,
 but this may give undesired results in some cases, such as cycles
 between the forward and backward reactions (the cycles are not a
 problem directly because they can be removed: see the functions
-\texttt{setFBRxnDirection} in \texttt{falcom.m}.  These cycles can
+\texttt{setFBRxnDirection} in \texttt{falcon.m}.  These cycles can
 then give rise to objective values that may be quite high simply due
 to having many cycles.
 
@@ -469,10 +469,10 @@ terminate. Of course, if there is a clear choice of algorithm for a
 particular problem class, this should be used in production settings
 to avoid wasted CPU time and memory. In order to address this, we
 benchmarked the three non-parallel solver methods in Gurobi
- (since parallel sovers simply use multiple methods simultaneously).
+ (since parallel solvers simply use multiple methods simultaneously).
 The exception to this rule is the Barrier method, which can use
 multiple threads, but in practice for our models appears to use
-no more than about 6 full CPU cores simulatenously for our models.
+no more than about 6 full CPU cores simultaneously for our models.
 Our results for Yeast 5 and Yeast 7 with minimal directionality constraints
 \citep{Heavner2012,Lee2012,Aung2013} and Human Recon 2 \citep{Thiele2013}
 are shown in Table~\ref{tab:methodTime}).
@@ -505,13 +505,13 @@ flux estimate by the advanced iteration should already be quite good), but it
 is certainly undesirable; a warning message will be printed by
 \texttt{falcon} if this occurs, at which point parameter settings can
 be investigated. In the future, we plan to improve \texttt{falcon} so
-that parameters will be adjusted as neeeded during progression of the
+that parameters will be adjusted as needed during progression of the
 algorithm after finding a good test suite of models and data. For now,
 we use the dual-simplex solver, for which we have always had good
 results.
 
 Because the number of iterations depends non-trivially on the model
-and the expression data, it may be more helfpul to look at the 
+and the expression data, it may be more helpful to look at the 
 average time per iteration in the above examples (Table~\ref{tab:methodTimeIter}).
 
 \begin{table}
@@ -538,7 +538,7 @@ memory-efficiency by Gurobi documentation, but we did not observe any
 differences in memory for different solver methods.
 
 It is not possible to pass the Gurobi \texttt{method} parameter to
-\texttt{gurboi} in the COBRA Toolbox by default, but to keep our code
+\texttt{gurobi} in the COBRA Toolbox by default, but to keep our code
 as close as possible to the COBRA Toolbox API, we have copied
 \texttt{solveCobraLP.m} to the file \texttt{solveFalconLP.m} and
 modified it to use the optimal method parameters. Other parameters
@@ -548,7 +548,7 @@ otherwise the default solver specified for the COBRA Toolbox will be
 used. At the time of this release, \texttt{solveFalconLP} should be
 completely compatible with all other possible calls made to
 \texttt{solveCobraLP}, so in principle the latter could be replaced,
-but it is not reccommended in case the COBRA Toolbox API changes. If a
+but it is not recommended in case the COBRA Toolbox API changes. If a
 user wishes to use some solver other than Gurobi, it should be easy to
 alter \texttt{solveFalconLP.m} and \texttt{falcon.m} to support custom
 parameters. 
@@ -556,10 +556,10 @@ parameters.
 \section{Generation of figures and tables}
 
 All non-trivial figures can be generated using MATLAB scripts found in
-the \texttt{analyis/figures} subdirectory of the FALCON installation.
+the \texttt{analysis/figures} subdirectory of the FALCON installation.
 In particular, figures should be generated through the master script
 \texttt{makeMethodFigures.m} by calling
-\texttt{makeMethodFigures(figName)} where \texttt{figname} has a name
+\texttt{makeMethodFigures(figName)} where \texttt{figName} has a name
 corresponding to the desired figure.  In some cases, some MATLAB
 \texttt{.mat} files will need to be generated by other scripts first;
 see the plotting scripts or the subsections below for details. An
@@ -591,7 +591,7 @@ yeast models with 500 replicates.
 The MATLAB function \texttt{removeEnzymeIrrevs} was written to find
 all enzymatic reactions in a model that are annotated as reversible
 but are constrained to operate in one direction only. The script then
-changes the bounds to allow flux in both directions. The fuction
+changes the bounds to allow flux in both directions. The function
 \texttt{useYN5irrevs} copies the irreversible annotations found in
 Yeast 5.21 \citep{Lee2012} to a newer yeast model, but could in
 principle be used for any two models; by default, this script is coded
