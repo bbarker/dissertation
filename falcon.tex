@@ -241,7 +241,7 @@ formation. The algorithm can be described as follows:
 \ifthenelse{\boolean{thesisStyle}}{\singlespacing}{}
 ~
 \REQUIRE $G = \left\{g_i~\mid~i \in{1, \ldots, m}\right\}$ are genes. 
-\REQUIRE $X$ := A Boolean rule without negation consisting of\\
+\REQUIRE $r$ := A Boolean rule without negation consisting of\\
   $\left\{x_i~\mid~i \in{1, \ldots, n}\right\}$ Boolean sub-expressions.
 \WHILE{$rule \neq o_1 \land \ldots \land o_p$ where each $o_i$ is a disjunction
   of genes} 
@@ -251,13 +251,16 @@ formation. The algorithm can be described as follows:
                     and $g_{2,i} \in G_2$ where\\ 
     \hspace{4.8 mm} $(g_{1,1} \land \ldots \land g_{1,r}) \lor 
                      (g_{2,1} \land \ldots \land g_{2,s})$. \\
-    \hspace{4.8 mm} Create $G_C = G_1 \cap G_2$, $G_{1-C} = G_1 - G_C$ and\\ 
-    \hspace{4.8 mm} $G_{2-C} = G_2 - G_C$.\\
-    \hspace{4.8 mm} Substitute original disjunction with:\\
-    \hspace{4.8 mm} $\ANDw_{g_c \in G_C} g_c \land (\mathcal{M}(G_1) \lor 
-                     \mathcal{M}(G_2)$ where\\
-    \hspace{4.8 mm} $\mathcal{M}\left(S\right) := \argmin_{g \in S}{\E{g}}$\\
-
+    \hspace{4.8 mm} Create $G_C = G_1 \cap G_2$, $G_{1\setminus C} = G_1 \setminus G_C$ and\\ 
+    \hspace{4.8 mm} $G_{2\setminus C} = G_2 \setminus G_C$.\\
+    \IF {$G_{1\setminus C} = \varnothing || G_{2\setminus C} = \varnothing$}
+      \STATE Substitute original disjunction with $G_C$.\\ 
+    \ELSE 
+      \STATE Substitute original disjunction with:\\
+      \hspace{4.8 mm} $\ANDw_{g_c \in G_C} g_c \land (\mathcal{M}(G_{1 \setminus C}) \lor 
+                       \mathcal{M}(G_{2\setminus C})$ where\\
+      \hspace{4.8 mm} $\mathcal{M}\left(S\right) = \argmin_{g \in S}{\E{S}}$\\
+    \ENDIF
   \ENDIF
   \STATE Distribute $\lor$ over $\land$, e.g.: $(x_1 \land x_2) 
           \lor (x_3 \land x_4)$ \\ 

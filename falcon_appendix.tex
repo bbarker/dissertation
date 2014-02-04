@@ -263,19 +263,29 @@ in converting to CNF that we need is the distrubitive expansion of
 $\land$ over $\lor$. However, in order to allow $\mathcal{M}$ to be
 applied to conjunctive sets that are in disjunction with one another, 
 we must ensure that the sets are disjoint, which is taken care of first
-in the algorithm.
+in the algorithm by handling the intersection of the conjunctive sets, 
+$G_C = G_1 \cap G_2$, separately. In practice, if $G_{1\setminus C} = \varnothing$
+or $G_{2\setminus C} = \varnothing$, then this means we have a situation similar
+to that described in assumption~\ref{asm:holo}, and the entire expression
+is simplified to $\ORw G_C$. Otherwise, a direct route is taken to compute
+distributive law for the literals: 
+$\ANDw_{g_c \in G_C} g_c \land (\ORw_{g_i \in G_1\setminus C) \lor \mathcal{M}(G_2\setminus C)$
+
+$\ANDw_{g_c \in G_C} g_c \land (\mathcal{M}(G_{1 \setminus C}) \lor 
+                     \mathcal{M}(G_{2\setminus C})$
+
 Let us first consider when expressions $x_1, ..., x_4$
 are all distinct literals, and that
-$x_i^{(e)}$ denotes the expression measurement for gene $x_i$. Assume
+$\E{x_i}$ denotes the expression measurement for gene $x_i$. Assume
 WLOG that $x_1 \lor x_3$ attains the minimum expression among the
 disjunctions. Then we have:
 
 \begin{align*}
-&x_{1}^{(e)} + x_{3}^{(e)} \leq x_{1}^{(e)} + x_{4}^{(e)} \Rightarrow x_{3}^{(e)} \leq x_{4}^{(e)} \\
-&x_{1}^{(e)} + x_{3}^{(e)} \leq x_{2}^{(e)} + x_{3}^{(e)} \Rightarrow x_{1}^{(e)} \leq x_{2}^{(e)} 
+&\E{x_1} + \E{x_3} \leq \E{x_1} + \E{x_4} \Rightarrow \E{x_3} \leq \E{x_4} \\
+&\E{x_1} + \E{x_3} \leq \E{x_2} + \E{x_3} \Rightarrow \E{x_1} \leq \E{x_2} 
 \end{align*}
 
-Applying this result in conjunction to step one in the while-loop to
+Applying this result in conjunction to the application of $\mathcal{M}$ to
 the original expression, $(x_1 \land x_2) \lor (x_3 \land x_4)$, we
 immediately arrive at $(x_1) \lor (x_3)$, which gives our originally
 assumed minimum. To show that this result doesn't depend on the $x_i$
