@@ -230,10 +230,7 @@ CNF is computationally intractable due to an exponential increase in
 memory \citep{Russell2009}. Therefore, we use a reduction rule that
 makes use of expression data, outlined below. What this does is to
 find the \emph{rate-limiting} component of enzyme-complex
-formation. Note that the \ANDw and \ORw notation is used to illustrate
-a data structure that represents a set of literals that are
-conjunctively or disjunctively joined together. The algorithm can be
-described as follows:
+formation. The algorithm can be described as follows:
 
 \begin{AlgFloat}[H]
 \begin{Algorithm}[min disjunction]
@@ -241,13 +238,29 @@ described as follows:
 \begin{algorithmic}
 \ifthenelse{\boolean{thesisStyle}}{\singlespacing}{}
 ~
-\REQUIRE $\left\{g_i~\mid~i \in{1, ..., m}\right\}$ are genes. 
-\REQUIRE $\left\{x_i~\mid~i \in{1, ..., n}\right\}$ are expressions in Boolean logic.
-\WHILE{$rule \neq \ANDw(o_1,...,o_p)$ where each $o_i$ has the form: $\ORw(...,g_j,...)$,}
-  \STATE $\mathbf{1}$: check for sequence of \ANDw s of literals (genes)\\ 
+\REQUIRE $\left\{g_i~\mid~i \in{1, \ldots, m}\right\}$ are genes. 
+\REQUIRE $\left\{x_i~\mid~i \in{1, \ldots, n}\right\}$ are 
+ expressions in Boolean logic.
+\WHILE{$rule \neq o_1 \land \ldots \land o_p)$ where each $o_i$ is a disjunction
+  of genes} 
+  \IF {Encounter a disjunction of conjunctions of genes}
+  \STATE  $\mathbf{1.1}$: Create sets from conjunctions, i.e.:\\
+    \hspace{4.8 mm} Create $G_1$ and $G_2$ with $g_{1,i} \in G_1$ and $g_{2,i} \in G_2$ where\\ 
+    \hspace{4.8 mm} $(g_{1,1} \land \ldots \land g_{1,r}) \lor 
+                     (g_{2,1} \land \ldots \land g_{2,s})$. \\
+    \hspace{4.8 mm} Create $G_C = G_1 \cap G_2$, $G_{1-C} = G_1 - G_C$ and\\ 
+    \hspace{4.8 mm} $G_{2-C} = G_2 - G_C$.\\
+    \hspace{4.8 mm} Substitute original disjunction with:\\
+    \hspace{4.8 mm} $\ANDw_{g_c \in G_C} g_c \land (\mathcal{M}(G_1) \lor \mathcal{M}(G_2)$ where\\
+    \hspace{4.8 mm} $\mathcal{M}\left(g\right) := \argmin E\left(g\right)$\\
+
+  \ENDIF
+  \STATE $\mathbf{1}$: check for sequence of $\ANDw$ s of literals (genes)\\ 
     \hspace{4.8 mm} $\rightarrow$ reduce to gene with minimum expression 
-  \STATE $\mathbf{2}$: Distribute $\lor$ over $\land$, e.g.: $(x_1 \land x_2) \lor (x_3 \land x_4)$ \\ 
-    \hspace{4.8 mm} $\rightarrow (x_1 \lor x_3) \land (x_1 \lor x_4) \land (x_2 \lor x_3) \land (x_2 \lor x_4)$
+  \STATE $\mathbf{2}$: Distribute $\lor$ over $\land$, e.g.: $(x_1 \land x_2) 
+          \lor (x_3 \land x_4)$ \\ 
+    \hspace{4.8 mm} $\rightarrow (x_1 \lor x_3) \land (x_1 \lor x_4) \land 
+          (x_2 \lor x_3) \land (x_2 \lor x_4)$
   \STATE $\mathbf{3}$: Change adjacent gene arguments to sets, e.g: \\
     \hspace{4.8 mm} $g_1 \land g_2 \rightarrow \ANDw(g_1,g_2)$;  \\
     \hspace{4.8 mm} $g_1 \land \ANDw(g_2,g_3) \rightarrow \ANDw(g_1,g_2,g_3)$ 
