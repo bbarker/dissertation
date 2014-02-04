@@ -244,7 +244,7 @@ formation. The algorithm can be described as follows:
 \WHILE{$rule \neq o_1 \land \ldots \land o_p)$ where each $o_i$ is a disjunction
   of genes} 
   \IF {Encounter a disjunction of conjunctions of genes}
-  \STATE  $\mathbf{1.1}$: Create sets from conjunctions, i.e.:\\
+  \STATE Create sets from conjunctions, i.e.:\\
     \hspace{4.8 mm} Create $G_1$ and $G_2$ with $g_{1,i} \in G_1$ and $g_{2,i} \in G_2$ where\\ 
     \hspace{4.8 mm} $(g_{1,1} \land \ldots \land g_{1,r}) \lor 
                      (g_{2,1} \land \ldots \land g_{2,s})$. \\
@@ -255,15 +255,10 @@ formation. The algorithm can be described as follows:
     \hspace{4.8 mm} $\mathcal{M}\left(g\right) := \argmin E\left(g\right)$\\
 
   \ENDIF
-  \STATE $\mathbf{1}$: check for sequence of $\ANDw$ s of literals (genes)\\ 
-    \hspace{4.8 mm} $\rightarrow$ reduce to gene with minimum expression 
-  \STATE $\mathbf{2}$: Distribute $\lor$ over $\land$, e.g.: $(x_1 \land x_2) 
+  \STATE Distribute $\lor$ over $\land$, e.g.: $(x_1 \land x_2) 
           \lor (x_3 \land x_4)$ \\ 
     \hspace{4.8 mm} $\rightarrow (x_1 \lor x_3) \land (x_1 \lor x_4) \land 
           (x_2 \lor x_3) \land (x_2 \lor x_4)$
-  \STATE $\mathbf{3}$: Change adjacent gene arguments to sets, e.g: \\
-    \hspace{4.8 mm} $g_1 \land g_2 \rightarrow \ANDw(g_1,g_2)$;  \\
-    \hspace{4.8 mm} $g_1 \land \ANDw(g_2,g_3) \rightarrow \ANDw(g_1,g_2,g_3)$ 
 \ENDWHILE
 \ENSURE $o_{\min}$ where $o_{\min}$ has the form: $\ORw(g_1,...,g_m)$
 \end{algorithmic} 
