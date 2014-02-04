@@ -258,10 +258,14 @@ minimum expression value among all disjunctions of a rule in CNF.
 \end{Theorem}
 
 \begin{proof}
-The third step in the while-loop does not affect the
-underlying logic, so we only need to consider the effect of step one
-on step two.  Let us first consider when expressions $x_1, ..., x_4$
-are all literals in step two to cover the most complex case, and that
+Due to our Boolean algebra currently lacking negation, the only step
+in converting to CNF that we need is the distrubitive expansion of 
+$\land$ over $\lor$. However, in order to allow $\mathcal{M}$ to be
+applied to conjunctive sets that are in disjunction with one another, 
+we must ensure that the sets are disjoint, which is taken care of first
+in the algorithm.
+Let us first consider when expressions $x_1, ..., x_4$
+are all distinct literals, and that
 $x_i^{(e)}$ denotes the expression measurement for gene $x_i$. Assume
 WLOG that $x_1 \lor x_3$ attains the minimum expression among the
 disjunctions. Then we have:

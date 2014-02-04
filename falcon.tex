@@ -191,13 +191,15 @@ performed a direct evaluation of GPR rule expression
 values---replacing gene names with their expression values, ANDs with
 minimums, and ORs with sums, without altering the logical expression
 of the GPR rule in any way \citep{Lee2012}. Below we illustrate a 
-problem that can occur with this mapping; lower case letters
-denote expression level (i.e.\ copy number of mRNA) of their
-corresponding upper case letter, which denotes the gene name. The
-$r_i$ are different reaction rules and the $e_i$ are the corresponding
-estimated complex expression levels.
+problem that can occur with this mapping where some genes' expression
+levels may be counted more than once. 
 
-We need some way to guarantee that we don’t count any gene more than once: 
+The $r_i$ are different reaction rules and the $e_i$ are the
+corresponding estimated complex abundance levels. Lower case letters
+are shorthand for the expression level of the corresponding gene ID in
+uppercase; for example, $a = \E{\textnormal{A}}$, where
+$\E{\textnormal{A}}$ is the expression of gene A.
+
 \begin{AlgFloat}[H]
 {\setlength{\tabcolsep}{.16667em}
 \begin{tabular}{cccccccc}
@@ -238,21 +240,23 @@ formation. The algorithm can be described as follows:
 \begin{algorithmic}
 \ifthenelse{\boolean{thesisStyle}}{\singlespacing}{}
 ~
-\REQUIRE $\left\{g_i~\mid~i \in{1, \ldots, m}\right\}$ are genes. 
-\REQUIRE $\left\{x_i~\mid~i \in{1, \ldots, n}\right\}$ are 
- expressions in Boolean logic.
-\WHILE{$rule \neq o_1 \land \ldots \land o_p)$ where each $o_i$ is a disjunction
+\REQUIRE $G = \left\{g_i~\mid~i \in{1, \ldots, m}\right\}$ are genes. 
+\REQUIRE $X$ := A Boolean rule without negation consisting of\\
+  $\left\{x_i~\mid~i \in{1, \ldots, n}\right\}$ Boolean sub-expressions.
+\WHILE{$rule \neq o_1 \land \ldots \land o_p$ where each $o_i$ is a disjunction
   of genes} 
   \IF {Encounter a disjunction of conjunctions of genes}
   \STATE Create sets from conjunctions, i.e.:\\
-    \hspace{4.8 mm} Create $G_1$ and $G_2$ with $g_{1,i} \in G_1$ and $g_{2,i} \in G_2$ where\\ 
+    \hspace{4.8 mm} Create $G_1$ and $G_2$ with $g_{1,i} \in G_1$ 
+                    and $g_{2,i} \in G_2$ where\\ 
     \hspace{4.8 mm} $(g_{1,1} \land \ldots \land g_{1,r}) \lor 
                      (g_{2,1} \land \ldots \land g_{2,s})$. \\
     \hspace{4.8 mm} Create $G_C = G_1 \cap G_2$, $G_{1-C} = G_1 - G_C$ and\\ 
     \hspace{4.8 mm} $G_{2-C} = G_2 - G_C$.\\
     \hspace{4.8 mm} Substitute original disjunction with:\\
-    \hspace{4.8 mm} $\ANDw_{g_c \in G_C} g_c \land (\mathcal{M}(G_1) \lor \mathcal{M}(G_2)$ where\\
-    \hspace{4.8 mm} $\mathcal{M}\left(g\right) := \argmin E\left(g\right)$\\
+    \hspace{4.8 mm} $\ANDw_{g_c \in G_C} g_c \land (\mathcal{M}(G_1) \lor 
+                     \mathcal{M}(G_2)$ where\\
+    \hspace{4.8 mm} $\mathcal{M}\left(S\right) := \argmin_{g \in S}{\E{g}}$\\
 
   \ENDIF
   \STATE Distribute $\lor$ over $\land$, e.g.: $(x_1 \land x_2) 
@@ -260,7 +264,7 @@ formation. The algorithm can be described as follows:
     \hspace{4.8 mm} $\rightarrow (x_1 \lor x_3) \land (x_1 \lor x_4) \land 
           (x_2 \lor x_3) \land (x_2 \lor x_4)$
 \ENDWHILE
-\ENSURE $o_{\min}$ where $o_{\min}$ has the form: $\ORw(g_1,...,g_m)$
+\ENSURE $o_{\min}$ where $o_{\min}$ has the form: $\ORw_{g_i \in G} g_i$
 \end{algorithmic} 
 \end{Algorithm}
 \end{AlgFloat}
@@ -273,7 +277,10 @@ each iteration, we select the literal with smallest value in a
 conjunction and remove all other literals in the conjunction;
 distributing $\lor$ over $\land$ and subsequently evaluating the associated
 expression values will not change which disjunction attains the
-minimum value. A slightly more detailed proof is given in the
+minimum value. The exception to this rule occurs when one or more 
+genes appear in two conjunctions; this possibility is handled
+in the conditional by removing 
+A slightly more detailed proof is given in the
 \suppOrApp (Section~\ref{thm:ReductionToCNF}).
 
 Application of the minimum-disjunction algorithm results in several
