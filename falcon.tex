@@ -234,6 +234,7 @@ makes use of expression data, outlined below. What this does is to
 find the \emph{rate-limiting} component of enzyme-complex
 formation. The algorithm can be described as follows:
 
+% TODO: write a function op commpand for M
 \begin{AlgFloat}[H]
 \begin{Algorithm}[min disjunction]
 \label{alg:ReductionToCNF}
@@ -245,20 +246,21 @@ formation. The algorithm can be described as follows:
   $\left\{x_i~\mid~i \in{1, \ldots, n}\right\}$ Boolean sub-expressions.
 \WHILE{$rule \neq o_1 \land \ldots \land o_p$ where each $o_i$ is a disjunction
   of genes} 
-  \IF {Encounter a disjunction of conjunctions of genes}
+  \IF {Encounter a disjunction $x_d$ of conjunctions of genes}
   \STATE Create sets from conjunctions, i.e.:\\
     \hspace{4.8 mm} Create $G_1$ and $G_2$ with $g_{1,i} \in G_1$ 
                     and $g_{2,i} \in G_2$ where\\ 
-    \hspace{4.8 mm} $(g_{1,1} \land \ldots \land g_{1,r}) \lor 
+    \hspace{4.8 mm} $x_d = (g_{1,1} \land \ldots \land g_{1,r}) \lor 
                      (g_{2,1} \land \ldots \land g_{2,s})$. \\
-    \hspace{4.8 mm} Create $G_C = G_1 \cap G_2$, $G_{1\setminus C} = G_1 \setminus G_C$ and\\ 
+    \hspace{4.8 mm} Create $G_C = G_1 \cap G_2$, \\
+    \hspace{4.8 mm} $G_{1\setminus C} = G_1 \setminus G_C$ and\\ 
     \hspace{4.8 mm} $G_{2\setminus C} = G_2 \setminus G_C$.\\
-    \IF {$G_{1\setminus C} = \varnothing || G_{2\setminus C} = \varnothing$}
-      \STATE Substitute original disjunction with $G_C$.\\ 
+    \IF {$G_{1\setminus C} = \varnothing\: ||\: G_{2\setminus C} = \varnothing$}
+      \STATE Substitute $x_d$ with $\ANDw_{g_c \in G_C} g_c$.\\ 
     \ELSE 
-      \STATE Substitute original disjunction with:\\
-      \hspace{4.8 mm} $\ANDw_{g_c \in G_C} g_c \land (\mathcal{M}(G_{1 \setminus C}) \lor 
-                       \mathcal{M}(G_{2\setminus C})$ where\\
+      \STATE Substitute $x_d$ with:\\
+      \hspace{4.8 mm} $\ANDw_{g_c \in G_C} g_c \land (\mathcal{M}\left(G_{1 \setminus C}\right) \lor 
+                       \mathcal{M}\left(G_{2\setminus C}\right)$ where\\
       \hspace{4.8 mm} $\mathcal{M}\left(S\right) = \argmin_{g \in S}{\E{S}}$\\
     \ENDIF
   \ENDIF

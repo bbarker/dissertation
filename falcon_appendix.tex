@@ -259,7 +259,7 @@ minimum expression value among all disjunctions of a rule in CNF.
 
 \begin{proof}
 Due to our Boolean algebra currently lacking negation, the only step
-in converting to CNF that we need is the distrubitive expansion of 
+in converting to CNF that we need is the distributive expansion of 
 $\land$ over $\lor$. However, in order to allow $\mathcal{M}$ to be
 applied to conjunctive sets that are in disjunction with one another, 
 we must ensure that the sets are disjoint, which is taken care of first
@@ -267,16 +267,24 @@ in the algorithm by handling the intersection of the conjunctive sets,
 $G_C = G_1 \cap G_2$, separately. In practice, if $G_{1\setminus C} = \varnothing$
 or $G_{2\setminus C} = \varnothing$, then this means we have a situation similar
 to that described in assumption~\ref{asm:holo}, and the entire expression
-is simplified to $\ORw G_C$. Otherwise, a direct route is taken to compute
-distributive law for the literals: 
-$\ANDw_{g_c \in G_C} g_c \land (\ORw_{g_i \in G_1\setminus C) \lor \mathcal{M}(G_2\setminus C)$
+is simplified to $\ANDw_{g_c \in G_C} g_c$. Otherwise, a direct route is 
+taken to compute distributive law for the literals: 
 
-$\ANDw_{g_c \in G_C} g_c \land (\mathcal{M}(G_{1 \setminus C}) \lor 
-                     \mathcal{M}(G_{2\setminus C})$
+$\ANDw_{g_c \in G_C} g_c \land \left(\ANDw_{g_i \in G_{1 \setminus C}, 
+g_j \in G_{2\setminus C}} \left(g_i \lor g_j\right) \right)$
 
-Let us first consider when expressions $x_1, ..., x_4$
+Below, we show that by applying $\mathcal{M}$ to $G_{1\setminus C}$
+and $G_{2\setminus C}$, we can compute the correct minimum
+disjunction without the need to compute and store in memory every 
+disjunction in the expansion, which results in the following:
+
+$\ANDw_{g_c \in G_C} g_c \land \left(\mathcal{M}(G_{1 \setminus C}) 
+\lor \mathcal{M}\left(G_{2\setminus C}\right)\right)$
+
+Now let us consider when expressions $x_1, ..., x_4$
 are all distinct literals, and that
-$\E{x_i}$ denotes the expression measurement for gene $x_i$. Assume
+$\E{x_i}$ denotes the enzyme abundance for expression $x_i$ (or the 
+expression measure of $x_i$ if $x_i$ is a gene). Assume
 WLOG that $x_1 \lor x_3$ attains the minimum expression among the
 disjunctions. Then we have:
 
@@ -291,14 +299,14 @@ immediately arrive at $(x_1) \lor (x_3)$, which gives our originally
 assumed minimum. To show that this result doesn't depend on the $x_i$
 being literals, merely consider repeating this process recursively for
 each $x_i$ that is not a literal to arrive at two different
-evaluations for $x_i^{(e)}$ (one where each evaluation is done with
+evaluations for $\E{x_i}$ (one where each evaluation is done with
 reduction, and one where we evaluate entirely without reduction).
 Since the process cannot continue indefinitely, eventually there is a
 base case involving only literals, and the above result shows that, at
 each step, as we backtrack from the base case, both evaluations will
 be identical. The desired result is obtained because
-Algorithm~\ref{alg:ReductionToCNF} without step one simply yields CNF,
-and it follows that adding step one will yield the disjunction with
+Algorithm~\ref{alg:ReductionToCNF} without the conditional simply yields CNF,
+and it follows that adding the conditional will yield the disjunction with
 minimum expression value of the rule in CNF.
 \end{proof}
 
