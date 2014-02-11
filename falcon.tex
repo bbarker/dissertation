@@ -4,7 +4,7 @@
 % Thanks to Martha Field for discussion on adapting mammalian cells
 % to synthetic media.
 %
-FBA (flux balance analysis) is the oldest, most simple, and perhaps
+FBA (flux balance analysis) is the oldest, simplest, and perhaps
 most widely used linear constraint-based metabolic modeling approach
 \citep{Shestov2013a,Lewis2012}. FBA has become extremely popular, in
 part, due to its simplicity in calculating reasonably accurate
@@ -14,24 +14,24 @@ many microbes, a simple synthetic environment where all chemical
 species are known suffices to allow proliferation, giving fairly
 complete constraints on model inputs. Additionally, it has been found
 that their biological objectives can be largely expressed as linear
-objectives of fluxes \citep{Schuetz2012}.  Neither of these
-assumptions necessarily hold for mammalian cells growing \textit{in
+objectives of fluxes, such as maximiztion of biomass \citep{Schuetz2012}. 
+Neither of these assumptions necessarily hold for mammalian cells growing \textit{in
   vitro} or \textit{in vivo}, and in particular the environment is far
 more complex for mammalian cell cultures, which have to undergo
 gradual metabolic adaptation via titration to grow on synthetic media
 \citep{Pirkmajer2011}. Recently, there have been many efforts to 
 incorporate both absolute and differential expression data into metabolic 
-models \citep{Blazier2012}. In what follows we first discuss the MoMA
-algorithm since it is the simplest metabolic flux fitting algorithm that
-can be extended in order to allow the use of absolute expression data for 
-the estimation of flux.
+models \citep{Blazier2012}. In what follows we first discuss the
+minimization of metabolic adjustment (MoMA) algorithm since it is the
+simplest metabolic flux fitting algorithm, and it can be extended in
+order to allow the use of absolute expression data for the estimation
+of flux as in FALCON \citep{Segre2002,Lee2012}.
 
 % May eventually want to make this a conditional include section
 % and include it earlier in dissertation.
 %\subsection{MoMA: Minimization of Metabolic Adjustment}
 
-The minimization of metabolic adjustment (MoMA) method
-\citep{Segre2002}, which is framed as a constrained least-squares optimization
+The MoMA method is framed as a constrained least-squares optimization
 problem, is typically employed to calculate the flux vector of an
 \textit{in silico} organism after a mutation by minimizing the distance
 between the wild-type flux and the mutant flux. The biological
@@ -49,7 +49,11 @@ subject to the stoichiometric constraints $\mathbf{S v}\nolinebreak
 =\nolinebreak \mathbf{0}$ where $\mathbf{v} = (v_1, \ldots,
 v_N)^T$ and $\mathbf{S}$ is the stoichiometric matrix (rows correspond
 to metabolites, columns to reactions, and entries to stoichiometric
-coefficients). The objective may be equivalently expressed in the canonical
+coefficients). Constant bounds on fluxes are often present, such as
+substrate uptake limits, or experimental $V_{\max}$ estimates, so we
+write these as the constraints $\mathbf{v}_{lb}\nolinebreak
+\preceq\nolinebreak \mathbf{v}\nolinebreak \preceq \mathbf{v}_{ub}$.
+The objective may be equivalently expressed in the canonical
 quadratic programming (QP) vector form as
 $\textnormal{min.\ }\ \frac{1}{2}\mathbf{v}^T \mathbf{v}\nolinebreak
 -\nolinebreak \mathbf{a}^T \mathbf{v}$. This assumes that each $a_i$
@@ -61,10 +65,7 @@ in experiments with labeled isotope tracers that only a relatively
 small subset of all fluxes are able to be estimated with metabolic
 flux analysis (MFA; \citealt{Shestov2013a}). Combining MoMA with MFA
 provides a technique to potentially estimate other fluxes in the
-network. Constant bounds on fluxes are often present, such as
-substrate uptake limits, or experimental $V_{\max}$ estimates, so we
-write these as the constraints $\mathbf{v}_{lb}\nolinebreak
-\preceq\nolinebreak \mathbf{v}\nolinebreak \preceq \mathbf{v}_{ub}$.
+network.
 
 A variant of MoMA exists that minimizes the absolute value of the
 difference between $a_i$ and $v_i$ for all known $a_i$. To our
@@ -88,7 +89,17 @@ it is not biased towards penalizing large magnitude fluxes or
 under-penalizing fluxes that are less than one
 \citep{Boyd2004,Shlomi2005}. Additionally, linear programs are often
 amenable to more alterations that maintain convexity than a quadratic
-program.
+program \citep{Boyd2004}.
+
+If we wish to apply MoMA to expression data rather than flux data, the
+original MoMA objective must be altered in several ways, which are
+discussed in a previous paper that lays the groundwork for the current
+method \citep{Lee2012}. We automatically scale expression values so
+that they are comparable to flux units obtained in the optimization
+routine, which can be an advantage over the prior method. Also,
+expression data has no directionality, necessitating reaction
+direction assignment in order to compare enzyme complex copy number
+and flux directly in the optimization problem \citep{Lee2012}.
 
 \section{Methods}
 
@@ -107,14 +118,6 @@ several models below using a state-of-the-art solver (Table FalcPerf;
 \ref{ssec:lpsettings}). Before comparing this approach to related methods, we
 describe our rationale and algorithms.
 
-If we wish to apply MoMA to expression data rather than flux data, the
-original MoMA objective must be altered in several ways. Scaling of
-expression values must be addressed so they can be comparable to
-fluxes in the minimization. Also, expression data has no
-directionality, necessitating reaction direction assignment in order
-to compare enzyme complex copy number and flux directly in the
-optimization problem \citep{Lee2012}.
-
 Most genome-scale models have attached Boolean (\textit{sans}
 negation) gene rules to aid in determining whether or not a gene
 deletion will
@@ -128,8 +131,8 @@ referred to as complex abundance) can be estimated. We address these
 in the next section and have attached a flow chart to illustrate the
 overall process of mapping expression of individual genes to enzyme
 complexes (Figure~\ref{ECCN_flowchart}). We develop an algorithm for
-this step---finding the minimum disjunction---where complex abundance
-is estimated efficiently and as accurately as possible given the
+this step---finding the minimum disjunction---for estimating complex
+abundance as efficiently and as accurately as possible given the
 assumptions (due primarily to limitations in data quality; \suppOrApp
 Section~\ref{sec:complexation}).
 
@@ -174,12 +177,8 @@ Section~\ref{sec:complexation}).
 
 Given the abundance of genome-scale expression datasets available,
 either as microarray or more recently RNA-Seq, it could be useful to
-actually gauge the number of enzyme complexes present in a cell. This
-isn't much of an issue for the simplest case where a reaction is
-catalyzed by only one polypeptide, and that polypeptide does not
-catalyze any other reactions.  Frequently the situation is not so
-simple, so a model of enzyme complex formation is called for. A recent
-study has even found that only 11\% of annotated \textit{Drosophila}
+gauge the number of enzyme complexes present in a cell. A recent
+study found that only 11\% of annotated \textit{Drosophila}
 protein complexes have subunits that are co-regulated
 \citep{Juschke2013}, so it cannot be assumed that any given protein
 subunit level represents the actual complex abundance. We formalize a
@@ -213,9 +212,11 @@ $\E{\textnormal{A}}$ is the expression of gene A.
 
 Supposing A is the minimum, then if we just evaluate $r_1$ directly (a
 rule in disjunctive normal form, or DNF), A will be counted twice.
+Rules with sub-expressions in DNF are frequently encounter in practice.
 
-Another possibility is divvying up expression for a rule in DNF. For
-instance, in $r_1$ above, we could evaluate it as $e_1$ =
+Another possibility is divvying expression among multiple occurrences
+of a gene in a rule. For instance, in $r_1$ above, we could evaluate
+it as $e_1$ =
 min($\frac{a}{2},b$) + min($\frac{a}{2},c$) to account for the
 repeated use of $a$. However, other potential issues aside, we can see
 that this can cause problems rather quickly. For instance, suppose $b
@@ -292,7 +293,7 @@ Application of the minimum-disjunction algorithm results in several
 differences from direct substitution and evaluation in yeast GPR rules
 (Figure EnzAbundEval). The first comparison (using unpermuted data)
 resulted in 14 reactions with different expression levels, and after
-11 permutations, 39 reactions were observed to have differing
+11 permutations of gene expression data, 39 reactions were observed to have differing
 expression. The number of differences did not change between 11 and
 1,000 permutations of the expression data. In Human Recon 2 \citep{Thiele2013}, where GPR
 rules tend to be more complex, differences are much more
