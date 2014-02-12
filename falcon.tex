@@ -275,19 +275,23 @@ formation. The algorithm can be described as follows:
 \end{Algorithm}
 \end{AlgFloat}
 
-The third step greatly simplifies numeric manipulations and checking
-for the terminating condition. Please see the
-\suppOrApp (Section~\ref{sec:code}) for the related core algorithmic 
-code. This algorithm returns the minimum disjunction because at
+This algorithm returns the minimum disjunction because at
 each iteration, we select the literal with smallest value in a
 conjunction and remove all other literals in the conjunction;
 distributing $\lor$ over $\land$ and subsequently evaluating the associated
 expression values will not change which disjunction attains the
 minimum value. The exception to this rule occurs when one or more 
 genes appear in two conjunctions; this possibility is handled
-in the conditional by removing 
-A slightly more detailed proof is given in the
-\suppOrApp (Section~\ref{thm:ReductionToCNF}).
+in the conditional by treating the intersection of
+the gene sets $G_C$ separately. Unfortunately, this step is not
+associative over disjunctions, so if there
+are more than two disjunctions at the same level, it is not
+guaranteed to be accurate. Nonetheless, we can use the standard
+CNF conversion algorithm in all but one case in Yeast and all
+but two cases in Human. A slightly more detailed proof is given in the
+\suppOrApp (Section~\ref{thm:ReductionToCNF}), and the core 
+algorithmic code is displayed in 
+\suppOrApp (Section~\ref{sec:code}).
 
 Application of the minimum-disjunction algorithm results in several
 differences from direct substitution and evaluation in yeast GPR rules
@@ -492,6 +496,10 @@ Yeast model \citep{Aung2013}, we find that
 our algorithm has significant improvements in time efficiency while
 maintaining correlation with experimental fluxes, and is much faster 
 than any similarly performing method (Table FalcPerf; Figure FluxBars).
+Timing for the human model also improved in FALCON over 
+the Lee method, enabling practical use of expression fitting
+with the largest available genome-scale model 
+(\hl{70s $\pm$ 20s for FALCON, 16h $\pm$ 1h for Lee}).
 
 Furthermore, when we remove many bounds
 constraining the direction of enzymatic reactions that aren't
