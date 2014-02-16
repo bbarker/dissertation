@@ -489,6 +489,7 @@ heavily constrained (Figure FluxBars; Figure EnzAbundEval).
 
 \section{Results and Discussion}
 
+\subsection{Performance benchmarks}
 Using the same yeast exometabolic and expression data employed for
 benchmarking in the antecedent study \citep{Lee2012} that included an
 updated version of the Yeast 5 model \citep{Heavner2012} and the latest
@@ -518,7 +519,11 @@ The full-sized flux vectors estimated from permuted expression as a
 whole also does not correlate well with the flux vector estimated from
 the actual expression data, but we notice that the difference is
 visibly larger in the minimally constrained model compared to the
-highly constrained model (Figure YpermCorr). To further understand the
+highly constrained model (Figure YpermCorr). 
+
+\subsection{Sensitivity to expression noise}
+\hl{bring constraint sections in to this section from supplement?}
+To understand the
 sensitivity of flux to expression, we multiply noise from log-normal
 distributions with the expression vector and see the effect on the
 estimated fluxes. We find that enzymatic reaction directionality
@@ -534,7 +539,7 @@ human model, such as enzyme crowding constraints \citep{Shlomi2011},
 or using FALCON in conjunction with tissue specific modeling tools,
 may prove necessary.
 
-
+\subsection{Flux estimates provides information beyond enzyme complex abundance}
 It is not an unreasonable hypothesis that fluxes would correlate well
 with their associated complex abundances. Aside from the obvious benefits
 of constraint-based methods also estimating fluxes for non-enzymatic
@@ -553,6 +558,7 @@ problem in FALCON, unless entire pathways are overexpressed, which
 would be unusual as it would represent a seemingly large energetic
 inefficiency.
 
+\subsection{Increasing roles for GPR rules and complex abundance estimates}
 Still, complex abundance may have uses aside from being a first
 step in FALCON. The method presented here for complex abundance
 estimation can be used as a stand-alone method, as long as GPR
@@ -613,7 +619,7 @@ information.
 We have formalized and improved an existing method for estimating flux
 from expression data, as well as listing detailed assumptions in the
 model that may be useful to address in later attempts
-Table~\ref{ECAssume}.  Although we show that expression does not
+Table~\ref{tab:ECAssume}.  Although we show that expression does not
 correlate well with flux, we are still essentially trying to fit
 fluxes to expression levels.  The number of constraints presents in
 metabolic models (even the minimally constrained models) prevents 
