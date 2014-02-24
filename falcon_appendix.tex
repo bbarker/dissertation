@@ -610,26 +610,6 @@ Section~\ref{sec:noise} for details) to introduce more variance in the
 calculations; the human models were tested with 100 replicates and the
 yeast models with 500 replicates.
 
-\subsection{Minimally constrained yeast models}
-\label{ssec:yeastcons}
-The MATLAB function \texttt{removeEnzymeIrrevs} was written to find
-all enzymatic reactions in a model that are annotated as reversible
-but are constrained to operate in one direction only. The script then
-changes the bounds to allow flux in both directions. The function
-\texttt{useYN5irrevs} copies the irreversible annotations found in
-Yeast 5.21 \citep{Lee2012} to a newer yeast model, but could in
-principle be used for any two models; by default, this script is coded
-to first call \texttt{removeEnzymeIrrevs} on both models before
-copying irreversible annotations. To change this setting so that
-\texttt{removeEnzymeIrrevs} is not applied to either model, set the
-\texttt{noDir} argument.
-
-\subsection{Constraint sets for Human Recon 2}
-\label{ssec:humancons}
-\hl{it is mostly empty; reference scripts.}
-The most highly constrained human model in this study is not nearly
-as constrained as the most highly constrained yeast model.
-
 \subsection{Expression perturbation analysis}
 \label{sec:noise}
 \hl{Describe log-normal noise sampling here first.}
