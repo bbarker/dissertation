@@ -267,40 +267,37 @@ The algorithm can be described as follows:
   \If {Encounter a disjunction $x_d$ of conjunctions of genes}
   \State \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{
     Create sets from conjunctions, i.e.:\\
-    \hspace{4.8 mm} Create $G_1$ and $G_2$ with $g_{1,i} \in G_1$ 
-                    and $g_{2,i} \in G_2$ where\\ 
-    \hspace{4.8 mm} $x_d = (g_{1,1} \land \ldots \land g_{1,r}) \lor 
-                     (g_{2,1} \land \ldots \land g_{2,s})$. 
+    Create $G_1$ and $G_2$ with $g_{1,i} \in G_1$ 
+    and $g_{2,i} \in G_2$ where\\ 
+    $x_d = (g_{1,1} \land \ldots \land g_{1,r}) \lor 
+    (g_{2,1} \land \ldots \land g_{2,s})$. 
     \strut}
     \If {$G_1 \subseteq G_2$}
     \State Replace $x_d$ with $(g_{1,1} \land \ldots \land g_{1,r})$.
     \ElsIf {$G_2 \subseteq G_1$}
     \State Replace $x_d$ with $(g_{2,1} \land \ldots \land g_{2,s})$.
     \Else
-    \State \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{Create sets from conjunctions, i.e.:\\
-      \hspace{4.8 mm} Create $G_1$ and $G_2$ with $g_{1,i} \in G_1$ 
-                      and $g_{2,i} \in G_2$ where\\ 
-      \hspace{4.8 mm} $x_d = (g_{1,1} \land \ldots \land g_{1,r}) \lor 
-                       (g_{2,1} \land \ldots \land g_{2,s})$. \\
-      \hspace{4.8 mm} Create $G_C = G_1 \cap G_2$, \\
-      \hspace{4.8 mm} $G_{1\setminus C} = G_1 \setminus G_C$ and\\ 
-      \hspace{4.8 mm} $G_{2\setminus C} = G_2 \setminus G_C$. 
+    \State \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{
+      Create $G_C = G_1 \cap G_2$, \\
+      $G_{1\setminus C} = G_1 \setminus G_C$ and\\ 
+      $G_{2\setminus C} = G_2 \setminus G_C$. 
       \strut}
       \If {$G_{1\setminus C} = \varnothing\: ||\: G_{2\setminus C} = \varnothing$}
         \State Substitute $x_d$ with $\ANDw_{g_c \in G_C} g_c$.
       \Else
         \State \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{Substitute $x_d$ with:\\
-        \hspace{4.8 mm} $\ANDw_{g_c \in G_C} g_c \land (\mathcal{M}\left(G_{1 \setminus C}\right) \lor 
-                         \mathcal{M}\left(G_{2\setminus C}\right)$ where\\
-        \hspace{4.8 mm} $\mathcal{M}\left(S\right) = \argmin_{g \in S}{\E{S}}$
-        \strut}
+          $\ANDw_{g_c \in G_C} g_c \land (\mathcal{M}\left(G_{1 \setminus C}\right) \lor 
+          \mathcal{M}\left(G_{2\setminus C}\right)$ where\\
+          $\mathcal{M}\left(S\right) = \argmin_{g \in S}{\E{S}}$
+          \strut}
       \EndIf
     \EndIf
   \EndIf
-  \State Distribute $\lor$ over $\land$, e.g.: $(x_1 \land x_2) 
-          \lor (x_3 \land x_4)$ \\ 
-    \hspace{4.8 mm} $\rightarrow (x_1 \lor x_3) \land (x_1 \lor x_4) \land 
-          (x_2 \lor x_3) \land (x_2 \lor x_4)$
+  \State \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{
+    Distribute $\lor$ over $\land$, e.g.: $(x_1 \land x_2) \lor (x_3 \land x_4)$ \\ 
+    $\rightarrow (x_1 \lor x_3) \land (x_1 \lor x_4) \land 
+    (x_2 \lor x_3) \land (x_2 \lor x_4)$
+    \strut}
 \EndWhile
 \OUTPUT $o_{\min}$ where $o_{\min}$ has the form: $\ORw_{g_i \in G} g_i$
 \end{algorithmic} 
