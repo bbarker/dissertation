@@ -242,35 +242,30 @@ formation. The algorithm can be described as follows:
 \begin{algorithmic}
 \ifthenelse{\boolean{thesisStyle}}{\singlespacing}{}
 ~
-\REQUIRE $G = \left\{g_i~\mid~i \in{1, \ldots, m}\right\}$ are genes. 
-\REQUIRE $r$ := A Boolean rule without negation consisting of\\
+\INPUT $G = \left\{g_i~\mid~i \in{1, \ldots, m}\right\}$ are genes. 
+\INPUT $r$ := A Boolean rule without negation consisting of\\
   $\left\{x_i~\mid~i \in{1, \ldots, n}\right\}$ Boolean sub-expressions.
-\WHILE{$rule \neq o_1 \land \ldots \land o_p$ where each $o_i$ is a disjunction
+\While{$rule \neq o_1 \land \ldots \land o_p$ where each $o_i$ is a disjunction
   of genes} 
-  \IF {Encounter a disjunction $x_d$ of conjunctions of genes}
-  \STATE Create sets from conjunctions, i.e.:\\
+  \If {Encounter a disjunction $x_d$ of conjunctions of genes}
+  \State \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{Create sets from conjunctions, i.e.:\\
     \hspace{4.8 mm} Create $G_1$ and $G_2$ with $g_{1,i} \in G_1$ 
                     and $g_{2,i} \in G_2$ where\\ 
     \hspace{4.8 mm} $x_d = (g_{1,1} \land \ldots \land g_{1,r}) \lor 
-                     (g_{2,1} \land \ldots \land g_{2,s})$. \\
-    \hspace{4.8 mm} Create $G_C = G_1 \cap G_2$, \\
-    \hspace{4.8 mm} $G_{1\setminus C} = G_1 \setminus G_C$ and\\ 
-    \hspace{4.8 mm} $G_{2\setminus C} = G_2 \setminus G_C$.\\
-    \IF {$G_{1\setminus C} = \varnothing\: ||\: G_{2\setminus C} = \varnothing$}
-      \STATE Substitute $x_d$ with $\ANDw_{g_c \in G_C} g_c$.\\ 
-    \ELSE 
-      \STATE Substitute $x_d$ with:\\
-      \hspace{4.8 mm} $\ANDw_{g_c \in G_C} g_c \land (\mathcal{M}\left(G_{1 \setminus C}\right) \lor 
-                       \mathcal{M}\left(G_{2\setminus C}\right)$ where\\
-      \hspace{4.8 mm} $\mathcal{M}\left(S\right) = \argmin_{g \in S}{\E{S}}$\\
-    \ENDIF
-  \ENDIF
-  \STATE Distribute $\lor$ over $\land$, e.g.: $(x_1 \land x_2) 
+                     (g_{2,1} \land \ldots \land g_{2,s})$. 
+    \strut}
+    \If {$G_1 \subseteq G_2$}
+    \State Replace $x_d$ with $(g_{1,1} \land \ldots \land g_{1,r})$.
+    \ElsIf {$G_2 \subseteq G_1$}
+    \State Replace $x_d$ with $(g_{2,1} \land \ldots \land g_{2,s})$.
+    \EndIf 
+  \EndIf
+  \State Distribute $\lor$ over $\land$, e.g.: $(x_1 \land x_2) 
           \lor (x_3 \land x_4)$ \\ 
     \hspace{4.8 mm} $\rightarrow (x_1 \lor x_3) \land (x_1 \lor x_4) \land 
           (x_2 \lor x_3) \land (x_2 \lor x_4)$
-\ENDWHILE
-\ENSURE $o_{\min}$ where $o_{\min}$ has the form: $\ORw_{g_i \in G} g_i$
+\EndWhile
+\OUTPUT $o_{\min}$ where $o_{\min}$ has the form: $\ORw_{g_i \in G} g_i$
 \end{algorithmic} 
 \end{Algorithm}
 \end{AlgFloat}
@@ -278,7 +273,7 @@ formation. The algorithm can be described as follows:
 Although conversion to CNF may be intractable for some rules
 \citep{Russell2009}, we tested our implementation of the algorithm on
 three of the most well-curated models which likely contain some of the
-most complex gene rules available. These models are \textit{E. coli}
+most complex gene rules available. These models are for \textit{E. coli}
 \citep{Orth2011a}, yeast \citep{Aung2013}, and human
 \citep{Thiele2013}. In all cases, the rules were converted to CNF in
 less than half a second, which is far less than the typical flux
@@ -403,48 +398,30 @@ constrained to be exclusively forward or backward after an iteration.
 \ifthenelse{\boolean{thesisStyle}}{\singlespacing}{}
 ~\\
 $u_{\min} := \min_j\ \{V_{j,\max} : V_{j,\max} > 0\}$\\
-$V_{lb}^{\Sigma} := u_{\min} \left|\{v_j : e_j \textnormal{ exists}\}\right|$\\
-\STATE {Scale data to be of similar size for numeric stability:}
-\FORALL {j}
-  \STATE $e_j := \frac{e_j V_{lb}^{\Sigma}}
-    {\sum\limits_{j} e_j}$\\ 
-  \STATE $\sigma_j := \frac{\sigma_j V_{lb}^{\Sigma}}
-    {\sum\limits_{j} e_j}$\\ 
-\ENDFOR
-\WHILE{$rxns_{irrev} > rxns_{irrev,prior}$}
-  \STATE {$rxns_{irrev,prior} := rxns_{irrev}$}
-  %\STATE $V_{lb}^{\Sigma} := \min\left(u_{\min} \left|\{v_j : 
-  %  e_j \textnormal{ exists}\}\right|, 
-  %  \sum_{j \mid e_j \textnormal{ exists }} v_{prior}^{E}\right)$\\
-  %\IF {first iteration}
-  %\STATE {Constrain a user-specified flux $v_{scale} = c_{scale}$} 
-  %\INDSTATE {(either forward or backward) to a nonzero value.}
-  %\STATE {Scale $e_i$ so that $e_{scale} = v_{scale} = c_{scale}$.}
-  %\ELSE 
-  %\STATE {Restore original constraints for user specified flux.}
-  %\ENDIF
-  %\begin{align*}
-  \STATE {Call LP Solver:}
-  \INDSTATE $\textnormal{minimize}\ \sum\limits_i \frac{d_i}{n
-    \sigma_i}$ \\
-  \INDSTATE s.t. \\
-  \INDSTATE $\sum_{j \mid e_j \textnormal{ exists }} v_j \geq V_{lb}^{\Sigma}$ 
-  \INDSTATE $\forall i: -d_i \leq \sum\nolimits_{j \in R_i} (v_{j,f} +
-    v_{j,b}) - n e_i \leq d_i$ \\
-  \INDSTATE $d_i, v_{j,f}, v_{j,b} \geq 0$ \\
-  \INDSTATE $n > 0$
-  %\end{align*}
-  %\FORALL {$v_{i,f} > 0$}
-  %\IF {$v_{i,f} = v_{i,b}$}
-  %\STATE {Constrain $v_{i,f}, v_{i,b} = 0$.}  
-  %\STATE {$rxns_{irrev}$++}
-  %\ENDIF
-  %\IF {$v_{i,b} > 0$}
-  \FORALL {$\left\{j \mid v_{j,f} + v_{j,b} > 0, v_{j,f} \neq v_{j,b} \right\}$}
-  \STATE {Constrain the smaller of $v_{j,f}$ and $v_{j,b}$ to be $0$.}  
-  \STATE {$rxns_{irrev}$++}
-  \ENDFOR
-\ENDWHILE
+$V_{lb}^{\Sigma} := u_{\min} \left|\{v_j : e_j \textnormal{ exists}\}\right|$
+\State {Scale data to be of similar size for numeric stability:}
+\ForAll {j}
+  \State $e_j := \frac{e_j V_{lb}^{\Sigma}}
+    {\sum\limits_{j} e_j}$ 
+  \State $\sigma_j := \frac{\sigma_j V_{lb}^{\Sigma}}
+    {\sum\limits_{j} e_j}$
+\EndFor
+\While{$rxns_{irrev} > rxns_{irrev,prior}$}
+  \State {$rxns_{irrev,prior} := rxns_{irrev}$}
+  \State {Call LP Solver:}
+  \State $\textnormal{minimize}\ \sum\limits_i \frac{d_i}{n
+    \sigma_i}$
+  \State s.t.
+  \State $\sum_{j \mid e_j \textnormal{ exists }} v_j \geq V_{lb}^{\Sigma}$ 
+  \State $\forall i: -d_i \leq \sum\nolimits_{j \in R_i} (v_{j,f} +
+    v_{j,b}) - n e_i \leq d_i$ 
+  \State $d_i, v_{j,f}, v_{j,b} \geq 0$ 
+  \State $n > 0$
+  \ForAll {$\left\{j \mid v_{j,f} + v_{j,b} > 0, v_{j,f} \neq v_{j,b} \right\}$}
+  \State {Constrain the smaller of $v_{j,f}$ and $v_{j,b}$ to be $0$.}  
+  \State {$rxns_{irrev}$++}
+  \EndFor
+\EndWhile
 \end{algorithmic}
 \end{Algorithm}
 \end{AlgFloat}

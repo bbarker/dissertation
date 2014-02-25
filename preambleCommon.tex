@@ -1,5 +1,8 @@
 \def\pgfsysdriver{pgfsys-dvipdfm.def}
-\usepackage{algorithmic}
+%\usepackage{algorithmic}
+\usepackage{algorithmicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 \usepackage{float}
 \usepackage{ifthen}
 \usepackage{soul} %For highlights
@@ -14,7 +17,8 @@
 \usepackage{epsfig}
 \usepackage{graphicx,pstricks}
 \usepackage{graphics}
-\usepackage{hangcaption}
+\usepackage{caption}
+%\usepackage{hangcaption}
 \usepackage{palatino}
 \usepackage{subfigure}
 \usepackage{txfonts}
@@ -44,10 +48,13 @@
 \renewcommand{\topfraction}{0.85}
 \renewcommand{\textfraction}{0.1}
 \renewcommand{\floatpagefraction}{0.75}
-\renewcommand{\algorithmicrequire}{\textbf{Input:}}
-\renewcommand{\algorithmicensure}{\textbf{Output:}}
-\newcommand{\INDSTATE}[1][1]{\STATE\hspace{#1\algorithmicindent}}
-
+%\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+%\renewcommand{\algorithmicensure}{\textbf{Output:}}
+%\newcommand{\INDSTATE}[1][1]{\STATE\hspace{#1\algorithmicindent}}
+\algnewcommand\algorithmicinput{\textbf{INPUT:}}
+\algnewcommand\INPUT{\item[\algorithmicinput]}
+\algnewcommand\algorithmicoutput{\textbf{OUTPUT:}}
+\algnewcommand\OUTPUT{\item[\algorithmicoutput]}
 
 \newtheorem{Theorem}{Theorem}
 \newtheoremstyle{break}  % follow `plain` defaults but change HEADSPACE.
@@ -61,7 +68,6 @@
   {}          % CUSTOM-HEAD-SPEC
 \theoremstyle{break}
 \newtheorem{Algorithm}{Algorithm}
-
 
 \DeclareMathOperator*{\argmin}{arg\,min}
 \newcommand{\E}[1]{\operatorname{E}\left(#1\right)}
