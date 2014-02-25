@@ -226,14 +226,12 @@ not min($\frac{a}{2},b$) + min($\frac{a}{2},c$) = $\frac{a}{2} + 0$.
 \subsection{The min-disjunction algorithm estimates \\enzyme complex abundance}
 
 In the \suppOrApp (Section~\ref{sec:complexation}), we showed that
-converting a rule to conjunctive normal form (CNF) is a sound method to aid in the estimation of
-enzyme complex copy number.  However, attempting to symbolically
-convert some rules in yeast models and many rules in human models to
-CNF is computationally intractable due to an exponential increase in
-memory \citep{Russell2009}. Therefore, we use a reduction rule that
-makes use of expression data, outlined below. What this does is to
-find the \emph{rate-limiting} component of enzyme-complex
-formation. The algorithm can be described as follows:
+converting a rule to conjunctive normal form (CNF) is a sound method
+to aid in the estimation of enzyme complex copy number. We use a
+reduction rule that removes redundant genes from the complex
+(e.g. holoenzymes; see \suppOrApp Assumption~\ref{asm:holo}), outlined
+below. This effectively finds the \emph{rate-limiting} component of
+enzyme-complex formation. The algorithm can be described as follows:
 
 % TODO: write a function op commpand for M
 \begin{AlgFloat}[H]
@@ -280,7 +278,7 @@ most complex gene rules available. These models are for \textit{E. coli}
 \citep{Thiele2013}. In all cases, the rules were converted to CNF in
 less than half a second, which is far less than the typical flux
 fitting running time from Algorithm~\ref{alg:FALCON}. We also present
-a heuristic algorithm (Section~\ref{sec:HeuristicToCNF} that should
+a heuristic algorithm (Section~\ref{sec:HeuristicToCNF}) that should
 work quickly even on rules that are not able to be strictly converted
 to CNF, and in most cases should still yield the minimum disjunction.
 

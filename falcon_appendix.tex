@@ -262,6 +262,7 @@ The algorithm can be described as follows:
 \INPUT $G = \left\{g_i~\mid~i \in{1, \ldots, m}\right\}$ are genes. 
 \INPUT $r$ := A Boolean rule without negation consisting of\\
   $\left\{x_i~\mid~i \in{1, \ldots, n}\right\}$ Boolean sub-expressions.
+\INPUT $\E{g}$ := A map returning the expression level of gene g.
 \While{$rule \neq o_1 \land \ldots \land o_p$ where each $o_i$ is a disjunction
   of genes} 
   \If {Encounter a disjunction $x_d$ of conjunctions of genes}
@@ -288,7 +289,7 @@ The algorithm can be described as follows:
         \State \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{Substitute $x_d$ with:\\
           $\ANDw_{g_c \in G_C} g_c \land (\mathcal{M}\left(G_{1 \setminus C}\right) \lor 
           \mathcal{M}\left(G_{2\setminus C}\right)$ where\\
-          $\mathcal{M}\left(S\right) = \argmin_{g \in S}{\E{S}}$
+          $\mathcal{M}\left(S\right) = \argmin_{g \in S}{\E{g}}$
           \strut}
       \EndIf
     \EndIf
@@ -305,9 +306,9 @@ The algorithm can be described as follows:
 \end{AlgFloat}
 
 The intuition for this algorithm is that it returns the minimum
-disjunction because at each iteration, we select the literal with
+disjunction because at each iteration; we select the literal with
 smallest value in a conjunction and remove all other literals in the
-conjunction; distributing $\lor$ over $\land$ and subsequently
+conjunction. Distributing $\lor$ over $\land$ and subsequently
 evaluating the associated expression values will not change which
 disjunction attains the minimum value.
 
@@ -325,7 +326,7 @@ is available in the deprecated file \texttt{minDisjNoCov.dats}.
 The algorithm can be implemented without much troubled based on the
 existing code in the FALCON software package.
 
-\subsection{Proof for the minDisjunction heristic algorithm}
+\subsection{Proof for the minDisjunction heuristic algorithm}
 
 Although the intuition presented above may be straightforward, we show
 here in more verbosity that Algorithm~\ref{alg:HeuristicToCNF} works

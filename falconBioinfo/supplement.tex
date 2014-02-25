@@ -19,6 +19,11 @@
 
 % \renewcommand{\caption}[1]{\singlespacing\hangcaption{#1}\normalspacing}
 
+\captionsetup[ruled]{labelsep=period}
+\makeatletter
+\@addtoreset{algorithm}{chapter}% algorithm counter resets every chapter
+\makeatother
+\renewcommand{\thealgorithm}{\thechapter.\arabic{algorithm}}% Algorithm # is <chapter>.<algorithm>
 \usepackage{natbib}
 \bibliographystyle{natbib}
 
