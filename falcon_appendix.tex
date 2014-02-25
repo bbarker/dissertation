@@ -245,15 +245,83 @@ impossible) if such a penalty were very large due to the cost this
 would imply for many of the large and important enzyme complexes
 present in all organisms \citep{Nelson2008}.
 
-\section{Proof for the minDisjunction algorithm}
+\section{The min-disjunction heuristic algorithm}
+\label{sec:HeuristicToCNF}
+Because conversion to CNF is potentially computationally intractable 
+for some rules due to an  exponential increase in memory \citep{Russell2009}, we
+present below a reduction rule that makes use of expression data.
+The algorithm can be described as follows:
 
-Although the logic in the main text may be straightforward, we show
-here in more verbosity that Algorithm~\ref{alg:ReductionToCNF} works
+% TODO: write a function op commpand for M
+\begin{AlgFloat}[H]
+\begin{Algorithm}[min disjunction]
+\label{alg:HeuristicToCNF}
+\begin{algorithmic}
+\ifthenelse{\boolean{thesisStyle}}{\singlespacing}{}
+~
+\REQUIRE $G = \left\{g_i~\mid~i \in{1, \ldots, m}\right\}$ are genes. 
+\REQUIRE $r$ := A Boolean rule without negation consisting of\\
+  $\left\{x_i~\mid~i \in{1, \ldots, n}\right\}$ Boolean sub-expressions.
+\WHILE{$rule \neq o_1 \land \ldots \land o_p$ where each $o_i$ is a disjunction
+  of genes} 
+  \IF {Encounter a disjunction $x_d$ of conjunctions of genes}
+  \STATE Create sets from conjunctions, i.e.:\\
+    \hspace{4.8 mm} Create $G_1$ and $G_2$ with $g_{1,i} \in G_1$ 
+                    and $g_{2,i} \in G_2$ where\\ 
+    \hspace{4.8 mm} $x_d = (g_{1,1} \land \ldots \land g_{1,r}) \lor 
+                     (g_{2,1} \land \ldots \land g_{2,s})$. \\
+    \hspace{4.8 mm} Create $G_C = G_1 \cap G_2$, \\
+    \hspace{4.8 mm} $G_{1\setminus C} = G_1 \setminus G_C$ and\\ 
+    \hspace{4.8 mm} $G_{2\setminus C} = G_2 \setminus G_C$.\\
+    \IF {$G_{1\setminus C} = \varnothing\: ||\: G_{2\setminus C} = \varnothing$}
+      \STATE Substitute $x_d$ with $\ANDw_{g_c \in G_C} g_c$.\\ 
+    \ELSE 
+      \STATE Substitute $x_d$ with:\\
+      \hspace{4.8 mm} $\ANDw_{g_c \in G_C} g_c \land (\mathcal{M}\left(G_{1 \setminus C}\right) \lor 
+                       \mathcal{M}\left(G_{2\setminus C}\right)$ where\\
+      \hspace{4.8 mm} $\mathcal{M}\left(S\right) = \argmin_{g \in S}{\E{S}}$\\
+    \ENDIF
+  \ENDIF
+  \STATE Distribute $\lor$ over $\land$, e.g.: $(x_1 \land x_2) 
+          \lor (x_3 \land x_4)$ \\ 
+    \hspace{4.8 mm} $\rightarrow (x_1 \lor x_3) \land (x_1 \lor x_4) \land 
+          (x_2 \lor x_3) \land (x_2 \lor x_4)$
+\ENDWHILE
+\ENSURE $o_{\min}$ where $o_{\min}$ has the form: $\ORw_{g_i \in G} g_i$
+\end{algorithmic} 
+\end{Algorithm}
+\end{AlgFloat}
+
+The intuition for this algorithm is that it returns the minimum
+disjunction because at each iteration, we select the literal with
+smallest value in a conjunction and remove all other literals in the
+conjunction; distributing $\lor$ over $\land$ and subsequently
+evaluating the associated expression values will not change which
+disjunction attains the minimum value.
+
+While this algorithm should work in most cases just as the algorithm
+in Section~\ref{alg:ReductionToCNF}, there is a notable exception that
+can occur when one or more genes appear in two conjunctions; this
+possibility is handled in the conditional by treating the intersection
+of the gene sets $G_C$ separately. Unfortunately, this step is not
+associative over disjunctions, so if there are more than two
+disjunctions at the same level, it is not guaranteed to be accurate.
+
+While this algorithm is not currently implemented exactly as stated, 
+an earlier version of this algorithm was implemented in ATS1, and
+is available in the deprecated file \texttt{minDisjNoCov.dats}.
+The algorithm can be implemented without much troubled based on the
+existing code in the FALCON software package.
+
+\subsection{Proof for the minDisjunction heristic algorithm}
+
+Although the intuition presented above may be straightforward, we show
+here in more verbosity that Algorithm~\ref{alg:HeuristicToCNF} works
 as described.
 
 \begin{Theorem}
-\label{thm:ReductionToCNF}
-Algorithm~\ref{alg:ReductionToCNF} returns the disjunction with
+\label{thm:HeuristicToCNF}
+Algorithm~\ref{alg:HeuristicToCNF} returns the disjunction with
 minimum expression value among all disjunctions of a rule in CNF.
 \end{Theorem}
 
@@ -305,7 +373,7 @@ Since the process cannot continue indefinitely, eventually there is a
 base case involving only literals, and the above result shows that, at
 each step, as we backtrack from the base case, both evaluations will
 be identical. The desired result is obtained because
-Algorithm~\ref{alg:ReductionToCNF} without the conditional simply yields CNF,
+Algorithm~\ref{alg:HeuristicToCNF} without the conditional simply yields CNF,
 and it follows that adding the conditional will yield the disjunction with
 minimum expression value of the rule in CNF.
 \end{proof}

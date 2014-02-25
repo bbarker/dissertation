@@ -275,23 +275,17 @@ formation. The algorithm can be described as follows:
 \end{Algorithm}
 \end{AlgFloat}
 
-This algorithm returns the minimum disjunction because at
-each iteration, we select the literal with smallest value in a
-conjunction and remove all other literals in the conjunction;
-distributing $\lor$ over $\land$ and subsequently evaluating the associated
-expression values will not change which disjunction attains the
-minimum value. The exception to this rule occurs when one or more 
-genes appear in two conjunctions; this possibility is handled
-in the conditional by treating the intersection of
-the gene sets $G_C$ separately. Unfortunately, this step is not
-associative over disjunctions, so if there
-are more than two disjunctions at the same level, it is not
-guaranteed to be accurate. Nonetheless, we can use the standard
-CNF conversion algorithm in all but one case in Yeast and all
-but two cases in Human. A slightly more detailed proof is given in the
-\suppOrApp (Section~\ref{thm:ReductionToCNF}), and the core 
-algorithmic code is displayed in 
-\suppOrApp (Section~\ref{sec:code}).
+Although conversion to CNF may be intractable for some rules
+\citep{Russell2009}, we tested our implementation of the algorithm on
+three of the most well-curated models which likely contain some of the
+most complex gene rules available. These models are \textit{E. coli}
+\citep{Orth2011a}, yeast \citep{Aung2013}, and human
+\citep{Thiele2013}. In all cases, the rules were converted to CNF in
+less than half a second, which is far less than the typical flux
+fitting running time from Algorithm~\ref{alg:FALCON}. We also present
+a heuristic algorithm (Section~\ref{sec:HeuristicToCNF} that should
+work quickly even on rules that are not able to be strictly converted
+to CNF, and in most cases should still yield the minimum disjunction.
 
 Application of the minimum-disjunction algorithm results in several
 differences from direct substitution and evaluation in yeast GPR rules
