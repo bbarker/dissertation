@@ -103,21 +103,6 @@ and flux directly in the optimization problem \citep{Lee2012}.
 
 \section{Methods}
 
-In order to develop software that is easy to use and shares a popular API,
-our software is largely implemented in MATLAB using the COBRA
-Toolbox \citep{Hyduke2011}. The first algorithm in the technique
-has been implemented in ATS, a C-code generating language with rich
-safety features, in order to attain good time-efficiency without sacrificing
-safety and stability \citep{ATStypes03}. The only expensive operations in the
-MATLAB code are external calls to a linear program (LP) solver,
-so the efficiency in this case depends on the solver and the metabolic
-model in a complicated manner due to diverse algorithms and
-implementations as well as sensitivity to the model parameters
-\citep{Mittelmann2013,Todd2002}. We discuss performance statistics for
-several models below using a state-of-the-art solver (Table FalcPerf; 
-\ref{ssec:lpsettings}). Before comparing this approach to related methods, we
-describe our rationale and algorithms.
-
 Most genome-scale models have attached Boolean (\textit{sans}
 negation) gene rules to aid in determining whether or not a gene
 deletion will
@@ -308,25 +293,6 @@ additional cumulative differences due to expression permutation.
 % maintain a constant 10% (which thus reverses the wording in a sense).
 %
 
-GPR rules were traditionally used to evaluate whether a gene deletion
-would result in an enzyme complex being knocked out and the resulting
-lower and upper bounds on the associated reaction being set to
-zero. As we have shown that GPR rules can be used much more
-quantitatively, it may be worth standardizing the form GPR rules
-take. Towards that end, the software we have implemented for
-Algorithm~\ref{alg:ReductionToCNF} has been developed using a modular
-programming approach and can be used from any language that supports
-a C API, making it easy for the user to experiment
-with. A simple example is that the parser is a separate function from
-the function implementing Algorithm~\ref{alg:ReductionToCNF}, allowing
-the user to only work at the parsing level if estimating expression
-levels is not the goal, or to substitute a different algorithm in in
-place of Algorithm~\ref{alg:ReductionToCNF}. Additionally, warning
-messages can be readily introduced in the parser for different
-scenarios that may not be desirable. Currently, line and column
-numbers of parsing errors are emitted, helping to quickly pinpoint any
-errors that occur in GPR rule annotation. Some examples of using
-the parser are given (\suppOrApp Section~\ref{ssec:parsing}).
 
 \subsection{Formulation with automatic normalization and batch direction assignment}
 
@@ -567,6 +533,19 @@ problem in FALCON, unless entire pathways are overexpressed, which
 would be unusual as it would represent a seemingly large energetic
 inefficiency.
 
+The present work doesn't attempt to use empirically
+obtained kinetic parameters to estimate $V_{\max}$, but this approach
+does not seem as promising in light of experimental evidence that many
+reactions in central carbon metabolism tend to operate well below
+$V_{\max}$ \citep{Bennett2009}. Still, a better understanding of these
+phenomena may make it possible to improve flux estimation methods such
+as the one presented here, or more traditional forms of MFA
+\citep{Shestov2013a} by incorporating enzyme complexation and kinetic
+information.
+
+% Need to show heatmap figure in this section %
+
+
 \subsection{Increasing roles for GPR rules and complex abundance estimates}
 Still, complex abundance may have uses aside from being a first
 step in FALCON. The method presented here for complex abundance
@@ -576,7 +555,7 @@ may not always be desirable to directly compute a flux. As an example,
 the relative copy number of enzyme complexes present in secretions
 from various biological tissues, such as milk or pancreatic
 secretions, may still be of interest even without any intracellular
-flux data.  Perhaps more importantly, this approach to estimating
+flux data. Perhaps more importantly, this approach to estimating
 relative complex levels can be employed with regulatory models such as
 PROM \citep{Chandrasekaran2010a} or other regulatory network models
 that can estimate individual gene expression levels at time $t+1$
@@ -595,23 +574,15 @@ tuned to aid in the annotation of GPR rules.
 \citep{Mitra2013}. Flexible metabolic reconstruction pipelines such as
 GLOBUS may also be extended to incorporate GPR rules into their output, and
 in so doing, extend this type of modeling to many non-model organisms
-\citep{Plata2012}.  Another limitation that relates to lack of
+\citep{Plata2012}. Another limitation that relates to lack of
 biological information is that we always assume a one-to-one copy
 number for each gene in a complex. Once more information on enzyme
 complex structure and reaction mechanism becomes available, an
 extension to the current method could make use of this information.
-
-One may wonder why the present work doesn't attempt to use empirically
-obtained kinetic parameters to estimate $V_{\max}$, but this approach
-does not seem as promising in light of experimental evidence that many
-reactions in central carbon metabolism tend to operate well below
-$V_{\max}$ \citep{Bennett2009}. Still, a better understanding of these
-phenomena may make it possible to improve flux estimation methods such
-as the one presented here, or more traditional forms of MFA
-\citep{Shestov2013a} by incorporating enzyme complexation and kinetic
-information.
-
-% Need to show heatmap figure in this section %
+Even at the current level of structure, we think it is evident
+that GPR rules should ungergo some form of standardization;
+Boolean rules without negation may not always capture the author's
+intent for more complex purposes like flux fitting.
 
 
 

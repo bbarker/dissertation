@@ -1,20 +1,3 @@
-\section{Installing FALCON}
-
-\hl {It is empty.}
-
-\section{Running FALCON}
-
-There are several ways to run FALCON. The script that implements
-Algorithm~\ref{alg:FALCON} is \textit{falcon.m}; this script takes
-many optional values, and the function signature is highly likely
-to change in the near future. For basic use, we suggest using
-the wrapper script \textit{runFalcon.m}, which assumes several
-parameter values. This wrapper could be easily changed to use
-different parameter defaults, or to call \textit{falconMulti.m},
-itself a wrapper with a similar function signature for
-\textit{falcon.m} that calculates the mean and standard deviation of
-fluxes across multiple calls to \textit{falcon.m}.
-
 \section{Assumptions for enzyme complex formation}
 \label{sec:complexation}
 
@@ -51,7 +34,7 @@ part of the enzyme complex since one could be substituted for the
 other.
 
 As an example for assumptions described so far, take the $F_1$
-subcomplex of ATP Synthase (Figure ~\ref{fig:2F43}), which is composed
+subcomplex of ATP Synthase (Figure~\ref{fig:2F43}), which is composed
 of seven protein subunits (distinguished by color, left). On the
 right-hand side we see different isoforms depicted as different
 colors.  Error in expression data aside, instead of considering the
@@ -64,7 +47,6 @@ later in considering why GPR rules may be largely adequate for estimating
 the abundance of most enzyme complexes.
 
 \begin{figure*}%[H]
-\label{fig:2F43}
 \centering
 \includegraphics[clip=true,trim=0cm 0cm 0cm 0cm, width=12cm]{2F43}
 \caption{Illustration of the $F_1$ part of the ATP Synthase complex
@@ -73,6 +55,7 @@ the abundance of most enzyme complexes.
   constituted by multiple subunits (left), and how some of those
   subunits may be products of the same gene and have differing
   stoichiometries within the complex (right).}
+\label{fig:2F43}
 \end{figure*}
 
 \emph{Assumption~\ref{asm:hierarchy}.}
@@ -391,272 +374,6 @@ and it follows that adding the conditional will yield the disjunction with
 minimum expression value of the rule in CNF.
 \end{proof}
 
-\section{Code excerpt for minimum disjunction algorithm}
-\label{sec:code}
-
-\hl{Need to update code here; try using atslistings.sty for code 
-highlights.}
-
-The following code is written in ATS, a type-safe language including
-syntax similar to SML while having direct access to C types
-\citep{ATStypes03}. \texttt{GREXP} describes a datatype that is used
-for storing the parse trees of Boolean rules (without negation).  A
-\texttt{GREXP} can then be manipulated by the function \texttt{toCNF}
-to be converted to a conjunctive normal form. We make use of the
-reduction rule mentioned previously by calling the \texttt{minConj}
-function. The \texttt{conjunctivize} function is a helper function to
-deal with different structures for \texttt{GRconj} and \texttt{GRdisj}
-(one is set based, one is parse-tree based; note this described in the
-data(view)type definition). We note that this is a recursive,
-functional implementation of Algorithm~\ref{alg:ReductionToCNF}, which
-seems more straightforward than a procedural implementation.
-
-\begin{verbatim}
-dataviewtype GREXP = 
-  | GRgenes of genes
-  | GRconj of genes
-  | GRconj of (GREXP,GREXP)
-  | GRdisj of genes
-  | GRdisj of (GREXP,GREXP)
-
-extern
-fun toCNF (bexp: GREXP, emap: &gDMap): GREXP
-
-implement
-toCNF (bexp, emap): GREXP = let     
-  val LR:GREXP = (case+ bexp of 
-    | ~GRconj(ex1,ex2) => GRconj (toCNF(ex1,emap),toCNF(ex2,emap))
-    | ~GRdisj(ex1,ex2) => GRdisj (toCNF(ex1,emap),toCNF(ex2,emap))   
-    | GR => GR):GREXP
-  in (case+ LR of  
-    | ~GRconj(ex1,ex2) => minConj(GRconj(ex1,ex2),emap) 
-    | ~GRdisj(ex1,ex2) => (case+ (ex1,ex2) of
-      // Handle disjunctive leaf cases:         
-      | (~GRdisj(lx), ~GRgenes(g)) => GRdisj (lx + g) 
-      | (~GRgenes(g), ~GRdisj(rx)) => GRdisj (rx + g)
-      | (~GRdisj(lx), ~GRdisj(rx)) => GRdisj (lx + rx)
-      | (~GRgenes(g1), ~GRgenes(g2)) => GRdisj (g1 + g2)
-
-      // Distribute OR over ANDs:
-      | (~GRconj(x1,x2), ~GRconj(g)) => conj1(x1,x2,g,emap) 
-      | (~GRconj(g), ~GRconj(x1,x2)) => conj1(x1,x2,g,emap) 
-      | (~GRconj(g1), ~GRconj(g2)) => conj2(g1,g2,emap)
-      | (~GRconj(lx1,lx2), ~GRconj(rx1,rx2)) => let
-        val lx1c = GREXP_copy(lx1)
-        val lx2c = GREXP_copy(lx2) 
-        val rx1c = GREXP_copy(rx1)
-        val rx2c = GREXP_copy(rx2) 
-        in GRconj(GRconj(GRconj(toCNF(GRdisj(lx1,rx1),emap), 
-          toCNF(GRdisj (lx2, rx1c ),emap)),
-          toCNF(GRdisj (lx1c, rx2),emap)), 
-          toCNF(GRdisj (lx2c, rx2c),emap)) 
-        end
-
-      // Handle e.g.: (.. OR ..) OR (.. AND ...) 
-      | (~GRconj(lx1,lx2), RX) => let
-        val RXc = GREXP_copy(RX)
-        in GRconj(toCNF(GRdisj(lx1,RX),emap),
-          toCNF(GRdisj(lx2,RXc),emap)) 
-        end
-      | (LX ,~GRconj(rx1,rx2)) => let
-        val LXc = GREXP_copy(LX)
-        in GRconj(toCNF(GRdisj(LX,rx1),emap),
-          toCNF(GRdisj(LXc,rx2),emap)) 
-        end
-      | (~GRconj(gc), RX) => let
-        val retGR = toCNF(conjunctivize(RX, gc,emap),emap)
-        val _ = genes_free(gc)
-        in retGR end
-      | (LX, ~GRconj(gc)) => let
-        val retGR = toCNF (conjunctivize(LX, gc,emap),emap)
-        val _ = genes_free(gc)
-        in retGR end
-      // All other disjunctive cases
-      | (_,_) => GRdisj(toCNF(ex1,emap),toCNF(ex2,emap))
-      ):GREXP
-    | EX => EX
-    ):GREXP
-  end
-\end{verbatim}
-
-\subsection{Parsing functions and other GPR tools}
-\label{ssec:parsing}
-
-\hl{Need to include examples on how to construct a GREXP, how to call
-parser on de novo or IO-based GPR rule.}
-
-\section{FALCON internals and experimental features}
-\label{sec:internals}
-
-\subsection{EXPCON: expression constraints for $V_{max}$}
-An experimental feature that has been implemented is to constrain
-enzymatic fluxes to be strictly less than or equal to the
-automatically scaled enzyme abundance. For example, in the
-notation of Algorithm~\ref{alg:FALCON}, for each reversible $v_j$
-associated to enzyme complex $i$, we would have the additional
-constraints:
-
-\[ v_{j,f} \leq n e_i \]
-\[ v_{j,b} \leq n e_i \]
-
-This feature may be employed by setting the \texttt{EXPCON} parameter
-to \texttt{true} when calling \texttt{falcon}. We implemented this
-feature because we have seen and heard of others seeing promising
-results when na\"ively using scaled expression to act as a surrogate for
-$V_{max}$ in standard FBA (for an abstraction and example, see
-\citealt{Colijn2009}). In the present study, we observed similar
-results when using this parameter, suggesting that---at least for the
-yeast models---this parameter may provide additional benefit when
-appended to the existing FALCON machinery. We speculate that larger
-and less constrained models may benefit from employing this parameter.
-
-\subsection{Regularization}
-Although sometimes called by different names, regularization is an
-optimization technique that alters a problem so that there is some
-penalty for variables taking on large values, where large may be
-defined in different ways. In our case, since we are using a linear
-programming problem, it is most convenient to use the $L_1$-norm to
-assess how large a penalty should be given. We employ this as an
-optional parameter to \texttt{falcon}, \texttt{rc} that is applied to
-all flux values.  Regularization has been found to be a biologically
-important objective in microbes \citep{Schuetz2012}, but we didn't
-find any significant differences when using it in the present study.
-
-\subsection{Growth rates}
-Sometimes a growth rate may be known or we may wish to simulate a
-growth rate. If we have a high-confidence biomass pseudo-reaction in
-our model, the optional \texttt{minFit} parameter to \texttt{falcon}
-can be used to set the minimum growth rate. Since biomass is a
-complicated sink in the model, it is apparently unlikely that the
-FALCON objective will direct flux into biomass directly, so other
-measures of growth rate may also be warranted, such as accounting
-for individual sink reactions. This part of \texttt{falcon} could
-easily be modified to support more reactions beyond biomass.
-
-\subsection{Debugging and developing falcon}
-The \texttt{FDEBUG} parameter to \texttt{falcon} can be used to
-display additional information while the FALCON algorithm is
-running. As this can potentially be quite verbose, \texttt{FDEBUG} is
-normally set to \texttt{false}. \texttt{FDEBUG} is also a parameter to
-\texttt{computeMinDisj}, the MATLAB wrapper function for the
-\texttt{minDisj} executable, and is used similarly there.
-
-
-\subsection{Including reversible reactions in the FALCON objective}
-Since FALCON has been designed for use with irreversible models, there
-is no mathematical problem with including both the forward and
-backward reactions of a reversible reaction in the FALCON objective,
-but this may give undesired results in some cases, such as cycles
-between the forward and backward reactions (the cycles are not a
-problem directly because they can be removed: see the functions
-\texttt{setFBRxnDirection} in \texttt{falcon.m}.  These cycles can
-then give rise to objective values that may be quite high simply due
-to having many cycles.
-
-%\subsection{Linear Fractional Program (Charnes-Cooper) Transformation}
-%Since our denominator is simply the variable $n$, it is always
-%required to be equal to 1 in the transformed problem. However,
-%this is scaled by $z$, which may vary. To be sure that $z$ never
-%goes to zero, we set a lower about on $z$ with the \texttt{ZMIN}
-%variable. We know $z = 0$ is undesirable in our case since
-%we have $z = \frac{1}{n}$ and $v_original = n v_{LFP} = \frac{v_{LFP}}{z}$.
-%!! Actually, we should not need this, since dividing by small z would make for 
-% a very large original objective value. This may only be needed in cases
-% where we aren't using a true LFP.
-
-\subsection{LP solver settings}
-\label{ssec:lpsettings}
-We have exclusively used the Gurobi solver \citep{gurobi} for this
-work, which is a highly competitive solver that employs by default a
-parallel strategy to solving problems: a different algorithm is run
-simultaneously, and as soon as one algorithm finished the others
-terminate. Of course, if there is a clear choice of algorithm for a
-particular problem class, this should be used in production settings
-to avoid wasted CPU time and memory. In order to address this, we
-benchmarked the three non-parallel solver methods in Gurobi
- (since parallel solvers simply use multiple methods simultaneously).
-The exception to this rule is the Barrier method, which can use
-multiple threads, but in practice for our models appears to use
-no more than about 6 full CPU cores simultaneously for our models.
-Our results for Yeast 5 and Yeast 7 with minimal directionality constraints
-\citep{Heavner2012,Lee2012,Aung2013} and Human Recon 2 \citep{Thiele2013}
-are shown in Table~\ref{tab:methodTime}).
-
-\begin{table}
-\begin{center}
-\begin{tabular}{rrrr}
-\emph{Model}                 & \emph{Primal-Simplex} & \emph{Dual-Simplex} & \emph{Barrier} \\
-Yeast 5.21 (2,061 reactions) & $ 7.841 \pm 1.697    $ & $ 7.611 \pm 1.267    $ & $ 10.859 \pm 2.788   $\\ 
-Yeast 7.0 (3,498 reactions)  & $ 51.863 \pm 22.731  $ & $ 65.317 \pm 12.771  $ & $ 242.137 \pm 57.129 $\\
-Human 2.03 (7,440 reactions) & $ 159.077 \pm 24.903 $ & $ 152.297 \pm 39.783 $ & $ 366.166 \pm 92.321 $\\
-\end{tabular}
-\end{center}
-\caption{Running times (in seconds, $\pm$ standard deviation) for
-  FALCON using various algorithms implemented in the Gurobi package.
-  For yeast models, 1,000 replicates were performed, and for the human
-  model, 100 replicates were performed.}
-\label{tab:methodTime}
-\end{table}
-
-We found that in Yeast7 with the primal-simplex solver, there is a
-chance the solver will fail to find a feasible solution.
-We verified that this is a numeric issue
-in Gurobi and can be fixed by setting the Gurobi parameter
-\texttt{MarkowitzTol} to a larger value (which decreases
-time-efficiency but limits the numerical error in the
-simplex algorithm). In practice, failure for the algorithm to converge
-at an advanced iteration is rare and is not always a major problem (since the previous
-flux estimate by the advanced iteration should already be quite good), but it
-is certainly undesirable; a warning message will be printed by
-\texttt{falcon} if this occurs, at which point parameter settings can
-be investigated. In the future, we plan to improve \texttt{falcon} so
-that parameters will be adjusted as needed during progression of the
-algorithm after finding a good test suite of models and data. For now,
-we use the dual-simplex solver, for which we have always had good
-results.
-
-Because the number of iterations depends non-trivially on the model
-and the expression data, it may be more helpful to look at the 
-average time per iteration in the above examples (Table~\ref{tab:methodTimeIter}).
-
-\begin{table}
-\begin{center}
-\begin{tabular}{rrrr}
-\emph{Model}                 & \emph{Primal-Simplex} & \emph{Dual-Simplex} & \emph{Barrier} \\
-Yeast 5.21 (2,061 reactions) & $ 0.721 \pm 0.023 $ & $ 0.652 \pm 0.040 $ & $ 1.100 \pm 0.112  $\\ 
-Yeast 7.0 (3,498 reactions)  & $ 2.725 \pm 0.298 $ & $ 2.469 \pm 0.289 $ & $ 11.309 \pm 1.589 $\\
-Human 2.03 (7,440 reactions) & $ 6.422 \pm 0.484 $ & $ 5.233 \pm 0.661 $ & $ 15.782 \pm 3.209 $\\ 
-\end{tabular}
-\end{center}
-\caption{Running time per FALCON iteration (in seconds, $\pm$ standard
-  deviation) using various algorithms implemented in the Gurobi
-  package.  For yeast models, 1,000 replicates were performed, and for
-  the human model, 100 replicates were performed.}
-\label{tab:methodTimeIter}
-\end{table}
-
-Given the above rare trouble with primal simplex solver the universal
-best performance enjoyed by the dual-simplex method (Table~\ref{tab:methodTime},
-Table~\ref{tab:methodTimeIter}), we would advise the dual-simplex algorithms, all else
-being equal. The dual-simplex method is also recommended for
-memory-efficiency by Gurobi documentation, but we did not observe any
-differences in memory for different solver methods.
-
-It is not possible to pass the Gurobi \texttt{method} parameter to
-\texttt{gurobi} in the COBRA Toolbox by default, but to keep our code
-as close as possible to the COBRA Toolbox API, we have copied
-\texttt{solveCobraLP.m} to the file \texttt{solveFalconLP.m} and
-modified it to use the optimal method parameters. Other parameters
-could also be passed easily. \texttt{solveFalconLP} is only called if
-\texttt{gurobi} is detected as a MATLAB executable (MEX) file;
-otherwise the default solver specified for the COBRA Toolbox will be
-used. At the time of this release, \texttt{solveFalconLP} should be
-completely compatible with all other possible calls made to
-\texttt{solveCobraLP}, so in principle the latter could be replaced,
-but it is not recommended in case the COBRA Toolbox API changes. If a
-user wishes to use some solver other than Gurobi, it should be easy to
-alter \texttt{solveFalconLP.m} and \texttt{falcon.m} to support custom
-parameters. 
 
 \section{Generation of figures and tables}
 
@@ -678,19 +395,9 @@ a graphical MATLAB session.
 \subsection{Timing Analyses}
 All timing analyses were performed on a system with four 8-core AMD
 Opteron\texttrademark\ 6136 processors operating at 2.4
-GHz. Figure FluxBars, and Tables FalcPerf, \ref{tab:methodTime} and 
-\ref{tab:methodTimeIter} used a single
+GHz. Figure FluxBars and Table FalcPerf used a single
 unperturbed expression file per species (\textit{S. cerevisiae},
 \textit{E. coli}, and \textit{H. sapiens}; see
 \texttt{timingAnalysis.m} for details). Values for the FALCON method
 were averaged across 32 replicates, while values for the
-\citealt{Lee2012} method were averaged across 8 replicates. \suppOrApp
-Tables~\ref{tab:methodTime} and \ref{tab:methodTimeIter} used
-log-normal noise applied to the original expression vector (refer to
-Section~\ref{sec:noise} for details) to introduce more variance in the
-calculations; the human models were tested with 100 replicates and the
-yeast models with 500 replicates.
-
-\subsection{Expression perturbation analysis}
-\label{sec:noise}
-\hl{Describe log-normal noise sampling here first.}
+\citealt{Lee2012} method were averaged across 8 replicates. 
