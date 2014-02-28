@@ -236,12 +236,11 @@ present below a reduction rule that makes use of expression data.
 The algorithm can be described as follows:
 
 % TODO: write a function op commpand for M
-\begin{AlgFloat}[H]
-\begin{Algorithm}[heuristic min disjunction]
+\begin{algorithm} 
+\caption{heuristic min disjunction}
 \label{alg:HeuristicToCNF}
 \begin{algorithmic}
 \ifthenelse{\boolean{thesisStyle}}{\singlespacing}{}
-~
 \INPUT $G = \left\{g_i~\mid~i \in{1, \ldots, m}\right\}$ are genes. 
 \INPUT $r$ := A Boolean rule without negation consisting of\\
   $\left\{x_i~\mid~i \in{1, \ldots, n}\right\}$ Boolean sub-expressions.
@@ -285,8 +284,7 @@ The algorithm can be described as follows:
 \EndWhile
 \OUTPUT $o_{\min}$ where $o_{\min}$ has the form: $\ORw_{g_i \in G} g_i$
 \end{algorithmic} 
-\end{Algorithm}
-\end{AlgFloat}
+\end{algorithm} 
 
 The intuition for this algorithm is that it returns the minimum
 disjunction because at each iteration; we select the literal with

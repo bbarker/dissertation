@@ -21,9 +21,9 @@
 
 \captionsetup[ruled]{labelsep=period}
 \makeatletter
-\@addtoreset{algorithm}{chapter}% algorithm counter resets every chapter
+\@addtoreset{algorithm}{section}% algorithm counter resets every section
 \makeatother
-\renewcommand{\thealgorithm}{\thechapter.\arabic{algorithm}}% Algorithm # is <chapter>.<algorithm>
+\renewcommand{\thealgorithm}{\thesection.\arabic{algorithm}}% Algorithm # is <section>.<algorithm>
 \usepackage{natbib}
 \bibliographystyle{natbib}
 
