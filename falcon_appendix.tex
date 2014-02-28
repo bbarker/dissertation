@@ -11,11 +11,11 @@ polypeptide chains that act together to carry out metabolic
 catalysis.
 
 \emph{Assumption~\ref{asm:expcorr}.}  The first assumption that we
-need in order to guarantee an accurate estimate of (relative) enzyme
-complex copy number are accurate measurements of their component
+need in order to guarantee an accurate estimate of (unitless) enzyme
+complex abundance are accurate measurements of their component
 subunits. Unfortunately, this is currently not possible, and we almost
 always must make do with mRNA measurements, which may even have some
-degree of inaccuracy in measuring the mRNA copy number. What has been
+degree of inaccuracy in measuring the mRNA abundance. What has been
 seen is that Spearman's $\rho = 0.6$ for correlation between RNA-Seq
 and protein intensity in datasets from HeLa cells
 \citep{Nagaraj2011}. This implies that much can likely still be
@@ -38,11 +38,11 @@ subcomplex of ATP Synthase (Figure~\ref{fig:2F43}), which is composed
 of seven protein subunits (distinguished by color, left). On the
 right-hand side we see different isoforms depicted as different
 colors.  Error in expression data aside, instead of considering the
-copy numbers with multiplicity and dividing their expression values by
+abundances with multiplicity and dividing their expression values by
 their multiplicity, it may be easier to simply note that the axle
 peptide (shown in red in the center of the complex) only has one copy
 in the complex, so its expression should be an overall good estimation
-of the $F_1$ subcomplex copy number. This reasoning will be useful
+of the $F_1$ subcomplex abundance. This reasoning will be useful
 later in considering why GPR rules may be largely adequate for estimating
 the abundance of most enzyme complexes.
 
@@ -59,7 +59,7 @@ the abundance of most enzyme complexes.
 \end{figure*}
 
 \emph{Assumption~\ref{asm:hierarchy}.}
-The modeling of enzyme complex copy number can be tackled by using
+The modeling of enzyme complex abundance can be tackled by using
 nested sets of subcomplexes; each enzyme complex consists of multiple
 subcomplexes, unless it is only a single protein or family of protein
 isozymes.  These subcomplexes are required for the enzyme complex to
@@ -82,7 +82,7 @@ just an $\alpha$ subunit on the one hand and the $\beta$ subunit on
 the other.  It is obvious that one of these base-level functional
 subcomplexes (in this example, either $\gamma$ or $\alpha\beta$) will
 be in most limited supply, and that it will best represent the overall
-enzyme complex copy number (discounting the issues of multiplicity for
+enzyme complex abundance (discounting the issues of multiplicity for
 $\alpha\beta$, discussed above).
 
 %
@@ -98,7 +98,7 @@ subcomplexes that have alternative isoforms, which are expressed as
 ORs (disjunctions). Since GPR rules alone only specify the
 requirements for enzyme complex formation, we will see that not all
 forms of Boolean rules are equally useful in evaluating the enzyme
-complex copy number, but we have established the assumptions in
+complex abundance, but we have established the assumptions in
 Table~\ref{tab:ECAssume} and an alternative and logically equivalent rule
 \citep{Russell2009} under which we can estimate enzyme complex copy
 number.

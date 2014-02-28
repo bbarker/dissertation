@@ -98,7 +98,7 @@ method \citep{Lee2012}. We automatically scale expression values so
 that they are comparable to flux units obtained in the optimization
 routine, which can be an advantage over the prior method. Also,
 expression data has no directionality, necessitating reaction
-direction assignment in order to compare enzyme complex copy number
+direction assignment in order to compare enzyme complex abundance
 and flux directly in the optimization problem \citep{Lee2012}.
 
 \section{Methods}
@@ -111,7 +111,7 @@ completely disable a reaction. These are typically called GPR
 validity, like the stoichiometric matrix, will undoubtedly be
 important for generating accurate predictions. Also important are the
 assumptions and limitations for the process of mapping expression data
-to complexes so that a scaled enzyme complex copy number (hereafter
+to complexes so that a scaled enzyme complex abundance (hereafter
 referred to as complex abundance) can be estimated. We address these
 in the next section and have attached a flow chart to illustrate the
 overall process of mapping expression of individual genes to enzyme
@@ -153,7 +153,7 @@ Section~\ref{sec:complexation}).
   reaction rules are parsed and the minimum disjunction algorithm
   (Algorithm~\ref{alg:ReductionToCNF}) is applied, making use of the
   gene's mean expression. Finally, the estimated and unitless enzyme
-  complex copy number and variance are output for each enzymatic
+  complex abundance and variance are output for each enzymatic
   reaction.}
 \label{ECCN_flowchart}
 \end{figure}
@@ -212,7 +212,7 @@ not min($\frac{a}{2},b$) + min($\frac{a}{2},c$) = $\frac{a}{2} + 0$.
 
 In the \suppOrApp (Section~\ref{sec:complexation}), we showed that
 converting a rule to conjunctive normal form (CNF) is a sound method
-to aid in the estimation of enzyme complex copy number. We use a
+to aid in the estimation of enzyme complex abundance. We use a
 reduction rule that removes redundant genes from the complex
 (e.g. holoenzymes; see \suppOrApp Assumption~\ref{asm:holo}), outlined
 below. This effectively finds the \emph{rate-limiting} component of
@@ -556,7 +556,7 @@ step in FALCON. The method presented here for complex abundance
 estimation can be used as a stand-alone method, as long as GPR
 rules from a metabolic reconstruction are present. For instance, it
 may not always be desirable to directly compute a flux. As an example,
-the relative copy number of enzyme complexes present in secretions
+the relative abundance of enzyme complexes present in secretions
 from various biological tissues, such as milk or pancreatic
 secretions, may still be of interest even without any intracellular
 flux data. Perhaps more importantly, this approach to estimating
