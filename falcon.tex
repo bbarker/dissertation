@@ -127,15 +127,15 @@ Section~\ref{sec:complexation}).
 \begin{tikzpicture}%[scale=0.8, node distance = 1cm, auto]
     % Place nodes
     \node [block] (start) {start}; 
-    \node [iogram, below of=start, left of=start] (exp) {Gene: 
-      $\mu$,~$\sigma^2$}; 
-    \node [iogram, below of=start, right of=start] (rules) {Reaction:
+    \node [iogram, below of=start, left of=start] (exp) {Genes:\\ expression 
+      ($\mu$,~$\sigma$)}; 
+    \node [iogram, below of=start, right of=start] (rules) {Reactions:
       GPR Rule}; 
     \node [block, below of=rules] (parse) {Parse Rule}; 
     \node [block, below of=parse, left of=parse, xshift=-0.5cm]
       (mindisj) {Find minimum disjunction};
     \node [iogram, below of=mindisj] (expstd)
-          {Reaction\\(enzyme~complex): $\mu$,~$\sigma^2$};
+          {Reactions (enzyme~complexes):\\ abundance $\mu$,~$\sigma$};
     % Draw edges
     \path [line] (start) -- (exp);
     \path [line] (start) -- (rules);
@@ -147,7 +147,7 @@ Section~\ref{sec:complexation}).
 \end{center}
 \caption{Flowchart illustrating the process of estimating enzyme
   complex abundance. First, for each gene in the model with
-  available expression data, the mean and (if available) variance or
+  available expression data, the mean and (if available) standard deviation or
   some other measure of uncertainty are read in. Gene rules (also
   called GPR rules) are also read in for each enzymatic reaction. The
   reaction rules are parsed and the minimum disjunction algorithm
@@ -503,7 +503,7 @@ fluxes with a common sign across all cell lines and replicates
 (function \texttt{constrainCoReMinMaxSign}; 567 cumulative
 constraints), enzymatic reaction directionality constraints from a
 linear MoMA fitting on the exometabolic flux data that agree
-across all NCI-60 cell lines (\texttt{constrainImputedInternal}; 593
+across all NCI-60 cell lines (\texttt{constrainImputed\-Internal}; 593
 cumulative constraints), and the same again considering all reactions
 instead of only enzymatic reactions (618 cumulative constraints). Each
 constraint set supplies some benefit (Figure ExpSens E-I), but even
