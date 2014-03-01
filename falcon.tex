@@ -228,6 +228,7 @@ enzyme-complex formation. The algorithm can be described as follows:
 \INPUT $G = \left\{g_i~\mid~i \in{1, \ldots, m}\right\}$ are genes. 
 \INPUT $r$ := A Boolean rule without negation consisting of\\
   $\left\{x_i~\mid~i \in{1, \ldots, n}\right\}$ Boolean sub-expressions.
+\INPUT $\E{g}$ := A map returning the expression level of gene g.
 \While{$rule \neq o_1 \land \ldots \land o_p$ where each $o_i$ is a disjunction
   of genes} 
   \If {Encounter a disjunction $x_d$ of conjunctions of genes}
@@ -250,7 +251,7 @@ enzyme-complex formation. The algorithm can be described as follows:
     (x_2 \lor x_3) \land (x_2 \lor x_4)$
     \strut}
 \EndWhile
-\OUTPUT $o_{\min}$ where $o_{\min}$ has the form: $\ORw_{g_i \in G} g_i$
+\OUTPUT $o_{\min}$ where $o_{\min}$ has the form: $\ORw_{g_i \in G} g_i$ (uses $\E{g}$)
 \end{algorithmic} 
 \end{Algorithm}
 \end{AlgFloat}
@@ -442,8 +443,8 @@ maintaining correlation with experimental fluxes, and is much faster
 than any similarly performing method (Table FalcPerf; Figure FluxBars).
 Timing for the human model also improved in FALCON; in a model with
 medium constraints and exometabolic directionality constraints, FALCON
-completed on average in 3.66m and the method from \citealt{Lee2012} in
-1.04h.
+completed on average in 3.66~m and the method from \citealt{Lee2012} in
+1.04~h.
 
 Furthermore, when we remove many bounds constraining the direction of
 enzymatic reactions that aren't explicitly annotated as being
