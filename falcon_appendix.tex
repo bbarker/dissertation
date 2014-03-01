@@ -10,20 +10,32 @@ complexes, we refer to an enzyme complex as being one or more
 polypeptide chains that act together to carry out metabolic
 catalysis.
 
-\emph{Assumption~\ref{asm:expcorr}.}  The first assumption that we
-need in order to guarantee an accurate estimate of (unitless) enzyme
-complex abundance are accurate measurements of their component
-subunits. Unfortunately, this is currently not possible, and we almost
-always must make do with mRNA measurements, which may even have some
-degree of inaccuracy in measuring the mRNA abundance. What has been
-seen is that Spearman's $\rho = 0.6$ for correlation between RNA-Seq
-and protein intensity in datasets from HeLa cells
-\citep{Nagaraj2011}. This implies that much can likely still be
-gleamed from analyzing RNA-Seq data, but, an appropriate degree of
-caution must be used in interpreting results based on RNA-Seq data. By
-incorporating more information, such as metabolic constraints, we hope
-to obviate some of the error in estimating protein intensity from
-RNA-Seq data. 
+\emph{Assumption~\ref{asm:mm}.} The general principle needed for
+fitting fluxes to enzyme complex abundances is to assume the values
+would be correlated in the absence of other constraints (e.g. branch
+points that arise from the stoichiometry). More specifically, it
+should be the case that flux is proportional to enzyme complex
+abundance given ample availability of substrate, and that this
+proportionality constant does not vary too much between reactions.
+There are undoubtedly many exceptions to this rule, but it seems as
+though there may be some underlying evolutionary principles for it to
+work in this parsimonious fashion, as has been partly verified
+\citep{Bennett2009}.
+
+\emph{Assumption~\ref{asm:expcorr}.}  Another fundamental assumption
+that we need in order to guarantee an accurate estimate of (unitless)
+enzyme complex abundance are the availability of accurate measurements
+of their component subunits. Unfortunately, this is currently not
+possible, and we almost always must make do with mRNA measurements,
+which may even have some degree of inaccuracy in measuring the mRNA
+abundance. What has been seen is that Spearman's $\rho = 0.6$ for
+correlation between RNA-Seq and protein intensity in datasets from
+HeLa cells \citep{Nagaraj2011}. This implies that much can likely
+still be gleamed from analyzing RNA-Seq data, but, an appropriate
+degree of caution must be used in interpreting results based on
+RNA-Seq data. By incorporating more information, such as metabolic
+constraints, we hope to obviate some of the error in estimating
+protein intensity from RNA-Seq data.
 
 \emph{Assumption~\ref{asm:isozyme}.} We also include the notion of
 isozymes--different proteins that catalyze the same reaction--in our
