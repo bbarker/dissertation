@@ -440,20 +440,20 @@ Yeast model \citep{Aung2013}, we find that
 our algorithm has significant improvements in time efficiency while
 maintaining correlation with experimental fluxes, and is much faster 
 than any similarly performing method (Table FalcPerf; Figure FluxBars).
-Timing for the human model also improved in FALCON over 
-the Lee method, enabling practical use of expression fitting
-with the largest available genome-scale model 
-(\hl{11.05m for FALCON, 1.44h for Lee}).
+Timing for the human model also improved in FALCON; in a model with
+medium constraints and exometabolic directionality constraints, FALCON
+completed on average in 3.66m and the method from \citealt{Lee2012} in
+1.04h.
 
-Furthermore, when we remove many bounds
-constraining the direction of enzymatic reactions that aren't
-explicitly annotated as being irreversible in prior work
-\citep{Lee2012}, we find that our formulation of the approach seems to
-be more robust than other methods. The iMAT method is formulated as a mixed integer program
+Furthermore, when we remove many bounds constraining the direction of
+enzymatic reactions that aren't explicitly annotated as being
+irreversible in prior work \citep{Lee2012}, we find that our
+formulation of the approach seems to be more robust than other
+methods. The iMAT method is formulated as a mixed integer program
 \citep{Shlomi2008}, and was able to use additional parallelization of
-the solver \citep{gurobi} whereas other methods only 
-used a single core (our system had 32 cores and
-iMAT with Gurobi would use all of them). 
+the solver \citep{gurobi} whereas other methods only used a single
+core (our system had 32 cores and iMAT with Gurobi would use all of
+them).
 
 We see that the prognostic ability of the algorithm does not
 appear to be an artifact; when FALCON is run on permuted expression data,
