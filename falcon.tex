@@ -333,8 +333,9 @@ such. The standard deviation of enzyme abundance, $\sigma_i$, is an
 optional weighting of uncertainty in biological or technical
 replicates.
 
-We employ a normalization variable $n$ in the problem to find the most
-agreeable scaling of expression data. The linear fractional program shown below can be
+We employ a normalization variable $n$ in the problem's objective and
+flux-fitting constraints to find the most agreeable scaling of
+expression data. The linear fractional program shown below can be
 converted to a linear program by the Charnes-Cooper transformation
 \citep{Boyd2004}. To avoid the need for fixing any specific flux, which
 may introduce bias, we introduce the bound $\sum_{j \mid e_j 
@@ -375,15 +376,16 @@ $V_{lb}^{\Sigma} := u_{\min} \left|\{v_j : e_j \textnormal{ exists}\}\right|$
 \EndFor
 \While{$rxns_{irrev} > rxns_{irrev,prior}$}
   \State {$rxns_{irrev,prior} := rxns_{irrev}$}
-  \State {Call LP Solver:}
-  \State $\textnormal{minimize}\ \sum\limits_i \frac{d_i}{n
-    \sigma_i}$
-  \State s.t.
-  \State $\sum_{j \mid e_j \textnormal{ exists }} v_j \geq V_{lb}^{\Sigma}$ 
-  \State $\forall i: -d_i \leq \sum\nolimits_{j \in R_i} (v_{j,f} +
-    v_{j,b}) - n e_i \leq d_i$ 
-  \State $d_i, v_{j,f}, v_{j,b} \geq 0$ 
-  \State $n > 0$
+  \State Call LP Solver:
+  \State \hspace{4.8mm} \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{
+    $\textnormal{minimize}\ \sum\limits_i \frac{d_i}{n \sigma_i}$\\
+    s.t.\\
+    $\sum_{j \mid e_j \textnormal{ exists }} v_j \geq V_{lb}^{\Sigma}$\\ 
+    $\forall i: -d_i \leq \sum\nolimits_{j \in R_i} (v_{j,f} +
+    v_{j,b}) - n e_i \leq d_i$\\ 
+    $d_i, v_{j,f}, v_{j,b} \geq 0$\\ 
+    $n > 0$
+    \strut}
   \ForAll {$\left\{j \mid v_{j,f} + v_{j,b} > 0, v_{j,f} \neq v_{j,b} \right\}$}
   \State {Constrain the smaller of $v_{j,f}$ and $v_{j,b}$ to be $0$.}  
   \State {$rxns_{irrev}$++}
