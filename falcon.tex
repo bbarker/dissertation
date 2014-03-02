@@ -268,25 +268,24 @@ a heuristic algorithm (Section~\ref{sec:HeuristicToCNF}) that should
 work quickly even on rules that are not able to be strictly converted
 to CNF, and in most cases should still yield the minimum disjunction.
 
-Application of the minimum-disjunction algorithm results in several
-differences from direct substitution and evaluation in yeast GPR rules
-(Figure EnzAbundEval). The first comparison (using unpermuted data)
-resulted in 14 reactions with different expression levels, and after
-11 permutations of gene expression data, 39 reactions were observed to have differing
-expression. The number of differences did not change between 11 and
-1,000 permutations of the expression data. In Human Recon 2 \citep{Thiele2013}, where GPR
-rules tend to be more complex, differences are much more
-pervasive. The unpermuted data resulted in 401 differences (nearly
-10\% of the enzymatic reactions). Though not an issue for the yeast
-data where all genes were measured, missing gene data was handled
-differently in the direct substitution method, where a single gene's
-missing data would cause an entire reaction to have zero
-expression---In the minimum-disjunction implementation, missing data
-causes the gene to be removed from the rule. These differences were
-not taken into account in this figure, but would result in additional
-2,465 differences for the human model with the unpermuted data
-(resulting in 59\% of enzymatic reactions differing), as well as
-additional cumulative differences due to expression permutation.
+Application of Algorithm~\ref{alg:ReductionToCNF} results in several
+differences from direct substitution and evaluation in yeast GPR
+rules. When data completely covers the genes in the model
+(e.g. \citealt{Lee2012}), rules tend to have few differences in Yeast
+regardless of the evaluation method (25 rules; 1.08\% of all rules for
+Yeast 7). This number goes up significantly in Human Recon 2
+\citep{Thiele2013} due to more complex GPR rues (935 rules; 22\% of
+all rules). For the human model, we could not find any data set that
+covered every gene, so instead random expression data roughly matching
+a power law was used to generate this statistic. If we use proteomics
+data for yeast and human models, the difference in how missing gene
+data is handled causes some additional increase in differences
+\citep{Picotti2013,Gholami2013}.  For proteomics, in the Yeast 7 model
+205 rules (8.87\% of all rules) differed, and in Human Recon 2, 1002
+rules (23.57\% of all rules) differed. We can see that in Yeast, the
+changes in flux attributed to enzyme abundance evaluation can be
+relatively small for data with 100\% gene coverage, but the other
+extreme in Human can be significant (Figure EnzAbundEval).
 
 %
 % Above, to make the figure more striking, we can say that if we
