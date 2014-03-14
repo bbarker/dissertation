@@ -115,7 +115,7 @@ to complexes so that a scaled enzyme complex abundance (hereafter
 referred to as complex abundance) can be estimated. We address these
 in the next section and have attached a flow chart to illustrate the
 overall process of mapping expression of individual genes to enzyme
-complexes (Figure~\ref{ECCN_flowchart}). We develop an algorithm for
+complexes (\textbf{Figure~\ref{ECCN_flowchart}}). We develop an algorithm for
 this step---finding the minimum disjunction---for estimating complex
 abundance as efficiently and as accurately as possible given the
 assumptions (due primarily to limitations in data quality; \suppOrApp
@@ -135,7 +135,7 @@ Section~\ref{sec:complexation}).
     \node [block, below of=parse, left of=parse, xshift=-0.5cm]
       (mindisj) {Find minimum disjunction};
     \node [iogram, below of=mindisj] (expstd)
-          {Reactions (enzyme~complexes):\\ abundance $\mu$,~$\sigma$};
+          {Reactions (enzyme~complexes):\\ abundance ($\mu$,~$\sigma$)};
     % Draw edges
     \path [line] (start) -- (exp);
     \path [line] (start) -- (rules);
@@ -285,7 +285,7 @@ data is handled causes some additional increase in differences
 rules (23.57\% of all rules) differed. We can see that in Yeast, the
 changes in flux attributed to enzyme abundance evaluation can be
 relatively small for data with 100\% gene coverage, but the other
-extreme in Human can be significant (Figure EnzAbundEval).
+extreme in Human can be significant (\textbf{Figure EnzAbundEval}).
 
 %
 % Above, to make the figure more striking, we can say that if we
@@ -319,7 +319,7 @@ direction is irreversible. We also account for enzyme complexes
 catalyzing multiple reactions by including all reactions with identical
 GPR rules in the same residual
 constraint; indexed sets of reactions are denoted $R_i$ and their
-corresponding estimated enzyme abundance is $e_i$. Figure FalconGrp 
+corresponding estimated enzyme abundance is $e_i$. \textbf{Figure FalconGrp} 
 shows the difference in Algorithm~\ref{alg:FALCON} when we do not 
 use reaction group information. Note that we use a
 slight abuse of notation, since we also choose to index enzyme
@@ -343,8 +343,8 @@ the optimization problem will yield a non-zero flux vector. As an
 example of how this can be beneficial, this means we do not need to
 measure any fluxes or assume a flux is fixed to achieve good results;
 though this does not downplay the value of obtaining
-experimentally-based constraints on flux when available (Figure
-FluxBars).
+experimentally-based constraints on flux when available (\textbf{Figure
+FluxBars}).
 
 The actual
 value of $V_{lb}^{\Sigma}$ is not very important due to the scaling
@@ -403,7 +403,7 @@ issue, but the order in which reactions assigned to be irreversible can
 lead to alternative solutions. However, we
 found that the variation due to this stochasticity is typically 
 relatively minor, particularly in cases where the model is more 
-heavily constrained (Figure FluxBars; Figure EnzAbundEval).
+heavily constrained (\textbf{Figure FluxBars; Figure EnzAbundEval}).
 
 % Make performance tables like this? 
 % Apparently the processtable and rules below are not
@@ -441,7 +441,7 @@ updated version of the Yeast 5 model \citep{Heavner2012} and the latest
 Yeast model \citep{Aung2013}, we find that
 our algorithm has significant improvements in time efficiency while
 maintaining correlation with experimental fluxes, and is much faster 
-than any similarly performing method (Table FalcPerf; Figure FluxBars).
+than any similarly performing method (\textbf{Table FalcPerf; Figure FluxBars}).
 Timing for the human model also improved in FALCON; in a model with
 medium constraints and exometabolic directionality constraints, FALCON
 completed on average in 3.66~m and the method from \citealt{Lee2012} in
@@ -459,24 +459,24 @@ them).
 
 We see that the prognostic ability of the algorithm does not
 appear to be an artifact; when FALCON is run on permuted expression data,
-it doesn't do as well as the actual expression vector (Figure YpermCorr).
+it doesn't do as well as the actual expression vector (\textbf{Figure YpermCorr}).
 The full-sized flux vectors estimated from permuted expression as a
 whole also does not correlate well with the flux vector estimated from
 the actual expression data, but we notice that the difference is
 visibly larger in the minimally constrained model compared to the
-highly constrained model (Figure YpermCorr). 
+highly constrained model (\textbf{Figure YpermCorr}). 
 
 \subsection{Sensitivity to expression noise}
 To understand the sensitivity of flux to expression, we multiply noise
 from multivariate log-normal distributions with the expression vector
 and see the effect on the estimated fluxes. We find that enzymatic
 reaction directionality constraints influence the sensitivity of the
-model to expression perturbation (Figure ExpSens). It is important to
+model to expression perturbation (\textbf{Figure ExpSens}). It is important to
 note that mere presence of the constraints does not help us determine
 the correct experimental fluxes when other classes of methods (e.g.\
-FBA; Table FalcPerf) are used. Additionally, it is possible to obtain
-good predictions even without a heavily constrained model (Table
-FalcPerf).
+FBA; \textbf{Table FalcPerf}) are used. Additionally, it is possible to obtain
+good predictions even without a heavily constrained model (\textbf{Table
+FalcPerf}).
 
 In order to work with different constraint sets in Yeast, we wrote the
 MATLAB function \texttt{removeEnzymeIrrevs} to find all enzymatic
@@ -494,7 +494,7 @@ uptake constraints are unaffected, FBA only predicts a 1.28\%
 increase in growth rate in the minimally constrained Yeast 7
 model. However, in FALCON, we are no longer optimizing a sink reaction
 like biomass, and this relaxation in internal constraints can be more
-important (Figure ExpSens).
+important (\textbf{Figure ExpSens}).
 
 For Human Recon 2, we used several different constraint sets based on
 experimental media and exometabolic flux data in the NCI-60 cell lines
@@ -508,7 +508,7 @@ linear MoMA fitting on the exometabolic flux data that agree
 across all NCI-60 cell lines (\texttt{constrainImputed\-Internal}; 593
 cumulative constraints), and the same again considering all reactions
 instead of only enzymatic reactions (618 cumulative constraints). Each
-constraint set supplies some benefit (Figure ExpSens E-I), but even
+constraint set supplies some benefit (\textbf{Figure ExpSens E-I}), but even
 the most extreme constraint set does not compare to what is available
 in Yeast 7, which is also inherently constrained by the fact that
 yeast models will be smaller than comparable human models.  For
@@ -539,7 +539,7 @@ of constraint-based methods also estimating fluxes for non-enzymatic
 reactions, and assigning a direction for reversible enzymatic
 reactions, we see that in general, our method does not predict a
 strong correlation between complex abundance and flux
-(Figure FluxExpCmp). Recently it has been shown that many fluxes are not
+(\textbf{Figure FluxExpCmp}). Recently it has been shown that many fluxes are not
 under direct control of their associated enzyme expression
 level \citep{Chubukov2013}, which gives experimental support to the
 idea that a network-based approach with soft constraints, such as that
@@ -560,8 +560,6 @@ phenomena may make it possible to improve flux estimation methods such
 as the one presented here, or more traditional forms of MFA
 \citep{Shestov2013a} by incorporating enzyme complexation and kinetic
 information.
-
-% Need to show heatmap figure in this section %
 
 
 \subsection{Increasing roles for GPR rules and complex abundance estimates}
@@ -617,7 +615,7 @@ intent for more complex purposes like flux fitting.
 We have formalized and improved an existing method for estimating flux
 from expression data, as well as listing detailed assumptions in the
 model that may be useful to address in later attempts
-Table~\ref{tab:ECAssume}.  Although we show that expression does not
+\textbf{Table~\ref{tab:ECAssume}}.  Although we show that expression does not
 correlate well with flux, we are still essentially trying to fit
 fluxes to expression levels.  The number of constraints presents in
 metabolic models (even the minimally constrained models) prevents 
