@@ -41,38 +41,43 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % A systematic exploration of enzyme complex rules and metabolic networks yields fast and
-% robust algorithms for the estimation metabolic flux and enzyme complex abundance.
+% robust algorithms for estimating metabolic flux and enzyme complex abundance.
 
-% //Expression and Gene-Protein-Reaction rules can be employed in a non-trivial way to 
-% estimate enzymme complex abundanc.
+% Metabolic flux and enzyme complex abundance are efficiently and robustly
+% estimated by systematic inspection of GPR rule sand enzyme complex abundance.
+
+% Systematic consideration of gene-rules and enzyme complex relationships enables 
+% quantification of fluxes and enzyme complexes.
 
 % Fast and systematic algorithms estimate enzyme complex abundance
 % and flux from expression data.
 
 
-\title[FALCON]{A fast method for estimating fluxes
-  from expression data}
-    \author[Barker \textit{et~al.}]{Brandon Barker et al.$^{1,2}$\footnote{to whom correspondence should be addressed}}
- %  \author[Barker \textit{et~al.}]{Brandon Barker\,$^{1,2}$\footnote{to whom correspondence should be addressed},
- %    Narayanan Sadagopan\,$^{3}$, Yiping Wang\,$^{1,2}$, \\
- %    Christopher R. Myers\,$^{1,5,6}$, Hongwei Xi\,$^{7}$, Jason Locasale\,$^{1,4}$,\\
- %     and Zhenglong Gu\,$^{1,4}$\\
- % }
+\title[FALCON]{A robust and efficient method for estimating enzyme
+complex abundance and metabolic flux from expression data.}
+%    \author[Barker \textit{et~al.}]{Brandon Barker et al.$^{1,2}$\footnote{to whom correspondence should be addressed}}
+  \author[Barker \textit{et~al.}]{Brandon Barker\,$^{1,2}$\footnote{to whom correspondence should be addressed},
+    Narayanan Sadagopan\,$^{3}$, Yiping Wang\,$^{1,2}$, \\
+    Kieran Smallbone\,$^{4,5}$, Christopher R. Myers\,$^{1,6,7}$, Hongwei Xi\,$^{8}$, \\ 
+    Jason W. Locasale\,$^{1,9*}$, and Zhenglong Gu\,$^{1,9*}$\\
+ }
 
 \address{$^{1}$Tri-Institutional Training Program in Computational
   Biology and Medicine, 1300 York Avenue, Box 194, New York, NY 10065\\
   $^{2}$Department of Biological Statistics and Computational Biology, 
     Cornell University, 1198 Comstock Hall, Ithaca, NY 14853-2601\\
-  % $^{3}$College of Engineering, Cornell University, Carpenter Hall, 
-  %   Ithaca, NY 14853-2201\\
-  % $^{4}$Division of Nutritional Sciences, Cornell University, 
-  %   Savage Hall, Ithaca, NY 14853-2201\\
-  % $^{5}$Life Sciences Core Laboratories Center, Cornell University, 
-  %   Ithaca, NY 14853-2201\\
-  % $^{6}$Laboratory of Atomic and Solid State Physics, Physical Sciences Building,
-  %   Cornell University, Ithaca, NY 14853-2201\\
-  % $^{7}$Department of Computer Science, Boston University,
-  %   111 Cummington Street, Boston, MA 02215, U.S.A.\\ 
+  $^{3}$College of Engineering, Cornell University, Carpenter Hall, 
+    Ithaca, NY 14853-2201\\
+  $^{4}$School of Mathematics, University of Manchester, Manchester, UK.\\ 
+  $^{5}$Manchester Centre for Integrative Systems Biology, University of Manchester, Manchester Institute of Biotechnology, Manchester, UK.\\
+  $^{6}$Laboratory of Atomic and Solid State Physics, Physical Sciences Building,
+    Cornell University, Ithaca, NY 14853-2201\\
+  $^{7}$Life Sciences Core Laboratories Center, Cornell University, 
+    Ithaca, NY 14853-2201\\
+  $^{8}$Department of Computer Science, Boston University,
+    111 Cummington Street, Boston, MA 02215, U.S.A.\\
+  $^{9}$Division of Nutritional Sciences, Cornell University, 
+    Savage Hall, Ithaca, NY 14853-2201
   }
 \history{Received on XXXXX; revised on XXXXX; accepted on XXXXX}
 
@@ -106,17 +111,21 @@ online.
 \input{falcon}
 
 \section*{Acknowledgement}
-\hl{To be written}
-%
-% Add Marc Warmoes for proteomics?
-%
-% We thank Kieran Smallbone and Neil Swainston for their previous work
-% on these research issues and many helpful discussions. We also thank
-% Hongwei Xi for introducing us to his programming language,
-% ATS. Finally we thank Alex Shestov, Lei Huang, and Eli Bogart
-% for many helpful discussions about metabolism.
 
-\paragraph{Funding\textcolon} Text Text Text Text Text Text  Text Text.
+We thank Neil Swainston for his previous work on these research issues
+and many helpful discussions about considerations in various genome
+scale models of metabolism.  We also thank Michael Stillman for
+general discussions about modeling and for reading the paper. Finally
+we thank Alex Shestov, Lei Huang, and Eli Bogart for many helpful
+discussions about metabolism.
+
+\paragraph{Funding\textcolon} \hl{
+Zhenglong's NSF Grant
+
+My Tri-I fellowship
+
+JWL was supported by R00 CA168997, and R01 AI110613 from the NIH.
+}
 
 %\bibliographystyle{natbib}
 %\bibliographystyle{achemnat}
