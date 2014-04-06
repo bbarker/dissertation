@@ -124,7 +124,8 @@ to complexes so that a scaled enzyme complex abundance (hereafter
 referred to as complex abundance) can be estimated. We address these
 in the next section and have attached a flow chart to illustrate the
 overall process of mapping expression of individual genes to enzyme
-complexes (\textbf{Figure~\ref{ECCN_flowchart}}). We develop an algorithm for
+complexes within the greater context of flux estimation 
+(\textbf{Figure~\ref{ECCN_flowchart}}). We develop an algorithm for
 this step---finding the minimum disjunction---for estimating complex
 abundance as efficiently and as accurately as possible given the
 assumptions (due primarily to limitations in data quality; \suppOrApp
@@ -145,6 +146,15 @@ Section~\ref{sec:complexation}).
       (mindisj) {Find minimum disjunction};
     \node [iogram, below of=mindisj] (expstd)
           {Reactions (enzyme~complexes):\\ abundance ($\mu$,~$\sigma$)};
+    \node [iogram, right of=falcon, below of=expstd] (smat) 
+      {$\mathbf{S}$ matrix};
+    \node [iogram, left of=falcon, below of=expstd] (vbnd) 
+      {Reactions:\\ flux bounds ($\mathbf{v}_{lb}$, $\mathbf{v}_{ub}$)};
+    \node [block, below of=vbnd, left of=smat, right of=vbnd, 
+      below of=expstd, yshift=-0.5cm] (falcon) 
+      {Flux fitting (FALCON)};
+    \node [iogram, below of=falcon] (fluxout) 
+      {Reactions:\\ fluxes ($\mathbf{v}:$ $\mu$,~$\sigma$)};
     % Draw edges
     \path [line] (start) -- (exp);
     \path [line] (start) -- (rules);
@@ -152,28 +162,40 @@ Section~\ref{sec:complexation}).
     \path [line] (exp.south) -- (mindisj);
     \path [line] (parse) -- (mindisj);
     \path [line] (mindisj) -- (expstd);
+    \path [line, transform canvas={xshift=0.25cm}] (expstd) -- (falcon);
+    \path [line] (rules.east) |- (falcon.east);
+    \path [line] (smat) -- (falcon);
+    \path [line] (vbnd) -- (falcon);
+    \path [line] (falcon) -- (fluxout);
+
 \end{tikzpicture}
 \end{center}
-\caption{Flowchart illustrating the process of estimating enzyme
-  complex abundance. First, for each gene in the model with
-  available expression data, the mean and (if available) standard deviation or
-  some other measure of uncertainty are read in. Gene rules (also
-  called GPR rules) are also read in for each enzymatic reaction. The
-  reaction rules are parsed and the minimum disjunction algorithm
-  (Algorithm~\ref{alg:ReductionToCNF}) is applied, making use of the
-  gene's mean expression. Finally, the estimated and unitless enzyme
-  complex abundance and variance are output for each enzymatic
-  reaction.}
+\caption{Flowchart illustrating the two algorithms presented in this
+paper. The process of estimating enzyme complex abundance is displayed
+in detail, whereas the flux-fitting algorithm (FALCON) is illustrated
+as a single step for simplicity. First, for each gene in the model
+with available expression data, the mean and (if available) standard
+deviation or some other measure of uncertainty are read in. Gene rules
+(also called GPR rules) are also read in for each enzymatic
+reaction. The reaction rules are parsed and the minimum disjunction
+algorithm (Algorithm~\ref{alg:ReductionToCNF}) is applied, making use
+of the gene's mean expression. Next, the estimated and unitless enzyme
+complex abundance and variance are output for each enzymatic
+reaction. Finally, flux fitting with FALCON
+(Algorithm~\ref{alg:FALCON}) can be applied, and requires the model's
+stoichiometry and flux bounds. The final output has the option of
+being a deterministically estimated flux, or a mean and standard
+deviation of fluxes if alternative optima are explored.}
 \label{ECCN_flowchart}
 \end{figure}
 
 \subsection{Estimating enzyme complex abundance}
 
-Given the abundance of genome-scale expression datasets available,
+Given the diversity and availability of genome-scale expression datasets,
 either as microarray or more recently RNA-Seq, it could be useful to
 gauge the number of enzyme complexes present in a cell. A recent
 study found that only 11\% of annotated \textit{Drosophila}
-protein complexes have subunits that are co-regulated
+protein complexes have subunits that are co-expressed
 \citep{Juschke2013}, so it cannot be assumed that any given protein
 subunit level represents the actual complex abundance. We formalize a
 model for enzyme complex formation based on GPR rules that are
