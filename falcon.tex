@@ -228,9 +228,10 @@ $\E{\textnormal{A}}$ is the expression of gene A.
 
 Supposing A is the minimum, then if we just evaluate $r_1$ directly (a
 rule in disjunctive normal form, or DNF), A will be counted twice.
-Rules with sub-expressions in DNF are frequently encounter in practice.
+Rules with sub-expressions in DNF are frequently encountered in practice,
+but directly evaluating them can lead to erroneous quantification.
 
-Another possibility is divvying expression among multiple occurrences
+Another possibility is partitioning expression among multiple occurrences
 of a gene in a rule. For instance, in $r_1$ above, we could evaluate
 it as $e_1$ =
 min($\frac{a}{2},b$) + min($\frac{a}{2},c$) to account for the
@@ -238,11 +239,13 @@ repeated use of $a$. However, other potential issues aside, we can see
 that this can cause problems rather quickly. For instance, suppose $b
 = a$ and $c = 0$; then min($a$,$b+c$) $=b=a$ appears to be correct,
 not min($\frac{a}{2},b$) + min($\frac{a}{2},c$) = $\frac{a}{2} + 0$.
+From this example, we can see that conversion to conjunctive normal
+form (CNF) appears to be a promising prerequisite for evaluation.
 
 \subsection{The min-disjunction algorithm estimates \\enzyme complex abundance}
 
-In the \suppOrApp (Section~\ref{sec:complexation}), we showed that
-converting a rule to conjunctive normal form (CNF) is a sound method
+In the \suppOrApp (Section~\ref{sec:complexation}), we show that
+converting a rule to CNF is a sound method
 to aid in the estimation of enzyme complex abundance. We use a
 reduction rule that removes redundant genes from the complex
 (e.g. holoenzymes; see \suppOrApp Assumption~\ref{asm:holo}), outlined
@@ -475,7 +478,7 @@ maintaining correlation with experimental fluxes, and is much faster
 than any similarly performing method (\textbf{Table FalcPerf; Figure FluxBars}).
 Timing for the human model also improved in FALCON; in a model with
 medium constraints and exometabolic directionality constraints, FALCON
-completed on average in 3.66~m and the method from \citealt{Lee2012} in
+completed on average in 3.6~m and the method from \citealt{Lee2012} in
 1.04~h.
 
 Furthermore, when we remove many bounds constraining the direction of
@@ -488,7 +491,7 @@ the solver \citep{gurobi} whereas other methods only used a single
 core (our system had 32 cores and iMAT with Gurobi would use all of
 them).
 
-We see that the prognostic ability of the algorithm does not
+We see that the predictive ability of the algorithm does not
 appear to be an artifact; when FALCON is run on permuted expression data,
 it doesn't do as well as the actual expression vector (\textbf{Figure YpermCorr}).
 The full-sized flux vectors estimated from permuted expression as a
@@ -578,9 +581,9 @@ strong correlation between complex abundance and flux
 (\textbf{Figure FluxExpCmp}). Recently it has been shown that many fluxes are not
 under direct control of their associated enzyme expression
 level \citep{Chubukov2013}, which gives experimental support to the
-idea that a network-based approach with soft constraints, such as that
+idea that a network-based approach, such as that
 presented in this paper, may be useful in understanding how fluxes may
-be constrained by expression data. The authors also note that enzymes
+be constrained by expression data. \citealt{Chubukov2013} also note that enzymes
 may be overexpressed in some cases, either for robustness or because
 of noise in transcriptional regulation. This will not usually be a
 problem in FALCON, unless entire pathways are overexpressed, which
