@@ -6,36 +6,50 @@
 \begin{tabular}{cc}
   \begin{subfigure}[b]{0.48\textwidth}
   \includegraphics[width=\textwidth]{gluc75_bars}
+  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(a)}} \label{fig:FluxBars:A}
   \end{subfigure}
 &
   \begin{subfigure}[b]{0.48\textwidth}
   \hspace{2cm}
-  \includegraphics[scale=0.3,center]{legend_bars}
+  \raisebox{0.4\height}{\includegraphics[scale=0.3,center]{legend_bars}}
   \end{subfigure} 
 \\
   \begin{subfigure}[b]{0.48\textwidth}
   \includegraphics[width=\textwidth]{eth75_bars}
+  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(b)}} \label{fig:FluxBars:B}
   \end{subfigure} 
 &
   \begin{subfigure}[b]{0.48\textwidth}
   \includegraphics[width=\textwidth]{co2_75_bars}
+  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(c)}} \label{fig:FluxBars:C}
+  \end{subfigure} 
+\\
+  \begin{subfigure}[b]{0.48\textwidth}
+  \includegraphics[width=\textwidth]{glycerol75_bars}
+  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(d)}} \label{fig:FluxBars:D}
+  \end{subfigure} 
+&
+  \begin{subfigure}[b]{0.48\textwidth}
+  \includegraphics[width=\textwidth]{acetate75_bars}
+  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(e)}} \label{fig:FluxBars:E}
   \end{subfigure} 
 \\
 \end{tabular}
+\vspace{4mm}
 \caption{
 Shown are flux predictions using a number of methods and four
-different models (Yeast5MC and Yeast7MC are minimally constrained
-Yeast5 and Yeast7; Yeast5HC and Yeast7HC are highly constrained Yeast5
+different models (Yeast5 MC and Yeast7 MC are minimally constrained
+Yeast5 and Yeast7; Yeast5 HC and Yeast7 HC are highly constrained Yeast5
 and Yeast7). Error bars are shown for the Lee et al. method and for
 FALCON, where one side of the error bar corresponds to a standard
 deviation. Note that there can be no variation for glucose in the
 former case since glucose flux is fixed as part of the method. FALCON
-performs very well for large fluxes (A-C), and is also the best
-performer in general for the next largest flux, glycerol (D). It also
+performs very well for large fluxes \textbf{(a-c)}, and is also the best
+performer in general for the next largest flux, glycerol \textbf{(d)}. It also
 has sporadic success for smaller fluxes, but all methods seem to have
-trouble with the smallest fluxes (e.g. E). Note that fluxes are drawn
-in log scale (specifically a flux v is drawn as , sign(v) * log10(1 +
-v)). Similar results are obtainable for the 85\% maximum growth
+trouble with the smallest fluxes (e.g. \textbf{e}). Note that fluxes are drawn
+in log scale (specifically a flux $v$ is drawn as $\sgn{v} \log_{10}{\left( 
+1 + v\right)} $). Similar results are obtainable for the 85\% maximum growth
 condition.}
 \label{fig:FluxBars}
 \end{figure}

@@ -377,8 +377,8 @@ the optimization problem will yield a non-zero flux vector. As an
 example of how this can be beneficial, this means we do not need to
 measure any fluxes or assume a flux is fixed to achieve good results;
 though this does not downplay the value of obtaining
-experimentally-based constraints on flux when available (\textbf{Figure
-FluxBars}).
+experimentally-based constraints on flux when available 
+(\suppOrApp Figure~\ref{fig:FluxBars}).
 
 The actual
 value of $V_{lb}^{\Sigma}$ is not very important due to the scaling
@@ -437,7 +437,7 @@ issue, but the order in which reactions assigned to be irreversible can
 lead to alternative solutions. However, we
 found that the variation due to this stochasticity is typically 
 relatively minor, particularly in cases where the model is more 
-heavily constrained (\textbf{Figure FluxBars; Figure EnzAbundEval}).
+heavily constrained (\suppOrApp Figure~\ref{fig:FluxBars}; Figure EnzAbundEval).
 
 % Make performance tables like this? 
 % Apparently the processtable and rules below are not
@@ -475,7 +475,8 @@ updated version of the Yeast 5 model \citep{Heavner2012} and the latest
 Yeast model \citep{Aung2013}, we find that
 our algorithm has significant improvements in time efficiency while
 maintaining correlation with experimental fluxes, and is much faster 
-than any similarly performing method (\textbf{Table FalcPerf; Figure FluxBars}).
+than any similarly performing method (\textbf{Table FalcPerf; 
+\suppOrApp Figure~\ref{fig:FluxBars}}).
 Timing for the human model also improved in FALCON; in a model with
 medium constraints and exometabolic directionality constraints, FALCON
 completed on average in 3.6~m and the method from \citealt{Lee2012} in
