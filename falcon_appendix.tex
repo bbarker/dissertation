@@ -1,3 +1,6 @@
+\renewcommand{\figurename}{\suppOrApp Fig.}
+\renewcommand{\tablename}{\suppOrApp Table}
+
 \section{Supporting figures}
 
 \begin{figure}
@@ -89,16 +92,23 @@ condition.}
 \\
 \end{tabular}
 \vspace{4mm}
-\caption{
-Correlation of perturbed enzyme abundance vectors and flux
-vectors with the associated unperturbed vector. The interval median
-correlation is shown in green. Noise sampled from a multivariate
-log-normal distribution with parameters $\mu=1$ and $\sigma$ (x-axis) is
-multiplicatively applied to the enzyme abundance vector, and the
-y-axis shows the Pearson correlation between the two vectors
-(a). Similar plots shows correlation between flux vectors estimated
-with FALCON using the same perturbed and unperturbed expression
-vectors (b-c).}
+\caption{ These figures are generated in the same way as those in
+Fig.~\ref{fig:ExpSens}, but for Human Recon 2 instead of Yeast 7. We
+used several different constraint sets based on experimental media and
+exometabolic flux data in the NCI-60 cell lines
+\citep{Jain2012}. These constraints were applied cumulatively, and are
+listed in the order of most constrained \textbf{b} to least
+constrained \textbf{f}. Included are default Recon 2 constraints
+\textbf{f}, RPMI media constraints (\textbf{e}; function
+\texttt{constrainCoReMinMaxSign}; 556 constraints), exometabolic
+fluxes with a common sign across all cell lines and replicates
+(\textbf{d}; function \texttt{constrainCoReMinMaxSign}; 567 cumulative
+constraints), enzymatic reaction directionality constraints from a
+linear MoMA fitting on the exometabolic flux data that agree across
+all NCI-60 cell lines (\textbf{c};
+\texttt{constrainImputed\-Internal}; 593 cumulative constraints), and
+the same again considering all reactions instead of only enzymatic
+reactions (\textbf{b}; 618 cumulative constraints).}
 \label{fig:ExpSensRec2}
 \end{figure}
 
@@ -140,7 +150,7 @@ part of the enzyme complex since one could be substituted for the
 other.
 
 As an example for assumptions described so far, take the $F_1$
-subcomplex of ATP Synthase (Figure~\ref{fig:2F43}), which is composed
+subcomplex of ATP Synthase (Fig.~\ref{fig:2F43}), which is composed
 of seven protein subunits (distinguished by color, left). On the
 right-hand side we see different isoforms depicted as different
 colors.  Error in expression data aside, instead of considering the
