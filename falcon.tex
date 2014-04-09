@@ -539,6 +539,7 @@ fluxes through the same major pathways, but a rank-based correlation
 still shows strong differences.
  
 
+
 \subsection{Sensitivity to expression noise}
 To understand the sensitivity of flux to expression, we multiply noise
 from multivariate log-normal distributions with the expression vector
@@ -567,6 +568,42 @@ increase in growth rate in the minimally constrained Yeast 7
 model. However, in FALCON, we are no longer optimizing a sink reaction
 like biomass, and this relaxation in internal constraints can be more
 important (\textbf{Figure ExpSens}).
+
+\begin{figure}
+%\centering
+\hspace{-2cm}
+\begin{tabular}{c}
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{noise_y7EC}
+  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(a)}} \label{fig:ExpSens:A}
+  \end{subfigure}
+\\
+  \begin{subfigure}[b]{0.5\textwidth}
+  \vspace{-5mm} 
+  \includegraphics[width=\textwidth]{noise_y7HCflux}
+  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(d)}} \label{fig:ExpSens:B}
+  \end{subfigure} 
+\\
+
+  \begin{subfigure}[b]{0.5\textwidth}
+  \vspace{-5mm} 
+  \includegraphics[width=\textwidth]{noise_y7MCflux}
+  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(e)}} \label{fig:ExpSens:C}
+  \end{subfigure} 
+\\
+\end{tabular}
+\caption{
+Correlation of perturbed enzyme abundance vectors and flux
+vectors with the associated unperturbed vector. The interval median
+correlation is shown in green. Noise sampled from a multivariate
+log-normal distribution with parameters $\mu=1$ and $\sigma$ (x-axis) is
+multiplicatively applied to the enzyme abundance vector, and the
+y-axis shows the Pearson correlation between the two vectors
+(a). Similar plots shows correlation between flux vectors estimated
+with FALCON using the same perturbed and unperturbed expression
+vectors (b-c).}
+\label{fig:ExpSens}
+\end{figure}
 
 For Human Recon 2, we used several different constraint sets based on
 experimental media and exometabolic flux data in the NCI-60 cell lines
