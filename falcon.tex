@@ -475,12 +475,45 @@ updated version of the Yeast 5 model \citep{Heavner2012} and the latest
 Yeast model \citep{Aung2013}, we find that
 our algorithm has significant improvements in time efficiency while
 maintaining correlation with experimental fluxes, and is much faster 
-than any similarly performing method (\textbf{Table FalcPerf; 
-\suppOrApp Figure~\ref{fig:FluxBars}}).
+than any similarly performing method (Table~\ref{tab:FalcPerf}; 
+\suppOrApp Figure~\ref{fig:FluxBars}).
 Timing for the human model also improved in FALCON; in a model with
 medium constraints and exometabolic directionality constraints, FALCON
 completed on average in 3.6~m and the method from \citealt{Lee2012} in
 1.04~h.
+
+
+\begin{table*}
+\begin{center}
+\begin{tabular}{rrrrrrrrr}
+%\emph{Model}                 & \emph{Primal-Simplex} & \emph{Dual-Simplex} & \emph{Barrier} \\
+(a) \hspace{1cm} Max. $\mu$ & Model & Experimental & Standard FBA & Fitted FBA & GIMME & iMAT & Lee et al & FALCON\\
+75 \%& Yeast5 MC & 1 & 0.66 & 0.66 & NaN  & 0.57 & 0.64 & 1 \\
+75 \%& Yeast7 MC & 1 & 0.66 & 0.66 & 0.68 & 0.66 & 0.66 & 0.98\\
+75 \%& Yeast5 HC & 1 & 0.73 & 0.78 & 0.75 & 0.66 & 0.98 & 0.99\\
+75 \%& Yeast7 HC & 1 & 0.70 & 0.70 & 0.80 & 0.66 & 0.98 & 0.99\\
+85 \%& Yeast7 MC & 1 & 0.62 & 0.62 & 0.65 & 0.62 & 0.62 & 0.97\\
+85 \%& Yeast5 HC & 1 & 0.88 & 0.89 & 0.9  & 0.81 & 0.99 & 0.99\\
+85 \%& Yeast7 HC & 1 & 0.67 & 0.67 & 0.87 & 0.62 & 0.98 & 0.98\\
+\end{tabular}
+\begin{tabular}{rrrrrrrrr}
+(b) \hspace{1cm} Max. $\mu$ & Model & Experimental & Standard FBA & Fitted FBA & GIMME & iMAT & Lee et al & FALCON\\
+75 \%& Yeast5 MC & 0 & 0.9  & 470   & 0.81  & 50     & 110 & 1.8 \\
+75 \%& Yeast7 MC & 0 & 1.9  & 3,100 & 2.1   & 12,000 & 600 & 5.6 \\
+75 \%& Yeast5 HC & 0 & 0.12 & 110   & 0.18  & 1.4    & 15  & 0.27\\
+75 \%& Yeast7 HC & 0 & 0.72 & 940   & 1.7   & 240    & 670 & 5.5 \\
+85 \%& Yeast7 MC & 0 & 2.3  & 3,100 & 3.8   & 14,000 & 610 & 4.6 \\
+85 \%& Yeast5 HC & 0 & 0.12 & 110   & 0.18  & 2.5    & 15  & 0.22\\
+85 \%& Yeast7 HC & 0 & 0.70 & 110   & 2.5   & 100    & 530 & 5.9\\
+\end{tabular}
+\end{center}
+\caption{Performance of FALCON and other CBM methods for predicting
+yeast exometabolic fluxes (a) and associated timing analysis (b). For
+Lee et al. and FALCON methods, the mean time for a single run of the
+method is listed; all other methods did not have any stochasticity
+employed. Values are shown in two significant figures.}
+\label{tab:FalcPerf}
+\end{table*}
 
 Furthermore, when we remove many bounds constraining the direction of
 enzymatic reactions that aren't explicitly annotated as being
@@ -514,9 +547,8 @@ reaction directionality constraints influence the sensitivity of the
 model to expression perturbation (\textbf{Figure ExpSens}). It is important to
 note that mere presence of the constraints does not help us determine
 the correct experimental fluxes when other classes of methods (e.g.\
-FBA; \textbf{Table FalcPerf}) are used. Additionally, it is possible to obtain
-good predictions even without a heavily constrained model (\textbf{Table
-FalcPerf}).
+FBA; Table~\ref{tab:FalcPerf}) are used. Additionally, it is possible to obtain
+good predictions even without a heavily constrained model (Table~\ref{tab:FalcPerf}).
 
 In order to work with different constraint sets in Yeast, we wrote the
 MATLAB function \texttt{removeEnzymeIrrevs} to find all enzymatic
