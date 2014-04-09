@@ -1,7 +1,6 @@
 \section{Supporting figures}
 
 \begin{figure}
-%\centering
 \hspace{-2cm}
 \begin{tabular}{cc}
   \begin{subfigure}[b]{0.48\textwidth}
@@ -53,6 +52,56 @@ in log scale (specifically a flux $v$ is drawn as $\sgn{v} \log_{10}{\left(
 condition.}
 \label{fig:FluxBars}
 \end{figure}
+
+
+\begin{figure}
+\hspace{-2cm}
+\begin{tabular}{cc}
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{noise_rec2EC}
+  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(a)}} \label{fig:ExpSensRec2:A}
+  \end{subfigure}
+&
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{noise_rec2rpmiCORE_all_flux}
+  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(b)}} \label{fig:ExpSensRec2:B}
+  \end{subfigure} 
+\\
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{noise_rec2rpmiCORE_ec_flux}
+  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(c)}} \label{fig:ExpSensRec2:C}
+  \end{subfigure} 
+&
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{noise_rec2rpmiCORE_flux}
+  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(d)}} \label{fig:ExpSensRec2:D}
+  \end{subfigure} 
+\\
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{noise_rec2rpmi_flux}
+  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(e)}} \label{fig:ExpSensRec2:E}
+  \end{subfigure} 
+&
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{noise_rec2flux}
+  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(f)}} \label{fig:ExpSensRec2:F}
+  \end{subfigure} 
+\\
+\end{tabular}
+\vspace{4mm}
+\caption{
+Correlation of perturbed enzyme abundance vectors and flux
+vectors with the associated unperturbed vector. The interval median
+correlation is shown in green. Noise sampled from a multivariate
+log-normal distribution with parameters $\mu=1$ and $\sigma$ (x-axis) is
+multiplicatively applied to the enzyme abundance vector, and the
+y-axis shows the Pearson correlation between the two vectors
+(a). Similar plots shows correlation between flux vectors estimated
+with FALCON using the same perturbed and unperturbed expression
+vectors (b-c).}
+\label{fig:ExpSensRec2}
+\end{figure}
+
 
 \section{Assumptions for enzyme complex formation}
 \label{sec:complexation}
