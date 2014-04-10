@@ -4,36 +4,34 @@
 \section{Supporting figures}
 
 \begin{figure}
-\hspace{-2cm}
 \begin{tabular}{cc}
   \begin{subfigure}[b]{0.48\textwidth}
   \includegraphics[width=\textwidth]{gluc75_bars}
-  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(a)}} \label{fig:FluxBars:A}
+  \caption{}
   \end{subfigure}
 &
   \begin{subfigure}[b]{0.48\textwidth}
-  \hspace{2cm}
   \raisebox{0.4\height}{\includegraphics[scale=0.3,center]{legend_bars}}
   \end{subfigure} 
 \\
   \begin{subfigure}[b]{0.48\textwidth}
   \includegraphics[width=\textwidth]{eth75_bars}
-  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(b)}} \label{fig:FluxBars:B}
+  \caption{}
   \end{subfigure} 
 &
   \begin{subfigure}[b]{0.48\textwidth}
   \includegraphics[width=\textwidth]{co2_75_bars}
-  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(c)}} \label{fig:FluxBars:C}
+  \caption{}
   \end{subfigure} 
 \\
   \begin{subfigure}[b]{0.48\textwidth}
   \includegraphics[width=\textwidth]{glycerol75_bars}
-  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(d)}} \label{fig:FluxBars:D}
+  \caption{}
   \end{subfigure} 
 &
   \begin{subfigure}[b]{0.48\textwidth}
   \includegraphics[width=\textwidth]{acetate75_bars}
-  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(e)}} \label{fig:FluxBars:E}
+  \caption{}
   \end{subfigure} 
 \\
 \end{tabular}
@@ -58,47 +56,45 @@ condition.}
 
 
 \begin{figure}
-\hspace{-2cm}
 \begin{tabular}{cc}
   \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{noise_rec2EC}
-  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(a)}} \label{fig:ExpSensRec2:A}
+  \caption{} \label{fig:ExpSensRec2:A}
   \end{subfigure}
 &
   \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{noise_rec2rpmiCORE_all_flux}
-  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(b)}} \label{fig:ExpSensRec2:B}
+  \caption{} \label{fig:ExpSensRec2:B}
   \end{subfigure} 
 \\
   \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{noise_rec2rpmiCORE_ec_flux}
-  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(c)}} \label{fig:ExpSensRec2:C}
+  \caption{} \label{fig:ExpSensRec2:C}
   \end{subfigure} 
 &
   \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{noise_rec2rpmiCORE_flux}
-  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(d)}} \label{fig:ExpSensRec2:D}
+  \caption{} \label{fig:ExpSensRec2:D}
   \end{subfigure} 
 \\
   \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{noise_rec2rpmi_flux}
-  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(e)}} \label{fig:ExpSensRec2:E}
+  \caption{} \label{fig:ExpSensRec2:E}
   \end{subfigure} 
 &
   \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{noise_rec2flux}
-  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(f)}} \label{fig:ExpSensRec2:F}
+  \caption{} \label{fig:ExpSensRec2:F}
   \end{subfigure} 
 \\
 \end{tabular}
-\vspace{4mm}
 \caption{ These figures are generated in the same way as those in
 Fig.~\ref{fig:ExpSens}, but for Human Recon 2 instead of Yeast 7. We
 used several different constraint sets based on experimental media and
 exometabolic flux data in the NCI-60 cell lines
 \citep{Jain2012}. These constraints were applied cumulatively, and are
-listed in the order of most constrained \textbf{b} to least
-constrained \textbf{f}. Included are default Recon 2 constraints
+listed in the order of most constrained \textbf{(b)} to least
+constrained \textbf{(f)}. Included are default Recon 2 constraints
 \textbf{f}, RPMI media constraints (\textbf{e}; function
 \texttt{constrainCoReMinMaxSign}; 556 constraints), exometabolic
 fluxes with a common sign across all cell lines and replicates
@@ -112,21 +108,23 @@ reactions (\textbf{b}; 618 cumulative constraints).}
 \label{fig:ExpSensRec2}
 \end{figure}
 
-\setlength\fboxsep{0pt}
-\setlength\fboxrule{0.5pt}
+%\setlength\fboxsep{0pt}
+%\setlength\fboxrule{0.5pt}
 
 \begin{figure}
 \begin{tabular}{cc}
   \begin{subfigure}[b]{0.5\textwidth}   % l   b   r   t
-  \fbox{\includegraphics[width=\textwidth, trim=25cm 3cm -5cm 0cm, clip=true]
-    {YeastExpFluxCompare}}
-  \vspace{3mm} \caption{Yeast} \label{fig:FluxExpCmp:A}
+  %\fbox{
+  \includegraphics[width=\textwidth, trim=9cm 1.2cm 9cm 1cm, clip=true]
+    {YeastExpFluxCompare}
+  %}
+  \caption{Yeast} \label{fig:FluxExpCmp:A}
   \end{subfigure}
 &
   \begin{subfigure}[b]{0.5\textwidth}
-  \fbox{\includegraphics[width=\textwidth, trim=25cm 3cm -5cm 0cm, clip=true]
-    {HumanExpFluxCompare}}
-  \vspace{3mm} \caption{Human} \label{fig:FluxExpCmp:B}
+  \includegraphics[width=\textwidth, trim=9cm 1.2cm 9cm 1cm, clip=true]
+    {HumanExpFluxCompare}
+  \caption{Human} \label{fig:FluxExpCmp:B}
   \end{subfigure}
 \\
 \end{tabular}

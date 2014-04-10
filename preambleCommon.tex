@@ -1,4 +1,10 @@
-\def\pgfsysdriver{pgfsys-dvipdfm.def}
+% It seems that we need to use
+% \usepackage[dvipfmx]{graphicx}, which is
+% incompatible with some other package being
+% used here.
+%
+%\def\pgfsysdriver{pgfsys-dvipdfmx.def}
+
 \usepackage{caption}
 %\usepackage{hangcaption}
 %\usepackage{algorithmic}
@@ -19,7 +25,6 @@
 %Some possible packages to include
 \usepackage{epsfig}
 \usepackage{graphicx,pstricks}
-\usepackage{graphics}
 \usepackage{palatino}
 %\usepackage{subfigure}
 \usepackage{subcaption}
