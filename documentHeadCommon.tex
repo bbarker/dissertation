@@ -9,7 +9,7 @@
     trapezium left angle=70, trapezium right angle=-70,
     text centered, align=center, node distance=5em]
 
-\newcommand{\suppOrApp}{
+\newcommand{\suppOrApp}{%
   \ifthenelse{\boolean{thesisStyle}}
     {Appendix}
     {Supplementary}
@@ -50,3 +50,18 @@ complex rules that may incorporate multiple isoforms, and depending on
 the model constraints, either maintained or significantly improved
 correlation with experimentally measured fluxes.
 }
+
+\captionsetup{labelfont=bf}
+
+
+% Take care of potentially defined variables:
+
+% \newcommand[1]{\identifndef}{
+%   \if\isdef\csname{#1}
+%     {}
+%   \else
+%     \newcommand{\{#1}}[1]{\{#1}}
+%   \fi
+% }
+
+% \identifndef{processtable}

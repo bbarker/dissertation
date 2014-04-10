@@ -1,4 +1,4 @@
-\renewcommand{\figurename}{Fig.}
+\renewcommand{\figurename}{\textbf{Fig.}}
 
 \section{Introduction}
 
@@ -487,30 +487,34 @@ completed on average in 3.6~m and the method from \citealt{Lee2012} in
 
 \begin{table*}
 \begin{center}
-\begin{tabular}{rrrrrrrrr}
+\begin{tabular}{rrrrrrrrrr}
 %\emph{Model}                 & \emph{Primal-Simplex} & \emph{Dual-Simplex} & \emph{Barrier} \\
-(a) \hspace{1cm} Max. $\mu$ & Model & Experimental & Standard FBA & Fitted FBA & GIMME & iMAT & Lee et al & FALCON\\
-75 \%& Yeast5 MC & 1 & 0.66 & 0.66 & NaN  & 0.57 & 0.64 & 1 \\
-75 \%& Yeast7 MC & 1 & 0.66 & 0.66 & 0.68 & 0.66 & 0.66 & 0.98\\
-75 \%& Yeast5 HC & 1 & 0.73 & 0.78 & 0.75 & 0.66 & 0.98 & 0.99\\
-75 \%& Yeast7 HC & 1 & 0.70 & 0.70 & 0.80 & 0.66 & 0.98 & 0.99\\
-85 \%& Yeast7 MC & 1 & 0.62 & 0.62 & 0.65 & 0.62 & 0.62 & 0.97\\
-85 \%& Yeast5 HC & 1 & 0.88 & 0.89 & 0.9  & 0.81 & 0.99 & 0.99\\
-85 \%& Yeast7 HC & 1 & 0.67 & 0.67 & 0.87 & 0.62 & 0.98 & 0.98\\
+\textbf{(a)} \hspace{1.4cm} & Max. $\mu$ & Model & Experimental & 
+  Standard FBA & Fitted FBA & GIMME & iMAT & Lee et al & FALCON\\
+ & 75 \%& Yeast5 MC & 1 & 0.66 & 0.66 & NaN  & 0.57 & 0.64 & 1 \\
+ & 75 \%& Yeast7 MC & 1 & 0.66 & 0.66 & 0.68 & 0.66 & 0.66 & 0.98\\
+ & 75 \%& Yeast5 HC & 1 & 0.73 & 0.78 & 0.75 & 0.66 & 0.98 & 0.99\\
+Pearson's r  
+ & 75 \%& Yeast7 HC & 1 & 0.70 & 0.70 & 0.80 & 0.66 & 0.98 & 0.99\\
+ & 85 \%& Yeast7 MC & 1 & 0.62 & 0.62 & 0.65 & 0.62 & 0.62 & 0.97\\
+ & 85 \%& Yeast5 HC & 1 & 0.88 & 0.89 & 0.9  & 0.81 & 0.99 & 0.99\\
+ & 85 \%& Yeast7 HC & 1 & 0.67 & 0.67 & 0.87 & 0.62 & 0.98 & 0.98\\
 \end{tabular}
-\begin{tabular}{rrrrrrrrr}
-(b) \hspace{1cm} Max. $\mu$ & Model & Experimental & Standard FBA & Fitted FBA & GIMME & iMAT & Lee et al & FALCON\\
-75 \%& Yeast5 MC & 0 & 0.9  & 470   & 0.81  & 50     & 110 & 1.8 \\
-75 \%& Yeast7 MC & 0 & 1.9  & 3,100 & 2.1   & 12,000 & 600 & 5.6 \\
-75 \%& Yeast5 HC & 0 & 0.12 & 110   & 0.18  & 1.4    & 15  & 0.27\\
-75 \%& Yeast7 HC & 0 & 0.72 & 940   & 1.7   & 240    & 670 & 5.5 \\
-85 \%& Yeast7 MC & 0 & 2.3  & 3,100 & 3.8   & 14,000 & 610 & 4.6 \\
-85 \%& Yeast5 HC & 0 & 0.12 & 110   & 0.18  & 2.5    & 15  & 0.22\\
-85 \%& Yeast7 HC & 0 & 0.70 & 110   & 2.5   & 100    & 530 & 5.9\\
+\begin{tabular}{rrrrrrrrrr}
+\textbf{(b)} \hspace{1.4cm} & Max. $\mu$ & Model & Experimental & 
+  Standard FBA & Fitted FBA & GIMME & iMAT & Lee et al & FALCON\\
+ & 75 \%& Yeast5 MC & 0 & 0.9  & 470   & 0.81  & 50     & 110 & 1.8 \\
+ & 75 \%& Yeast7 MC & 0 & 1.9  & 3,100 & 2.1   & 12,000 & 600 & 5.6 \\
+ & 75 \%& Yeast5 HC & 0 & 0.12 & 110   & 0.18  & 1.4    & 15  & 0.27\\
+Time (s) 
+ & 75 \%& Yeast7 HC & 0 & 0.72 & 940   & 1.7   & 240    & 670 & 5.5 \\
+ & 85 \%& Yeast7 MC & 0 & 2.3  & 3,100 & 3.8   & 14,000 & 610 & 4.6 \\
+ & 85 \%& Yeast5 HC & 0 & 0.12 & 110   & 0.18  & 2.5    & 15  & 0.22\\
+ & 85 \%& Yeast7 HC & 0 & 0.70 & 110   & 2.5   & 100    & 530 & 5.9\\
 \end{tabular}
 \end{center}
 \caption{Performance of FALCON and other CBM methods for predicting
-yeast exometabolic fluxes (a) and associated timing analysis (b). For
+yeast exometabolic fluxes \textbf{(a)} and associated timing analysis \textbf{(b)}. For
 Lee et al. and FALCON methods, the mean time for a single run of the
 method is listed; all other methods did not have any stochasticity
 employed. Values are shown in two significant figures.}

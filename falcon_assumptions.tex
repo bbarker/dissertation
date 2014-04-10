@@ -9,20 +9,20 @@
 %\ifthenelse{\boolean{thesisStyle}}{\item} {} \label{asm:mm}
 %Fluxes in general strive to operate near the $V_{max}$ of the
 %reaction, which is proportional to enzyme complex abundance.
-\ifthenelse{\boolean{thesisStyle}}{\item} {} \label{asm:expcorr}
+\item \label{asm:expcorr}
 Expression values are highly correlated with the copy numbers of their
 corresponding peptide isoforms.
-\ifthenelse{\boolean{thesisStyle}}{\item} {}  \label{asm:isozyme} 
+\item \label{asm:isozyme} 
 Protein isoforms contributing to isozymes are considered part of the
 same enzyme complex.
-\ifthenelse{\boolean{thesisStyle}}{\item} {} \label{asm:hierarchy}
+\item \label{asm:hierarchy}
 Any enzyme complex can be described as a hierarchical subset of
 (possibly redundant) subcomplexes; redundant subcomplexes, as
 elaborated in (\ref{asm:nostoich}), are not currently modeled.
-\ifthenelse{\boolean{thesisStyle}}{\item} {} \label{asm:nostoich} 
+\item \label{asm:nostoich} 
 Assume one copy of peptide per complex; exact isoform stoichiometry
 is not considered.
-\ifthenelse{\boolean{thesisStyle}}{\item} {} \label{asm:sharing} 
+\item \label{asm:sharing} 
 With the exception of complexes having identical rules (i.e. the same
 complex listed for different reactions), each copy of a peptide
 is available for all complexes in the model.
@@ -31,7 +31,7 @@ There is only one active site per enzyme complex.
 \item \label{asm:enzyme_sensitivity} 
 We assume that different pathways have similar flux sensitivities
 with respect to their enzyme abundances.
-\item  \label{asm:holo} 
+\item \label{asm:holo} 
 If a particular subcomplex can be catalyzed by A and it can also be
 catalyzed by A and B (e.g. B acts as a regulatory unit, as in
 holoenzymes), this just simplifies to A once expression values are
