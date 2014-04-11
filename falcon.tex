@@ -456,6 +456,27 @@ achieving an extremely low Pearson correlation, likely due to forcing
 fluxes through the same major pathways, but a rank-based correlation
 still shows strong differences.
  
+\begin{figure}
+\centering
+\begin{tabular}{c}
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{pExp}
+  \caption{Highly constrained.} \label{fig:YpermCorr:A}
+  \end{subfigure}
+\\
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{pExp_dirr}
+  \caption{Minimally constrained.} \label{fig:YpermCorr:B}
+  \end{subfigure} 
+\\
+\end{tabular}
+\vspace{-4mm} 
+\caption{Kernel-smoothed histograms of correlation between
+experimental fluxes and fluxes estimated from FALCON when all gene
+expression data points are permuted with arrows marking the
+correlation when FALCON is run on the unpermuted expression data.}
+\label{fig:YpermCorr}
+\end{figure}
 
 
 \subsection{Sensitivity to expression noise}
@@ -488,7 +509,7 @@ like biomass, and this relaxation in internal constraints can be more
 important (Fig.~\ref{fig:ExpSens}).
 
 \begin{figure}
-%\centering
+\centering
 \begin{tabular}{c}
   \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{noise_y7EC}
