@@ -445,12 +445,12 @@ them).
 
 We see that the predictive ability of the algorithm does not
 appear to be an artifact; when FALCON is run on permuted expression data,
-it doesn't do as well as the actual expression vector (\textbf{Figure YpermCorr}).
+it doesn't do as well as the actual expression vector (Fig.~\ref{fig:YpermCorr}).
 The full-sized flux vectors estimated from permuted expression as a
 whole also does not correlate well with the flux vector estimated from
 the actual expression data, but we notice that the difference is
 visibly larger in the minimally constrained model compared to the
-highly constrained model (\textbf{Figure YpermCorr}). Rigidity in the
+highly constrained model (\suppOrApp Fig.~\ref{fig:YpermCorrSup}). Rigidity in the
 highly constrained model appears to keep most permutations from
 achieving an extremely low Pearson correlation, likely due to forcing
 fluxes through the same major pathways, but a rank-based correlation
@@ -474,7 +474,8 @@ still shows strong differences.
 \caption{Kernel-smoothed histograms of correlation between
 experimental fluxes and fluxes estimated from FALCON when all gene
 expression data points are permuted with arrows marking the
-correlation when FALCON is run on the unpermuted expression data.}
+correlation when FALCON is run on the unpermuted expression data.
+5,000 permutation replicates were performed in all cases.}
 \label{fig:YpermCorr}
 \end{figure}
 
