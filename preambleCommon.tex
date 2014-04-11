@@ -35,6 +35,7 @@
 
 \usetikzlibrary{shapes, arrows}
 
+% Some black magic:
 \makeatletter
 \newlength{\parskipsave}
 \newcommand\floatc@plainthin[2]{
@@ -47,14 +48,10 @@
   \def\@fs@mid{\vspace\abovecaptionskip\relax}
   \let\@fs@iftopcapt\iffalse}
 \makeatother
-
 \floatstyle{plainthin}
 \newfloat{AlgFloat}{h}{lop}
 
 
-\renewcommand{\topfraction}{0.85}
-\renewcommand{\textfraction}{0.1}
-\renewcommand{\floatpagefraction}{0.75}
 %\renewcommand{\algorithmicrequire}{\textbf{Input:}}
 %\renewcommand{\algorithmicensure}{\textbf{Output:}}
 %\newcommand{\INDSTATE}[1][1]{\STATE\hspace{#1\algorithmicindent}}

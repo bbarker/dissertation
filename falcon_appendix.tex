@@ -382,7 +382,48 @@ impossible) if such a penalty were very large due to the cost this
 would imply for many of the large and important enzyme complexes
 present in all organisms \citep{Nelson2008}.
 
-\section{The min-disjunction heuristic algorithm}
+\section{Algorithms for finding the minimum disjunction}
+
+\subsection{The CNF-izing min-disjunction algorithm}
+% TODO: write a function op commpand for M
+
+\begin{algorithm}
+\caption{CNF-izing min disjunction}
+\label{alg:ReductionToCNF}
+\begin{algorithmic}
+\ifthenelse{\boolean{thesisStyle}}{\singlespacing}{}
+\INPUT $G = \left\{g_i~\mid~i \in{1, \ldots, m}\right\}$ are genes. 
+\INPUT $r$ := A Boolean rule without negation consisting of\\
+  $\left\{x_i~\mid~i \in{1, \ldots, n}\right\}$ Boolean sub-expressions.
+\INPUT $\E{g}$ := A map returning the expression level of gene g.
+\While{$rule \neq o_1 \land \ldots \land o_p$ where each $o_i$ is a disjunction
+  of genes} 
+  \If {Encounter a disjunction $x_d$ of conjunctions of genes}
+  \State \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{
+    Create sets from conjunctions, i.e.:\\
+    Create $G_1$ and $G_2$ with $g_{1,i} \in G_1$ 
+    and $g_{2,i} \in G_2$ where\\ 
+    $x_d = (g_{1,1} \land \ldots \land g_{1,r}) \lor 
+    (g_{2,1} \land \ldots \land g_{2,s})$. 
+    \strut}
+    \If {$G_1 \subseteq G_2$}
+    \State Replace $x_d$ with $(g_{1,1} \land \ldots \land g_{1,r})$.
+    \ElsIf {$G_2 \subseteq G_1$}
+    \State Replace $x_d$ with $(g_{2,1} \land \ldots \land g_{2,s})$.
+    \EndIf 
+  \EndIf
+  \State \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{
+    Distribute $\lor$ over $\land$, e.g.: $(x_1 \land x_2) \lor (x_3 \land x_4)$ \\ 
+    $\rightarrow (x_1 \lor x_3) \land (x_1 \lor x_4) \land 
+    (x_2 \lor x_3) \land (x_2 \lor x_4)$
+    \strut}
+\EndWhile
+\OUTPUT $o_{\min}$ where $o_{\min}$ has the form: $\ORw_{g_i \in G} g_i$ (uses $\E{g}$)
+\end{algorithmic} 
+\end{algorithm}
+
+
+\subsection{The min-disjunction heuristic algorithm}
 \label{sec:HeuristicToCNF}
 Because conversion to CNF is potentially computationally intractable 
 for some rules due to an  exponential increase in memory \citep{Russell2009}, we
@@ -526,6 +567,59 @@ and it follows that adding the conditional will yield the disjunction with
 minimum expression value of the rule in CNF.
 \end{proof}
 
+\section{The FALCON algorithm}
+
+\subsection{A description of the algorithm}
+
+The actual value of $V_{lb}^{\Sigma}$ is not very important due to the
+scaling introduced by $n$, and we include a conservatively small value
+that should work with any reasonable model. However, for numeric
+reasons, it may be best if a user chooses to specify a value
+appropriate for the model. Similarly, if any fluxes are known or
+assumed to be non-zero, this constraint becomes unnecessary. To keep
+track of how many reactions are irreversible in the current and prior
+iteration, we use the variables $rxns_{irrev}$ and
+$rxns_{irrev,prior}$. The algorithm terminates when no reactions are
+constrained to be exclusively forward or backward after an iteration.
+
+\begin{algorithm}
+\caption{FALCON}
+\label{alg:FALCON}
+\begin{algorithmic}
+\ifthenelse{\boolean{thesisStyle}}{\singlespacing}{}
+\State $u_{\min} := \min_j\ \{V_{j,\max} : V_{j,\max} > 0\}$
+\State $V_{lb}^{\Sigma} := u_{\min} \left|\{v_j : e_j \textnormal{ exists}\}\right|$
+\State {Scale data to be of similar size for numeric stability:}
+\ForAll {j}
+  \State $e_j := \frac{e_j V_{lb}^{\Sigma}}
+    {\sum\limits_{j} e_j}$ 
+  \State $\sigma_j := \frac{\sigma_j V_{lb}^{\Sigma}}
+    {\sum\limits_{j} e_j}$
+\EndFor
+\While{$rxns_{irrev} > rxns_{irrev,prior}$}
+  \State {$rxns_{irrev,prior} := rxns_{irrev}$}
+  \State Call LP Solver:
+  \State \hspace{4.8mm} \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{
+    $\textnormal{minimize}\ \sum\limits_i \frac{d_i}{n \sigma_i}$\\
+    s.t.\\
+    $\sum_{j \mid e_j \textnormal{ exists }} v_j \geq V_{lb}^{\Sigma}$\\ 
+    $\forall i: -d_i \leq \sum\nolimits_{j \in R_i} (v_{j,f} +
+    v_{j,b}) - n e_i \leq d_i$\\ 
+    $d_i, v_{j,f}, v_{j,b} \geq 0$\\ 
+    $n > 0$
+    \strut}
+  \ForAll {$\left\{j \mid v_{j,f} + v_{j,b} > 0, v_{j,f} \neq v_{j,b} \right\}$}
+  \State {Constrain the smaller of $v_{j,f}$ and $v_{j,b}$ to be $0$.}  
+  \State {$rxns_{irrev}$++}
+  \EndFor
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+
+
+\subsection{Benchmarking of solvers}
+\hl{move stuff here}
 
 \section{Generation of figures and tables}
 
@@ -544,10 +638,12 @@ generated with the command \texttt{makeMethodFigures(\textquotesingle
 fluxCmpScatter\textquotesingle)}. Note that, as written, this requires
 a graphical MATLAB session.
 
+\begin{sloppypar}
 Comparison of the effects of the employed enzyme complexation methods
 were evaluated using \texttt{compareEnzymeExpression.m} and 
 \texttt{compareFluxByRGroup.m}. Comparison of reacion groups was
 performed in \texttt{compareFluxByRGroup.m}.
+\end{sloppypar}
 
 \subsection{Timing analyses}
 All timing analyses were performed on a system with four 8-core AMD

@@ -1,5 +1,3 @@
-\renewcommand{\figurename}{\textbf{Fig.}}
-
 \section{Introduction}
 
 %
@@ -135,7 +133,7 @@ Section~\ref{sec:complexation}).
 
 %\vspace{5 mm} 
 \begin{figure}
-\begin{center}
+\centering
 \begin{tikzpicture}%[scale=0.8, node distance = 1cm, auto]
     % Place nodes
     \node [block] (start) {start}; 
@@ -171,7 +169,6 @@ Section~\ref{sec:complexation}).
     \path [line] (falcon) -- (fluxout);
 
 \end{tikzpicture}
-\end{center}
 \caption{Flowchart illustrating the two algorithms presented in this
 paper. The process of estimating enzyme complex abundance is displayed
 in detail, whereas the flux-fitting algorithm (FALCON) is illustrated
@@ -252,45 +249,8 @@ to aid in the estimation of enzyme complex abundance. We use a
 reduction rule that removes redundant genes from the complex
 (e.g. holoenzymes; see \suppOrApp Assumption~\ref{asm:holo}), outlined
 below. This effectively finds the \emph{rate-limiting} component of
-enzyme-complex formation. The algorithm can be described as follows:
+enzyme-complex formation. The algorithm can be described \hl{as follows:}
 
-% TODO: write a function op commpand for M
-\begin{AlgFloat}[H]
-\begin{Algorithm}[min disjunction]
-\label{alg:ReductionToCNF}
-\begin{algorithmic}
-\ifthenelse{\boolean{thesisStyle}}{\singlespacing}{}
-~
-\INPUT $G = \left\{g_i~\mid~i \in{1, \ldots, m}\right\}$ are genes. 
-\INPUT $r$ := A Boolean rule without negation consisting of\\
-  $\left\{x_i~\mid~i \in{1, \ldots, n}\right\}$ Boolean sub-expressions.
-\INPUT $\E{g}$ := A map returning the expression level of gene g.
-\While{$rule \neq o_1 \land \ldots \land o_p$ where each $o_i$ is a disjunction
-  of genes} 
-  \If {Encounter a disjunction $x_d$ of conjunctions of genes}
-  \State \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{
-    Create sets from conjunctions, i.e.:\\
-    Create $G_1$ and $G_2$ with $g_{1,i} \in G_1$ 
-    and $g_{2,i} \in G_2$ where\\ 
-    $x_d = (g_{1,1} \land \ldots \land g_{1,r}) \lor 
-    (g_{2,1} \land \ldots \land g_{2,s})$. 
-    \strut}
-    \If {$G_1 \subseteq G_2$}
-    \State Replace $x_d$ with $(g_{1,1} \land \ldots \land g_{1,r})$.
-    \ElsIf {$G_2 \subseteq G_1$}
-    \State Replace $x_d$ with $(g_{2,1} \land \ldots \land g_{2,s})$.
-    \EndIf 
-  \EndIf
-  \State \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{
-    Distribute $\lor$ over $\land$, e.g.: $(x_1 \land x_2) \lor (x_3 \land x_4)$ \\ 
-    $\rightarrow (x_1 \lor x_3) \land (x_1 \lor x_4) \land 
-    (x_2 \lor x_3) \land (x_2 \lor x_4)$
-    \strut}
-\EndWhile
-\OUTPUT $o_{\min}$ where $o_{\min}$ has the form: $\ORw_{g_i \in G} g_i$ (uses $\E{g}$)
-\end{algorithmic} 
-\end{Algorithm}
-\end{AlgFloat}
 
 Although conversion to CNF may be intractable for some rules
 \citep{Russell2009}, we tested our implementation of the algorithm on
@@ -381,54 +341,6 @@ measure any fluxes or assume a flux is fixed to achieve good results;
 though this does not downplay the value of obtaining
 experimentally-based constraints on flux when available 
 (\suppOrApp Fig.~\ref{fig:FluxBars}).
-
-The actual
-value of $V_{lb}^{\Sigma}$ is not very important due to the scaling
-introduced by $n$, and we include a conservatively small value that
-should work with any reasonable model. However, for numeric reasons,
-it may be best if a user chooses to specify a value appropriate for
-the model. Similarly, if any fluxes are known or assumed to be
-non-zero, this constraint becomes unnecessary. To keep track of how
-many reactions are irreversible in the current and prior iteration, we
-use the variables $rxns_{irrev}$ and
-$rxns_{irrev,prior}$. The algorithm terminates when no reactions are
-constrained to be exclusively forward or backward after an iteration.
-
-\begin{AlgFloat}[H]
-\begin{Algorithm}[FALCON]
-\label{alg:FALCON}
-\begin{algorithmic}
-\ifthenelse{\boolean{thesisStyle}}{\singlespacing}{}
-~\\
-$u_{\min} := \min_j\ \{V_{j,\max} : V_{j,\max} > 0\}$\\
-$V_{lb}^{\Sigma} := u_{\min} \left|\{v_j : e_j \textnormal{ exists}\}\right|$
-\State {Scale data to be of similar size for numeric stability:}
-\ForAll {j}
-  \State $e_j := \frac{e_j V_{lb}^{\Sigma}}
-    {\sum\limits_{j} e_j}$ 
-  \State $\sigma_j := \frac{\sigma_j V_{lb}^{\Sigma}}
-    {\sum\limits_{j} e_j}$
-\EndFor
-\While{$rxns_{irrev} > rxns_{irrev,prior}$}
-  \State {$rxns_{irrev,prior} := rxns_{irrev}$}
-  \State Call LP Solver:
-  \State \hspace{4.8mm} \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{
-    $\textnormal{minimize}\ \sum\limits_i \frac{d_i}{n \sigma_i}$\\
-    s.t.\\
-    $\sum_{j \mid e_j \textnormal{ exists }} v_j \geq V_{lb}^{\Sigma}$\\ 
-    $\forall i: -d_i \leq \sum\nolimits_{j \in R_i} (v_{j,f} +
-    v_{j,b}) - n e_i \leq d_i$\\ 
-    $d_i, v_{j,f}, v_{j,b} \geq 0$\\ 
-    $n > 0$
-    \strut}
-  \ForAll {$\left\{j \mid v_{j,f} + v_{j,b} > 0, v_{j,f} \neq v_{j,b} \right\}$}
-  \State {Constrain the smaller of $v_{j,f}$ and $v_{j,b}$ to be $0$.}  
-  \State {$rxns_{irrev}$++}
-  \EndFor
-\EndWhile
-\end{algorithmic}
-\end{Algorithm}
-\end{AlgFloat}
 
 Algorithm~\ref{alg:FALCON} and the method in \citealt{Lee2012} are
 both non-deterministic. In the first case, Algorithm~\ref{alg:FALCON}
@@ -577,27 +489,26 @@ important (Fig.~\ref{fig:ExpSens}).
 
 \begin{figure}
 %\centering
-\hspace{-2cm}
 \begin{tabular}{c}
   \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{noise_y7EC}
-  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(a)}} \label{fig:ExpSens:A}
+  \caption{} \label{fig:ExpSens:A}
   \end{subfigure}
 \\
   \begin{subfigure}[b]{0.5\textwidth}
-  \vspace{-5mm} 
+  \vspace{-4mm} 
   \includegraphics[width=\textwidth]{noise_y7HCflux}
-  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(b)}} \label{fig:ExpSens:B}
+  \caption{} \label{fig:ExpSens:B}
   \end{subfigure} 
 \\
-
   \begin{subfigure}[b]{0.5\textwidth}
-  \vspace{-5mm} 
+  \vspace{-4mm} 
   \includegraphics[width=\textwidth]{noise_y7MCflux}
-  \vspace{3mm} \caption*{\hspace*{4cm}\textbf{(c)}} \label{fig:ExpSens:C}
+  \caption{} \label{fig:ExpSens:C}
   \end{subfigure} 
 \\
 \end{tabular}
+\vspace{-4mm} 
 \caption{
 Correlation of perturbed enzyme abundance vectors and flux
 vectors with the associated unperturbed vector. The interval median

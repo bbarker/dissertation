@@ -15,6 +15,18 @@
     {Supplementary}
 }
 
+\ifthenelse{\boolean{thesisStyle}}
+{ 
+% \renewcommand{\caption}[1]{\singlespacing\hangcaption{#1}\normalspacing}
+  \renewcommand{\topfraction}{0.85}
+  \renewcommand{\textfraction}{0.1}
+%
+% This seems to cause a problem with floats and excess vertical space:
+%
+  \renewcommand{\floatpagefraction}{0.75}
+}
+{}
+
 
 %\newcommand{\ANDw}{\textnormal{AND}}
 %\newcommand{\ORw}{\textnormal{OR}}
