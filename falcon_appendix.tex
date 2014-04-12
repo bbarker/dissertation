@@ -7,22 +7,26 @@
 \centering
 \begin{tabular}{cc}
   \begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth]{expCmpY7HC}
+  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
+  {expCmpY7HC}
   \caption{Highly constrained.} \label{fig:EnzAbundEval:A}
   \end{subfigure}
 &
   \begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth]{expCmpY7MC}
+  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
+  {expCmpY7MC}
   \caption{Minimally constrained.} \label{fig:EnzAbundEval:B}
   \end{subfigure} 
 \\
   \begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth]{expCmpR2HC}
+  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
+  {expCmpR2HC}
   \caption{Highly constrained.} \label{fig:EnzAbundEval:C}
   \end{subfigure}
 &
   \begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth]{expCmpR2dC}
+  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
+  {expCmpR2dC}
   \caption{Minimally constrained.} \label{fig:EnzAbundEval:D}
   \end{subfigure} 
 \\
@@ -41,7 +45,7 @@ CORE-sign, and enzymatic direction) \textbf{(c)} and default
 constraints \textbf{(d)}, we see there is a large amount of variation
 between the two evaluation techniques. In the human cases, two
 outliers were not shown that correspond to a single large flux cycle
-('release of B12 by simple diffusion' and 'transport of
+(`release of B12 by simple diffusion' and `transport of
 Adenosylcobalamin into the intestine').}
 \label{fig:EnzAbundEval}
 \end{figure}
@@ -174,7 +178,7 @@ exometabolic flux data in the NCI-60 cell lines
 \citep{Jain2012}. These constraints were applied cumulatively, and are
 listed in the order of most constrained \textbf{(b)} to least
 constrained \textbf{(f)}. Included are default Recon 2 constraints
-\textbf{f}, RPMI media constraints (\textbf{e}; function
+\textbf{(f)}, RPMI media constraints (\textbf{e}; function
 \texttt{constrainCoReMinMaxSign}; 556 constraints), exometabolic
 fluxes with a common sign across all cell lines and replicates
 (\textbf{d}; function \texttt{constrainCoReMinMaxSign}; 567 cumulative
@@ -666,7 +670,7 @@ direction is irreversible. We also account for enzyme complexes
 catalyzing multiple reactions by including all reactions with identical
 GPR rules in the same residual
 constraint; indexed sets of reactions are denoted $R_i$ and their
-corresponding estimated enzyme abundance is $e_i$. \textbf{Figure FalconGrp} 
+corresponding estimated enzyme abundance is $e_i$. Fig.~\ref{fig:FalconGrp} 
 shows the difference in Algorithm~\ref{alg:FALCON} when we do not 
 use reaction group information. Note that we use a
 slight abuse of notation, since we also choose to index enzyme

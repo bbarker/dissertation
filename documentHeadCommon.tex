@@ -9,7 +9,7 @@
     trapezium left angle=70, trapezium right angle=-70,
     text centered, align=center, node distance=5em]
 
-\newcommand{\suppOrApp}{%
+\DeclareRobustCommand\suppOrApp{%
   \ifthenelse{\boolean{thesisStyle}}
     {Appendix}
     {Supplementary}
