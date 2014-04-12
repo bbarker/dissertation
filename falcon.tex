@@ -177,11 +177,11 @@ with available expression data, the mean and (if available) standard
 deviation or some other measure of uncertainty are read in. Gene rules
 (also called GPR rules) are also read in for each enzymatic
 reaction. The reaction rules are parsed and the minimum disjunction
-algorithm (Algorithm~\ref{alg:ReductionToCNF}) is applied, making use
+algorithm (\suppOrApp Algorithm~\ref{alg:ReductionToCNF}) is applied, making use
 of the gene's mean expression. Next, the estimated and unitless enzyme
 complex abundance and variance are output for each enzymatic
 reaction. Finally, flux fitting with FALCON
-(Algorithm~\ref{alg:FALCON}) can be applied, and requires the model's
+(\suppOrApp Algorithm~\ref{alg:FALCON}) can be applied, and requires the model's
 stoichiometry and flux bounds. The final output has the option of
 being a deterministically estimated flux, or a mean and standard
 deviation of fluxes if alternative optima are explored.}
@@ -243,14 +243,13 @@ form (CNF) appears to be a promising prerequisite for evaluation.
 
 \subsection{The min-disjunction algorithm estimates \\enzyme complex abundance}
 
-In the \suppOrApp (Section~\ref{sec:complexation}), we show that
+In \suppOrApp (Section~\ref{sec:complexation}), we show that
 converting a rule to CNF is a sound method
 to aid in the estimation of enzyme complex abundance. We use a
 reduction rule that removes redundant genes from the complex
 (e.g. holoenzymes; see \suppOrApp Assumption~\ref{asm:holo}), outlined
 below. This effectively finds the \emph{rate-limiting} component of
-enzyme-complex formation. The algorithm can be described \hl{as follows:}
-
+enzyme-complex formation (\suppOrApp Algorithm~\ref{alg:ReductionToCNF}).
 
 Although conversion to CNF may be intractable for some rules
 \citep{Russell2009}, we tested our implementation of the algorithm on
@@ -259,12 +258,12 @@ most complex gene rules available. These models are for \textit{E. coli}
 \citep{Orth2011a}, yeast \citep{Aung2013}, and human
 \citep{Thiele2013}. In all cases, the rules were converted to CNF in
 less than half a second, which is far less than the typical flux
-fitting running time from Algorithm~\ref{alg:FALCON}. We also present
+fitting running time from \suppOrApp Algorithm~\ref{alg:FALCON}. We also present
 a heuristic algorithm (Section~\ref{sec:HeuristicToCNF}) that should
 work quickly even on rules that are not able to be strictly converted
 to CNF, and in most cases should still yield the minimum disjunction.
 
-Application of Algorithm~\ref{alg:ReductionToCNF} results in several
+Application of \suppOrApp Algorithm~\ref{alg:ReductionToCNF} results in several
 differences from direct substitution and evaluation in yeast GPR
 rules. When data completely covers the genes in the model
 (e.g. \citealt{Lee2012}), rules tend to have few differences in Yeast
@@ -281,7 +280,7 @@ data is handled causes some additional increase in differences
 rules (23.57\% of all rules) differed. We can see that in Yeast, the
 changes in flux attributed to enzyme abundance evaluation can be
 relatively small for data with 100\% gene coverage, but the other
-extreme in Human can be significant (\textbf{Figure EnzAbundEval}).
+extreme in Human can be significant (\suppOrApp Fig.~\ref{fig:EnzAbundEval}).
 
 %
 % Above, to make the figure more striking, we can say that if we
@@ -304,46 +303,48 @@ this is not an issue since the objective function increases to include
 more irreversible fluxes at each iteration, and the objective value of
 a function with more fluxes should supersede the importance of one
 with fewer fluxes.
+
+One major improvement in our method is the consideration of enzyme
+complexes sharing multiple reactions, which we call reaction groups.
+Both minimally and highly constrained models
+(Section~\ref{sec:sensToExpNoise}) show some fluxes with significant
+differences depending on the use of group information, particularly in
+the minimally constrained model (Fig.~\ref{fig:FalconGrp}). Several
+other features of the algorithm, including automatic scaling of
+expression, are discussed in \suppOrApp Section~\ref{sec:FALCON}.
+
+\begin{figure}
+\centering
+\begin{tabular}{c}
+  \begin{subfigure}[b]{0.45\textwidth}
+  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
+  {falconGrp_yeastHC}
+  \caption{} \label{fig:FalconGrp:A}
+  \end{subfigure}
+\\
+  \begin{subfigure}[b]{0.45\textwidth}
+  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
+  {falconGrp_yeastMC}
+  \caption{} \label{fig:FalconGrp:B}
+  \end{subfigure} 
+\\
+\end{tabular}
+\vspace{-4mm} 
+\caption{FALCON employs groups of reactions that share the same enzyme
+complex to combine the reactions in the same constraint. Shown is the
+comparison of setting FALCON to use no group information (x-axis)
+versus with group information (y-axis; default FALCON setting) for
+both the highly constrained Yeast7 model \textbf{(a)} and the
+minimally constrained Yeast7 model \textbf{(b)}.
+Error bars with length equal to one standard deviation are
+shown for both approaches as a result of alternative solutions in
+FALCON.}
+\label{fig:FalconGrp}
+\end{figure}
  
-To make working with irreversible fluxes simpler, we convert the model
-to an irreversible model, where each reversible flux $v_j$ in the
-original model is split into a forward and a backward reaction that take
-strictly positive values: $v_{j,f}$ and $v_{j,b}$. If $v_j$ is
-specified without a forward or backward subscript and it is in the
-context of an irreversible model, this implies that the reaction
-direction is irreversible. We also account for enzyme complexes
-catalyzing multiple reactions by including all reactions with identical
-GPR rules in the same residual
-constraint; indexed sets of reactions are denoted $R_i$ and their
-corresponding estimated enzyme abundance is $e_i$. \textbf{Figure FalconGrp} 
-shows the difference in Algorithm~\ref{alg:FALCON} when we do not 
-use reaction group information. Note that we use a
-slight abuse of notation, since we also choose to index enzyme
-abundance as $e_j$ for a specific reaction, where $j = i$ does not
-imply $e_i = e_j$. The \emph{existence} of $e_j$ merely means that
-some expression data is available for some of the genes for $e_j$;
-missing genes are removed from the rule during the call to
-min-disjunction---values known to be zero can always be specified as
-such. The standard deviation of enzyme abundance, $\sigma_i$, is an
-optional weighting of uncertainty in biological or technical
-replicates.
 
-We employ a normalization variable $n$ in the problem's objective and
-flux-fitting constraints to find the most agreeable scaling of
-expression data. The linear fractional program shown below can be
-converted to a linear program by the Charnes-Cooper transformation
-\citep{Boyd2004}. To avoid the need for fixing any specific flux, which
-may introduce bias, we introduce the bound $\sum_{j \mid e_j 
-\textnormal{ exists }} v_j \geq V_{lb}^{\Sigma}$. This guarantees that
-the optimization problem will yield a non-zero flux vector. As an
-example of how this can be beneficial, this means we do not need to
-measure any fluxes or assume a flux is fixed to achieve good results;
-though this does not downplay the value of obtaining
-experimentally-based constraints on flux when available 
-(\suppOrApp Fig.~\ref{fig:FluxBars}).
-
-Algorithm~\ref{alg:FALCON} and the method in \citealt{Lee2012} are
-both non-deterministic. In the first case, Algorithm~\ref{alg:FALCON}
+\suppOrApp Algorithm~\ref{alg:FALCON} and the method in \citealt{Lee2012} are
+both non-deterministic. In the first case, \suppOrApp Algorithm~\ref{alg:FALCON}
 solves an LP during each iteration, and subsequent iterations depend
 on the LP solution, so that alternative optima may affect the outcome.
 In the latter case, alternative optima of individual LPs is not an
@@ -351,7 +352,8 @@ issue, but the order in which reactions assigned to be irreversible can
 lead to alternative solutions. However, we
 found that the variation due to this stochasticity is typically 
 relatively minor, particularly in cases where the model is more 
-heavily constrained (\suppOrApp Fig.~\ref{fig:FluxBars}; Figure EnzAbundEval).
+heavily constrained (\suppOrApp Fig.~\ref{fig:FluxBars}; 
+\suppOrApp Fig.~\ref{fig:EnzAbundEval}).
 
 % Make performance tables like this? 
 % Apparently the processtable and rules below are not
@@ -481,6 +483,7 @@ correlation when FALCON is run on the unpermuted expression data.
 
 
 \subsection{Sensitivity to expression noise}
+\label{sec:sensToExpNoise}
 To understand the sensitivity of flux to expression, we multiply noise
 from multivariate log-normal distributions with the expression vector
 and see the effect on the estimated fluxes. We find that enzymatic
@@ -653,7 +656,7 @@ intent for more complex purposes like flux fitting.
 We have formalized and improved an existing method for estimating flux
 from expression data, as well as listing detailed assumptions in the
 model that may be useful to address in later attempts
-\textbf{Table~\ref{tab:ECAssume}}.  Although we show that expression does not
+\suppOrApp Table~\ref{tab:ECAssume}. Although we show that expression does not
 correlate well with flux, we are still essentially trying to fit
 fluxes to expression levels.  The number of constraints presents in
 metabolic models (even the minimally constrained models) prevents 

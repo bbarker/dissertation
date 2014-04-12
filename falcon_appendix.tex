@@ -3,7 +3,51 @@
 
 \section{Supporting figures}
 
-\begin{figure}
+\begin{figure}[!htb]
+\centering
+\begin{tabular}{cc}
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{expCmpY7HC}
+  \caption{Highly constrained.} \label{fig:EnzAbundEval:A}
+  \end{subfigure}
+&
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{expCmpY7MC}
+  \caption{Minimally constrained.} \label{fig:EnzAbundEval:B}
+  \end{subfigure} 
+\\
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{expCmpR2HC}
+  \caption{Highly constrained.} \label{fig:EnzAbundEval:C}
+  \end{subfigure}
+&
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{expCmpR2dC}
+  \caption{Minimally constrained.} \label{fig:EnzAbundEval:D}
+  \end{subfigure} 
+\\
+\end{tabular}
+\vspace{-4mm}
+\caption{Comparison of fluxes when FALCON is run with enzyme abundance
+calculated by direct evaluation (x-axis) and the minimum disjunction
+algorithm (y-axis); error bars with length equal to one standard
+deviation are shown for both approaches as a result of alternative
+solutions in FALCON. Yeast was evaluated with default (highly)
+constrained \textbf{(a)} and minimally constrained \textbf{(b)}
+models, and no strong difference between direct evaluation or or the
+minimum disjunction method is observed in either case. However, for
+human models with a highly constrained reaction set (RPMI media,
+CORE-sign, and enzymatic direction) \textbf{(c)} and default
+constraints \textbf{(d)}, we see there is a large amount of variation
+between the two evaluation techniques. In the human cases, two
+outliers were not shown that correspond to a single large flux cycle
+('release of B12 by simple diffusion' and 'transport of
+Adenosylcobalamin into the intestine').}
+\label{fig:EnzAbundEval}
+\end{figure}
+\FloatBarrier
+
+\begin{figure}[!htb]
 \begin{tabular}{cc}
   \begin{subfigure}[b]{0.48\textwidth}
   \includegraphics[width=\textwidth]{gluc75_bars}
@@ -53,9 +97,44 @@ in log scale (specifically a flux $v$ is drawn as $\sgn{v} \log_{10}{\left(
 condition.}
 \label{fig:FluxBars}
 \end{figure}
+\FloatBarrier
 
+\begin{figure}[!htb]
+\centering
+\begin{tabular}{cc}
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{pFluxVec}
+  \caption{Highly constrained.} \label{fig:YpermCorrSup:A}
+  \end{subfigure}
+&
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{pFluxVec_dirr}
+  \caption{Minimally constrained.} \label{fig:YpermCorrSup:B}
+  \end{subfigure} 
+\\
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{kFluxVec}
+  \caption{Highly constrained.} \label{fig:YpermCorrSup:C}
+  \end{subfigure}
+&
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{kFluxVec_dirr}
+  \caption{Minimally constrained.} \label{fig:YpermCorrSup:D}
+  \end{subfigure} 
+\\
+\end{tabular}
+\vspace{-4mm}
+\caption{Kernel-smoothed histograms are drawn for correlations between
+the entire flux vector estimated by FALCON on permuted and unpermuted
+data. Stability and correlation are effected by constraints, as there
+are differences between the minimally constrained \textbf{(b, d)} and
+highly constrained \textbf{(a, c)} Yeast 7 models. 5,000 permutation
+replicates were performed in all cases.}
+\label{fig:YpermCorrSup}
+\end{figure}
+\FloatBarrier
 
-\begin{figure}
+\begin{figure}[!htb]
 \begin{tabular}{cc}
   \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{noise_rec2EC}
@@ -107,47 +186,13 @@ the same again considering all reactions instead of only enzymatic
 reactions (\textbf{b}; 618 cumulative constraints).}
 \label{fig:ExpSensRec2}
 \end{figure}
-
-
-\begin{figure}
-\centering
-\begin{tabular}{cc}
-  \begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth]{pFluxVec}
-  \caption{Highly constrained.} \label{fig:YpermCorrSup:A}
-  \end{subfigure}
-&
-  \begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth]{pFluxVec_dirr}
-  \caption{Minimally constrained.} \label{fig:YpermCorrSup:B}
-  \end{subfigure} 
-\\
-  \begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth]{kFluxVec}
-  \caption{Highly constrained.} \label{fig:YpermCorrSup:C}
-  \end{subfigure}
-&
-  \begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth]{kFluxVec_dirr}
-  \caption{Minimally constrained.} \label{fig:YpermCorrSup:D}
-  \end{subfigure} 
-\\
-\end{tabular}
-\vspace{-4mm}
-\caption{Kernel-smoothed histograms are drawn for correlations between
-the entire flux vector estimated by FALCON on permuted and unpermuted
-data. Stability and correlation are effected by constraints, as there
-are differences between the minimally constrained \textbf{(b, d)} and
-highly constrained \textbf{(a, c)} Yeast 7 models. 5,000 permutation
-replicates were performed in all cases.}
-\label{fig:YpermCorrSup}
-\end{figure}
+\FloatBarrier
 
 
 %\setlength\fboxsep{0pt}
 %\setlength\fboxrule{0.5pt}
 
-\begin{figure}
+\begin{figure}[!htb]
 \begin{tabular}{cc}
   \begin{subfigure}[b]{0.5\textwidth}   % l   b   r   t
   %\fbox{
@@ -183,7 +228,7 @@ having relatively simple complexes that are isozymes, where one major
 isozyme is typically highly expressed.}
 \label{fig:FluxExpCmp}
 \end{figure}
-
+\FloatBarrier
 
 \section{Assumptions for enzyme complex formation}
 \label{sec:complexation}
@@ -286,7 +331,7 @@ subcomplexes that have alternative isoforms, which are expressed as
 ORs (disjunctions). Since GPR rules alone only specify the
 requirements for enzyme complex formation, we will see that not all
 forms of Boolean rules are equally useful in evaluating the enzyme
-complex abundance, but we have established the assumptions in
+complex abundance, but we have established the assumptions in \suppOrApp
 Table~\ref{tab:ECAssume} and an alternative and logically equivalent rule
 \citep{Russell2009} under which we can estimate enzyme complex copy
 number.
@@ -420,8 +465,12 @@ present in all organisms \citep{Nelson2008}.
 
 \section{Algorithms for finding the minimum disjunction}
 
+Below we discuss both the exact (conjunctive normal form) method for
+finding enzyme abundance that we have implemented, and a heuristic that
+is not implemented but could be useful for gene rules that are more
+complex than any currently existing rules.
+
 \subsection{The CNF-izing min-disjunction algorithm}
-% TODO: write a function op commpand for M
 
 \begin{algorithm}
 \caption{CNF-izing min disjunction}
@@ -516,6 +565,7 @@ The algorithm can be described as follows:
 \OUTPUT $o_{\min}$ where $o_{\min}$ has the form: $\ORw_{g_i \in G} g_i$
 \end{algorithmic} 
 \end{algorithm} 
+\FloatBarrier
 
 The intuition for this algorithm is that it returns the minimum
 disjunction because at each iteration; we select the literal with
@@ -525,7 +575,7 @@ evaluating the associated expression values will not change which
 disjunction attains the minimum value.
 
 While this algorithm should work in most cases just as the algorithm
-in Section~\ref{alg:ReductionToCNF}, there is a notable exception that
+in \suppOrApp Section~\ref{alg:ReductionToCNF}, there is a notable exception that
 can occur when one or more genes appear in two conjunctions; this
 possibility is handled in the conditional by treating the intersection
 of the gene sets $G_C$ separately. Unfortunately, this step is not
@@ -604,8 +654,44 @@ minimum expression value of the rule in CNF.
 \end{proof}
 
 \section{The FALCON algorithm}
+\label{sec:FALCON}
 
-\subsection{A description of the algorithm}
+To make working with irreversible fluxes simpler, we convert the model
+to an irreversible model, where each reversible flux $v_j$ in the
+original model is split into a forward and a backward reaction that take
+strictly positive values: $v_{j,f}$ and $v_{j,b}$. If $v_j$ is
+specified without a forward or backward subscript and it is in the
+context of an irreversible model, this implies that the reaction
+direction is irreversible. We also account for enzyme complexes
+catalyzing multiple reactions by including all reactions with identical
+GPR rules in the same residual
+constraint; indexed sets of reactions are denoted $R_i$ and their
+corresponding estimated enzyme abundance is $e_i$. \textbf{Figure FalconGrp} 
+shows the difference in Algorithm~\ref{alg:FALCON} when we do not 
+use reaction group information. Note that we use a
+slight abuse of notation, since we also choose to index enzyme
+abundance as $e_j$ for a specific reaction, where $j = i$ does not
+imply $e_i = e_j$. The \emph{existence} of $e_j$ merely means that
+some expression data is available for some of the genes for $e_j$;
+missing genes are removed from the rule during the call to
+min-disjunction---values known to be zero can always be specified as
+such. The standard deviation of enzyme abundance, $\sigma_i$, is an
+optional weighting of uncertainty in biological or technical
+replicates.
+
+We employ a normalization variable $n$ in the problem's objective and
+flux-fitting constraints to find the most agreeable scaling of
+expression data. The linear fractional program shown below can be
+converted to a linear program by the Charnes-Cooper transformation
+\citep{Boyd2004}. To avoid the need for fixing any specific flux, which
+may introduce bias, we introduce the bound $\sum_{j \mid e_j 
+\textnormal{ exists }} v_j \geq V_{lb}^{\Sigma}$. This guarantees that
+the optimization problem will yield a non-zero flux vector. As an
+example of how this can be beneficial, this means we do not need to
+measure any fluxes or assume a flux is fixed to achieve good results;
+though this does not downplay the value of obtaining
+experimentally-based constraints on flux when available 
+(\suppOrApp Fig.~\ref{fig:FluxBars}).
 
 The actual value of $V_{lb}^{\Sigma}$ is not very important due to the
 scaling introduced by $n$, and we include a conservatively small value
@@ -653,9 +739,97 @@ constrained to be exclusively forward or backward after an iteration.
 \end{algorithm}
 
 
-
 \subsection{Benchmarking of solvers}
-\hl{move stuff here}
+We have exclusively used the Gurobi solver \citep{gurobi} for this
+work, which is a highly competitive solver that employs by default a
+parallel strategy to solving problems: a different algorithm is run
+simultaneously, and as soon as one algorithm finished the others
+terminate. Of course, if there is a clear choice of algorithm for a
+particular problem class, this should be used in production settings
+to avoid wasted CPU time and memory. In order to address this, we
+benchmarked the three non-parallel solver methods in Gurobi
+ (since parallel solvers simply use multiple methods simultaneously).
+The exception to this rule is the Barrier method, which can use
+multiple threads, but in practice for our models appears to use
+no more than about 6 full CPU cores simultaneously for our models.
+Our results for Yeast 5 and Yeast 7 with minimal directionality constraints
+\citep{Heavner2012,Lee2012,Aung2013} and Human Recon 2 \citep{Thiele2013}
+are shown in \suppOrApp Table~\ref{tab:methodTime}).
+
+\begin{table}
+\begin{center}
+\begin{tabular}{rrrr}
+\emph{Model}                 & \emph{Primal-Simplex} & \emph{Dual-Simplex} & \emph{Barrier} \\
+Yeast 5.21 (2,061 reactions) & $ 7.841 \pm 1.697    $ & $ 7.611 \pm 1.267    $ & $ 10.859 \pm 2.788   $\\ 
+Yeast 7.0 (3,498 reactions)  & $ 51.863 \pm 22.731  $ & $ 65.317 \pm 12.771  $ & $ 242.137 \pm 57.129 $\\
+Human 2.03 (7,440 reactions) & $ 159.077 \pm 24.903 $ & $ 152.297 \pm 39.783 $ & $ 366.166 \pm 92.321 $\\
+\end{tabular}
+\end{center}
+\caption{Running times (in seconds, $\pm$ standard deviation) for
+  FALCON using various algorithms implemented in the Gurobi package.
+  For yeast models, 1,000 replicates were performed, and for the human
+  model, 100 replicates were performed.}
+\label{tab:methodTime}
+\end{table}
+
+We found that in Yeast7 with the primal-simplex solver, there is a
+chance the solver will fail to find a feasible solution.
+We verified that this is a numeric issue
+in Gurobi and can be fixed by setting the Gurobi parameter
+\texttt{MarkowitzTol} to a larger value (which decreases
+time-efficiency but limits the numerical error in the
+simplex algorithm). In practice, failure for the algorithm to converge
+at an advanced iteration is rare and is not always a major problem (since the previous
+flux estimate by the advanced iteration should already be quite good), but it
+is certainly undesirable; a warning message will be printed by
+\texttt{falcon} if this occurs, at which point parameter settings can
+be investigated. In the future, we plan to improve \texttt{falcon} so
+that parameters will be adjusted as needed during progression of the
+algorithm after finding a good test suite of models and data. For now,
+we use the dual-simplex solver, for which we have always had good
+results.
+
+Because the number of iterations depends non-trivially on the model
+and the expression data, it may be more helpful to look at the 
+average time per iteration in the above examples 
+(\suppOrApp Table~\ref{tab:methodTimeIter}).
+
+\begin{table}
+\begin{center}
+\begin{tabular}{rrrr}
+\emph{Model}                 & \emph{Primal-Simplex} & \emph{Dual-Simplex} & \emph{Barrier} \\
+Yeast 5.21 (2,061 reactions) & $ 0.721 \pm 0.023 $ & $ 0.652 \pm 0.040 $ & $ 1.100 \pm 0.112  $\\ 
+Yeast 7.0 (3,498 reactions)  & $ 2.725 \pm 0.298 $ & $ 2.469 \pm 0.289 $ & $ 11.309 \pm 1.589 $\\
+Human 2.03 (7,440 reactions) & $ 6.422 \pm 0.484 $ & $ 5.233 \pm 0.661 $ & $ 15.782 \pm 3.209 $\\ 
+\end{tabular}
+\end{center}
+\caption{Running time per FALCON iteration (in seconds, $\pm$ standard
+  deviation) using various algorithms implemented in the Gurobi
+  package.  For yeast models, 1,000 replicates were performed, and for
+  the human model, 100 replicates were performed.}
+\label{tab:methodTimeIter}
+\end{table}
+
+Given the above rare trouble with primal simplex solver the universal
+best performance enjoyed by the dual-simplex method (\suppOrApp Tables
+\ref{tab:methodTime} and \ref{tab:methodTimeIter}), we would advise
+the dual-simplex algorithms, all else being equal. The dual-simplex
+method is also recommended for memory-efficiency by Gurobi
+documentation, but we did not observe any differences in memory for
+different solver methods.
+
+All timing analyses were performed on a system with four 8-core AMD
+Opteron\texttrademark\ 6136 processors operating at 2.4
+GHz. Fig.~\ref{fig:FluxBars}, Table~\ref{tab:FalcPerf}, and \suppOrApp
+Tables \ref{tab:methodTime} and \ref{tab:methodTimeIter} used a single
+unperturbed expression file per species (\textit{S. cerevisiae} and
+\textit{H. sapiens}; see \texttt{timingAnalysis.m} for
+details). Values were averaged across 32 replicates. \suppOrApp
+Tables~\ref{tab:methodTime} and \ref{tab:methodTimeIter} used
+multivariate log-normal noise multiplied by the original expression
+vector to introduce more variance in the calculations; the human
+models were tested with 100 replicates and the yeast models with 500
+replicates.
 
 \section{Generation of figures and tables}
 
@@ -683,8 +857,9 @@ performed in \texttt{compareFluxByRGroup.m}.
 
 \subsection{Timing analyses}
 All timing analyses were performed on a system with four 8-core AMD
-Opteron\texttrademark\ 6136 processors operating at 2.4 GHz. Figure
-FluxBars and Table FalcPerf used unperturbed expression data; see
+Opteron\texttrademark\ 6136 processors operating at 2.4 GHz. 
+Fig.~\ref{fig:FluxBars} and Table~\ref{tab:FalcPerf} used unperturbed
+expression data; see
 \texttt{yeastResults.m} for details). Values for the FALCON method
 were averaged across 32 replicates, while values for the
 \citealt{Lee2012} method were averaged across 8 replicates. Human
