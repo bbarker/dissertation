@@ -86,9 +86,9 @@ Adenosylcobalamin into the intestine').}
 \vspace{4mm}
 \caption{
 Shown are flux predictions using a number of methods and four
-different models (Yeast5 MC and Yeast7 MC are minimally constrained
-Yeast5 and Yeast7; Yeast5 HC and Yeast7 HC are highly constrained Yeast5
-and Yeast7). Error bars are shown for the Lee et al. method and for
+different models (Yeast 5 MC and Yeast 7 MC are minimally constrained
+Yeast 5 and Yeast 7; Yeast 5 HC and Yeast 7 HC are highly constrained Yeast 5
+and Yeast 7). Error bars are shown for the Lee et al. method and for
 FALCON, where one side of the error bar corresponds to a standard
 deviation. Note that there can be no variation for glucose in the
 former case since glucose flux is fixed as part of the method. FALCON
@@ -776,7 +776,7 @@ Human 2.03 (7,440 reactions) & $ 159.077 \pm 24.903 $ & $ 152.297 \pm 39.783 $ &
 \label{tab:methodTime}
 \end{table}
 
-We found that in Yeast7 with the primal-simplex solver, there is a
+We found that in Yeast 7 with the primal-simplex solver, there is a
 chance the solver will fail to find a feasible solution.
 We verified that this is a numeric issue
 in Gurobi and can be fixed by setting the Gurobi parameter
@@ -829,7 +829,11 @@ Tables \ref{tab:methodTime} and \ref{tab:methodTimeIter} used a single
 unperturbed expression file per species (\textit{S. cerevisiae} and
 \textit{H. sapiens}; see \texttt{timingAnalysis.m} for
 details). Values were averaged across 32 replicates. \suppOrApp
-Tables~\ref{tab:methodTime} and \ref{tab:methodTimeIter} used
+Note that the iMAT method is formulated as a mixed integer program
+\citep{Shlomi2008}, and was able to use additional parallelization of
+the solver \citep{gurobi} whereas other methods only used a single
+core (our system had 32 cores and iMAT with Gurobi would use all of
+them). Tables~\ref{tab:methodTime} and \ref{tab:methodTimeIter} used
 multivariate log-normal noise multiplied by the original expression
 vector to introduce more variance in the calculations; the human
 models were tested with 100 replicates and the yeast models with 500
