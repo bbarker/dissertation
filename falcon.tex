@@ -328,6 +328,9 @@ with fewer fluxes.
 
 One major improvement in our method is the consideration of enzyme
 complexes sharing multiple reactions, which we call reaction groups.
+This is done by partitioning an enzyme complex's abundance across
+its reactions by including all reactions associated to the complex
+in the same constraint.
 Both minimally and highly constrained models
 (Section~\ref{sec:sensToExpNoise}) show some fluxes with significant
 differences depending on the use of group information, particularly in
@@ -352,9 +355,8 @@ expression, are discussed in \suppOrApp Section~\ref{sec:FALCON}.
 \\
 \end{tabular}
 \vspace{-4mm} 
-\caption{FALCON employs groups of reactions that share the same enzyme
-complex to combine the reactions in the same constraint. Shown is the
-comparison of setting FALCON to use no group information (x-axis)
+\caption{
+Comparison of setting FALCON to use no reaction group information (x-axis)
 versus with group information (y-axis; default FALCON setting) for
 both the highly constrained Yeast 7 model \textbf{(a)} and the
 minimally constrained Yeast 7 model \textbf{(b)}.
