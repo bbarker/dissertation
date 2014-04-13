@@ -1,0 +1,110 @@
+\documentclass[letterpaper]{article}
+\usepackage[affil-it]{authblk}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+%\usepackage[amsmath,amsthm,thmmarks]{ntheorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+                        %
+\input{preambleCommon}  %
+                        %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usepackage{url}
+\usepackage{fullpage}
+\usepackage{setspace}
+
+
+\captionsetup[ruled]{labelsep=period}
+\makeatletter
+\@addtoreset{algorithm}{section}% algorithm counter resets every section
+\makeatother
+\renewcommand{\thealgorithm}{\thesection.\arabic{algorithm}}% Algorithm # is <section>.<algorithm>
+\usepackage{natbib}
+\bibliographystyle{natbib}
+
+\title{A robust and efficient method for estimating enzyme
+complex abundance and metabolic flux from expression data.}
+
+\author[1,2]{Brandon Barker%
+  \thanks{Electronic address: \texttt{beb82@cornell.edu}; Corresponding author}}
+
+\author[3]{Narayanan Sadagopan%
+  \thanks{Electronic address: \texttt{ns452@cornell.edu}}}
+
+\author[1]{Yiping Wang%
+  \thanks{Electronic address: \texttt{yw595@cornell.edu}}}
+
+\author[4,5]{Kieran Smallbone%
+  \thanks{Electronic address: \texttt{kieran.smallbone@manchester.ac.uk}}}
+
+\author[1,6,7]{Christopher R. Myers%
+  \thanks{Electronic address: \texttt{c.myers@cornell.edu}}}
+
+\author[8]{Hongwei Xi}
+% \author[8]{Hongwei Xi%
+%   \thanks{Electronic address: \texttt{hwxi@bu.edu}}}
+
+\author[1,9]{Jason W. Locasale%
+  \thanks{Electronic address: \texttt{locasale@cornell.edu}; Corresponding author}}
+
+\author[1,9]{Zhenglong Gu%
+  \thanks{Electronic address: \texttt{zg27@cornell.edu}; Corresponding author}}
+
+\affil[1]{Tri-Institutional Training Program in Computational
+  Biology and Medicine, \\1300 York Avenue, Box 194, New York, NY, USA.}
+\affil[2]{Department of Biological Statistics and Computational Biology, \\ 
+    Cornell University, 1198 Comstock Hall, Ithaca, NY, USA.}
+\affil[3]{College of Engineering, Cornell University, \\Carpenter Hall, 
+  Ithaca, NY, USA.}
+\affil[4]{School of Computer Science, The University of Manchester,
+  Manchester, UK.}
+\affil[5]{Manchester Center for Integrative Systems Biology,\\ 
+  The University of Manchester, Manchester, UK.}
+\affil[6]{Laboratory of Atomic and Solid State Physics, \\
+  Physical Sciences Building, Cornell University, Ithaca, NY, USA.}
+\affil[7]{Life Sciences Core Laboratories Center, \\
+  Cornell University, Ithaca, NY, USA.}
+\affil[8]{Department of Computer Science, Boston University,\\ 
+  111 Cummington Street, Boston, MA, USA.}
+\affil[9]{Division of Nutritional Sciences, Cornell University,\\ 
+  Savage Hall, Ithaca, NY, USA.}
+
+
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%
+\begin{document}%%
+%%%%%%%%%%%%%%%%%%
+
+\newboolean{thesisStyle}
+\setboolean{thesisStyle}{true} % Might want to reconsider this here.
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                           %
+\input{documentHeadCommon} %
+                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Redefine suppOrApp
+\def\suppOrApp{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                             %
+\input{falcon.tex}            %
+%                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                             %
+\input{falcon_appendix.tex}   %
+%                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\bibliography{dissertation}
+\end{document}

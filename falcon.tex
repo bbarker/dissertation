@@ -401,8 +401,9 @@ completed on average in 3.6~m and the method from \citealt{Lee2012} in
 
 \begin{table*}
 \begin{center}
+%ifthenelse{\boolean{thesisStyle}}{\small}{}
+\small
 \begin{tabular}{rrrrrrrrrr}
-%\emph{Model}                 & \emph{Primal-Simplex} & \emph{Dual-Simplex} & \emph{Barrier} \\
 \textbf{(a)} \hspace{1.4cm} & Max. $\mu$ & Model & Experimental & 
   Standard FBA & Fitted FBA & GIMME & iMAT & Lee et al & FALCON\\
  & 75 \%& Yeast5 MC & 1 & 0.66 & 0.66 & NaN  & 0.57 & 0.64 & 1 \\
