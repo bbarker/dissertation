@@ -59,7 +59,7 @@ Adenosylcobalamin into the intestine').}
   \end{subfigure}
 &
   \begin{subfigure}[b]{0.48\textwidth}
-  \raisebox{0.4\height}{\includegraphics[scale=0.45,center]{legend_bars}}
+  \raisebox{0.3\height}{\includegraphics[scale=0.4,center]{legend_bars}}
 %  [width=\textwidth, trim=9cm 4cm 5cm 1cm, clip=true]{legend_bars}}
   \end{subfigure} 
 \\
@@ -87,9 +87,9 @@ Adenosylcobalamin into the intestine').}
 \vspace{4mm}
 \caption{
 Shown are flux predictions using a number of methods and four
-different models (Yeast 5 MC and Yeast 7 MC are minimally constrained
-Yeast 5 and Yeast 7; Yeast 5 HC and Yeast 7 HC are highly constrained Yeast 5
-and Yeast 7). Error bars are shown for the Lee et al. method and for
+different models (Yeast~5 MC and Yeast~7 MC are minimally constrained
+Yeast~5 and Yeast~7; Yeast~5 HC and Yeast~7 HC are highly constrained Yeast~5
+and Yeast~7). Error bars are shown for the Lee et al. method and for
 FALCON, where one side of the error bar corresponds to a standard
 deviation. Note that there can be no variation for glucose in the
 former case since glucose flux is fixed as part of the method. FALCON
@@ -133,7 +133,7 @@ condition.}
 the entire flux vector estimated by FALCON on permuted and unpermuted
 data. Stability and correlation are effected by constraints, as there
 are differences between the minimally constrained \textbf{(b, d)} and
-highly constrained \textbf{(a, c)} Yeast 7 models. 5,000 permutation
+highly constrained \textbf{(a, c)} Yeast~7 models. 5,000 permutation
 replicates were performed in all cases.}
 \label{fig:YpermCorrSup}
 \end{figure}
@@ -173,12 +173,12 @@ replicates were performed in all cases.}
 \\
 \end{tabular}
 \caption{ These figures are generated in the same way as those in
-Fig.~\ref{fig:ExpSens}, but for Human Recon 2 instead of Yeast 7. We
+Fig.~\ref{fig:ExpSens}, but for Human Recon~2 instead of Yeast~7. We
 used several different constraint sets based on experimental media and
 exometabolic flux data in the NCI-60 cell lines
 \citep{Jain2012}. These constraints were applied cumulatively, and are
 listed in the order of most constrained \textbf{(b)} to least
-constrained \textbf{(f)}. Included are default Recon 2 constraints
+constrained \textbf{(f)}. Included are default Recon~2 constraints
 \textbf{(f)}, RPMI media constraints (\textbf{e}; function
 \texttt{constrainCoReMinMaxSign}; 556 constraints), exometabolic
 fluxes with a common sign across all cell lines and replicates
@@ -757,16 +757,16 @@ benchmarked the three non-parallel solver methods in Gurobi
 The exception to this rule is the Barrier method, which can use
 multiple threads, but in practice for our models appears to use
 no more than about 6 full CPU cores simultaneously for our models.
-Our results for Yeast 5 and Yeast 7 with minimal directionality constraints
-\citep{Heavner2012,Lee2012,Aung2013} and Human Recon 2 \citep{Thiele2013}
+Our results for Yeast~5 and Yeast~7 with minimal directionality constraints
+\citep{Heavner2012,Lee2012,Aung2013} and Human Recon~2 \citep{Thiele2013}
 are shown in \suppOrApp Table~\ref{tab:methodTime}).
 
 \begin{table}
 \begin{center}
 \begin{tabular}{rrrr}
 \emph{Model}                 & \emph{Primal-Simplex} & \emph{Dual-Simplex} & \emph{Barrier} \\
-Yeast 5.21 (2,061 reactions) & $ 7.841 \pm 1.697    $ & $ 7.611 \pm 1.267    $ & $ 10.859 \pm 2.788   $\\ 
-Yeast 7.0 (3,498 reactions)  & $ 51.863 \pm 22.731  $ & $ 65.317 \pm 12.771  $ & $ 242.137 \pm 57.129 $\\
+Yeast~5.21 (2,061 reactions) & $ 7.841 \pm 1.697    $ & $ 7.611 \pm 1.267    $ & $ 10.859 \pm 2.788   $\\ 
+Yeast~7.0 (3,498 reactions)  & $ 51.863 \pm 22.731  $ & $ 65.317 \pm 12.771  $ & $ 242.137 \pm 57.129 $\\
 Human 2.03 (7,440 reactions) & $ 159.077 \pm 24.903 $ & $ 152.297 \pm 39.783 $ & $ 366.166 \pm 92.321 $\\
 \end{tabular}
 \end{center}
@@ -777,7 +777,7 @@ Human 2.03 (7,440 reactions) & $ 159.077 \pm 24.903 $ & $ 152.297 \pm 39.783 $ &
 \label{tab:methodTime}
 \end{table}
 
-We found that in Yeast 7 with the primal-simplex solver, there is a
+We found that in Yeast~7 with the primal-simplex solver, there is a
 chance the solver will fail to find a feasible solution.
 We verified that this is a numeric issue
 in Gurobi and can be fixed by setting the Gurobi parameter
@@ -803,8 +803,8 @@ average time per iteration in the above examples
 \begin{center}
 \begin{tabular}{rrrr}
 \emph{Model}                 & \emph{Primal-Simplex} & \emph{Dual-Simplex} & \emph{Barrier} \\
-Yeast 5.21 (2,061 reactions) & $ 0.721 \pm 0.023 $ & $ 0.652 \pm 0.040 $ & $ 1.100 \pm 0.112  $\\ 
-Yeast 7.0 (3,498 reactions)  & $ 2.725 \pm 0.298 $ & $ 2.469 \pm 0.289 $ & $ 11.309 \pm 1.589 $\\
+Yeast~5.21 (2,061 reactions) & $ 0.721 \pm 0.023 $ & $ 0.652 \pm 0.040 $ & $ 1.100 \pm 0.112  $\\ 
+Yeast~7.0 (3,498 reactions)  & $ 2.725 \pm 0.298 $ & $ 2.469 \pm 0.289 $ & $ 11.309 \pm 1.589 $\\
 Human 2.03 (7,440 reactions) & $ 6.422 \pm 0.484 $ & $ 5.233 \pm 0.661 $ & $ 15.782 \pm 3.209 $\\ 
 \end{tabular}
 \end{center}
@@ -878,5 +878,5 @@ timing analyses were performed using \texttt{methodTimer.m} with
 \subsection{Data sources}
 Enzyme complexation comparisons were performed on proteomics data
 from \citealt{Gholami2013} (Human; 786-O cell line) and 
-\citealt{Picotti2013} (Yeast; BY strain), and on RNA-Seq data
-from \citealt{Lee2012} (Yeast; 75\% max $\mu$ condition).
+\citealt{Picotti2013} (yeast; BY strain), and on RNA-Seq data
+from \citealt{Lee2012} (yeast; 75\% max $\mu$ condition).

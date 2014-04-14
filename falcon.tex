@@ -134,23 +134,23 @@ assumptions (due primarily to limitations in data quality; \suppOrApp
 Section~\ref{sec:complexation}).
 
 Consideration of constraint availability is crucial in this type of
-analysis. In order to work with different constraint sets in Yeast, we
+analysis. In order to work with different constraint sets in yeast, we
 wrote the MATLAB function \texttt{removeEnzymeIrrevs} to find all
 enzymatic reactions in a model that are annotated as reversible but
 are constrained to operate in one direction only. The script then
 changes the bounds to allow flux in both directions. The function
 \texttt{useYN5irrevs} copies the irreversible annotations found in
-Yeast 5.21 \citep{Lee2012} to a newer yeast model, but could in
+Yeast~5.21 \citep{Lee2012} to a newer yeast model, but could in
 principle be used for any two models; by default, this script is coded
 to first call \texttt{removeEnzymeIrrevs} on both models before
 copying irreversible annotations. Application of these scripts removes
-853 constraints in Yeast 5.21 and 1,723 constraints in Yeast 7.
+853 constraints in Yeast~5.21 and 1,723 constraints in Yeast~7.
 Despite the significant relaxation in constraints, since nutrient
 uptake constraints are unaffected, FBA only predicts a 1.28\% increase
-in growth rate in the minimally constrained Yeast 7 model. However, in
+in growth rate in the minimally constrained Yeast~7 model. However, in
 FALCON, we are no longer optimizing a sink reaction like biomass, and
 this relaxation in internal constraints proves to be more important.
-Constraint sets for Human Recon 2 are described in \suppOrApp 
+Constraint sets for Human Recon~2 are described in \suppOrApp 
 Fig.~\ref{fig:ExpSensRec2}.
 
 %\vspace{5 mm} 
@@ -288,18 +288,18 @@ to CNF, and in most cases should still yield the minimum disjunction.
 Application of \suppOrApp Algorithm~\ref{alg:ReductionToCNF} results in several
 differences from direct substitution and evaluation in yeast GPR
 rules. When data completely covers the genes in the model
-(e.g. \citealt{Lee2012}), complex abundance tends to have few differences in Yeast
+(e.g. \citealt{Lee2012}), complex abundance tends to have few differences in yeast
 regardless of the evaluation method (25 rules; 1.08\% of all rules for
-Yeast 7). This number goes up significantly in Human Recon 2
+Yeast~7). This number goes up significantly in Human Recon~2
 \citep{Thiele2013} due to more complex GPR rues (935 rules; 22\% of
 all rules). For the human model, we could not find any data set that
 covered every gene, so instead random expression data roughly matching
 a power law was used to generate this statistic. If we use proteomics
 data for yeast and human models, the algorithmic variation in how missing gene
 data is handled causes some additional increase in differences
-\citep{Picotti2013,Gholami2013}.  For proteomics, in the Yeast 7 model
-205 rules (8.87\% of all rules) differed, and in Human Recon 2, 1002
-rules (23.57\% of all rules) differed. We can see that in Yeast, the
+\citep{Picotti2013,Gholami2013}.  For proteomics, in the Yeast~7 model
+205 rules (8.87\% of all rules) differed, and in Human Recon~2, 1002
+rules (23.57\% of all rules) differed. We can see that for yeast, the
 changes in flux attributed to enzyme abundance evaluation can be
 relatively small for data with 100\% gene coverage, but can be 
 significant in Human (\suppOrApp Fig.~\ref{fig:EnzAbundEval}).
@@ -358,8 +358,8 @@ expression, are discussed in \suppOrApp Section~\ref{sec:FALCON}.
 \caption{
 Comparison of setting FALCON to use no reaction group information (x-axis)
 versus with group information (y-axis; default FALCON setting) for
-both the highly constrained Yeast 7 model \textbf{(a)} and the
-minimally constrained Yeast 7 model \textbf{(b)}.
+both the highly constrained Yeast~7 model \textbf{(a)} and the
+minimally constrained Yeast~7 model \textbf{(b)}.
 Error bars with length equal to one standard deviation are
 shown for both approaches as a result of alternative solutions in
 FALCON.}
@@ -411,8 +411,8 @@ heavily constrained (\suppOrApp Figs. \ref{fig:EnzAbundEval} and
 \subsection{Performance benchmarks}
 Using the same yeast exometabolic and expression data employed for
 benchmarking in the antecedent study \citep{Lee2012} that included an
-updated version of the Yeast 5 model \citep{Heavner2012} and the latest
-Yeast model \citep{Aung2013}, we find that
+updated version of the Yeast~5 model \citep{Heavner2012} and the latest
+yeast model \citep{Aung2013}, we find that
 our algorithm has significant improvements in time efficiency while
 maintaining correlation with experimental fluxes, and is much faster 
 than any similarly performing method (Table~\ref{tab:FalcPerf}; 
@@ -434,26 +434,26 @@ methods.
 \begin{tabular}{rrrrrrrrrr}
 \textbf{(a)} \hspace{1.2cm} & Max. $\mu$ & Model & Experimental & 
   Standard FBA & Fitted FBA & GIMME & iMAT & Lee et al & FALCON\\
- & 75 \%& Yeast 5 MC & 1 & 0.66 & 0.66 & NaN  & 0.57 & 0.64 & 1 \\
- & 75 \%& Yeast 7 MC & 1 & 0.66 & 0.66 & 0.68 & 0.66 & 0.66 & 0.98\\
- & 75 \%& Yeast 5 HC & 1 & 0.73 & 0.78 & 0.75 & 0.66 & 0.98 & 0.99\\
+ & 75 \%& Yeast~5 MC & 1 & 0.66 & 0.66 & NaN  & 0.57 & 0.64 & 1 \\
+ & 75 \%& Yeast~7 MC & 1 & 0.66 & 0.66 & 0.68 & 0.66 & 0.66 & 0.98\\
+ & 75 \%& Yeast~5 HC & 1 & 0.73 & 0.78 & 0.75 & 0.66 & 0.98 & 0.99\\
 Pearson's r  
- & 75 \%& Yeast 7 HC & 1 & 0.70 & 0.70 & 0.80 & 0.66 & 0.98 & 0.99\\
- & 85 \%& Yeast 7 MC & 1 & 0.62 & 0.62 & 0.65 & 0.62 & 0.62 & 0.97\\
- & 85 \%& Yeast 5 HC & 1 & 0.88 & 0.89 & 0.9  & 0.81 & 0.99 & 0.99\\
- & 85 \%& Yeast 7 HC & 1 & 0.67 & 0.67 & 0.87 & 0.62 & 0.98 & 0.98\\
+ & 75 \%& Yeast~7 HC & 1 & 0.70 & 0.70 & 0.80 & 0.66 & 0.98 & 0.99\\
+ & 85 \%& Yeast~7 MC & 1 & 0.62 & 0.62 & 0.65 & 0.62 & 0.62 & 0.97\\
+ & 85 \%& Yeast~5 HC & 1 & 0.88 & 0.89 & 0.9  & 0.81 & 0.99 & 0.99\\
+ & 85 \%& Yeast~7 HC & 1 & 0.67 & 0.67 & 0.87 & 0.62 & 0.98 & 0.98\\
 \end{tabular}
 \begin{tabular}{rrrrrrrrrr}
 \textbf{(b)} \hspace{1.2cm} & Max. $\mu$ & Model & Experimental & 
   Standard FBA & Fitted FBA & GIMME & iMAT & Lee et al & FALCON\\
- & 75 \%& Yeast 5 MC & 0 & 0.9  & 470   & 0.81  & 50     & 110 & 1.8 \\
- & 75 \%& Yeast 7 MC & 0 & 1.9  & 3,100 & 2.1   & 12,000 & 600 & 5.6 \\
- & 75 \%& Yeast 5 HC & 0 & 0.12 & 110   & 0.18  & 1.4    & 15  & 0.27\\
+ & 75 \%& Yeast~5 MC & 0 & 0.9  & 470   & 0.81  & 50     & 110 & 1.8 \\
+ & 75 \%& Yeast~7 MC & 0 & 1.9  & 3,100 & 2.1   & 12,000 & 600 & 5.6 \\
+ & 75 \%& Yeast~5 HC & 0 & 0.12 & 110   & 0.18  & 1.4    & 15  & 0.27\\
 Time (s) 
- & 75 \%& Yeast 7 HC & 0 & 0.72 & 940   & 1.7   & 240    & 670 & 5.5 \\
- & 85 \%& Yeast 7 MC & 0 & 2.3  & 3,100 & 3.8   & 14,000 & 610 & 4.6 \\
- & 85 \%& Yeast 5 HC & 0 & 0.12 & 110   & 0.18  & 2.5    & 15  & 0.22\\
- & 85 \%& Yeast 7 HC & 0 & 0.70 & 110   & 2.5   & 100    & 530 & 5.9\\
+ & 75 \%& Yeast~7 HC & 0 & 0.72 & 940   & 1.7   & 240    & 670 & 5.5 \\
+ & 85 \%& Yeast~7 MC & 0 & 2.3  & 3,100 & 3.8   & 14,000 & 610 & 4.6 \\
+ & 85 \%& Yeast~5 HC & 0 & 0.12 & 110   & 0.18  & 2.5    & 15  & 0.22\\
+ & 85 \%& Yeast~7 HC & 0 & 0.70 & 110   & 2.5   & 100    & 530 & 5.9\\
 \end{tabular}
 \end{center}
 \caption{Performance of FALCON and other CBM methods for predicting
@@ -524,9 +524,9 @@ Table~\ref{tab:FalcPerf}) are used. Additionally, it is possible to
 obtain good predictions even without a heavily constrained model
 (Table~\ref{tab:FalcPerf}).
 
-With Human Recon 2, additional constraint sets supply some benefit,
+With Human Recon~2, additional constraint sets supply some benefit,
 but even the most extreme constraint set does not compare to what is
-available in Yeast 7, which is also inherently constrained by the fact
+available in Yeast~7, which is also inherently constrained by the fact
 that yeast models will be smaller than comparable human models
 (\suppOrApp Fig.~\ref{fig:ExpSensRec2}). For mammalian models, more
 sophisticated means of constraint, such as enzyme crowding constraints
@@ -556,7 +556,7 @@ specific modeling tools, may prove highly beneficial.
 \caption{
 Correlation of perturbed enzyme abundance vectors and flux
 vectors with the associated unperturbed vector for the 
-Yeast 7 model. The interval median
+Yeast~7 model. The interval median
 correlation is shown in green. Noise sampled from a multivariate
 log-normal distribution with parameters $\mu=1$ and $\sigma$ (x-axis) is
 multiplicatively applied to the enzyme abundance vector, and the
