@@ -457,10 +457,13 @@ Time (s)
 \end{tabular}
 \end{center}
 \caption{Performance of FALCON and other CBM methods for predicting
-yeast exometabolic fluxes \textbf{(a)} and associated timing analysis \textbf{(b)}. For
-Lee et al. and FALCON methods, the mean time for a single run of the
-method is listed; all other methods did not have any stochasticity
-employed. Values are shown in two significant figures.}
+yeast exometabolic fluxes in two growth conditions with highly (HC)
+and minimally (MC) constrained models \textbf{(a)} and associated
+timing analysis \textbf{(b)}. For Lee et al. and FALCON methods, the
+mean time for a single run of the method is listed; all other methods
+did not have any stochasticity employed. Values are shown in two
+significant figures. Method descriptions can be found in
+\citealt{Lee2012}.}
 \label{tab:FalcPerf}
 \end{table*}
 
@@ -482,12 +485,12 @@ still shows strong differences.
 \begin{tabular}{c}
   \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{pExp}
-  \caption{Highly constrained.} \label{fig:YpermCorr:A}
+  \caption{highly constrained} \label{fig:YpermCorr:A}
   \end{subfigure}
 \\
   \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{pExp_dirr}
-  \caption{Minimally constrained.} \label{fig:YpermCorr:B}
+  \caption{minimally constrained} \label{fig:YpermCorr:B}
   \end{subfigure} 
 \\
 \end{tabular}
@@ -535,31 +538,32 @@ specific modeling tools, may prove highly beneficial.
 \begin{tabular}{c}
   \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{noise_y7EC}
-  \caption{} \label{fig:ExpSens:A}
+  \caption{enzyme complex abundance} \label{fig:ExpSens:A}
   \end{subfigure}
 \\
   \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{noise_y7HCflux}
-  \caption{} \label{fig:ExpSens:B}
+  \caption{flux: highly constrained} \label{fig:ExpSens:B}
   \end{subfigure} 
 \\
   \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{noise_y7MCflux}
-  \caption{} \label{fig:ExpSens:C}
+  \caption{flux: minimally constrained} \label{fig:ExpSens:C}
   \end{subfigure} 
 \\
 \end{tabular}
 \vspace{-4mm} 
 \caption{
 Correlation of perturbed enzyme abundance vectors and flux
-vectors with the associated unperturbed vector. The interval median
+vectors with the associated unperturbed vector for the 
+Yeast 7 model. The interval median
 correlation is shown in green. Noise sampled from a multivariate
 log-normal distribution with parameters $\mu=1$ and $\sigma$ (x-axis) is
 multiplicatively applied to the enzyme abundance vector, and the
 y-axis shows the Pearson correlation between the two vectors
-(a). Similar plots shows correlation between flux vectors estimated
+\textbf{(a)}. Similar plots show correlation between flux vectors estimated
 with FALCON using the same perturbed and unperturbed expression
-vectors (b-c).}
+vectors \textbf{(b-c)}.}
 \label{fig:ExpSens}
 \end{figure}
 
