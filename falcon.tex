@@ -284,7 +284,7 @@ Although conversion to CNF may be intractable for some rules
 \citep{Russell2009}, we tested our implementation of the algorithm on
 three of the most well-curated models which likely contain some of the
 most complex gene rules available. These models are for \textit{E. coli}
-\citep{Orth2011a}, yeast \citep{Aung2013}, and human
+\citep{Orth2011}, yeast \citep{Aung2013}, and human
 \citep{Thiele2013}. In all cases, the rules were converted to CNF in
 less than half a second, which is far less than the typical flux
 fitting running time from \suppOrApp Algorithm~\ref{alg:FALCON}. We also present
@@ -669,19 +669,18 @@ intent for more complex purposes like flux fitting.
 \section{Conclusion}
 
 We have formalized and improved an existing method for estimating flux
-from expression data, as well as listing detailed assumptions in the
-model that may be useful to address in later attempts
-\suppOrApp Table~\ref{tab:ECAssume}. Although we show that expression does not
-correlate well with flux, we are still essentially trying to fit
-fluxes to expression levels.  The number of constraints presents in
-metabolic models (even the minimally constrained models) prevents 
-a good correlation between the two. However, as
-with all constraint-based models, constraints are only half the story in any largely
-underdetermined system, and we show that gene expression can prove to
-be a valuable basis for forming an objective, as opposed to methods
-that continue to use expression to further constrain the model by
-creating tissue-specific or condition-specific models
-\citep{Shlomi2008,Becker2008}.
+from expression data, as well as listing detailed assumptions in
+\suppOrApp Table~\ref{tab:ECAssume} that may prove useful in future
+work. Although we show that expression does not correlate well with
+flux, we are still essentially trying to fit fluxes to expression
+levels.  The number of constraints present in metabolic models (even
+the minimally constrained models) prevents a good correlation between
+the two. However, as with all constraint-based models, constraints are
+only part of the problem in any largely underdetermined system. We
+show that gene expression can prove to be a valuable basis for forming
+an objective, as opposed to methods that only use expression to
+further constrain the model by creating tissue-specific or
+condition-specific models \citep{Shlomi2008,Becker2008}.
 
 For better curated models, the approach described immediately finds
 use for understanding metabolism, as well as being a scaffold to find
