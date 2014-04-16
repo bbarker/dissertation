@@ -1,9 +1,23 @@
 \documentclass[letterpaper]{article}
 \usepackage[affil-it]{authblk}
 
+% \makeatletter
+% %
+% \def\maketitle
+%   {{\@flushglue=.25\textwidth minus.25\textwidth\z@skip
+%     \hyphenpenalty\@M
+%     \let\old@date\@date
+%     \def\@date{\mbox{}\hskip\@flushglue\old@date\hskip\@flushglue\mbox{}\par}%hmm
+%     \renewenvironment{tabular}[2][]{\par}
+%                                    {\par}%
+%   \AB@maketitle}}
+% %
+% \makeatother
+
+
 \usepackage{amsmath}
 \usepackage{amsthm}
-%\usepackage[amsmath,amsthm,thmmarks]{ntheorem}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
                         %
@@ -11,6 +25,7 @@
                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
+\captionsetup{width=\textwidth}
 
 \usepackage{url}
 \usepackage{fullpage}
@@ -24,6 +39,7 @@
 \renewcommand{\thealgorithm}{\thesection.\arabic{algorithm}}% Algorithm # is <section>.<algorithm>
 \usepackage{natbib}
 \bibliographystyle{natbib}
+
 
 \title{A robust and efficient method for estimating enzyme
 complex abundance and metabolic flux from expression data}
@@ -54,22 +70,22 @@ complex abundance and metabolic flux from expression data}
   \thanks{Electronic address: \texttt{zg27@cornell.edu}; Corresponding author}}
 
 \affil[1]{Tri-Institutional Training Program in Computational
-  Biology and Medicine, \\1300 York Avenue, Box 194, New York, NY, USA.}
-\affil[2]{Department of Biological Statistics and Computational Biology, \\ 
+  Biology and Medicine, 1300 York Avenue, Box 194, New York, NY, USA.}
+\affil[2]{Department of Biological Statistics and Computational Biology,
     Cornell University, 1198 Comstock Hall, Ithaca, NY, USA.}
-\affil[3]{College of Engineering, Cornell University, \\Carpenter Hall, 
+\affil[3]{College of Engineering, Cornell University, Carpenter Hall, 
   Ithaca, NY, USA.}
 \affil[4]{School of Computer Science, The University of Manchester,
   Manchester, UK.}
-\affil[5]{Manchester Center for Integrative Systems Biology,\\ 
-  The University of Manchester, Manchester, UK.}
+\affil[5]{Manchester Center for Integrative Systems Biology, 
+  The University of Manchester, \mbox{Manchester, UK.}}
 \affil[6]{Laboratory of Atomic and Solid State Physics, Cornell
 University, Ithaca, NY, USA.}
 \affil[7]{Institute of Biotechnology, Cornell University, Ithaca, NY,
 USA.}
-\affil[8]{Department of Computer Science, Boston University,\\ 
+\affil[8]{Department of Computer Science, Boston University,
   111 Cummington Street, Boston, MA, USA.}
-\affil[9]{Division of Nutritional Sciences, Cornell University,\\ 
+\affil[9]{Division of Nutritional Sciences, Cornell University,
   Savage Hall, Ithaca, NY, USA.}
 
 
@@ -89,6 +105,13 @@ USA.}
 \input{documentHeadCommon} %
                            %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\abstract{%
+\falconAbstractMotivation
+\falconAbstractResults
+\falconAbstractAvail
+}
+
 
 % Redefine suppOrApp
 \def\suppOrApp{}

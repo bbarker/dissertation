@@ -3,9 +3,9 @@
 \tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=2em]
 \tikzstyle{decision} = [diamond, draw, fill=blue!20,
     text badly centered, node distance=6em, inner sep=0pt]
-\tikzstyle{block} = [rectangle, draw, fill=blue!20,
+\tikzstyle{block} = [rectangle, draw, %fill=blue!20,
     text centered, node distance=4em]
-\tikzstyle{iogram} = [trapezium, draw, fill=pink!20,
+\tikzstyle{iogram} = [trapezium, draw, fill=black!10, %fill=pink!20,
     trapezium left angle=70, trapezium right angle=-70,
     text centered, align=center, node distance=5em]
 
@@ -34,7 +34,7 @@
 \newcommand{\ANDw}{\land}
 \newcommand{\ORw}{\lor}
 
-\newcommand{\falconAbstractMotivation}{
+\newcommand{\falconAbstractMotivation}{%
 A major theme in constraint-based modeling is unifying 
 experimental data, such as biochemical information about the reactions
 that can occur in a system or the composition and localization of enzyme
@@ -48,7 +48,7 @@ objective function for the estimation of fluxes, which is an important
 limitation in many modeling applications.
 }
 
-\newcommand{\falconAbstractResults}{
+\newcommand{\falconAbstractResults}{%
 We develop a method, flux assignment with LAD (least absolute
 deviation) convex objectives and normalization (FALCON),
  that employs metabolic network reconstructions along with expression
@@ -62,6 +62,14 @@ enzyme complex formation logic, the ability to handle very large enzyme
 complex rules that may incorporate multiple isoforms, and depending on
 the model constraints, either maintained or significantly improved
 correlation with experimentally measured fluxes.
+}
+
+\newcommand{\falconAbstractAvail}{%
+FALCON has been implemented in MATLAB and ATS, and can be downloaded
+from: \url{https://github.com/bbarker/FALCON}. ATS is not required to
+compile the software, as intermediate C source code is available, and
+binaries are provided for Linux x86-64 systems. FALCON requires use
+of the COBRA Toolbox, also implemented in MATLAB.
 }
 
 \captionsetup{labelfont=bf}
