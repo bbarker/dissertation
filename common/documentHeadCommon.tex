@@ -9,11 +9,19 @@
     trapezium left angle=70, trapezium right angle=-70,
     text centered, align=center, node distance=5em]
 
+% Some global commands for alternatives
+
 \DeclareRobustCommand\suppOrApp{%
-  \ifthenelse{\boolean{thesisStyle}}
-    {Appendix}
-    {Supplementary}
+  \ifthenelse{\boolean{thesisStyle}}%
+    {Appendix}%
+    {Supplementary}%
 }
+\DeclareRobustCommand\Fig{%
+  \ifthenelse{\boolean{thesisStyle}}%
+    {Figure}%
+    {Fig.}%
+}
+
 
 
 % \ifthenelse{\boolean{thesisStyle}}

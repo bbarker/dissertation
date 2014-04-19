@@ -2,12 +2,16 @@
 \usepackage{xr}
 \externaldocument{supplement}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%
-                        %
-\input{preambleCommon}  %
-                        %
-%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                       %
+% change this line for portable code:  %
+\newcommand*{\commonDir}{../common/}   %
+\input{\commonDir preambleCommon}      %
+                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{natbib}
 
+\graphicspath{{./figures/}}
 
 \usepackage{url}
 
@@ -20,7 +24,7 @@
 
 % \renewcommand{\caption}[1]{\singlespacing\hangcaption{#1}\normalspacing}
 
-\bibliographystyle{natbib}
+
 \copyrightyear{2013}
 \pubyear{2013}
 
@@ -37,11 +41,11 @@
 
 \firstpage{1}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                           %
-\input{documentHeadCommon} %
-                           %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                       %
+\input{\commonDir documentHeadCommon}  %
+                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % A systematic exploration of enzyme complex rules and metabolic networks yields fast and
 % robust algorithms for estimating metabolic flux and enzyme complex abundance.
@@ -107,7 +111,11 @@ online.
 \href{zg27@cornell.edu}{zg27@cornell.edu}
 \end{abstract}
 
-\input{falcon}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                              %
+\input{\commonDir falcon.tex}  %
+%                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section*{Acknowledgement}
 

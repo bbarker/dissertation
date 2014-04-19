@@ -1,4 +1,4 @@
-\renewcommand{\figurename}{\textbf{\suppOrApp Fig.}}
+\renewcommand{\figurename}{\textbf{\suppOrApp \Fig}}
 \renewcommand{\tablename}{\textbf{\suppOrApp Table}}
 
 \begin{figure}
@@ -173,7 +173,7 @@ replicates were performed in all cases.}
 \\
 \end{tabular}
 \caption{ These figures are generated in the same way as those in
-Fig.~\ref{fig:ExpSens}, but for Human Recon~2 instead of Yeast~7. We
+\Fig~\ref{fig:ExpSens}, but for Human Recon~2 instead of Yeast~7. We
 used several different constraint sets based on experimental media and
 exometabolic flux data in the NCI-60 cell lines \protect\citep{Jain2012}. 
 These constraints were applied cumulatively, and are
@@ -272,7 +272,7 @@ part of the enzyme complex since one could be substituted for the
 other.
 
 As an example for assumptions described so far, take the $F_1$
-subcomplex of ATP Synthase (Fig.~\ref{fig:2F43}), which is composed
+subcomplex of ATP Synthase (\Fig~\ref{fig:2F43}), which is composed
 of seven protein subunits (distinguished by color, left). On the
 right-hand side we see different isoforms depicted as different
 colors.  Error in expression data aside, instead of considering the
@@ -349,7 +349,7 @@ number.
   \hline
   \textbf{\suppOrApp Table~\ref{tab:ECAssume}. \ECAssumeCap} \\
   \hline
-  \input{falcon_assumptions}
+  \input{\commonDir falcon_assumptions}
   \\ \hline
   \end{tabular}
   \end{center}
@@ -674,7 +674,7 @@ direction is irreversible. We also account for enzyme complexes
 catalyzing multiple reactions by including all reactions with identical
 GPR rules in the same residual
 constraint; indexed sets of reactions are denoted $R_i$ and their
-corresponding estimated enzyme abundance is $e_i$. Fig.~\ref{fig:FalconGrp} 
+corresponding estimated enzyme abundance is $e_i$. \Fig~\ref{fig:FalconGrp} 
 shows the difference in Algorithm~\ref{alg:FALCON} when we do not 
 use reaction group information. Note that we use a
 slight abuse of notation, since we also choose to index enzyme
@@ -699,7 +699,7 @@ example of how this can be beneficial, this means we do not need to
 measure any fluxes or assume a flux is fixed to achieve good results;
 though this does not downplay the value of obtaining
 experimentally-based constraints on flux when available 
-(\suppOrApp Fig.~\ref{fig:FluxBars}).
+(\suppOrApp \Fig~\ref{fig:FluxBars}).
 
 The actual value of $V_{lb}^{\Sigma}$ is not very important due to the
 scaling introduced by $n$, and we include a conservatively small value
@@ -828,7 +828,7 @@ different solver methods.
 
 All timing analyses were performed on a system with four 8-core AMD
 Opteron\texttrademark\ 6136 processors operating at 2.4
-GHz. Fig.~\ref{fig:FluxBars}, Table~\ref{tab:FalcPerf}, and \suppOrApp
+GHz. \Fig~\ref{fig:FluxBars}, Table~\ref{tab:FalcPerf}, and \suppOrApp
 Tables \ref{tab:methodTime} and \ref{tab:methodTimeIter} used a single
 unperturbed expression file per species (\textit{S. cerevisiae} and
 \textit{H. sapiens}; see \texttt{timingAnalysis.m} for
@@ -870,7 +870,7 @@ performed in \texttt{compareFluxByRGroup.m}.
 \subsection{Timing analyses}
 All timing analyses were performed on a system with four 8-core AMD
 Opteron\texttrademark\ 6136 processors operating at 2.4 GHz. 
-Fig.~\ref{fig:FluxBars} and Table~\ref{tab:FalcPerf} used unperturbed
+\Fig~\ref{fig:FluxBars} and Table~\ref{tab:FalcPerf} used unperturbed
 expression data; see
 \texttt{yeastResults.m} for details). Values for the FALCON method
 were averaged across 32 replicates, while values for the

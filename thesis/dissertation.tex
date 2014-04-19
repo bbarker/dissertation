@@ -1,14 +1,19 @@
-\documentclass[phd,tocprelim]{cornell}
+\documentclass[phd,tocprelim,draft]{cornell}
 \let\ifpdf\relax
 
 \usepackage{amsmath}
 \usepackage{amsthm}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%
-                        %
-\input{preambleCommon}  %
-                        %
-%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                       %
+% change this line for portable code:  %
+\newcommand*{\commonDir}{../common/}   %
+\input{\commonDir preambleCommon}      %
+                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\graphicspath{{../falconBioinfo/figures/}}
 
 %
 % tocprelim option must be included to put the roman numeral pages in the
@@ -22,17 +27,7 @@
 %
 % ************* TODO (Brandon Barker) ***********************************
 %
-% Cool idea for last chapter: use FALCON and a MILP version of FALCON
-% (compatible with LFP?) to try and estimate whole-cell-model fluxes.
-%
 %General
-% Figure out the best way to modularize chapters/sections in different files.
-%
-% Verify bibliography working; check FALCON script and add to Makefile?
-%
-% Appendix can work as a place for supplementary notes and figures?
-%
-% Semi-automate Mendeley->.bib citation process
 % TODO (Brandon Barker)
 % Read Formatting Rules on Grad School site.
 %  - referencing figures/capitalization: Fig or fig or figure ...
@@ -121,12 +116,19 @@
 %the tolerance to 9999
 \tolerance=9999
 
-\renewcommand{\caption}[1]{\singlespacing\hangcaption{#1}\normalspacing}
+%\renewcommand{\caption}[1]{\singlespacing\hangcaption{#1}\normalspacing}
+\captionsetup{compatibility=false}
+\renewcommand{\caption}[1]{\singlespacing\caption{#1}\normalspacing}
 
+%
 \bibliographystyle{plain}
+\newcommand{\citep}[1]{(\cite{#1})}
+\newcommand{\citealt}[1]{(\cite{#1})}
+%
+
 \title {Advances in Genome-Scale Modeling Applied to Expression-based Flux Estimation and Epistasis Prediction}
 \author {Brandon Barker}
-\conferraldate {August}{2013}
+\conferraldate {August}{2014}
 \degreefield {Ph.D.}
 \copyrightholder{Brandon Elam Barker}
 \copyrightyear{2013}
@@ -139,11 +141,11 @@
 \newboolean{thesisStyle}
 \setboolean{thesisStyle}{true}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                           %
-\input{documentHeadCommon} %
-                           %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                       %
+\input{\commonDir documentHeadCommon}  %
+                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \maketitle
 \makecopyright
@@ -576,11 +578,11 @@ optimum for our fitness objective.
 
 \falconAbstractMotivation \falconAbstractResults
 
-%%%%%%%%%%%%%%%%%%%
-%                 %
-\input{falcon}    %
-%                 %
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                          %
+\input{\commonDir falcon}  %
+%                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{FALCON-SOAR (Sortig of all RNAs - need better acronym) and its performance in E. coli} 
 
@@ -649,11 +651,13 @@ expression level and expression variation. \emph{However, it is not
 \appendix
 
 \chapter{Appendix 1: FALCON}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                          %
-\input{falcon_appendix}    %
-%                          %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                    %
+\input{\commonDir falcon_appendix}   %
+%                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \bibliography{dissertation}
 

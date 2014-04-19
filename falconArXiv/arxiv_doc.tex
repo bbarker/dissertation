@@ -1,4 +1,4 @@
-\documentclass[letterpaper]{article}
+\documentclass[draft,letterpaper]{article}
 \usepackage[affil-it]{authblk}
 
 % \makeatletter
@@ -18,25 +18,28 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                       %
+% change this line for portable code:  %
+\newcommand*{\commonDir}{../common/}   %
+\input{\commonDir preambleCommon}      %
+                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{natbib}
+\bibliographystyle{natbib}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%
-                        %
-\input{preambleCommon}  %
-                        %
-%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\graphicspath{{../falconBioinfo/figures/}}
 
 \usepackage{url}
 \usepackage{fullpage}
 \usepackage{setspace}
-
 
 \captionsetup[ruled]{labelsep=period}
 \makeatletter
 \@addtoreset{algorithm}{section}% algorithm counter resets every section
 \makeatother
 \renewcommand{\thealgorithm}{\thesection.\arabic{algorithm}}% Algorithm # is <section>.<algorithm>
-\usepackage{natbib}
-\bibliographystyle{natbib}
 
 
 \title{A robust and efficient method for estimating enzyme
@@ -98,11 +101,11 @@ USA.}
 
 \maketitle
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                           %
-\input{documentHeadCommon} %
-                           %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                       %
+\input{\commonDir documentHeadCommon}  %
+                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
 \falconAbstractMotivation
@@ -113,18 +116,18 @@ USA.}
 % Redefine suppOrApp
 \def\suppOrApp{}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                             %
-\input{falcon.tex}            %
-%                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                          %
+\input{\commonDir falcon}  %
+%                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                             %
-\input{falcon_appendix.tex}   %
-%                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                    %
+\input{\commonDir falcon_appendix}   %
+%                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\bibliography{dissertation}
+\bibliography{\commonDir dissertation}
 \end{document}

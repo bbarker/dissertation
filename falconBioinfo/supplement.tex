@@ -6,12 +6,15 @@
 \usepackage{amsthm}
 %\usepackage[amsmath,amsthm,thmmarks]{ntheorem}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%
-                        %
-\input{preambleCommon}  %
-                        %
-%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                       %
+% change this line for portable code:  %
+\newcommand*{\commonDir}{../common/}   %
+\input{\commonDir preambleCommon}      %
+                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\graphicspath{{./figures/}}
 
 \usepackage{url}
 \usepackage{fullpage}
@@ -55,19 +58,19 @@ Zhenglong Gu
 
 \maketitle
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                           %
-\input{documentHeadCommon} %
-                           %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                       %
+\input{\commonDir documentHeadCommon}  %
+                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \pagebreak
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                             %
-\input{falcon_appendix}       %
-%                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                        %
+\input{\commonDir falcon_appendix.tex}   %
+%                                        %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \bibliography{dissertation}
 \end{document}

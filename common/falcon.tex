@@ -127,7 +127,7 @@ referred to as complex abundance) can be estimated. We address these
 in the next section and have attached a flow chart to illustrate the
 overall process of mapping expression of individual genes to enzyme
 complexes within the greater context of flux estimation 
-(Fig.~\ref{ECCN_flowchart}). We develop an algorithm for
+(\Fig~\ref{ECCN_flowchart}). We develop an algorithm for
 this step---finding the minimum disjunction---for estimating complex
 abundance as efficiently and as accurately as possible given the
 assumptions (due primarily to limitations in data quality; \suppOrApp
@@ -151,7 +151,7 @@ in growth rate in the minimally constrained Yeast~7 model. However, in
 FALCON, we are no longer optimizing a sink reaction like biomass, and
 this relaxation in internal constraints proves to be more important.
 Constraint sets for Human Recon~2 are described in \suppOrApp 
-Fig.~\ref{fig:ExpSensRec2}.
+\Fig~\ref{fig:ExpSensRec2}.
 
 %\vspace{5 mm} 
 \begin{figure}
@@ -309,7 +309,7 @@ data is handled causes some additional increase in differences
 rules (23.57\% of all rules) differed. We can see that for yeast, the
 changes in flux attributed to enzyme abundance evaluation can be
 relatively small for data with 100\% gene coverage, but can be 
-significant in Human (\suppOrApp Fig.~\ref{fig:EnzAbundEval}).
+significant in Human (\suppOrApp \Fig~\ref{fig:EnzAbundEval}).
 
 %
 % Above, to make the figure more striking, we can say that if we
@@ -341,7 +341,7 @@ in the same constraint.
 Both minimally and highly constrained models
 (Section~\ref{sec:sensToExpNoise}) show some fluxes with significant
 differences depending on the use of group information, particularly in
-the minimally constrained model (Fig.~\ref{fig:FalconGrp}). Several
+the minimally constrained model (\Fig~\ref{fig:FalconGrp}). Several
 other features of the algorithm, including automatic scaling of
 expression, are discussed in \suppOrApp Section~\ref{sec:FALCON}.
 
@@ -423,7 +423,7 @@ yeast model \citep{Aung2013}, we find that
 our algorithm has significant improvements in time efficiency while
 maintaining correlation with experimental fluxes, and is much faster 
 than any similarly performing method (Table~\ref{tab:FalcPerf}; 
-\suppOrApp Fig.~\ref{fig:FluxBars}).
+\suppOrApp \Fig~\ref{fig:FluxBars}).
 Timing for the human model also improved in FALCON; in a model with
 medium constraints and exometabolic directionality constraints, FALCON
 completed on average in 3.6~m and the method from \citealt{Lee2012} in
@@ -476,12 +476,12 @@ significant figures. Method descriptions can be found in
 
 We see that the predictive ability of the algorithm does not
 appear to be an artifact; when FALCON is run on permuted expression data,
-it doesn't do as well as the actual expression vector (Fig.~\ref{fig:YpermCorr}).
+it doesn't do as well as the actual expression vector (\Fig~\ref{fig:YpermCorr}).
 The full-sized flux vectors estimated from permuted expression as a
 whole also does not correlate well with the flux vector estimated from
 the actual expression data, but we notice that the difference is
 visibly larger in the minimally constrained model compared to the
-highly constrained model (\suppOrApp Fig.~\ref{fig:YpermCorrSup}). Rigidity in the
+highly constrained model (\suppOrApp \Fig~\ref{fig:YpermCorrSup}). Rigidity in the
 highly constrained model appears to keep most permutations from
 achieving an extremely low Pearson correlation, likely due to forcing
 fluxes through the same major pathways, but a rank-based correlation
@@ -521,10 +521,10 @@ and see the effect on the estimated fluxes. For instance, correlation
 between two types of proteomics data yields a Pearson's $r = 0.7$
 \citep{Gholami2013}, corresponding to an expected $\sigma \approx 1.4$
 and expected $r \approx 0.4$ for flux in our most highly constrained
-human model (\suppOrApp Fig.~\ref{fig:ExpSensRec2}). We find that
+human model (\suppOrApp \Fig~\ref{fig:ExpSensRec2}). We find that
 enzymatic reaction directionality constraints influence the
 sensitivity of the model to expression perturbation
-(Fig.~\ref{fig:ExpSens}). It is important to note that mere presence
+(\Fig~\ref{fig:ExpSens}). It is important to note that mere presence
 of the constraints does not help us determine the correct experimental
 fluxes when other classes of methods (e.g.\ FBA;
 Table~\ref{tab:FalcPerf}) are used. Additionally, it is possible to
@@ -535,7 +535,7 @@ With Human Recon~2, additional constraint sets supply some benefit,
 but even the most extreme constraint set does not compare to what is
 available in Yeast~7, which is also inherently constrained by the fact
 that yeast models will be smaller than comparable human models
-(\suppOrApp Fig.~\ref{fig:ExpSensRec2}). For mammalian models, more
+(\suppOrApp \Fig~\ref{fig:ExpSensRec2}). For mammalian models, more
 sophisticated means of constraint, such as enzyme crowding constraints
 \citep{Shlomi2011}, or using FALCON in conjunction with tissue
 specific modeling tools, may prove highly beneficial.
@@ -594,7 +594,7 @@ of constraint-based methods also estimating fluxes for non-enzymatic
 reactions, and assigning a direction for reversible enzymatic
 reactions, we see that in general, our method does not predict a
 strong correlation between complex abundance and flux
-(\suppOrApp Fig.~\ref{fig:FluxExpCmp}). 
+(\suppOrApp \Fig~\ref{fig:FluxExpCmp}). 
 Recently it has been shown that many fluxes are not
 under direct control of their associated enzyme expression
 level \citep{Chubukov2013}, which gives experimental support to the
