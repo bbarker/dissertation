@@ -47,3 +47,8 @@ library.bib
 *.thm
 *#
 *.bak
+
+#
+# Keep these:
+#
+!introduction/Rightslink_Printable_License_WIREsSysBio_review.pdf
