@@ -13,8 +13,8 @@
 
 \DeclareRobustCommand\suppOrApp{%
   \ifthenelse{\boolean{thesisStyle}}%
-    {Appendix}%
-    {Supplementary}%
+    {Appendix}
+    {Supplementary}
 }
 \DeclareRobustCommand\Fig{%
   \ifthenelse{\boolean{thesisStyle}}%
@@ -36,6 +36,11 @@
 % }
 % {}
 
+\ifthenelse{\boolean{thesisStyle}}{%
+  \floatstyle{plaintop}
+  \restylefloat{table}
+}
+{}
 
 %\newcommand{\ANDw}{\textnormal{AND}}
 %\newcommand{\ORw}{\textnormal{OR}}
