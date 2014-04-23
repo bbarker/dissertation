@@ -1,4 +1,4 @@
-\documentclass[phd,tocprelim,draft]{cornell}
+\documentclass[phd,tocprelim]{cornell}
 \let\ifpdf\relax
 
 \usepackage{amsmath}
@@ -14,6 +14,12 @@
 
 
 \graphicspath{{./figures/}{../falconBioinfo/figures/}}
+
+% Document specific
+% (it is empty)
+%%%%%%%%%%%%%%%%%%%
+
+
 
 %
 % tocprelim option must be included to put the roman numeral pages in the
@@ -189,7 +195,7 @@ For their love, time, and beneficence, \\
 Without which this work would not have been possible. \\
 \vspace{10 mm} 
 To my wife, Lin Xue, \\
-For giving me the mommentum to pursue graduate school, \\
+For giving me the momentum to pursue graduate school, \\
 For her patience while I studied, \\
 For her continuing love and , \\
 And most importantly, for being an amazing mother.\\
@@ -203,12 +209,12 @@ And for your terrific smiles, grins, and laughs during this last year.}
 \begin{acknowledgements}
 Firstly I would like to thank my advisor,  Zhenglong Gu, under
 whose supervision this work has unfolded, and who has provided me with
-substantial support, encouragement, and irreplacable mentoring. I owe
+substantial support, encouragement, and irreplaceable mentoring. I owe
 much to my colleague and friend, Lin Xu, for not only showing me
 the ropes and giving me hope, but also getting me interested in so
 many topics in evolution; much of the present work, particularly that
 involving epistasis, would not have happened without him. Without
-Jason Locasale's intellectual incitation and advise, I never would
+Jason Locasale's intellectual incitation and advice, I never would
 have wandered down the path to what has, to me, become the most
 interesting part of this work, nor the path to the Big Red Barn quite
 so much as I did. My thesis committee members---David Christini,
@@ -293,7 +299,7 @@ application to biomedical science is beginning to yield fruitful
 dividends.
 
 \section{Linear Systems, Flux Balance Analysis}
-Linear models are mathematical models that containt a set of algebraic
+Linear models are mathematical models that contain a set of algebraic
 equations based on the stoichiometric relationships that define
 conservation relationships within a metabolic network.  Linear models,
 to our knowledge, were first applied to biochemical systems in 1961 by
@@ -373,7 +379,8 @@ gram of dry weight biomass living for one hour \citep{Varma1994}. This empirical
 determined constraint, although assumed, is less discussed, perhaps
 due to its dependence on individual strains and environments.  We note
 that for many expression-based methods in the CBM framework, the ATP
-maintenance constraint is not required (see Table~\ref{tab:CBMmethods} and \Fig~2 for
+maintenance constraint is not required (see Table~\ref{tab:CBMmethods}
+and \Fig~\ref{fig:FluxomicsTools} for
 examples). Fixed biomass objectives by themselves also have some
 undesirable qualities; biomass composition likely has some measure of
 variability based on genetic background and environment.  Robust FBA
@@ -385,13 +392,18 @@ standard 13C flux assays in vivo when the growth objective is used
 along with ATP synthesis maximization and minimization of absolute
 fluxes \citep{Schuetz2012}.
 
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \begin{table*}
-\begin{center}
-\resizebox{\textwidth}{!}{%
-\footnotesize
-\begin{tabular}{|p{2cm}|p{3cm}|p{3cm}|p{3cm}|p{2cm}|p{3cm}|}
-Method Family & Description & Benefits & Caveats & Solver Type & Notes
-\\
+\centering
+%\resizebox*{\textwidth}{\textheight}{\begin{minipage}{\textwidth}%
+\newlength\textnofoot
+\setlength{\textnofoot}{\textheight-\footskip}
+\resizebox*{\textwidth}{\textnofoot}{%
+\begin{tabular}{|L{3cm}|L{4cm}|L{4cm}|L{4cm}|L{4cm}|L{4cm}|}
+\hline
+\textbf{Method Family} & \textbf{Description} & \textbf{Benefits} &
+\textbf{Caveats} & \textbf{Solver Type} & \textbf{Notes}
+\\ \hline
 FBA \citep{Orth2010} & Flux Balance Analysis: Linear programming
 applied to the model. & Usually very fast and simple to use,
 especially when a biomass pseudo-objective is available. & Arguably
@@ -399,7 +411,7 @@ has more limited use in non-microbial models. Only simple objectives
 or sequential (e.g. bi-level) optimization is practical. & Linear &
 Often constraint-based modeling (CBM) in general may be referred to as
 FBA, though this is not technically correct.
-\\
+\\ \hline
 MoMA \citep{Segre2002_sb2013, Shlomi2005} & Minimization of Metabolic
 Adjustment & Usually very fast and simple to use, especially when a
 reference or wild-type flux is available; useful for simulating
@@ -408,7 +420,7 @@ doesn't represent mutation as well as simulating the least number of
 flux changes (ROOM). & Linear, Quadratic Convex & Related, but
 slightly more sophisticated methods are being used to estimate flux
 profiles from expression data.
-\\
+\\ \hline
 DFBA \citep{Varma1994} & Dynamic FBA: incorporates a step-wise
 simulation of FBA, along with update rules that relate biomass to
 uptake rate, solving for extracellular concentrations. & Allows for
@@ -417,13 +429,13 @@ intracellular dynamics may be difficult to model. & Linear (Iterative)
 & Other, but infrequently used (due to difficulty) methods involving
 regulation (rFBA) or multi-scale models of tissues build on this
 approach.
-\\
+\\ \hline
 EBA \citep{Fleming2012, Schellenberger2011, Beard2002, Henry2007} &
 Energy Balance Analysis: FBA, but also incorporates thermodynamic
 constraints & Incorporates thermodynamic information, prevents futile
 cycles. & Usually much slower than LP methods like FBA. & nonlinear,
 MILP, or Monotropic & A highly active research area.
-\\
+\\ \hline
 Tissue-specific Model Creation \citep{Wang2012, Becker2008,
 Shlomi2008} & Requires expression data for tissue of interest. &
 Tissues have vastly different regulatory schemes; these methods take
@@ -431,7 +443,7 @@ this into account by finding which metabolic genes are likely to be
 expressed in a given tissue. & Still requires some other method and
 objective to estimate flux or do pathway analysis. & MILP & A highly
 active research area.
-\\
+\\ \hline
 Expression-Flux mapping \citep{Lee2012, Chandrasekaran2010a} & Takes
 ideas from MOMA and tissue-specific model creation to estimate
 fluxes. & Unlike tissue-specific models, will actually estimate the
@@ -440,7 +452,7 @@ flux since a MOMA-like objective is employed. & Requires high-quality
 from different conditions. & Linear optimization, but moderate number
 of simulations or preprocessing required. & Highly accurate
 predictions can be obtained.
-\\
+\\ \hline
 Interaction Search \citep{Imielinski2010, Imielinski2008, He2010,
 Xu2012} & Epistasis, or genetic interactions, come up in many
 contexts, but are also important in energy metabolism, since energy is
@@ -452,15 +464,43 @@ of interest, which can be very time-consuming at the genome scale when
 different mutations in each gene, or different environments, are
 considered & Linear optimization, but often many simulations
 required. Min Cuts (exponential). & The sign of weak epistasis is
-difficult to predict, due to error propogation in growth rates.
-\\
+difficult to predict, due to error propagation in growth rates.
+\\ \hline
 \end{tabular}}
-\end{center}
 \caption{ Families of methods for constraint-based models. Broad
 classes of methods are described, along with references to some
 individual implementations or studies.}
 \label{tab:CBMmethods}
 \end{table*}
+
+
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{FluxomicsTools}
+\caption{Schematic representation of fluxomics tools. Important to
+fluxomics are both the mathematical and computational tools for
+nonlabeled and labeled techniques, as well as the analytical methods
+used to obtain data and parameters. In the current work we focus only
+on nonlabeled genome-scale steady state and related analytical
+methods, but a full description can be found
+\protect\citep{Shestov2013a}. Sequence data is employed in the
+construction of organism models, whereas proteomics and expression
+data find use in the creation of tissue or cell-type-specific
+models. High-quality expression data such as RNA-seq and ribosomal
+footprinting are beginning to find uses in flux prediction. Several
+prominent genome-scale techniques include flux balance analysis (FBA),
+minimization of metabolic adjustment (MoMA), energy balance analysis
+(EBA), ExPas (extreme pathways), and elementary mode analysis
+(EMA). Nonlabeled techniques along with genome-scale analysis include
+biochemical kinetics modeling tools to study metabolic and signaling
+networks and their regulation architecture with established tools like
+metabolic control analysis (MCA) and global sensitivity analysis
+(GSA). Additional sensitivity analysis should be conducted, e.g., with
+Monte-Carlo techniques like Markov chain Monte-Carlo (MCMC, Bayesian)
+analysis to check the reliability of extracted metabolic parameters,
+including fluxes.}
+\label{fig:FluxomicsTools}
+\end{figure}
 
 
 Minimization of absolute flux is a commonly used objective employed
@@ -589,7 +629,7 @@ incorporating information about all classes of macromolecular
 synthesis and degradation, in addition to stoichiometric and
 regulatory information, found a non-stochastic coupling between
 metabolism and the cell-cycle where DNA replication rates depended on
-the concentration of dNTP55. Models like these are not easy to build,
+the concentration of dNTP \citep{Karr2012}. Models like these are not easy to build,
 but substantial endeavors are underway to assist in their draft
 construction and refinement, and together with an increase in use of
 jamboree meetings of organism and model experts and online
