@@ -1,4 +1,4 @@
-\documentclass[phd,tocprelim,draft]{cornell}
+\documentclass[phd,tocprelim]{cornell}
 \let\ifpdf\relax
 
 \usepackage{amsmath}
@@ -13,7 +13,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\graphicspath{{../falconBioinfo/figures/}}
+\graphicspath{{./figures/}{../falconBioinfo/figures/}}
 
 %
 % tocprelim option must be included to put the roman numeral pages in the
@@ -336,6 +336,26 @@ interest, bounds on the uptake of nutrients or efflux rates due to
 regulation or physiology, or bounds on enzyme reactions when the
 maximum enzyme velocity $V_{max}$ is known.
 
+\begin{figure}
+\centering
+  \includegraphics[width=0.75\textwidth]{SmatExample}
+\caption{A simple geometric illustration of an FBA problem
+\textbf{(a)}. Constant constraints on the $F_i$ limit the feasible
+solution to an n-dimensional cube (shown in grey). Further linear
+constraints from the $S$ matrix create a cone of feasible solutions
+(blue). Linear programming algorithms find an optimal solution on a
+vertex (illustrated with orange circle). \textbf{(b, c:)} Depiction of
+a simple metabolic network with compartmentalization and its
+associated stoichiometric matrix. The three compartments denoted with
+subscripts $b$, $e$ and $c$ represent the boundary, extracellular
+environment, and cytosol, respectively. The boundary is what separates
+the model from its environment, and mass balance is not assumed at the
+boundary; this allows for the implementation of source and sink
+reactions.}
+\label{fig:SmatExample}
+\end{figure}
+
+
 Because these constraints give rise to an underdetermined system, it
 will not be possible to identify a unique solution for the flux
 vector. A unique solution is often desirable as it allows
@@ -344,7 +364,7 @@ is one of the more convenient features of linear optimization: the
 ability to get meaningful solutions without explicitly taking into
 account any, or at least very few, free parameters.  Flux Balance
 Analysis, or FBA, assumes a linear combination of fluxes to be
-maximized or minimized (\Fig~1). In microbes, perhaps the most popular
+maximized or minimized (\Fig~\ref{fig:SmatExample}). In microbes, perhaps the most popular
 FBA objective has been growth maximization, which consists of the
 biomass precursors and products formulated as a single
 pseudo-reaction. Additionally, an ATP maintenance constraint should be
@@ -353,7 +373,7 @@ gram of dry weight biomass living for one hour \citep{Varma1994}. This empirical
 determined constraint, although assumed, is less discussed, perhaps
 due to its dependence on individual strains and environments.  We note
 that for many expression-based methods in the CBM framework, the ATP
-maintenance constraint is not required (see \hl{Table} and \Fig~2 for
+maintenance constraint is not required (see Table~\ref{tab:CBMmethods} and \Fig~2 for
 examples). Fixed biomass objectives by themselves also have some
 undesirable qualities; biomass composition likely has some measure of
 variability based on genetic background and environment.  Robust FBA
@@ -364,6 +384,84 @@ only predict growth in microbes, but also has good agreement with gold
 standard 13C flux assays in vivo when the growth objective is used
 along with ATP synthesis maximization and minimization of absolute
 fluxes \citep{Schuetz2012}.
+
+\begin{table*}
+\begin{center}
+\resizebox{\textwidth}{!}{%
+\footnotesize
+\begin{tabular}{|p{2cm}|p{3cm}|p{3cm}|p{3cm}|p{2cm}|p{3cm}|}
+Method Family & Description & Benefits & Caveats & Solver Type & Notes
+\\
+FBA \citep{Orth2010} & Flux Balance Analysis: Linear programming
+applied to the model. & Usually very fast and simple to use,
+especially when a biomass pseudo-objective is available. & Arguably
+has more limited use in non-microbial models. Only simple objectives
+or sequential (e.g. bi-level) optimization is practical. & Linear &
+Often constraint-based modeling (CBM) in general may be referred to as
+FBA, though this is not technically correct.
+\\
+MoMA \citep{Segre2002_sb2013, Shlomi2005} & Minimization of Metabolic
+Adjustment & Usually very fast and simple to use, especially when a
+reference or wild-type flux is available; useful for simulating
+mutations. & It has been argued that the closest distance to a flux
+doesn't represent mutation as well as simulating the least number of
+flux changes (ROOM). & Linear, Quadratic Convex & Related, but
+slightly more sophisticated methods are being used to estimate flux
+profiles from expression data.
+\\
+DFBA \citep{Varma1994} & Dynamic FBA: incorporates a step-wise
+simulation of FBA, along with update rules that relate biomass to
+uptake rate, solving for extracellular concentrations. & Allows for
+some non-steady state observations & Small timescale dynamics and
+intracellular dynamics may be difficult to model. & Linear (Iterative)
+& Other, but infrequently used (due to difficulty) methods involving
+regulation (rFBA) or multi-scale models of tissues build on this
+approach.
+\\
+EBA \citep{Fleming2012, Schellenberger2011, Beard2002, Henry2007} &
+Energy Balance Analysis: FBA, but also incorporates thermodynamic
+constraints & Incorporates thermodynamic information, prevents futile
+cycles. & Usually much slower than LP methods like FBA. & nonlinear,
+MILP, or Monotropic & A highly active research area.
+\\
+Tissue-specific Model Creation \citep{Wang2012, Becker2008,
+Shlomi2008} & Requires expression data for tissue of interest. &
+Tissues have vastly different regulatory schemes; these methods take
+this into account by finding which metabolic genes are likely to be
+expressed in a given tissue. & Still requires some other method and
+objective to estimate flux or do pathway analysis. & MILP & A highly
+active research area.
+\\
+Expression-Flux mapping \citep{Lee2012, Chandrasekaran2010a} & Takes
+ideas from MOMA and tissue-specific model creation to estimate
+fluxes. & Unlike tissue-specific models, will actually estimate the
+flux since a MOMA-like objective is employed. & Requires high-quality
+(e.g. RNA-Seq) expression data, or for PROM, abundant microarray data
+from different conditions. & Linear optimization, but moderate number
+of simulations or preprocessing required. & Highly accurate
+predictions can be obtained.
+\\
+Interaction Search \citep{Imielinski2010, Imielinski2008, He2010,
+Xu2012} & Epistasis, or genetic interactions, come up in many
+contexts, but are also important in energy metabolism, since energy is
+often related to very important phenotypes including growth,
+proliferation, and survival. & For such analyses, convex optimization
+may offer the only tractable method. & Simulating pairwise epistasis
+in the general case requires pairwise simulation of all double mutants
+of interest, which can be very time-consuming at the genome scale when
+different mutations in each gene, or different environments, are
+considered & Linear optimization, but often many simulations
+required. Min Cuts (exponential). & The sign of weak epistasis is
+difficult to predict, due to error propogation in growth rates.
+\\
+\end{tabular}}
+\end{center}
+\caption{ Families of methods for constraint-based models. Broad
+classes of methods are described, along with references to some
+individual implementations or studies.}
+\label{tab:CBMmethods}
+\end{table*}
+
 
 Minimization of absolute flux is a commonly used objective employed
 alongside other objectives, forming a minimax problem (i.e. finding
@@ -434,7 +532,7 @@ using time-series expression data has been explored as well, though to
 date these regulatory models have not been coupled to metabolic
 reconstructions \citep{Dingel2009, Dimitrova2009, Stigler2007a,
 Jarrah2007}. These approaches and other families of genome-scale
-methods are discussed in \hl{Table~1}.
+methods are discussed in Table~\ref{tab:CBMmethods}.
 
 Several approaches have been used in applying CBMs to cancer and the
 Warburg effect, the preference for glycolytic ATP production over
