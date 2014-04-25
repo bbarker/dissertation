@@ -43,7 +43,12 @@ $\mathbf{a}$ is the WT flux vector obtained by an optimization
 procedure such as FBA, empirical measurements, or a combination of
 these. For an undetermined flux vector $\mathbf{v}$ in a model with
 $N$ reactions the MoMA objective can be expressed as
-\[ \textnormal{minimize}\ \sum\limits_{i=1}^N (v_i-a_i)^2 \] 
+
+\begin{equation}
+\centering
+\textnormal{minimize}\ \sum\limits_{i=1}^N (v_i-a_i)^2 
+\end{equation}
+
 subject to the stoichiometric constraints $\mathbf{S v}\nolinebreak
 =\nolinebreak \mathbf{0}$ where $\mathbf{v} = (v_1, \ldots,
 v_N)^T$ and $\mathbf{S}$ is the stoichiometric matrix (rows correspond
@@ -72,7 +77,8 @@ knowledge, the following linear program is the simplest version of
 linear MoMA, which assumes the existence of a constant flux vector
 $\mathbf{a}$:
 
-\begin{center}
+\begin{equation}
+\centering
 \begin{tabular}{rl}
 minimize & $\sum\limits_{i=1}^N d_i$  \\
 subject to & $\mathbf{S v} = \mathbf{0}$ \\
@@ -80,7 +86,7 @@ subject to & $\mathbf{S v} = \mathbf{0}$ \\
 $\forall i:$ & $-d_i \le v_i-a_i \le d_i$ \\
  & $d_i \ge 0$
 \end{tabular}
-\end{center}
+\end{equation}
 
 The $d_i$ are just the distances from \textit{a priori} fluxes to
 their corresponding fitted fluxes.  Linear MoMA has the advantage that
@@ -237,14 +243,15 @@ uppercase; for example, $a = \E{\textnormal{A}}$, where
 $\E{\textnormal{A}}$ is the expression of gene A.
 
 %\begin{AlgFloat}[H]
-\begin{center}
+\begin{equation}
+\centering
 {\setlength{\tabcolsep}{.16667em}
 \begin{tabular}{cccccccc}
 $r_1$ & := & [A and B] or [A and C] & $\rightarrow$ & $e_1$  &=& $\min(a,b$) + $\min(a,c$) \\ 
 $r_2$ & := & [A and (B or C)]       & $\rightarrow$ & $e_2$  &=&  $\min(a, b + c$) 
 \end{tabular} 
 }
-\end{center}
+\end{equation}
 %\end{AlgFloat}
 %Really we should be testing for number of text columns:
 %\ifthenelse{\boolean{thesisStyle}}{\ruleEx1}{\hspace*{-4em}{\ruleEx1}} 

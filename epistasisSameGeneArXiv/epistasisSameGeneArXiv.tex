@@ -1,0 +1,91 @@
+\documentclass[draft,letterpaper]{article}
+\usepackage[affil-it]{authblk}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                       %
+% change this line for portable code:  %
+\newcommand*{\commonDir}{../common/}   %
+\input{\commonDir preambleCommon}      %
+                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{natbib}
+\bibliographystyle{natbib}
+
+
+\graphicspath{{../falconBioinfo/figures/}}
+
+\usepackage{url}
+\usepackage{fullpage}
+\usepackage{setspace}
+
+\captionsetup[ruled]{labelsep=period}
+\makeatletter
+\@addtoreset{algorithm}{section}% algorithm counter resets every section
+\makeatother
+\renewcommand{\thealgorithm}{\thesection.\arabic{algorithm}}% Algorithm # is <section>.<algorithm>
+
+\title{Dynamic epistasis for different alleles of the same gene}
+
+
+
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%
+\begin{document}%%
+%%%%%%%%%%%%%%%%%%
+
+\newcounter{LinBrandonCoAuthor}
+\author[1]{Lin Xu\footnote{contributed equally}%
+\protect\setcounter{LinBrandonCoAuthor}{\value{footnote}}%
+}
+%  \thanks{contributed equally}
+%\addtocounter{footnote}{-1}
+\newcommand\LinBrandonCoAuthorMark{\footnotemark[\value{LinBrandonCoAuthor}]}%
+
+\author[2,3]{Brandon Barker\protect\LinBrandonCoAuthorMark}
+
+%\author[2,3]{Brandon Barker}
+%\setcounter{footnote}{\value{LinBrandonCoAuthor}}
+
+\author[1,2]{Zhenglong Gu%
+  \thanks{Electronic address: \texttt{zg27@cornell.edu}; Corresponding author}}
+
+\affil[1]{Division of Nutritional Sciences, Cornell University,
+  Savage Hall, Ithaca, NY, USA.}
+\affil[2]{Tri-Institutional Training Program in Computational
+  Biology and Medicine, 1300 York Avenue, Box 194, New York, NY, USA.}
+\affil[3]{Department of Biological Statistics and Computational Biology,
+    Cornell University, 1198 Comstock Hall, Ithaca, NY, USA.}
+
+
+
+\newboolean{thesisStyle}
+\setboolean{thesisStyle}{true} % Might want to reconsider this here.
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                       %
+\input{\commonDir documentHeadCommon}  %
+                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+\epiSameGeneAbstract
+\end{abstract}
+
+% Redefine suppOrApp
+\def\suppOrApp{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                     %
+\input{\commonDir epistasisSameGene}  %
+%                                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliography{\commonDir dissertation}
+\end{document}
