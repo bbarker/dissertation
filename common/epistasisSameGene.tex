@@ -49,7 +49,7 @@ for the same gene.
 \subsection{Epistatic Relations Between Genes Are Largely
 Allele-Specific.}
 
-We first used the yeast Saccharomyces cerevisiae metabolic
+We first used the yeast \textit{Saccharomyces cerevisiae} metabolic
 reconstruction iMM904 (16) to examine the distribution of epistasis
 under various genetic mutant alleles. The reconstruction is a
 genome-scale metabolic model, having 904 metabolic genes associated
@@ -75,7 +75,7 @@ total epistatic interaction partners. As shown in Fig. 1A, our results
 indicate that the percentage of shared epistatic interaction partners
 between two mutants of the same gene decreases as the flux difference
 between them increases. Two mutants of the same genes could have as
-low as only $\approx$20\% overlap between their epistatic interaction
+low as only $\approx$~20\% overlap between their epistatic interaction
 partners, indicating that the epistatic profile of a gene is largely
 dependent on the mutant types used. Our results also show that the
 average number of epistatic interaction partners per gene do not
@@ -83,10 +83,10 @@ affect this conclusion (Fig. S1). Interestingly, there are cases where
 the sign of epistasis between two genes can even change under varying
 mutant types (an example is in Fig. S2, and all pairs with reversed
 sign of epistasis are listed in Dataset S1). However, such events are
-rare ($\approx$1.2\% of all gene pairs that show epistatic
+rare ($\approx$~1.2\% of all gene pairs that show epistatic
 interactions). Furthermore, we repeated the above FBA analysis for
-another species, Escherichia coli, and the results confirmed the above
-trend (Fig. S3).
+another species, \textit{Escherichia coli}, and the results confirmed
+the above trend (Fig. S3).
 
 
 \begin{figure}
@@ -105,7 +105,7 @@ profiling, respectively.}
 \end{figure}
 
 In a recently released high-throughput experiment that measured
-genome-wide epistatic relations among genes in S. cerevisiae (4),
+genome-wide epistatic relations among genes in \textit{S. cerevisiae} (4),
 there were 43 mutant pairs having two different mutant alleles of the
 same gene (Dataset S2), each of which were experimentally crossed with
 3,885 array gene deletion mutants to explore their epistatic relations
@@ -117,7 +117,7 @@ the empirical cumulative distribution for the percentage of shared
 interaction partners between mutant pairs within the same gene. Our
 results indicate that more than 50\% of mutant pairs within the same
 gene have less than 10\% overlap of their epistatic interaction
-partners, and $\approx$90\% mutant pairs have less than 20\% overlap
+partners, and $\approx$~90\% mutant pairs have less than 20\% overlap
 (Fig. 1B). As shown in Dataset S2, the functions of genes used in the
 experiments are very diverse, and not restricted to metabolic
 functions as genes in the FBA model. Nevertheless, the result from
@@ -140,7 +140,7 @@ then compared the percentage of negative epistasis between different
 mutant alleles of the same gene in the experiment. Among 43 mutant
 pairs in the study, 35 mutant pairs have significantly different
 fitnesses between two mutants of the same gene. As shown in Fig. 2A
-Left, 21 mutant pairs (60\%) show that alleles with more severe
+left, 21 mutant pairs (60\%) show that alleles with more severe
 defects have a higher chance than the other allele in the same gene to
 develop negative epistasis in the genome.
 
@@ -150,8 +150,9 @@ develop negative epistasis in the genome.
 \caption{Mutant alleles in the same gene with more severe defects tend
 to have a higher percentage of negative epistasis in yeast. (A) The
 two matrices represent all mutant pairs identified in real
-experimental data (Left) and FBA simulation (Right) (fitness
-difference |f| ≥ 0.01; epistasis threshold |ε| ≥ 0.01). Each cell
+experimental data (left) and FBA simulation (right) (fitness
+difference $\left|\Delta f\right| \geq 0.01$; epistasis threshold
+$\left|\epsilon\right| \geq 0.01$). Each cell
 represents one mutant pair within the same gene. The color bar to the
 right represents the normalized percentage of negative epistasis for
 the mutant allele with more severe defects (percentage of negative
@@ -188,9 +189,9 @@ experiments.
 Using results from the above FBA simulation, we also confirmed the
 same pattern that between mutant alleles of the same gene, the mutant
 allele with more severe defect is more likely than the other allele to
-develop negative epistasis in the genome (Fig. 2A, Right). Indeed, an
+develop negative epistasis in the genome (Fig. 2A, right). Indeed, an
 even higher percentage of mutant allele pairs in the FBA simulation
-($approx$70\%) than in real experiments (60\%) support this
+($\approx$~70\%) than in real experiments (60\%) support this
 conclusion. To avoid possible bias from the definition of epistasis
 and fitness differences between mutant alleles in the FBA simulation,
 we repeated the calculations based on multiple criteria and our
@@ -203,19 +204,21 @@ defects are more likely to develop positive epistasis (3–37). We
 further used the FBA simulations to explore the dynamics of epistasis
 for various mutant alleles of the same gene in different
 species. High-quality genome-wide metabolic networks in three bacteria
-[Escherichia coli (38), Salmonella typhimurium (39), and Helicobacter
-pylori (40)], one archaea [Methanosarcina barkeri (41)], and another
-single-cell eukaryote [Plasmodium falciparum (42)] were used in our
+(\textit{Escherichia coli} (38), \textit{Salmonella typhimurium} (39),
+and \textit{Helicobacter pylori} (40)), one archaea
+(\textit{Methanosarcina barkeri} (41)), and another single-cell
+eukaryote (\textit{Plasmodium falciparum} (42)) were used in our
 simulation. As shown in Fig. 3, when two mutant alleles of the same
-gene are compared, in 22\%, 17\%, 32\%, and 19\% of cases for E. coli,
-S. typhimurium, H. pylori, and M. barkeri, respectively, mutant
+gene are compared, in 22\%, 17\%, 32\%, and 19\% of cases for
+\textit{E. coli}, \textit{S. typhimurium}, \textit{H. pylori}, and
+\textit{M. barkeri}, respectively, mutant
 alleles with more severe defects display higher percentages of
 negative epistasis than the other allele, indicating that more
 deleterious mutant alleles in the same gene indeed tend to develop
 positive epistasis in these species. However, these numbers are
 significantly smaller than that of yeast and another eukaryotic
-organism, P. falciparum (52\%). The conclusion is robust under various
-epistasis thresholds (Fig. S5).
+organism, \textit{P. falciparum} (52\%). The conclusion is robust
+under various epistasis thresholds (Fig. S5).
 
 \begin{figure}
 \centering
@@ -247,10 +250,12 @@ negative epistasis in eukaryotic organisms than in bacteria and
 archaea. We constructed a simple population genetic model as in
 Fig. 4A to address the evolutionary significance of this
 observation. The genetic system has two genes: a query gene A, which
-contains three different alleles ($A^S$: mutants with severe defects; $A^D$:
-mutants with weak defects; $A^{WT}$: WT), and a gene X, which has two
-different alleles (mutant, $X^M$, and WT, $X^WT$). We simulated the ratio of
-allele frequency between the severe and the weak mutant alleles in
+contains three different alleles (A\textsuperscript{S}: mutants with
+severe defects; A\textsuperscript{D}: mutants with weak defects;
+A\textsuperscript{WT}: WT), and a gene X, which has two different
+alleles (mutant, X\textsuperscript{M}, and WT,
+X\textsuperscript{WT}). We simulated the ratio of allele frequency
+between the severe and the weak mutant alleles in
 gene A under different probabilities of having negative epistasis
 between these two alleles and the mutant allele in the gene X.
 
@@ -271,13 +276,14 @@ probability of having negative epistasis in the genome. It is
 noteworthy to point out that in each panel the ratio of the severe to
 the weak alleles decreases, indicating increased efficiency of purging
 the severe mutant allele, from the upper right (region I, the weak
-mutant has more negative epistasis) to the Bottom Left (region II, the
+mutant has more negative epistasis) to the bottom left (region II, the
 severe mutant has more negative epistasis) part of the panel. The
 arrows A and B are discussed in the text.}
 \end{figure}
 
 Our results in Fig. 4B depict the simulation results. The six panels
-in the figure represent the ratio of AS to AD alleles in the 50th,
+in the figure represent the ratio of A\textsuperscript{S} to
+A\textsuperscript{D} alleles in the 50th,
 100th, 150th, 200th, 250th, and 300th generations, respectively. Our
 simulations indicate that if the percentage of negative epistasis for
 the severe mutant is kept as a constant, as the percentage of negative
@@ -340,8 +346,8 @@ three caveats need to be addressed. First, the FBA modeling used in
 this study, which has been successfully applied to various research
 problems (19–24), includes only metabolic genes in the
 simulation. However, results from our analysis on the experimentally
-defined epistatic relations among $\approx$0.2 million double mutants
-comprising $\approx$4,000 \textit{S. cerevisiae genes}, which nearly
+defined epistatic relations among $\approx$~0.2 million double mutants
+comprising $\approx$~4,000 \textit{S. cerevisiae} genes, which nearly
 represent all functional categories in the budding yeast, confirmed
 our major FBA modeling predictions.
 
@@ -387,7 +393,7 @@ genes in biological systems.
 \subsection{Experimental Dataset}
 The experimental data were extracted from a global survey for the
 epistatic interactions among genes in \textit{S. cerevisiae} (4). In
-the original SGA study (4), the authors screened 1,712 S. cerevisiae
+the original SGA study (4), the authors screened 1,712 \textit{S. cerevisiae}
 query gene mutants against 3,885 array gene mutants to generate a
 total of more than 5 million gene mutant pairs spanning all biological
 processes. In each gene mutant pair, the epistasis value is calculated
@@ -471,15 +477,17 @@ for FBA results as we did for the experimental data.
 \subsection{Population Genetics Model} A flowchart in Fig. S8 provides
 more illustration of the simulation procedure. We constructed a
 genetic system with a query gene A, which contains three different
-alleles ($A^S$: severe mutant; $A^\textnormal{D}$: weakly deleterious
-mutants; and $A^{\textnormal{WT}}$: WT) and a gene X that has two
-different alleles (XM: mutant and XWT: WT). The table in Fig. 4A
-explains how genotype frequencies could be calculated from generation
-$T$ to generation $T+1$ under natural selection. In the figure, $\rho$
-and $\omega$ represent allele frequency and fitness, respectively. The
-average fitness in generation $T$ could be calculated (52).  We
-simulated the ratio of allele frequency for the severe (AS) to the
-weak (AD) mutant alleles of the A gene under all possible combinations
+alleles (A\textsuperscript{S}: severe mutant; A\textsuperscript{D}:
+weakly deleterious mutants; and A\textsuperscript{WT}: WT) and a gene
+X that has two different alleles (X\textsuperscript{M}: mutant and
+X\textsuperscript{WT}: WT). The table in Fig. 4A explains how genotype
+frequencies could be calculated from generation $T$ to generation
+$T+1$ under natural selection. In the figure, $\rho$ and $\omega$
+represent allele frequency and fitness, respectively. The average
+fitness in generation $T$ could be calculated (52).  We simulated the
+ratio of allele frequency for the severe (A\textsuperscript{S}) to the
+weak (A\textsuperscript{D}) mutant alleles of the A gene under all
+possible combinations
 of the percentages of negative epistasis for these two alleles, as
 shown on the $x$ and $y$ axis of Fig. 4B. For each possible
 combination in each generation (a specific location on each panel of
@@ -488,11 +496,12 @@ times. First, the epistatic relations (negative, positive, and no
 epistasis) between the mutant alleles of the genes A and X were
 randomly determined as the following: either A allele is assumed to
 have 10\% possibility of having epistasis (either positive or
-negative) with the allele XM (4); when A and X alleles do have
-epistasis, the likelihoods for the epistasis being negative (and the
-remaining epistases are positive) are assigned independently for AS
-and AD alleles according to their location on Fig. 4B. Second, the
-fitness of each genotype was calculated, which was then used to infer
+negative) with the allele X\textsuperscript{M} (4); when A and X
+alleles do have epistasis, the likelihoods for the epistasis being
+negative (and the remaining epistases are positive) are assigned
+independently for A\textsuperscript{S} and A\textsuperscript{D}
+alleles according to their location on Fig. 4B. Second, the fitness of
+each genotype was calculated, which was then used to infer
 the genotype frequencies in the next generation according to
 Fig. 4A. The average genotype frequencies among 1,000 randomizations
 were then recorded for simulations in the next generation. The ratio
