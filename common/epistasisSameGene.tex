@@ -1,25 +1,32 @@
 Epistasis between two deleterious mutations is positive when a double
 mutant causes a weaker mutational defect than predicted from
 individual deleterious mutations, and is negative when the double
-mutant causes a larger defect (1, 2). In a population with sexual
+mutant causes a larger defect \citep{Phillips2008, Boone2007}. In a
+population with sexual
 reproduction, positive epistasis alleviates the total harm when
 multiple deleterious mutations combine together and thus reduces the
 effectiveness of natural selection in removing these deleterious
 mutations, whereas negative epistasis can lower average mutational
-load by efficiently purging deleterious mutants (3). As a consequence,
+load by efficiently purging deleterious mutants \citep{Kimura1966}. As
+a consequence,
 selective elimination of deleterious mutations would be especially
 effective if negative epistasis is prevalent. It is important to
 understand the distribution of epistasis among mutations, which plays
 a central role in genetics and theoretical descriptions for many
-evolutionary processes (1, 2).
+evolutionary processes \citep{Phillips2008, Boone2007}.
 
 Tremendous efforts have been put into genome-wide measurements for the
 sign and magnitude of epistasis among different genes in various
-species (4–15). A series of high-throughput experimental platforms
-have been developed, such as synthetic genetic array (SGA) (4, 5),
-diploid-based synthetic lethality analysis with microarrays (6, 7),
-synthetic dosage-suppression and lethality screen (8–10), and
-epistatic miniarray profiles (11–13). The epistatic relations in these
+species \citep{Costanzo2010, Tong2004, Pan2004, Pan2006,
+ISI:000176466300018, Measday2005, Sopko2006, Collins2007,
+Kornmann2009, Fiedler2009, Bonhoeffer2004, Roguev2008}.  A series of
+high-throughput experimental platforms have been developed, such as
+synthetic genetic array (SGA; \citealt{Costanzo2010, Tong2004}),
+diploid-based synthetic lethality analysis with microarrays
+\citep{Pan2004, Pan2006}, synthetic dosage-suppression and lethality
+screen \citep{ISI:000176466300018, Measday2005, Sopko2006}, and
+epistatic miniarray profiles \citep{Collins2007, Kornmann2009,
+Fiedler2009}. The epistatic relations in these
 experiments were mostly measured based on one mutant type (deletion
 mutant) per gene. Few studies constructed multiple mutant alleles for
 single genes to examine the dynamics of epistatic relations among
@@ -30,11 +37,15 @@ remains largely uninvestigated.
 Here we address this issue by combining experimental data with
 mathematical modeling using flux balance analysis (FBA). FBA involves
 the optimization of cellular objective functions and allows prediction
-of in silico flux values and/or growth (16–18). FBA has been used to
-investigate the fitness consequence of single-deletion mutants (19,
-20) and epistatic relations between metabolic reactions, genes, and
-functional modules (21–24). The FBA predictions show good agreement
-with genome-wide experimental studies (25–32). One essential advantage
+of in silico flux values and/or growth \citep{Mo2009, Becker2007,
+Smallbone2009a}. FBA has been used to investigate the fitness
+consequence of single-deletion mutants \citep{Papp2004, Ibarra2002}
+and epistatic relations between metabolic reactions, genes, and
+functional modules \citep{Harrison2007, Deutscher2006, Segre2005,
+He2010}. The FBA predictions show good agreement with genome-wide
+experimental studies \citep{Edwards2001, Segre2002_sb2013, Shlomi2005,
+AbuOun2009, Durot2009, Feist2008, Fong2005a, Fong2005}.  One essential
+advantage
 of FBA modeling is that it can simulate epistasis between genes based
 on different genetic mutants. Using this platform, together with data
 from a recently published experiment, we were able to show that
@@ -50,7 +61,7 @@ for the same gene.
 Allele-Specific.}
 
 We first used the yeast \textit{Saccharomyces cerevisiae} metabolic
-reconstruction iMM904 (16) to examine the distribution of epistasis
+reconstruction iMM904 \citep{Fong2005} to examine the distribution of epistasis
 under various genetic mutant alleles. The reconstruction is a
 genome-scale metabolic model, having 904 metabolic genes associated
 with 1,412 reactions. For each gene, we simulated genetic
