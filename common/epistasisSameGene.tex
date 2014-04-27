@@ -217,10 +217,10 @@ You2002, Sanjuan2006a, Azevedo2006, Lohaus2010}. We
 further used the FBA simulations to explore the dynamics of epistasis
 for various mutant alleles of the same gene in different
 species. High-quality genome-wide metabolic networks in three bacteria
-(\textit{Escherichia coli} (38), \textit{Salmonella typhimurium} (39),
-and \textit{Helicobacter pylori} (40)), one archaea
-(\textit{Methanosarcina barkeri} (41)), and another single-cell
-eukaryote (\textit{Plasmodium falciparum} (42)) were used in our
+(\textit{Escherichia coli} \citep{Feist2007}, \textit{Salmonella typhimurium} \citep{Thiele2011},
+and \textit{Helicobacter pylori} \citep{Thiele2005}), one archaea
+(\textit{Methanosarcina barkeri} \citep{Feist2006}), and another single-cell
+eukaryote (\textit{Plasmodium falciparum} \citep{Plata2010}) were used in our
 simulation. As shown in Fig. 3, when two mutant alleles of the same
 gene are compared, in 22\%, 17\%, 32\%, and 19\% of cases for
 \textit{E. coli}, \textit{S. typhimurium}, \textit{H. pylori}, and
@@ -324,7 +324,7 @@ that mutant alleles with severe defects have a higher chance to
 develop negative epistasis in eukaryotic organisms than in bacteria
 and archaea. It has been speculated that eukaryotic organisms might
 have more negative epistasis due to their increased complexity over
-prokaryotic organisms (43, 44). Even if this hypothesis is true,
+prokaryotic organisms \citep{Sanjuan2006, Sanjuan2008}. Even if this hypothesis is true,
 however, our results for different mutant alleles of the same gene
 cannot be directly inferred from this complexity argument.
 
@@ -336,15 +336,16 @@ simulations (Fig. 4). The origin and maintenance of sexual
 reproduction remains one of the central issues in evolutionary
 biology. Population genetics models have been proposed to explore the
 impact of epistasis on the maintenance of sexual reproduction
-(45–48). The mutational deterministic hypothesis posits that sex
+\citep{Kondrashov1988, Otto2007, DeVisser2007, Kouyos2007}. The
+mutational deterministic hypothesis posits that sex
 enhances the ability of natural selection to purge deleterious
 mutations by bringing them together into single genome through
-recombination (45). This explanation requires the prevalence of
+recombination \citep{Kondrashov1988}. This explanation requires the prevalence of
 negative epistasis at the genome level. Here we found that the
 mutations with larger deleterious defects within the same gene have a
 higher chance to develop negative epistasis in eukaryotic organisms
 than bacteria and archaea. The model we proposed in Fig. 4, which is
-based on the population genetics theory from Kondrashov (45),
+based on the population genetics theory from Kondrashov \citep{Kondrashov1988},
 indicates that such distribution of negative epistasis among different
 alleles of the same gene in eukaryotic organisms might lead to more
 efficient purging of deleterious mutations from populations, thus
@@ -357,7 +358,8 @@ Although we found several unique characteristics regarding the global
 epistatic landscape of different mutant alleles in the same gene,
 three caveats need to be addressed. First, the FBA modeling used in
 this study, which has been successfully applied to various research
-problems (19–24), includes only metabolic genes in the
+problems \citep{Papp2004, Ibarra2002, Harrison2007, Deutscher2006,
+Segre2005, He2010}, includes only metabolic genes in the
 simulation. However, results from our analysis on the experimentally
 defined epistatic relations among $\approx$~0.2 million double mutants
 comprising $\approx$~4,000 \textit{S. cerevisiae} genes, which nearly
@@ -367,12 +369,12 @@ our major FBA modeling predictions.
 Second, even though FBA is one of the most comprehensive computational
 tools for simulating epistatic interactions among genes, there are
 still many aspects that can be improved to aid in capturing the full
-set of empirical genetic interactions (49). For example, rules for
+set of empirical genetic interactions \citep{Covert2001}. For example, rules for
 transcriptional regulation and physical interactions can be integrated
-into the current FBA framework to improve its accuracy (50). In
+into the current FBA framework to improve its accuracy \citep{Szappanos2011}. In
 addition, mapping between individual alleles and metabolic flux
 reduction is a complex process and difficult to measure experimentally
-(51). It is noteworthy that in our simulations we have uniformly
+\citep{Banta2007}. It is noteworthy that in our simulations we have uniformly
 evaluated fitness consequence based on the percentage of WT flux
 attainable in a specific background. Depending on the regulation
 dynamics of individual genes, such uniform sampling may be unlikely to
@@ -405,8 +407,8 @@ genes in biological systems.
 \section{Methods}
 \subsection{Experimental Dataset}
 The experimental data were extracted from a global survey for the
-epistatic interactions among genes in \textit{S. cerevisiae} (4). In
-the original SGA study (4), the authors screened 1,712 \textit{S. cerevisiae}
+epistatic interactions among genes in \textit{S. cerevisiae} \citep{Costanzo2010}. In
+this original SGA study, the authors screened 1,712 \textit{S. cerevisiae}
 query gene mutants against 3,885 array gene mutants to generate a
 total of more than 5 million gene mutant pairs spanning all biological
 processes. In each gene mutant pair, the epistasis value is calculated
@@ -419,13 +421,14 @@ the observed variation of each double mutant across four experimental
 replicates and estimates of the background error distributions for the
 corresponding query and array mutants. Finally, a defined confidence
 threshold ($\left|\epsilon\right| \geq 0.01$, $p < 0.05$) was applied
-to generate epistatic interactions (4).
+to generate epistatic interactions \citep{Costanzo2010}.
 
 \subsection{Flux Balance Analysis}
 
 FBA frames the stoichiometric equations that describe the biological
 reactions of a system as the following matrix equations, which is
-possible because stoichiometric equations are linear (16--18).
+possible because stoichiometric equations are linear \citep{Mo2009,
+Becker2007, Smallbone2009a}.
 
 \begin{equation}
 \centering
@@ -451,36 +454,38 @@ enzyme, the fluxes corresponding to that enzyme can be constrained to
 be zero or lower than WT, respectively. It is assumed that the change
 in concentration over time is at steady state, therefore
 $\frac{\D{\mathbf{x}}}{\D{t}} = \mathbf{0}$ in the FBA simulation
-(18).
+\citep{Smallbone2009a}.
 
 The linear objective is written in terms of the $v_i$ with weight
 coefficients $c_i$. Modified versions of COBRA and COBRA2 scripts,
 popular FBA software packages written for MATLAB, were used to
-implement our simulation framework (17). The method for calculating a
+implement our simulation framework \citep{Becker2007}. The method for calculating a
 realistic WT flux for a given environment and organism model is taken
-from Smallbone and Simeonidis (18). This method, termed geometric FBA,
+from \citealt{Smallbone2009a}. This method, termed geometric FBA,
 attempts to choose a flux vector that is close to the average of all
 optimal flux vectors. The geometric FBA solution is also a minimal
 $\textbf{\textit{L}}^1$-norm solution, which has been previously
 heralded as a good choice because it minimizes the total amount of
 flux needed to achieve the objective, based on the fact that cells
-would avoid having much unnecessary flux and wasted energy (18). A
+would avoid having much unnecessary flux and wasted energy \citep{Smallbone2009a}. A
 minimal $\textbf{\textit{L}}^1$-norm solution is advantageous in this
 study because restricting fluxes for mutants based on unnecessarily
 large WT fluxes may not constrain the system. Finally, the minimal
 $\textbf{\textit{L}}^1$-norm solution avoids the problem of having
-futile cycles, which are thermodynamically infeasible (18).
+futile cycles, which are thermodynamically infeasible \citep{Smallbone2009a}.
 
 Mutations of genes are simulated by the use of gene-reaction mapping
 and flux constraints. Enzymes may be involved in multiple reactions
 (i.e., pleiotropy). Although we often have Boolean rules describing
 the relationship between genes in an enzyme complex, it is currently
 extremely difficult to ascertain the exact contribution of each enzyme
-to each reaction (51). Choosing the simplest unbiased approach, we
+to each reaction \citep{Banta2007}. Choosing the simplest unbiased approach, we
 used gene-reaction mapping and uniformly constrained the flux through
 each reaction associated to the gene being mutated. With one notable
-exception (24), most research relating to simulation of mutations with
-FBA has focused on null mutants (19–23, 25, 26). Our simulation
+exception \citep{He2010}, most research relating to simulation of
+mutations with FBA has focused on null mutants \citep{Papp2004,
+Ibarra2002, Harrison2007, Deutscher2006, Segre2005, Edwards2001,
+Segre2002_sb2013}. Our simulation
 approach, though simplifying the actual dynamics that result in
 decreased fluxes in vivo, allows us to see behavior that was not
 previously possible. To be consistent, we used the same equation and
@@ -497,10 +502,10 @@ X\textsuperscript{WT}: WT). The table in Fig. 4A explains how genotype
 frequencies could be calculated from generation $T$ to generation
 $T+1$ under natural selection. In the figure, $\rho$ and $\omega$
 represent allele frequency and fitness, respectively. The average
-fitness in generation $T$ could be calculated (52).  We simulated the
-ratio of allele frequency for the severe (A\textsuperscript{S}) to the
-weak (A\textsuperscript{D}) mutant alleles of the A gene under all
-possible combinations
+fitness in generation $T$ could be calculated \citep{Hartl2007}.  We
+simulated the ratio of allele frequency for the severe
+(A\textsuperscript{S}) to the weak (A\textsuperscript{D}) mutant
+alleles of the A gene under all possible combinations
 of the percentages of negative epistasis for these two alleles, as
 shown on the $x$ and $y$ axis of Fig. 4B. For each possible
 combination in each generation (a specific location on each panel of
@@ -509,7 +514,7 @@ times. First, the epistatic relations (negative, positive, and no
 epistasis) between the mutant alleles of the genes A and X were
 randomly determined as the following: either A allele is assumed to
 have 10\% possibility of having epistasis (either positive or
-negative) with the allele X\textsuperscript{M} (4); when A and X
+negative) with the allele X\textsuperscript{M} \citep{Costanzo2010}; when A and X
 alleles do have epistasis, the likelihoods for the epistasis being
 negative (and the remaining epistases are positive) are assigned
 independently for A\textsuperscript{S} and A\textsuperscript{D}
