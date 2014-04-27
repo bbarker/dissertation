@@ -1,4 +1,4 @@
-\documentclass[phd,tocprelim,draft]{cornell}
+\documentclass[phd,tocprelim]{cornell}
 \let\ifpdf\relax
 
 \usepackage{amsmath}
@@ -130,14 +130,18 @@
 \renewcommand{\caption}[1]{\singlespacing\caption{#1}\normalspacing}
 
 %
-\bibliographystyle{plain}
-\newcommand{\citep}[1]{\cite{#1}}
-\newcommand{\citealt}[1]{\cite{#1}}
+%\bibliographystyle{plain}
+%\newcommand{\citep}[1]{\cite{#1}}
+%\newcommand{\citealt}[1]{\cite{#1}}
+\usepackage[numbers,sort&compress]{natbib}
+\bibliographystyle{unsrtnat}
+\setlength{\bibsep}{24pt}
 %
 
 \title {Advances in Genome-Scale Modeling Applied to Expression-based
 Flux Estimation and Epistasis Prediction}
 \author {Brandon Barker}
+
 \conferraldate {August}{2014}
 \degreefield {Ph.D.}
 \copyrightholder{Brandon Elam Barker}
