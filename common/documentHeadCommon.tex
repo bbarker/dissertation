@@ -50,6 +50,27 @@
 \newcommand{\ORw}{\lor}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Introduction %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\introSameGeneCredit}{%
+\ifthenelse{\boolean{thesisStyle}}{%
+  \footnote{This chapter is taken from material in \citealt{Shestov2013a}.
+Brandon Barker is the primary author of all material found herein.}%
+}%
+{}%
+}
+
+
+%% Dynamic Epistasis for Different Alleles of the Same Gene %%
+
+\newcommand{\epiSameGeneCredit}{%
+\ifthenelse{\boolean{thesisStyle}}{%
+  \footnote{This chapter is published as \citet{Xu2012}.
+Brandon Barker and Lin Xu contributed equally to this work.
+It is additionally available in \citet[chapter 4]{Xu2012a}.}%
+}%
+{}%
+}
+
 \newcommand{\epiSameGeneAbstract}{%
 Epistasis refers to the phenomenon in which phenotypic consequences
 caused by mutation of one gene depend on one or more mutations at
@@ -74,8 +95,11 @@ sign of epistasis can speed up the process of purging deleterious
 mutations in eukaryotic organisms. Our results indicate that epistasis
 among genes can be dynamically rewired at the genome level, and call
 on future efforts to revisit theories that can integrate epistatic
-dynamics among genes in biological systems.
+dynamics among genes in biological systems\epiSameGeneCredit.
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FALCON %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\falconAbstractMotivation}{%
 A major theme in constraint-based modeling is unifying 
