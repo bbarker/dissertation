@@ -2,6 +2,9 @@
 \usepackage{etex}
 \mode<presentation>
 
+\usepackage{amsmath}
+\usepackage{amsthm}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                                        %
 % change this line for portable code:  %
@@ -10,6 +13,7 @@
                                        %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\graphicspath{{../../falconBioinfo/figures/}{./figures}}
 
 \usetheme{Warsaw}
 % other themes: AnnArbor, Antibes, Bergen, Berkeley, Berlin, Boadilla, boxes, CambridgeUS, Copenhagen, Darmstadt, default, Dresden, Frankfurt, Goettingen,
@@ -201,6 +205,35 @@ $r_2$ & := & [A and (B or C)]       & $\rightarrow$ & $e_2$  &=&  $\min(a, b + c
 \end{center}
 
 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Grouping reactions by enzyme complex has a large effect} 
+
+\begin{figure}
+\centering
+\begin{tabular}{cc}
+  \begin{subfigure}[b]{0.45\textwidth}
+  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
+  {falconGrp_yeastHC}
+  \caption{} \label{fig:FalconGrp:A}
+  \end{subfigure}
+&
+  \begin{subfigure}[b]{0.45\textwidth}
+  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
+  {falconGrp_yeastMC}
+  \caption{} \label{fig:FalconGrp:B}
+  \end{subfigure} 
+\\
+\end{tabular}
+\vspace{-4mm} 
+\caption{
+Comparison of setting FALCON to use no reaction group information (x-axis)
+versus with group information (y-axis; default FALCON setting) with highly  
+\textbf{(a)} and minimally \textbf{(b)} constrained models.}
+\label{fig:FalconGrp}
+\end{figure}
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
