@@ -112,7 +112,7 @@ Cornell University \\ \vspace{.25cm}CAC Job Search}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
-	\titlepage 
+  \titlepage 
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -131,29 +131,22 @@ Cornell University \\ \vspace{.25cm}CAC Job Search}
                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{}
-\begin{center}
-\begin{block}<+->{Disclaimer \#1}
-	\vspace{.1cm}
-	\begin{center} \large
-	I am \textcolor{darkgreen}{NOT} an expert in \LaTeX\\ \vspace{.1cm}
-	I am \textcolor{darkgreen}{NOT} an expert in Beamer\\
-	\end{center}
-\end{block}
-\vspace{1cm}
-\begin{block}{Disclaimer \#2}
-	\vspace{.1cm}
-	This talk is designed to \textcolor{darkgreen}{introduce} you to presentations in \LaTeX\\ \vspace{.1cm}
-	\begin{center}
-	$\dots$ and showcase cool features of Beamer\\
-	\end{center}
-\end{block}
-\end{center}
+\frame{\frametitle{A popular enzyme complex}
+
+\begin{figure}
+\centering
+\includegraphics[clip=true,trim=0cm 0cm 0cm 0cm, width=12cm]{2F43}
+\caption{Illustration of the $F_1$ part of the ATP Synthase complex
+  (PDB ID 1E79).}
+\label{fig:2F43}
+\end{figure}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \frame{\frametitle{}
 
@@ -247,15 +240,70 @@ versus with group information (y-axis; default FALCON setting) with highly
 \end{figure}
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%
-\section{Methods}  %
-%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Falcon Performance} 
+\frame{\frametitle{Complexation effect in flux mapping: human} 
+
+\begin{figure}
+\section{Supporting figures}
+\centering
+\begin{tabular}{cc}
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
+  {expCmpY7HC}
+  \caption{highly constrained} \label{fig:EnzAbundEval:A}
+  \end{subfigure}
+&
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
+  {expCmpY7MC}
+  \caption{minimally constrained} \label{fig:EnzAbundEval:B}
+  \end{subfigure} 
+\\
+\end{tabular}
+\vspace{-4mm}
+\label{fig:EnzAbundEval}
+\end{figure}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Complexation effect in flux mapping: human} 
+
+\begin{figure}
+\section{Supporting figures}
+\centering
+\begin{tabular}{cc}
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
+  {expCmpR2HC}
+  \caption{highly constrained} \label{fig:EnzAbundEval:C}
+  \end{subfigure}
+&
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
+  {expCmpR2dC}
+  \caption{minimally constrained} \label{fig:EnzAbundEval:D}
+  \end{subfigure} 
+\\
+\end{tabular}
+\vspace{-4mm}
+\label{fig:EnzAbundEval}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\section{Results}  %
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Performance} 
 
 \begin{figure}
 \centering
@@ -294,30 +342,156 @@ Max.~$\mu$)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\frame{\frametitle{Permuted expression validates fitting method} 
 
-\frame{\frametitle{And, Finally $\dots$} 
-\underline{\textsc{Other useful things:}}\\
-\footnotesize
-\begin{itemize}
-	\item Drawing diagrams\\
-	\begin{itemize}\footnotesize
-		\item[*] \textcolor{darkgreen}{xypic}: draws the diagrams I showed at beginning\\\vspace{.2cm}
-		\item[*] the \LaTeX  \hspace{.05cm} \texttt{\textcolor{darkgreen}{picture}} environment \\\vspace{.2cm}
-		\item[*] \texttt{\textcolor{darkgreen}{pstricks}}: can't use \textbf{pdflatex} with this\\ \vspace{.2cm}
-	\end{itemize}
-\item Logo in the footer:\\
-\begin{itemize}
-	\item[*] put \texttt{$\backslash$\textcolor{Blue}{logo}\{name\}} in preamble\\\vspace{.2cm}
-	\item[*] puts logo in bottom right corner\\ \vspace{.2cm}
-\end{itemize}
-\item References\\
-\begin{itemize}
-	\item[*] Beamer Users Guide:\\
-	 \tiny \url{www.ctan.org/tex-archive/macros/latex/contrib/beamer/doc/beameruserguide.pdf}\\ \vspace{.2cm}\footnotesize
-	 \item[*] \footnotesize Google: if you think Beamer should be able to do it, Google it.
-\end{itemize}
-\end{itemize}
+\begin{figure}
+\centering
+\begin{tabular}{cc}
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{pExp}
+  \caption{highly constrained} \label{fig:YpermCorr:A}
+  \end{subfigure}
+&
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{pExp_dirr}
+  \caption{minimally constrained} \label{fig:YpermCorr:B}
+  \end{subfigure} 
+\\
+\end{tabular}
+\vspace{-4mm} 
+\caption{PDFs of correlation between experimental fluxes and fluxes
+estimated from FALCON when all gene expression data points are
+permuted.}
+\label{fig:YpermCorr}
+\end{figure}
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Global flux correlations from permuted inputs} 
+
+\begin{figure}[!htb]
+\centering
+\begin{tabular}{cc}
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{pFluxVec}
+  \caption{highly constrained} \label{fig:YpermCorrSup:A}
+  \end{subfigure}
+&
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{pFluxVec_dirr}
+  \caption{minimally constrained} \label{fig:YpermCorrSup:B}
+  \end{subfigure} 
+\\
+\end{tabular}
+\vspace{-4mm}
+\caption{PDFs of Pearson's correlation between fluxes estimated from
+permuted and unpermuted complex abundance.}
+\label{fig:YpermCorrSup:pearson}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Global flux correlations from permuted inputs} 
+
+\begin{figure}[!htb]
+\centering
+\begin{tabular}{cc}
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{kFluxVec}
+  \caption{highly constrained} \label{fig:YpermCorrSup:C}
+  \end{subfigure}
+&
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{kFluxVec_dirr}
+  \caption{minimally constrained} \label{fig:YpermCorrSup:D}
+  \end{subfigure} 
+\\
+\end{tabular}
+\vspace{-4mm}
+\caption{PDFs of Kendall's correlation between fluxes estimated from
+permuted and unpermuted complex abundance.}
+\label{fig:YpermCorrSup:kendall}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Correlation of perturbed inputs (complex abundance)} 
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{noise_y7EC}
+\caption{Correlation of perturbed enzyme abundance vectors with the
+associated unperturbed vector for the Yeast~7 model.}
+\label{fig:ExpSens:Complex}
+\end{figure}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Sensitivity to expression noise} 
+
+\begin{figure}
+\centering
+\begin{tabular}{cc}
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{noise_y7HCflux}
+  \caption{flux: highly constrained} \label{fig:ExpSens:B}
+  \end{subfigure} 
+&
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{noise_y7MCflux}
+  \caption{flux: minimally constrained} \label{fig:ExpSens:C}
+  \end{subfigure} 
+\\
+\end{tabular}
+\vspace{-4mm} 
+\caption{Correlation of flux vectors estimated from perturbed versus
+unperturbed complex abundance for the Yeast~7 model.}
+\label{fig:ExpSens}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%
+                     %
+\section{Discussion} %
+                     %
+%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Flux estimates give us more than just complex abundance} 
+
+\begin{figure}
+\begin{tabular}{cc}
+  \begin{subfigure}[b]{0.5\textwidth}   % l   b   r   t
+  \includegraphics[width=\textwidth, trim=9cm 1.2cm 9cm 1cm, clip=true]
+    {YeastExpFluxCompare}
+  \caption{yeast} \label{fig:FluxExpCmp:A}
+  \end{subfigure}
+&
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth, trim=9cm 1.2cm 9cm 1cm, clip=true]
+    {HumanExpFluxCompare}
+  \caption{human} \label{fig:FluxExpCmp:B}
+  \end{subfigure}
+\\
+\end{tabular}
+\caption{Pearson correlation between FALCON flux magnitudes, and
+various complexation estimates in yeast \textbf{(a)} and human
+\textbf{(b)}.}
+\label{fig:FluxExpCmp}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% End Your Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
