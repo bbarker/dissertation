@@ -1,9 +1,11 @@
-\documentclass[compress,red]{beamer}
+\documentclass[compress,red,draft]{beamer}
 \usepackage{etex}
 \mode<presentation>
 
 \usepackage{amsmath}
 \usepackage{amsthm}
+\usepackage{listings}
+\usepackage{atslistings}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                                        %
@@ -15,7 +17,8 @@
 
 \captionsetup[figure]{labelformat=empty}
 
-\graphicspath{{../../falconBioinfo/figures/}{./figures}}
+\graphicspath{{./figures}{../../falconBioinfo/figures/}%
+{../../epistasisSameGeneArXiv/figures/}}
 
 \usetheme{Warsaw}
 % other themes: AnnArbor, Antibes, Bergen, Berkeley, Berlin, Boadilla, boxes, CambridgeUS, Copenhagen, Darmstadt, default, Dresden, Frankfurt, Goettingen,
@@ -491,6 +494,45 @@ various complexation estimates in yeast \textbf{(a)} and human
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                            %
+\section{Future Directions} %
+                            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Large-scale coupled simulations} 
+
+\begin{columns}[onlytextwidth]
+%
+\begin{column}{0.4\textwidth}
+
+\begin{itemize}
+  \footnotesize
+  \item Expression is available for nearly all cell types.
+  \item Can simulate tissues, microbial ecosystems, and multicellular organisms.
+  \item Amenable to distributed computing.
+  \begin{itemize}
+    \scriptsize
+    \item Cells only need to talk to neighboring cells.
+    \item Only a small vector of concentration data needs needs to be passed.
+  \end{itemize}
+\end{itemize}
+\end{column}
+%
+\begin{column}{0.6\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{Figure_S2}
+\caption{\textit{Xu, Barker and Gu. PNAS. 2012}}
+\end{figure}
+\end{column}
+%
+\end{columns}  
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
