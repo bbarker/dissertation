@@ -22,7 +22,7 @@
 \captionsetup[figure]{labelformat=empty}
 
 \graphicspath{{./figures}{../../falconBioinfo/figures/}%
-{../../epistasisSameGeneArXiv/figures/}}
+{../../epistasisSameGeneArXiv/figures/}{../../thesis/figures/}}
 
 \usetheme{Warsaw}
 % other themes: AnnArbor, Antibes, Bergen, Berkeley, Berlin, Boadilla, boxes, CambridgeUS, Copenhagen, Darmstadt, default, Dresden, Frankfurt, Goettingen,
@@ -141,18 +141,40 @@ Cornell University \\ \vspace{.25cm}CAC Job Search}
                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
+Talk about how FBA is not always great.
+
+\frame{\frametitle{An overview to constraint-based modeling}
+\includegraphics[height=\textheight]{SmatExample.eps}
+
+
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{A popular enzyme complex}
 
-\begin{figure}
-\centering
-\includegraphics[clip=true,trim=0cm 0cm 0cm 0cm, width=12cm]{2F43}
-\caption{Illustration of the $F_1$ part of the ATP Synthase complex
-  (PDB ID 1E79).}
-\label{fig:2F43}
-\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{How did we get here?}
+
+\begin{block}{Flux fitting}
+% Started as a way to fit a perturbed model to a wild-type flux.\\
+Formulated as quadratic least-squares optimization (Segre et al 2002).\\
+Later formulated as a linear programing (LAD) variant:\\
+\begin{center}
+Fix this equation
+$\textnormal{minimize}\ \sum\limits_{i=1}^N (v_i-a_i)^2$
+\end{center}
+\end{block}
+
+
+\begin{block}{Expression-flux fitting}
+A new way to constrain models.\\
+\hl{Expain gene expression somewhere.}\\
+\hl{relevance to disease (Diabetes, Cancer, etc.)}
+%With GPR rules, a new way to formulate objectives (Lee et al. 2012).
+
+\end{block}
+
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -165,6 +187,7 @@ Cornell University \\ \vspace{.25cm}CAC Job Search}
 
 \frame{
 \frametitle{Flowchart illustrating the two algorithms in the pipeline.}
+Highlight algorithms somehow.
 \begin{figure}
 \centering
 \begin{tikzpicture}[scale=0.5, every node/.style={scale=0.5}]%[scale=0.8, node distance = 1cm, auto]
@@ -211,6 +234,12 @@ Cornell University \\ \vspace{.25cm}CAC Job Search}
 
 \frame{\frametitle{Equivalent GPR rules can be evaluated differently}
 
+\begin{block}{Let's look at an example.}
+For genes A, B, and C:\\
+Rules $r_1$ and $r_2$ are equivalent logically.\\
+However, they can be interpreted differently.
+\end{block}
+
 \begin{center}
 \begin{tabular}{cccccccc}
 $r_1$ & := & [A and B] or [A and C] & $\rightarrow$ & $e_1$  &=& $\min(a,b$) + $\min(a,c$) \\ 
@@ -223,7 +252,7 @@ $r_2$ & := & [A and (B or C)]       & $\rightarrow$ & $e_2$  &=&  $\min(a, b + c
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}[fragile]
-\frametitle{GPR code}
+\frametitle{GPR code (change title)}
 
 
 \begin{columns}
@@ -278,7 +307,6 @@ versus with group information (y-axis; default FALCON setting) with highly
 \frame{\frametitle{Complexation effect in flux mapping: human} 
 
 \begin{figure}
-\section{Supporting figures}
 \centering
 \begin{tabular}{cc}
   \begin{subfigure}[b]{0.5\textwidth}
@@ -305,7 +333,6 @@ versus with group information (y-axis; default FALCON setting) with highly
 \frame{\frametitle{Complexation effect in flux mapping: human} 
 
 \begin{figure}
-\section{Supporting figures}
 \centering
 \begin{tabular}{cc}
   \begin{subfigure}[b]{0.5\textwidth}
@@ -335,6 +362,10 @@ versus with group information (y-axis; default FALCON setting) with highly
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Performance} 
+
+\hl{break in to two slides}
+\hl{highlight or do it as a bar graph}
+
 
 \begin{figure}
 \centering
@@ -374,6 +405,7 @@ Max.~$\mu$)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Permuted expression validates fitting method} 
+\hl{Show unbiasedness}
 
 \begin{figure}
 \centering
@@ -398,6 +430,8 @@ permuted.}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\hl{add to the end}
 
 \frame{\frametitle{Global flux correlations from permuted inputs} 
 
@@ -450,6 +484,7 @@ permuted and unpermuted complex abundance.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Correlation of perturbed inputs (complex abundance)} 
+\hl{only show one in main text}
 
 \begin{figure}
 \centering
@@ -498,6 +533,9 @@ unperturbed complex abundance for the Yeast~7 model.}
 
 \frame{\frametitle{Flux estimates give us more than just complex abundance} 
 
+\hl{advantage of looking at flux over expression, which is commonly}
+\hl{move this figure out and cite correlation}
+
 \begin{figure}
 \begin{tabular}{cc}
   \begin{subfigure}[b]{0.5\textwidth}   % l   b   r   t
@@ -530,7 +568,8 @@ various complexation estimates in yeast \textbf{(a)} and human
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Large-scale coupled simulations} 
+\frame{
+\frametitle{Large-scale coupled simulations will be important} 
 
 \begin{columns}[onlytextwidth]
 %
@@ -551,6 +590,7 @@ various complexation estimates in yeast \textbf{(a)} and human
 %
 \begin{column}{0.6\textwidth}
 \begin{figure}
+\underline{Many pairwise simulations reveal complex trends.}
 \centering
 \includegraphics[width=\textwidth]{Figure_S2}
 \caption{\textit{Xu, Barker and Gu. PNAS, 2012.}}
@@ -558,6 +598,62 @@ various complexation estimates in yeast \textbf{(a)} and human
 \end{column}
 %
 \end{columns}  
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Thank you!} 
+
+TODO:\\
+Remove highly and minimally constrained from slides.\\
+Think more about title - catch the audience.\\
+Add one slide talking about systems management in past\\
+% Efficient computation of
+% A systems approach 
+% Talk about metabolism, but not gene expression here.
+% Applications to disease?
+---also talk about parallel programming slide.\\
+Add intro slide for context of metabolism.\\
+Fix slide with big FBA image\\
+Maybe add a table of function calls\\
+Finish Thanks slide.\\
+List new improvements to flux fitting.\\
+Step through code blocks.\\
+Correction section advancement at top of slide.\\
+Spellcheck!\\
+
+% \begin{columns}
+% %
+% \begin{column}
+% Testing 
+% % \begin{itemize}
+% % \item Zhenglong Gu
+% % \item Jason W. Locasale
+% % \item Christopher R. Myers
+% % \item Narayanan Sadagopan
+% % \item Kieran Smallbone
+% % \item Yiping Wang
+% % \item Hongwei Xi
+% \end{itemize}
+
+% \end{column}
+% \end{columns}
+
+% % \begin{itemize}
+% % \item David Christini 
+% % \item Michael Stillman
+% % \item Neil Swainston
+% % \item Lin Xu
+% % \item Tri-I CBM
+% % \item Cornell's CAC
+% % \end{itemize}
+% % \end{column}
+% % %
+% % \begin{column}
+% % Testing
+% % \end{column}
+% % %
+% % \end{columns}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
