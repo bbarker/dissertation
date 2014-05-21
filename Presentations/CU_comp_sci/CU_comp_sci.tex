@@ -91,8 +91,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title Page Info %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{Estimating Metabolic Fluxes from Gene Expression}
-\subtitle{A Principled and Efficient Approach}
+\title{An Efficient Systems Approach to Whole-Cell Modeling}
+%\subtitle{With a View}
 \author{\texorpdfstring{Brandon Barker\newline
   \url{brandon.barker@gmail.com}}{Brandon Barker}}
 \institute{
@@ -104,6 +104,7 @@ Cornell University \\ \vspace{.25cm}CAC Job Search}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Begin Your Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \begin{document}
 
@@ -141,9 +142,9 @@ Cornell University \\ \vspace{.25cm}CAC Job Search}
                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
-Talk about how FBA is not always great.
-
 \frame{\frametitle{An overview to constraint-based modeling}
+Talk about how FBA is not always great.\\
+Break up image\\
 \includegraphics[height=\textheight]{SmatExample.eps}
 
 
@@ -154,24 +155,22 @@ Talk about how FBA is not always great.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{How did we get here?}
+\frame{\frametitle{How did we get here? (change this? transition)}
 
 \begin{block}{Flux fitting}
 % Started as a way to fit a perturbed model to a wild-type flux.\\
-Formulated as quadratic least-squares optimization (Segre et al 2002).\\
-Later formulated as a linear programing (LAD) variant:\\
+Formulated as quadratic least-squares optimization (Segre et al 2002):\\
 \begin{center}
-Fix this equation
-$\textnormal{minimize}\ \sum\limits_{i=1}^N (v_i-a_i)^2$
+$\textnormal{minimize}\ \sum\limits_{i=1}^N (v_i-a_i)^2$ 
 \end{center}
+Later formulated as a linear programing (LAD) variant.
 \end{block}
 
 
 \begin{block}{Expression-flux fitting}
 A new way to constrain models.\\
-\hl{Expain gene expression somewhere.}\\
-\hl{relevance to disease (Diabetes, Cancer, etc.)}
-%With GPR rules, a new way to formulate objectives (Lee et al. 2012).
+Expression is widely available, especially for diseases\\
+\hl{relevance to disease (Diabetes, Cancer, Drug discovery etc.)}
 
 \end{block}
 
@@ -184,10 +183,44 @@ A new way to constrain models.\\
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{A popular enzyme complex.}
+
+\begin{figure}
+\centering
+\includegraphics[clip=true,trim=0cm 0cm 0cm 0cm, width=6cm]{2F43}
+\caption{Illustration of the $F_1$ part of the ATP Synthase complex
+(PDB ID 1E79).}
+\label{fig:2F43}
+\end{figure}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Equivalent GPR rules can be evaluated differently}
+
+\begin{block}{Let's look at an example.}
+For genes A, B, and C:\\
+Rules $r_1$ and $r_2$ are equivalent logically.\\
+However, they can be interpreted differently.
+\end{block}
+
+\begin{center}
+\begin{tabular}{cccccccc}
+$r_1$ & := & [A and B] or [A and C] & $\rightarrow$ & $e_1$  &=& $\min(a,b$) + $\min(a,c$) \\ 
+$r_2$ & := & [A and (B or C)]       & $\rightarrow$ & $e_2$  &=&  $\min(a, b + c$) 
+\end{tabular} 
+\end{center}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Put code adjacent to this.
 
 \frame{
 \frametitle{Flowchart illustrating the two algorithms in the pipeline.}
-Highlight algorithms somehow.
+\hl{highlight algorithms}
 \begin{figure}
 \centering
 \begin{tikzpicture}[scale=0.5, every node/.style={scale=0.5}]%[scale=0.8, node distance = 1cm, auto]
@@ -232,28 +265,11 @@ Highlight algorithms somehow.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Equivalent GPR rules can be evaluated differently}
-
-\begin{block}{Let's look at an example.}
-For genes A, B, and C:\\
-Rules $r_1$ and $r_2$ are equivalent logically.\\
-However, they can be interpreted differently.
-\end{block}
-
-\begin{center}
-\begin{tabular}{cccccccc}
-$r_1$ & := & [A and B] or [A and C] & $\rightarrow$ & $e_1$  &=& $\min(a,b$) + $\min(a,c$) \\ 
-$r_2$ & := & [A and (B or C)]       & $\rightarrow$ & $e_2$  &=&  $\min(a, b + c$) 
-\end{tabular} 
-\end{center}
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{frame}[fragile]
 \frametitle{GPR code (change title)}
 
+Before this, put in an example showing actual GPR data
+(and maybe other recon data) for human.
 
 \begin{columns}
 %
@@ -304,7 +320,9 @@ versus with group information (y-axis; default FALCON setting) with highly
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Complexation effect in flux mapping: human} 
+Merge yeast and human slide.
+
+\frame{\frametitle{Complexation effect in flux mapping: yeast} 
 
 \begin{figure}
 \centering
@@ -372,7 +390,7 @@ versus with group information (y-axis; default FALCON setting) with highly
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lrrrrrrrrr}
 \textbf{(a)} \hspace{1.2cm} & Max. $\mu$ & Model & 
-  Standard FBA & Fitted FBA & GIMME & iMAT & Lee et al & FALCON\\
+  Standard FBA & Fitted FBA & GIMME & iMAT & Lee et al. & FALCON\\
  & 75 \%& Yeast~5 MC & 0.66 & 0.66 & NaN  & 0.57 & 0.64 & 1 \\
  & 75 \%& Yeast~7 MC & 0.66 & 0.66 & 0.68 & 0.66 & 0.66 & 0.98\\
  & 75 \%& Yeast~5 HC & 0.73 & 0.78 & 0.75 & 0.66 & 0.98 & 0.99\\
@@ -385,7 +403,7 @@ Pearson's r
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lrrrrrrrrr}
 \textbf{(b)} \hspace{1.2cm} & Max. $\mu$ & Model & 
-  Standard FBA & Fitted FBA & GIMME & iMAT & Lee et al & FALCON\\
+  Standard FBA & Fitted FBA & GIMME & iMAT & Lee et al. & FALCON\\
  & 75 \%& Yeast~5 MC & 0.9  & 470   & 0.81  & 50     & 110 & 1.8 \\
  & 75 \%& Yeast~7 MC & 1.9  & 3,100 & 2.1   & 12,000 & 600 & 5.6 \\
  & 75 \%& Yeast~5 HC & 0.12 & 110   & 0.18  & 1.4    & 15  & 0.27\\
@@ -431,55 +449,6 @@ permuted.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\hl{add to the end}
-
-\frame{\frametitle{Global flux correlations from permuted inputs} 
-
-\begin{figure}[!htb]
-\centering
-\begin{tabular}{cc}
-  \begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth]{pFluxVec}
-  \caption{highly constrained} \label{fig:YpermCorrSup:A}
-  \end{subfigure}
-&
-  \begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth]{pFluxVec_dirr}
-  \caption{minimally constrained} \label{fig:YpermCorrSup:B}
-  \end{subfigure} 
-\\
-\end{tabular}
-\vspace{-4mm}
-\caption{PDFs of Pearson's correlation between fluxes estimated from
-permuted and unpermuted complex abundance.}
-\label{fig:YpermCorrSup:pearson}
-\end{figure}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{\frametitle{Global flux correlations from permuted inputs} 
-
-\begin{figure}[!htb]
-\centering
-\begin{tabular}{cc}
-  \begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth]{kFluxVec}
-  \caption{highly constrained} \label{fig:YpermCorrSup:C}
-  \end{subfigure}
-&
-  \begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth]{kFluxVec_dirr}
-  \caption{minimally constrained} \label{fig:YpermCorrSup:D}
-  \end{subfigure} 
-\\
-\end{tabular}
-\vspace{-4mm}
-\caption{PDFs of Kendall's correlation between fluxes estimated from
-permuted and unpermuted complex abundance.}
-\label{fig:YpermCorrSup:kendall}
-\end{figure}
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -531,33 +500,6 @@ unperturbed complex abundance for the Yeast~7 model.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Flux estimates give us more than just complex abundance} 
-
-\hl{advantage of looking at flux over expression, which is commonly}
-\hl{move this figure out and cite correlation}
-
-\begin{figure}
-\begin{tabular}{cc}
-  \begin{subfigure}[b]{0.5\textwidth}   % l   b   r   t
-  \includegraphics[width=\textwidth, trim=9cm 1.2cm 9cm 1cm, clip=true]
-    {YeastExpFluxCompare}
-  \caption{yeast} \label{fig:FluxExpCmp:A}
-  \end{subfigure}
-&
-  \begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth, trim=9cm 1.2cm 9cm 1cm, clip=true]
-    {HumanExpFluxCompare}
-  \caption{human} \label{fig:FluxExpCmp:B}
-  \end{subfigure}
-\\
-\end{tabular}
-\caption{Pearson correlation between FALCON flux magnitudes, and
-various complexation estimates in yeast \textbf{(a)} and human
-\textbf{(b)}.}
-\label{fig:FluxExpCmp}
-\end{figure}
-}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -590,7 +532,9 @@ various complexation estimates in yeast \textbf{(a)} and human
 %
 \begin{column}{0.6\textwidth}
 \begin{figure}
-\underline{Many pairwise simulations reveal complex trends.}
+\hfill\begin{flushleft}
+\ul{Millions of pairwise simulations reveal\\ trends and complex genetic interactions.}
+\end{flushleft}
 \centering
 \includegraphics[width=\textwidth]{Figure_S2}
 \caption{\textit{Xu, Barker and Gu. PNAS, 2012.}}
@@ -605,16 +549,14 @@ various complexation estimates in yeast \textbf{(a)} and human
 \frame{\frametitle{Thank you!} 
 
 TODO:\\
+Show huge pathway that relates its importance to health (Sigma-Aldrich poster? zoom)\\
 Remove highly and minimally constrained from slides.\\
 Think more about title - catch the audience.\\
 Add one slide talking about systems management in past\\
-% Efficient computation of
-% A systems approach 
 % Talk about metabolism, but not gene expression here.
 % Applications to disease?
 ---also talk about parallel programming slide.\\
 Add intro slide for context of metabolism.\\
-Fix slide with big FBA image\\
 Maybe add a table of function calls\\
 Finish Thanks slide.\\
 List new improvements to flux fitting.\\
@@ -657,6 +599,95 @@ Spellcheck!\\
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                               %
+\section[]{Additional Slides}  %
+                               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{}} %blank slide
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Global flux correlations from permuted inputs} 
+
+\begin{figure}[!htb]
+\centering
+\begin{tabular}{cc}
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{pFluxVec}
+  \caption{highly constrained} \label{fig:YpermCorrSup:A}
+  \end{subfigure}
+&
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{pFluxVec_dirr}
+  \caption{minimally constrained} \label{fig:YpermCorrSup:B}
+  \end{subfigure} 
+\\
+\end{tabular}
+\vspace{-4mm}
+\caption{PDFs of Pearson's correlation between fluxes estimated from
+permuted and unpermuted complex abundance.}
+\label{fig:YpermCorrSup:pearson}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Global flux correlations from permuted inputs} 
+
+\begin{figure}[!htb]
+\centering
+\begin{tabular}{cc}
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{kFluxVec}
+  \caption{highly constrained} \label{fig:YpermCorrSup:C}
+  \end{subfigure}
+&
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{kFluxVec_dirr}
+  \caption{minimally constrained} \label{fig:YpermCorrSup:D}
+  \end{subfigure} 
+\\
+\end{tabular}
+\vspace{-4mm}
+\caption{PDFs of Kendall's correlation between fluxes estimated from
+permuted and unpermuted complex abundance.}
+\label{fig:YpermCorrSup:kendall}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Flux estimates give us more than just complex abundance} 
+
+\hl{advantage of looking at flux over expression, which is commonly}
+\hl{move this figure out and cite correlation}
+
+\begin{figure}
+\begin{tabular}{cc}
+  \begin{subfigure}[b]{0.5\textwidth}   % l   b   r   t
+  \includegraphics[width=\textwidth, trim=9cm 1.2cm 9cm 1cm, clip=true]
+    {YeastExpFluxCompare}
+  \caption{yeast} \label{fig:FluxExpCmp:A}
+  \end{subfigure}
+&
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth, trim=9cm 1.2cm 9cm 1cm, clip=true]
+    {HumanExpFluxCompare}
+  \caption{human} \label{fig:FluxExpCmp:B}
+  \end{subfigure}
+\\
+\end{tabular}
+\caption{Pearson correlation between FALCON flux magnitudes, and
+various complexation estimates in yeast \textbf{(a)} and human
+\textbf{(b)}.}
+\label{fig:FluxExpCmp}
+\end{figure}
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
