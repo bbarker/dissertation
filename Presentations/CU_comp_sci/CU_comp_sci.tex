@@ -1,11 +1,9 @@
-\documentclass[compress,red,draft]{beamer}
+\documentclass[compress,red]{beamer}
 \usepackage{etex}
 \mode<presentation>
 
 \usepackage{amsmath}
 \usepackage{amsthm}
-\usepackage{listings}
-\usepackage{atslistings}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                                        %
@@ -14,6 +12,12 @@
 \input{\commonDir preambleCommon}      %
                                        %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{listings}
+\usepackage{atslistings}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{beramono}
+\usepackage{microtype}
 
 \captionsetup[figure]{labelformat=empty}
 
@@ -112,6 +116,9 @@ Cornell University \\ \vspace{.25cm}CAC Job Search}
                                        %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%\newcommand\Small{\fontsize{9}{9.2}\selectfont}
+%\newcommand*\LSTfont{\scriptsize\ttfamily\SetTracking{encoding=*}{-60}\lsstyle}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
@@ -150,6 +157,11 @@ Cornell University \\ \vspace{.25cm}CAC Job Search}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%
+\section{Methods}  %
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{}
 
@@ -195,11 +207,6 @@ Cornell University \\ \vspace{.25cm}CAC Job Search}
 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\section{Methods}  %
-%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -213,6 +220,29 @@ $r_2$ & := & [A and (B or C)]       & $\rightarrow$ & $e_2$  &=&  $\min(a, b + c
 \end{center}
 
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]
+\frametitle{GPR code}
+
+
+\begin{columns}
+%
+\begin{column}{0.5\textwidth}
+\lstinputlisting[basicstyle=\ttfamily\tiny, language=ATS]
+{falcon_main_fun.dats}
+\end{column}
+%
+\vrule{}
+%
+\begin{column}{0.5\textwidth}
+\lstinputlisting[basicstyle=\ttfamily\tiny, language=ATS]
+{falcon_example.dats}
+\end{column}
+%
+\end{columns}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -242,7 +272,6 @@ versus with group information (y-axis; default FALCON setting) with highly
 \label{fig:FalconGrp}
 \end{figure}
 }
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
