@@ -1,5 +1,7 @@
-\documentclass[compress,red]{beamer}
-\usepackage{etex}
+\documentclass[compress,red,notes,draft]{beamer}
+% Useful for practice: %can use [notes] or [notes=only]
+% Useful for large documents with lots of images: [draft]
+\usepackage{etex} %helps when using lots of packages
 \mode<presentation>
 
 \usepackage{amsmath}
@@ -141,10 +143,10 @@ Cornell University \\ \vspace{.25cm}CAC Job Search}
 \subsection{GPR rules}  %
                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{\frametitle{An overview to constraint-based modeling}
+\note{
 Talk about how FBA is not always great.\\
-Break up image\\
+}
+\frame{\frametitle{An overview to constraint-based modeling}
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \includegraphics[width=\textwidth, bb=13 730 671 1146, clip=true]
