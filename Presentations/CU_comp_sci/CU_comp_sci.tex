@@ -1,4 +1,4 @@
-\documentclass[compress,red,notes,draft]{beamer}
+\documentclass[compress,red,notes]{beamer}
 % Useful for practice: %can use [notes] or [notes=only]
 % Useful for large documents with lots of images: [draft]
 \usepackage{etex} %helps when using lots of packages
@@ -17,9 +17,8 @@
 
 \usepackage{listings}
 \usepackage{atslistings}
-\usepackage[T1]{fontenc}
-\usepackage[scaled]{beramono}
-\usepackage{microtype}
+\usepackage{media9}
+\usepackage{epstopdf}
 
 \captionsetup[figure]{labelformat=empty}
 
@@ -86,7 +85,6 @@
 \usepackage[all,knot]{xy}
 \xyoption{arc}
 \usepackage{url}
-\usepackage{multimedia}
 \usepackage{hyperref}
      
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -143,6 +141,18 @@ Cornell University \\ \vspace{.25cm}CAC Job Search}
 \subsection{GPR rules}  %
                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Important metabolic pathways}
+\includemedia[
+  activate=onclick,
+  width=0.9\textwidth
+]{\includegraphics{./figures/metabolism-zoom-start}}{./figures/metabolism-zoom.swf}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \note{
 Talk about how FBA is not always great.\\
 }
@@ -163,8 +173,6 @@ Talk about how FBA is not always great.\\
 \end{columns}
 
 }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
