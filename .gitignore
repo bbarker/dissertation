@@ -47,6 +47,7 @@ library.bib
 *.thm
 *#
 *.bak
+*.m9
 
 #
 # Keep these:
