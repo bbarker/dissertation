@@ -84,6 +84,7 @@
 \xyoption{arc}
 \usepackage{url}
 \usepackage{hyperref}
+%\usepackage{bmpsize}
      
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title Page Info %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -196,21 +197,46 @@ are thought to be unimportant often are not drawn. }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\note{
-Talk about how FBA is not always great.\\
-}
+
+\note{\scriptsize
+To work with a system computationally, we write all known
+reactions down, including transport reactions across compartments, as
+the columns of a matrix, called the Stoichiometric matrix or S matrix.
+The rows correspond to compartmentally unique chemicals, often called
+metabolites in the context of metabolism. The entries of the matrix
+correspond to the coefficients in the reaction equation: a negative
+coefficient denotes it is a reactant, and a positive coefficient
+signifies it is a product. For instance, reaction $F_1$ consumes two
+$I$ and one $J$ to produce an $A$. We can see that the small toy
+network depicted here begins to generate a fair-sized matrix.
+
+Now that we are armed with this matrix, we can make mathematical
+assumptions about it, such as the steady state condition shown here,
+which asserts that concentrations do not change over time. We can
+use an optimization objective, such as the maximization of growth
+rate for many microbes.
+
+While this framework is powerful, it is also theoretically simplistic
+(so far we only make use of a simple objective and known
+reactions). It can also be inaccurate, especially for multicellular
+organisms with many different cell types. But the framework is
+extendable, and in this work, we extend this framework by using two
+types of data: annotation on how the enzymatic complexes come
+together, and data on abundance of the components of these enzyme
+complexes.}
+
 \frame{\frametitle{An overview to constraint-based modeling}
 \begin{columns}
 \begin{column}{0.5\textwidth}
-\includegraphics[width=\textwidth, bb=13 730 671 1146, clip=true]
-{SmatExample.eps}
+\includegraphics[resolution=72, width=\textwidth, viewport=13 730 671 1146, clip=true]
+{SmatExample}
 \\
-\includegraphics[width=\textwidth, bb=13 439 722 722, clip=true]
-{SmatExample.eps}
+\includegraphics[resolution=72, width=\textwidth, viewport=13 439 722 722, clip=true]
+{SmatExample}
 \end{column}
 \begin{column}{0.5\textwidth}
-\includegraphics[width=\textwidth, bb= 13 13 722 435, clip=true]
-{SmatExample.eps}
+\includegraphics[resolution=72, width=\textwidth, viewport=13 13 722 435, clip=true]
+{SmatExample}
 \end{column}
 
 \end{columns}

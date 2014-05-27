@@ -1,0 +1,2 @@
+pdflatex -shell-escape CU_comp_sci.tex
+git clean -f -x CU_comp_sci.pdf

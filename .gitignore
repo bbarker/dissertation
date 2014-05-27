@@ -48,6 +48,7 @@ library.bib
 *#
 *.bak
 *.m9
+*epstool_tmp.eps
 
 #
 # Keep these:

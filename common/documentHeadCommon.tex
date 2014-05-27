@@ -42,6 +42,14 @@
 }
 {}
 
+
+% \epstopdfDeclareGraphicsRule{.eps}{pdf}{.pdf}{%
+%   epstool --copy --bbox #1 --output epstool_tmp.eps;
+%   epstopdf --hires epstool_tmp.eps --outfile \OutputFile;
+%   rm epstool_tmp.eps
+% }
+
+
 \def\D{\mathrm{d}}
 
 %\newcommand{\ANDw}{\textnormal{AND}}
