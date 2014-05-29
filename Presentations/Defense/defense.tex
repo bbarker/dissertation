@@ -227,17 +227,14 @@ complexes.}
 
 \frame{\frametitle{An overview to constraint-based modeling}
 \begin{columns}
-\begin{column}{0.6\textwidth}
+\begin{column}{0.5\textwidth}
 \includegraphics*[width=\textwidth, viewport=0 418 708 718, clip=true]
 {SmatExample}
 \\
 \includegraphics*[width=\textwidth, viewport=0 0 708 418, clip=true]
 {SmatExample}
 \end{column}
-\begin{column}{0.4\textwidth}
-\includegraphics*[width=\textwidth, viewport=411 793 643 938, clip=true]
-{SmatExample}
-\\
+\begin{column}{0.5\textwidth}
 \includegraphics*[width=\textwidth, viewport=0 712 631 1130, clip=true]
 {SmatExample}
 \end{column}
@@ -386,8 +383,21 @@ Before this, put in an example showing actual GPR data
 
 \begin{figure}
 \centering
-  \includegraphics[height=\textheight, trim=9cm 0cm 9cm 0cm, clip=true]
+\begin{tabular}{cc}
+  \begin{subfigure}[b]{0.45\textwidth}
+  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
+  {falconGrp_yeastHC}
+  \caption{} \label{fig:FalconGrp:A}
+  \end{subfigure}
+&
+  \begin{subfigure}[b]{0.45\textwidth}
+  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
   {falconGrp_yeastMC}
+  \caption{} \label{fig:FalconGrp:B}
+  \end{subfigure} 
+\\
+\end{tabular}
+\vspace{-4mm} 
 \caption{
 Comparison of setting FALCON to use no reaction group information (x-axis)
 versus with group information (y-axis; default FALCON setting) with highly  
@@ -399,21 +409,21 @@ versus with group information (y-axis; default FALCON setting) with highly
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Complexation effect in flux mapping} 
+\frame{\frametitle{Complexation effect in flux mapping: yeast} 
 
 \begin{figure}
 \centering
 \begin{tabular}{cc}
   \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
-  {expCmpY7MC}
-  \caption{yeast} \label{fig:EnzAbundEval:B}
-  \end{subfigure} 
+  {expCmpY7HC}
+  \caption{highly constrained} \label{fig:EnzAbundEval:A}
+  \end{subfigure}
 &
   \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
-  {expCmpR2dC}
-  \caption{human} \label{fig:EnzAbundEval:D}
+  {expCmpY7MC}
+  \caption{minimally constrained} \label{fig:EnzAbundEval:B}
   \end{subfigure} 
 \\
 \end{tabular}
@@ -423,6 +433,30 @@ versus with group information (y-axis; default FALCON setting) with highly
 }
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Complexation effect in flux mapping: human} 
+
+\begin{figure}
+\centering
+\begin{tabular}{cc}
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
+  {expCmpR2HC}
+  \caption{highly constrained} \label{fig:EnzAbundEval:C}
+  \end{subfigure}
+&
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
+  {expCmpR2dC}
+  \caption{minimally constrained} \label{fig:EnzAbundEval:D}
+  \end{subfigure} 
+\\
+\end{tabular}
+\vspace{-4mm}
+\label{fig:EnzAbundEval}
+\end{figure}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -492,7 +526,19 @@ Max.~$\mu$)}
 
 \begin{figure}
 \centering
+\begin{tabular}{cc}
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{pExp}
+  \caption{highly constrained} \label{fig:YpermCorr:A}
+  \end{subfigure}
+&
+  \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{pExp_dirr}
+  \caption{minimally constrained} \label{fig:YpermCorr:B}
+  \end{subfigure} 
+\\
+\end{tabular}
+\vspace{-4mm} 
 \caption{PDFs of correlation between experimental fluxes and fluxes
 estimated from FALCON when all gene expression data points are
 permuted.}
@@ -502,10 +548,41 @@ permuted.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Sensitivity to expression noise} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Correlation of perturbed inputs (complex abundance)} 
+\hl{only show one in main text}
+
 \begin{figure}
 \centering
+\includegraphics[width=\textwidth]{noise_y7EC}
+\caption{Correlation of perturbed enzyme abundance vectors with the
+associated unperturbed vector for the Yeast~7 model.}
+\label{fig:ExpSens:Complex}
+\end{figure}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Sensitivity to expression noise} 
+
+\begin{figure}
+\centering
+\begin{tabular}{cc}
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{noise_y7HCflux}
+  \caption{flux: highly constrained} \label{fig:ExpSens:B}
+  \end{subfigure} 
+&
+  \begin{subfigure}[b]{0.5\textwidth}
   \includegraphics[width=\textwidth]{noise_y7MCflux}
+  \caption{flux: minimally constrained} \label{fig:ExpSens:C}
+  \end{subfigure} 
+\\
+\end{tabular}
+\vspace{-4mm} 
 \caption{Correlation of flux vectors estimated from perturbed versus
 unperturbed complex abundance for the Yeast~7 model.}
 \label{fig:ExpSens}
@@ -634,38 +711,6 @@ Spellcheck!\\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-\frame{\frametitle{Grouping reactions by enzyme complex has a large effect} 
-
-\begin{figure}
-\centering
-  \includegraphics[width=\textwidth]
-  {falconGrp_yeastHC}
-\caption{
-Comparison of setting FALCON to use no reaction group information (x-axis)
-versus with group information (y-axis; default FALCON setting) with highly  
-\textbf{(a)} and minimally \textbf{(b)} constrained models.}
-\label{fig:FalconGrp}
-\end{figure}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{\frametitle{Permuted expression validates fitting method} 
-
-\begin{figure}
-\centering
-  \includegraphics[width=\textwidth]{pExp}
-\caption{PDFs of correlation between experimental fluxes and fluxes
-estimated from FALCON when all gene expression data points are
-permuted.}
-\label{fig:YpermCorrH}
-\end{figure}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 \frame{\frametitle{Global flux correlations from permuted inputs} 
 
 \begin{figure}[!htb]
@@ -715,32 +760,6 @@ permuted and unpermuted complex abundance.}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{\frametitle{Correlation of perturbed inputs (complex abundance)} 
-
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{noise_y7EC}
-\caption{Correlation of perturbed enzyme abundance vectors with the
-associated unperturbed vector for the Yeast~7 model.}
-\label{fig:ExpSens:Complex}
-\end{figure}
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{\frametitle{Sensitivity to expression noise} 
-\begin{figure}
-\centering
-  \includegraphics[width=\textwidth]{noise_y7HCflux}
-\caption{Correlation of flux vectors estimated from perturbed versus
-unperturbed complex abundance for the Yeast~7 model.}
-\label{fig:ExpSensH}
-\end{figure}
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \frame{\frametitle{Flux estimates give us more than just complex abundance} 
 
