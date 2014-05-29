@@ -386,12 +386,11 @@ Before this, put in an example showing actual GPR data
 
 \begin{figure}
 \centering
-  \includegraphics[height=\textheight, trim=9cm 0cm 9cm 0cm, clip=true]
+  \includegraphics[height=0.7\textheight]
   {falconGrp_yeastMC}
 \caption{
 Comparison of setting FALCON to use no reaction group information (x-axis)
-versus with group information (y-axis; default FALCON setting) with highly  
-\textbf{(a)} and minimally \textbf{(b)} constrained models.}
+versus with group information (y-axis; default FALCON setting).}
 \label{fig:FalconGrp}
 \end{figure}
 }
@@ -535,9 +534,9 @@ unperturbed complex abundance for the Yeast~7 model.}
 \frame{
 \frametitle{Large-scale coupled simulations will be important} 
 
-\begin{columns}[onlytextwidth]
+\begin{columns}
 %
-\begin{column}{0.4\textwidth}
+\begin{column}{0.35\textwidth}
 
 \begin{itemize}
   \footnotesize
@@ -550,9 +549,10 @@ unperturbed complex abundance for the Yeast~7 model.}
     \item Only a small vector of concentration data needs needs to be passed.
   \end{itemize}
 \end{itemize}
+
 \end{column}
 %
-\begin{column}{0.6\textwidth}
+\begin{column}{0.65\textwidth}
 \begin{figure}
 \hfill\begin{flushleft}
 \ul{Millions of pairwise simulations reveal\\ trends and complex genetic interactions.}
@@ -635,23 +635,22 @@ Spellcheck!\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\frame{\frametitle{Grouping reactions by enzyme complex has a large effect} 
+\frame{\frametitle{Grouping reactions by enzyme complex: HC} 
 
 \begin{figure}
 \centering
-  \includegraphics[width=\textwidth]
+  \includegraphics[height=0.65\textheight]
   {falconGrp_yeastHC}
 \caption{
 Comparison of setting FALCON to use no reaction group information (x-axis)
-versus with group information (y-axis; default FALCON setting) with highly  
-\textbf{(a)} and minimally \textbf{(b)} constrained models.}
-\label{fig:FalconGrp}
+versus with group information (y-axis; default FALCON setting).}
+\label{fig:FalconGrpH}
 \end{figure}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Permuted expression validates fitting method} 
+\frame{\frametitle{Permuted expression validates fitting method: HC} 
 
 \begin{figure}
 \centering
@@ -730,7 +729,7 @@ associated unperturbed vector for the Yeast~7 model.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Sensitivity to expression noise} 
+\frame{\frametitle{Sensitivity to expression noise: HC} 
 \begin{figure}
 \centering
   \includegraphics[width=\textwidth]{noise_y7HCflux}
