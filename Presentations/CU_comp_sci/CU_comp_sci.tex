@@ -21,7 +21,7 @@
 \usepackage{stfloats}
 \captionsetup[figure]{labelformat=empty}
 
-\graphicspath{{./figures}{../../falconBioinfo/figures/}%
+\graphicspath{{./figures/}{../../falconBioinfo/figures/}%
 {../../epistasisSameGeneArXiv/figures/}{../../thesis/figures/}}
 
 \usetheme{Warsaw}
@@ -167,7 +167,7 @@ this complexity.}
 \frame{\frametitle{Important metabolic pathways}
 \begin{center}
 \includegraphics[height=0.85\textheight,width=0.53\textwidth]
-{./figures/metabolism-zoom-start}
+{metabolism-zoom-start}
 \end{center}
 }
 %
@@ -566,15 +566,14 @@ unperturbed complex abundance for the Yeast~7 model.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Thank you!} 
+\frame{\frametitle{TODO} 
 
-TODO:\\
-% Maybe use \only http://stackoverflow.com/questions/4683093/beamer-how-to-show-images-as-step-by-step-images
+Maybe use \only http://stackoverflow.com/questions/4683093/beamer-how-to-show-images-as-step-by-step-images
 Remove highly and minimally constrained from slides.\\
 Think more about title - catch the audience.\\
 Add one slide talking about systems management in past\\
-% Talk about metabolism, but not gene expression here.
-% Applications to disease?
+Talk about metabolism, but not gene expression here. \\
+Applications to disease? \\
 ---also talk about parallel programming slide.\\
 Add intro slide for context of metabolism.\\
 Maybe add a table of function calls\\
@@ -583,39 +582,56 @@ List new improvements to flux fitting.\\
 Step through code blocks.\\
 Correction section advancement at top of slide.\\
 Spellcheck!\\
+}
 
-% \begin{columns}
-% %
-% \begin{column}
-% Testing 
-% % \begin{itemize}
-% % \item Zhenglong Gu
-% % \item Jason W. Locasale
-% % \item Christopher R. Myers
-% % \item Narayanan Sadagopan
-% % \item Kieran Smallbone
-% % \item Yiping Wang
-% % \item Hongwei Xi
-% \end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \end{column}
-% \end{columns}
+\frame{\frametitle{Thank you!} 
 
-% % \begin{itemize}
-% % \item David Christini 
-% % \item Michael Stillman
-% % \item Neil Swainston
-% % \item Lin Xu
-% % \item Tri-I CBM
-% % \item Cornell's CAC
-% % \end{itemize}
-% % \end{column}
-% % %
-% % \begin{column}
-% % Testing
-% % \end{column}
-% % %
-% % \end{columns}
+
+\begin{columns}
+%
+\begin{column}{0.5\textwidth}
+\ul{\textit{Collaborators}}
+\begin{itemize}
+\item Zhenglong Gu
+\item Jason W. Locasale
+\item Christopher R. Myers
+\item Narayanan Sadagopan
+\item Kieran Smallbone
+\item Yiping Wang
+\item Hongwei Xi
+\end{itemize}
+\end{column}
+
+\begin{column}{0.5\textwidth}
+\ul{\textit{Other thanks}}
+\begin{itemize}
+\item David Christini 
+\item Michael Stillman
+\item Neil Swainston
+\item Lin Xu
+\item Tri-I CBM
+\item Cornell's CAC
+\end{itemize}
+
+% Should convert to a \makelogo command
+\begin{center}
+%\centering
+\begin{tabular}{ccc}
+  \includegraphics[width=0.3\textwidth]{mskcc}
+&
+  \includegraphics[width=0.3\textwidth]{mskcc}
+&
+  \includegraphics[width=0.3\textwidth]{mskcc}
+\\
+\end{tabular}
+\end{center}
+
+\end{column}
+
+%
+\end{columns}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
