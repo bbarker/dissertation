@@ -24,6 +24,13 @@
 \graphicspath{{./figures/}{../../falconBioinfo/figures/}%
 {../../epistasisSameGeneArXiv/figures/}{../../thesis/figures/}}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                              %
+\input{\commonDir logos}      %
+                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \usetheme{Warsaw}
 % other themes: AnnArbor, Antibes, Bergen, Berkeley, Berlin, Boadilla, boxes, CambridgeUS, Copenhagen, Darmstadt, default, Dresden, Frankfurt, Goettingen,
 % Hannover, Ilmenau, JuanLesPins, Luebeck, Madrid, Maloe, Marburg, Montpellier, PaloAlto, Pittsburg, Rochester, Singapore, Szeged, classic
@@ -615,20 +622,7 @@ Spellcheck!\\
 \item Cornell's CAC
 \end{itemize}
 
-% Should convert to a \makelogo command
-\begin{center}
-%\centering
-\newcommand{\TriIHeight}{0.6in} %make this a logo parameter
-\begin{tabular}{ccc} %width=0.3\textwidth
-
-  \includegraphics[height=\TriIHeight]{CULogo187_crop}
-&
-  \includegraphics[height=\TriIHeight]{mskcc}
-&
-  \includegraphics[height=\TriIHeight]{CU_Weill}
-\\
-\end{tabular}
-\end{center}
+\TriILogo{0.6in}
 
 \end{column}
 
