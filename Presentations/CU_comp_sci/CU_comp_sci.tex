@@ -316,11 +316,11 @@ $r_2$ & := & [A and (B or C)]       & $\rightarrow$ & $e_2$  &=&  $\min(a, b + c
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Put code adjacent to this.
-
-\frame{
+\begin{frame}[fragile]
 \frametitle{Flowchart illustrating the two algorithms in the pipeline.}
-\hl{highlight algorithms}
+
+\begin{columns}
+\begin{column}{0.45\textwidth}
 \begin{figure}
 \centering
 \begin{tikzpicture}[scale=0.5, every node/.style={scale=0.5}]%[scale=0.8, node distance = 1cm, auto]
@@ -356,11 +356,41 @@ Put code adjacent to this.
     \path [line] (smat) -- (falcon);
     \path [line] (vbnd) -- (falcon);
     \path [line] (falcon) -- (fluxout);
-
 \end{tikzpicture}
 \end{figure}
+\end{column}
 
-}
+\begin{column}{0.55\textwidth}
+\begin{lstlisting}[basicstyle=\ttfamily\tiny, language=ATS, showstringspaces=false]
+
+fun parse_fileref (inp: FILEref): grexplst
+fun parse_grexplst (!tokener): grexplst
+fun parse_grexp (!tokener): grexp
+
+fun grexplst_cnfize (gxs: grexplst): grcnflst
+// Easily done with templates:
+implement
+grexplst_cnfize (gxs) =
+  list_map_fun<grexp><grcnf> (gxs, grexp_cnfize)
+//
+fun grexp_cnfize (gx: grexp): grcnf
+//
+fun grcnf_minmean_stdev
+  (grcnf: !grcnf, emap: GDMap, smap: GDMap): expvar
+
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=\ttfamily\tiny, language=MATLAB, showstringspaces=false]
+function [e, e_sd, rxn_rule_group] = ...
+    computeMinDisj(model, genedata_filename)
+function v = falcon(model, e, e_sd, varargin)
+\end{lstlisting}
+
+\end{column}
+
+\end{columns}
+
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
