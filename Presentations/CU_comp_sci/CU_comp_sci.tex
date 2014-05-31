@@ -367,6 +367,10 @@ fun parse_fileref (inp: FILEref): grexplst
 fun parse_grexplst (!tokener): grexplst
 fun parse_grexp (!tokener): grexp
 
+
+
+
+
 fun grexplst_cnfize (gxs: grexplst): grcnflst
 // Easily done with templates:
 implement
@@ -377,8 +381,9 @@ fun grexp_cnfize (gx: grexp): grcnf
 //
 fun grcnf_minmean_stdev
   (grcnf: !grcnf, emap: GDMap, smap: GDMap): expvar
-
 \end{lstlisting}
+
+\vspace{4ex}
 
 \begin{lstlisting}[basicstyle=\ttfamily\tiny, language=MATLAB, showstringspaces=false]
 function [e, e_sd, rxn_rule_group] = ...
