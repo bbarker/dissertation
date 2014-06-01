@@ -129,6 +129,16 @@ Cornell University \\ \vspace{.25cm}CAC Job Search}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% \note{ %How do we get this working in the title page?
+% Good morning/thanks/whatever. It has been good meeting everyoe
+% so far and I look forward to talking with most/all of you later in the
+% day. In this presentation I will mainly be discussing a recent project
+% that we've been working on for about a year and a half related to
+% modeling metabolism of whole cells, but before we get in to that, I
+% just want to briefly introduce my computational history.
+% Test testing
+% }
+
 \frame{
   \titlepage 
 }
@@ -358,9 +368,10 @@ Expression is widely available, especially for diseases\\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%
-\section{Methods}  %
-%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Methods}         % 
+\subsection{Complexation} %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{A popular enzyme complex.}
@@ -688,8 +699,20 @@ Max.~$\mu$)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\note{ 
+We want to be certain that the algorithm actually depends on the input
+data in a meaningful way, and that we aren't just getting lucky.  To
+demonstrate this, on the far right, you can see the FALCON
+correlations for two of the conditions in the previous slide. When we
+randomly permute the input data thousands of times, we can feed the
+permuted expression data into FALCON and see if the correlation
+between FALCON-estimated and experimentally-estimated fluxes are
+close.  Thankfully, we can see that is not the case, as the
+distribution of fluxes is moderately anti-correlated with the
+distribution of the rightly estimated flux.
+}
+
 \frame{\frametitle{Permuted expression validates fitting method} 
-\hl{Show unbiasedness}
 
 \begin{figure}
 \centering
@@ -822,7 +845,7 @@ unperturbed complex abundance for the Yeast~7 model.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{TODO} 
+\frame{\frametitle{TODO and notes} 
 
 Slides with many bullet points: grey out not active ones.
 Maybe use \only http://stackoverflow.com/questions/4683093/beamer-how-to-show-images-as-step-by-step-images\\
