@@ -200,8 +200,9 @@ helpful to keep myself grounded in reality.
   \item College activities
   \begin{itemize}
     \scriptsize
-    \item Microsoft student ambassador in college: Promoted, taught, and provided resources for .NET.
-    \item IEEE communications officer, robotics competition.
+    \item Microsoft student ambassador in college:\\
+    Promoted, taught, and provided resources for .NET.
+    \item IEEE: communications officer, robotics competition (runner-up).
     \item Organized ACM programming competitions.
   \end{itemize}
   \item Bioinformatics IT specialist
@@ -527,6 +528,17 @@ isn't biased toward any single reaction. Previously, expression was
 scaled so that a single reaction's complex abundance and forced flux
 would be equal. Now, we no longer need to force flux through any
 particular reaction either.
+
+Batch evaulation is another majore benefit as it increases the perfomrance
+enough to allow many perturbations to be peformed with ease on microbial
+models, and it has allowed simulating human cells to become much more
+practical (we're down from about an hour to three and a half minutes).
+
+While both our method and a prior method are somewhat nondeterministic,
+we added capabilities to both methods to take this nondeterminism 
+into account, which are represented by the error bars that you
+have seen in the scatter plots.
+
 }
 \frame{\frametitle{Novel features in FALCON flux-fitting}
 
@@ -550,7 +562,7 @@ particular reaction either.
       \item Primary reason for increased performance.
       \item Introduces less bias in first stages of directionality assignment.
     \end{itemize}
-    
+  \item Take into account nondeterministic nature of algorithms.
 
 \end{itemize}
 
@@ -659,6 +671,9 @@ permuted.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\note{To introduce this slide, may be good to include one of the correlation
+figures between expression and proteomics for instance}.
+
 \frame{\frametitle{Sensitivity to expression noise} 
 \begin{figure}
 \centering
@@ -726,6 +741,7 @@ unperturbed complex abundance for the Yeast~7 model.}
 
 \frame{\frametitle{TODO} 
 
+Slides with many bullet points: grey out not active ones.
 Maybe use \only http://stackoverflow.com/questions/4683093/beamer-how-to-show-images-as-step-by-step-images\\
 Talk about metabolism, but not gene expression here. \\
 List new improvements to flux fitting.\\
