@@ -520,25 +520,39 @@ versus with group information (y-axis; default FALCON setting).}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\note{
-*Incomplete*
+\note{\scriptsize
 
 The scaling constant should be a major help in principle, since it
 isn't biased toward any single reaction. Previously, expression was
 scaled so that a single reaction's complex abundance and forced flux
-would be equal. Now, we no longer need to force flux through any
-particular reaction either.
+would be equal. This is an assumption that doesn't always make sense,
+due to the many to one relationship for some reactions and enzyme
+complexes. Now, we no longer need to do this is, and relatedly, we no
+longer need to force flux through any particular reaction by assuming
+it has a non-zero flux.
+\par
 
-Batch evaulation is another majore benefit as it increases the perfomrance
-enough to allow many perturbations to be peformed with ease on microbial
-models, and it has allowed simulating human cells to become much more
-practical (we're down from about an hour to three and a half minutes).
+Reaction grouping is a principled improvement where we directly model
+the many-to-one relationship of reactions to enzyme complexes, so that
+flux of all the reactions corresponding to one enzyme complex are
+summed into one quantity when compared to the enzyme complex's
+abundance.
+\par
 
-While both our method and a prior method are somewhat nondeterministic,
-we added capabilities to both methods to take this nondeterminism 
-into account, which are represented by the error bars that you
-have seen in the scatter plots.
+Batch evaulation is another major benefit as it increases the
+performance enough to allow many perturbations to be peformed with
+ease on microbial models, and it has allowed simulating human cells to
+become much more practical (we're down from about an hour to three and
+a half minutes). Less bias is introduced in batch evaluation, as 
+the order of assignment of directionality can influence later
+iterations of the algorithm.
+\par
 
+While both our method and a prior method are somewhat
+nondeterministic, we added capabilities to both methods to take this
+nondeterminism into account, which are represented by the error bars
+that you have seen in the scatter plots.
+\par
 }
 \frame{\frametitle{Novel features in FALCON flux-fitting}
 
