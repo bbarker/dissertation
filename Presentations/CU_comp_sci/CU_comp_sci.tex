@@ -491,14 +491,6 @@ function v = falcon(model, e, e_sd, varargin)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\note{Now that we have this framework in hand, you might wonder why we
-went to the trouble of developing a parser. Some rules can be quite
-large. There are several examples in the human model, such as this
-one, that won't even fit on a page given a tiny font. In fact, it
-would take tens of of pages. the reason for this is due to having
-alternative proteins fulfulling identical roles within a large
-comoplex.}
-
 \frame{\frametitle{An example of a larger GPR rule in Human Recon 2}
 
 \tiny
@@ -508,6 +500,14 @@ comoplex.}
 \input{exampleRule.tex} %
                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%
+
+\note{Now that we have this framework in hand, you might wonder why we
+went to the trouble of developing a parser. Some rules can be quite
+large. There are several examples in the human model, such as this
+one, that won't even fit on a page given a tiny font. In fact, it
+would take tens of of pages. the reason for this is due to having
+alternative proteins fulfulling identical roles within a large
+comoplex.}
 
 }
 
@@ -550,6 +550,34 @@ versus with group information (y-axis; default FALCON setting).}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\frame{\frametitle{Novel features in FALCON flux-fitting}
+
+\begin{itemize}
+  \item Automatic expression scaling
+    \begin{itemize}
+      \footnotesize
+      \item Expression scaling 'constant' is now a variable in the L(F)P.
+      \item Introduces less bias in a scaling constant.  
+    \end{itemize}
+  \item Grouping reactions by enzyme complex.
+    \begin{itemize}
+      \footnotesize
+      \item Much more principled approach.
+      \item Major difference for some reactions\\
+            ($\approx$60-fold difference in some cases).
+    \end{itemize}
+  \item Batch evaluation of reaction directionality.
+    \begin{itemize}
+      \footnotesize
+      \item Primary reason for increased performance.
+      \item Introduces less bias in first stages of directionality assignment.
+    \end{itemize}
+  \item Take into account nondeterministic nature of algorithms.
+
+\end{itemize}
+
+}
+
 \note{\scriptsize
 
 The scaling constant should be a major help in principle, since it
@@ -583,33 +611,6 @@ nondeterministic, we added capabilities to both methods to take this
 nondeterminism into account, which are represented by the error bars
 that you have seen in the scatter plots.
 \par
-}
-\frame{\frametitle{Novel features in FALCON flux-fitting}
-
-\begin{itemize}
-  \item Automatic expression scaling
-    \begin{itemize}
-      \footnotesize
-      \item Expression scaling 'constant' is now a variable in the L(F)P.
-      \item Introduces less bias in a scaling constant.  
-    \end{itemize}
-  \item Grouping reactions by enzyme complex.
-    \begin{itemize}
-      \footnotesize
-      \item Much more principled approach.
-      \item Major difference for some reactions\\
-            ($\approx$60-fold difference in some cases).
-    \end{itemize}
-  \item Batch evaluation of reaction directionality.
-    \begin{itemize}
-      \footnotesize
-      \item Primary reason for increased performance.
-      \item Introduces less bias in first stages of directionality assignment.
-    \end{itemize}
-  \item Take into account nondeterministic nature of algorithms.
-
-\end{itemize}
-
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -700,6 +701,18 @@ Max.~$\mu$)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\frame{\frametitle{Permuted expression validates fitting method} 
+
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{pExp_dirr}
+\caption{PDFs of correlation between experimental fluxes and fluxes
+estimated from FALCON when all gene expression data points are
+permuted.}
+\label{fig:YpermCorr}
+\end{figure}
+}
+
 \note{ 
 We want to be certain that the algorithm actually depends on the input
 data in a meaningful way, and that we aren't just getting lucky.  To
@@ -713,30 +726,8 @@ distribution of fluxes is moderately anti-correlated with the
 distribution of the rightly estimated flux.
 }
 
-\frame{\frametitle{Permuted expression validates fitting method} 
-
-\begin{figure}
-\centering
-  \includegraphics[width=\textwidth]{pExp_dirr}
-\caption{PDFs of correlation between experimental fluxes and fluxes
-estimated from FALCON when all gene expression data points are
-permuted.}
-\label{fig:YpermCorr}
-\end{figure}
-}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\note{ In almost every type of biological data studied today, there is
-a certain degree of error. But in high throughput data, even very
-noisy data is valuable because there is so much of it. Here is an
-example comparison of two proteomic data sets taken from the same cell
-types but using different instruments to measure protein
-intensity. The important thing to note in these three visulaizations
-is that, while there is a correlation, there is also a fair amount of
-noise. We need to make sure our algorithm is capable of handling a
-reasonable amount of noise.}
 
 \frame{\frametitle{An example of noise in the input data} 
 \begin{figure}
@@ -748,16 +739,18 @@ same condition.}
 \end{figure}
 }
 
+\note{ In almost every type of biological data studied today, there is
+a certain degree of error. But in high throughput data, even very
+noisy data is valuable because there is so much of it. Here is an
+example comparison of two proteomic data sets taken from the same cell
+types but using different instruments to measure protein
+intensity. The important thing to note in these three visulaizations
+is that, while there is a correlation, there is also a fair amount of
+noise. We need to make sure our algorithm is capable of handling a
+reasonable amount of noise.}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\note{In the previous slide, we saw an $r$ of 0.7 for the input
-data. This corresponds roughly to a $\sigma$ of 1.25, so that on
-average, we might expect an $r$ of 0.6 in the output data, or
-flux. But, it is obvious that the worst case is much worse. However,
-the good news is that we can take model annotations of known
-constraints and reduce the sensitivity even further.
-}
 
 \frame{\frametitle{Sensitivity to expression noise} 
 \begin{figure}
@@ -769,7 +762,26 @@ unperturbed complex abundance for the Yeast~7 model.}
 \end{figure}
 }
 
+\note{In the previous slide, we saw an $r$ of 0.7 for the input
+data. This corresponds roughly to a $\sigma$ of 1.25, so that on
+average, we might expect an $r$ of 0.6 in the output data, or
+flux. But, it is obvious that the worst case is much worse. However,
+the good news is that we can take model annotations of known
+constraints and reduce the sensitivity even further.
+}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Sensitivity to expression noise: Highly Constrained} 
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{noise_y7HCflux}
+\caption{Correlation of flux vectors estimated from perturbed versus
+unperturbed complex abundance for the Yeast~7 model.}
+\label{fig:ExpSensH}
+\end{figure}
+}
 
 \note{In this example for yeast, we restored all of the known reaction
 directions from the model, and we now see that for a $\sigma$ of 1.25,
@@ -781,15 +793,6 @@ direction may change depending on environmental conditions, though for
 many enzymes, it is often safe to assume a given reaction direction.
 }
 
-\frame{\frametitle{Sensitivity to expression noise: Highly Constrained} 
-\begin{figure}
-\centering
-  \includegraphics[width=\textwidth]{noise_y7HCflux}
-\caption{Correlation of flux vectors estimated from perturbed versus
-unperturbed complex abundance for the Yeast~7 model.}
-\label{fig:ExpSensH}
-\end{figure}
-}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -848,10 +851,10 @@ unperturbed complex abundance for the Yeast~7 model.}
 
 \frame{\frametitle{TODO and notes} 
 
-Slides with many bullet points: grey out not active ones.
+Mention the areas where we parallelized MATLAB code.\\
+Slides with many bullet points: grey out not active ones.\\
 Maybe use \only http://stackoverflow.com/questions/4683093/beamer-how-to-show-images-as-step-by-step-images\\
-Talk about metabolism, but not gene expression here. \\
-List new improvements to flux fitting.\\
+Talk about metabolism, but not gene expression, early on. \\
 Step through code blocks.\\
 Correction section advancement at top of slide.\\
 Spellcheck!\\
