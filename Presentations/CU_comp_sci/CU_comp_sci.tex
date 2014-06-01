@@ -129,18 +129,18 @@ Cornell University \\ \vspace{.25cm}CAC Job Search}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \note{ %How do we get this working in the title page?
-% Good morning/thanks/whatever. It has been good meeting everyoe
-% so far and I look forward to talking with most/all of you later in the
-% day. In this presentation I will mainly be discussing a recent project
-% that we've been working on for about a year and a half related to
-% modeling metabolism of whole cells, but before we get in to that, I
-% just want to briefly introduce my computational history.
-% Test testing
-% }
-
 \frame{
   \titlepage 
+}
+
+\note{
+Good morning/thanks/whatever. It has been good meeting everyoe
+so far and I look forward to talking with most/all of you later in the
+day. In this presentation I will mainly be discussing a recent project
+that we've been working on for about a year and a half related to
+modeling metabolism of whole cells, but before we get in to that, I
+just want to briefly introduce my computational history.
+Test testing
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -161,40 +161,6 @@ Cornell University \\ \vspace{.25cm}CAC Job Search}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\note{\scriptsize
-My computing experience began in high school after installing Linux.
-During my internship at a local ISP, I gained experience installing
-web servers running mostly FreeBSD in a professional setting, and
-spent additional time at home learning operating systems concepts and
-skills. In college, I participated in various organizatios, including
-the ACM, IEEE. I also was a proponent of .NET at the time, and worked
-with Microsoft as the student representative on our campus for
-teaching .NET and helping students get access to Microsoft software.
-\par
-
-I'd always been interested in biology in addition to my computing
-interests, and began working as a cluster administrator, which soon
-transitioned into a full time position that included maintaining a
-database, training its users, and extending its features. The most
-prominent feature I added was a K-means clustering web-interface. I
-also developed a novel algorithm for biological sequence alignment
-that allowed arbritrary precision parameters (using libGMP) and
-non-embarassingly parallel execution (using OpenMP). I also did some
-comparative genomics research that heavily relied on the UNIX style of
-data processing.
-\par
-
-Once I transition to graduate research, I couldn't really give up the
-sys-admin bug in me, and convinced my advisor to buy one server after
-another, which I realize may run counter to the CAC's business
-model. But it let me keep my skills sharp. My studies in graduate
-school focused on optimization and dynamical systems, the former of
-which was helpful in designing a highly efficient and more accurate
-algorithm which I'll mention today, and the latter of which was
-helpful to keep myself grounded in reality.
-\par
-}
 
 \frame{
 \frametitle{My computing background}
@@ -234,30 +200,41 @@ helpful to keep myself grounded in reality.
 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\note{\footnotesize
-Metabolism is critical for understanding wide classes of
-diseases including diabetes, cancer, and inborn errors in metabolism.
-Bio-energy and industrial bio-synthetics are inherently tied to the
-engineering of robust and novel metabolic networks. Metabolism is also
-beginning to provide fine-grained detail to understanding microbial
-ecologies. One way to describe metabolism is as the set of reactions
-and the rate of the reactions made possible by enzymatic catalysts.
-Here we can see several very important reactions that organisms from
-yeasts to humans require, the ultimate step being the generation of
-ATP by this motor-like enzyme complex called ATP Synthase. We'll come
-back to ATP synthase in a later example.
+\note{\scriptsize
+My computing experience began in high school after installing Linux.
+During my internship at a local ISP, I gained experience installing
+web servers running mostly FreeBSD in a professional setting, and
+spent additional time at home learning operating systems concepts and
+skills. In college, I participated in various organizatios, including
+the ACM, IEEE. I also was a proponent of .NET at the time, and worked
+with Microsoft as the student representative on our campus for
+teaching .NET and helping students get access to Microsoft software.
 \par
 
-Unfortunately, metabolism is much more complex than is often
-depicted. This depiction only shows a little over half of what would
-be considered a fairly typical length for a pathway.  This pathway is
-inherently linked to another pathway of about the same size, and that
-pathway depends on another core pathway of roughly the same length for
-preprocessing glucose. When we zoom out, we can start to see some of
-this complexity.
-\par}
+I'd always been interested in biology in addition to my computing
+interests, and began working as a cluster administrator, which soon
+transitioned into a full time position that included maintaining a
+database, training its users, and extending its features. The most
+prominent feature I added was a K-means clustering web-interface. I
+also developed a novel algorithm for biological sequence alignment
+that allowed arbritrary precision parameters (using libGMP) and
+non-embarassingly parallel execution (using OpenMP). I also did some
+comparative genomics research that heavily relied on the UNIX style of
+data processing.
+\par
+
+Once I transition to graduate research, I couldn't really give up the
+sys-admin bug in me, and convinced my advisor to buy one server after
+another, which I realize may run counter to the CAC's business
+model. But it let me keep my skills sharp. My studies in graduate
+school focused on optimization and dynamical systems, the former of
+which was helpful in designing a highly efficient and more accurate
+algorithm which I'll mention today, and the latter of which was
+helpful to keep myself grounded in reality.
+\par
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Important metabolic pathways}
 \begin{center}
@@ -290,8 +267,51 @@ are thought to be unimportant often are not drawn. }
 \end{center}
 }
 
+
+\note{\footnotesize
+Metabolism is critical for understanding wide classes of
+diseases including diabetes, cancer, and inborn errors in metabolism.
+Bio-energy and industrial bio-synthetics are inherently tied to the
+engineering of robust and novel metabolic networks. Metabolism is also
+beginning to provide fine-grained detail to understanding microbial
+ecologies. One way to describe metabolism is as the set of reactions
+and the rate of the reactions made possible by enzymatic catalysts.
+Here we can see several very important reactions that organisms from
+yeasts to humans require, the ultimate step being the generation of
+ATP by this motor-like enzyme complex called ATP Synthase. We'll come
+back to ATP synthase in a later example.
+\par
+
+Unfortunately, metabolism is much more complex than is often
+depicted. This depiction only shows a little over half of what would
+be considered a fairly typical length for a pathway.  This pathway is
+inherently linked to another pathway of about the same size, and that
+pathway depends on another core pathway of roughly the same length for
+preprocessing glucose. When we zoom out, we can start to see some of
+this complexity.
+\par}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+\frame{\frametitle{An overview to constraint-based modeling}
+\begin{columns}
+\begin{column}{0.6\textwidth}
+\includegraphics*[width=\textwidth, viewport=0 418 708 718, clip=true]
+{SmatExample}
+\\
+\includegraphics*[width=\textwidth, viewport=0 0 708 418, clip=true]
+{SmatExample}
+\end{column}
+\begin{column}{0.4\textwidth}
+\includegraphics*[width=\textwidth, viewport=411 793 643 938, clip=true]
+{SmatExample}
+\\
+\includegraphics*[width=\textwidth, viewport=0 712 631 1130, clip=true]
+{SmatExample}
+\end{column}
+\end{columns}
+}
 
 \note{\scriptsize
 To work with a system computationally, we write all known
@@ -322,25 +342,6 @@ types of data: annotation on how the enzymatic complexes come
 together, and data on abundance of the components of these enzyme
 complexes.
 \par}
-
-\frame{\frametitle{An overview to constraint-based modeling}
-\begin{columns}
-\begin{column}{0.6\textwidth}
-\includegraphics*[width=\textwidth, viewport=0 418 708 718, clip=true]
-{SmatExample}
-\\
-\includegraphics*[width=\textwidth, viewport=0 0 708 418, clip=true]
-{SmatExample}
-\end{column}
-\begin{column}{0.4\textwidth}
-\includegraphics*[width=\textwidth, viewport=411 793 643 938, clip=true]
-{SmatExample}
-\\
-\includegraphics*[width=\textwidth, viewport=0 712 631 1130, clip=true]
-{SmatExample}
-\end{column}
-\end{columns}
-}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
