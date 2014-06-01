@@ -477,11 +477,32 @@ function v = falcon(model, e, e_sd, varargin)
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\note{Now that we have this framework in hand, you might wonder why we
+went to the trouble of developing a parser. Some rules can be quite
+large. There are several examples in the human model, such as this
+one, that won't even fit on a page given a tiny font. In fact, it
+would take tens of of pages. the reason for this is due to having
+alternative proteins fulfulling identical roles within a large
+comoplex.}
+
+\frame{\frametitle{An example of a larger GPR rule in Human Recon 2}
+
+\tiny
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+                        %
+\input{exampleRule.tex} %
+                        %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}[fragile]
-\frametitle{GPR code (change title)}
+\frametitle{GPR API examples}
 
 Before this, put in an example showing actual GPR data
 (and maybe other recon data) for human.
