@@ -517,6 +517,44 @@ versus with group information (y-axis; default FALCON setting).}
 \end{figure}
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\note{
+*Incomplete*
+
+The scaling constant should be a major help in principle, since it
+isn't biased toward any single reaction. Previously, expression was
+scaled so that a single reaction's complex abundance and forced flux
+would be equal. Now, we no longer need to force flux through any
+particular reaction either.
+}
+\frame{\frametitle{Novel features in FALCON flux-fitting}
+
+\begin{itemize}
+  \item Automatic expression scaling
+    \begin{itemize}
+      \footnotesize
+      \item Expression scaling 'constant' is now a variable in the L(F)P.
+      \item Introduces less bias in a scaling constant.  
+    \end{itemize}
+  \item Grouping reactions by enzyme complex.
+    \begin{itemize}
+      \footnotesize
+      \item Much more principled approach.
+      \item Major difference for some reactions\\
+            ($\approx$60-fold difference in some cases).
+    \end{itemize}
+  \item Batch evaluation of reaction directionality.
+    \begin{itemize}
+      \footnotesize
+      \item Primary reason for increased performance.
+      \item Introduces less bias in first stages of directionality assignment.
+    \end{itemize}
+    
+
+\end{itemize}
+
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -552,9 +590,6 @@ versus with group information (y-axis; default FALCON setting).}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\note{\hl{highlight or do it as a bar graph}
-}
 
 \frame{\frametitle{Performance} 
 
@@ -692,10 +727,7 @@ unperturbed complex abundance for the Yeast~7 model.}
 \frame{\frametitle{TODO} 
 
 Maybe use \only http://stackoverflow.com/questions/4683093/beamer-how-to-show-images-as-step-by-step-images\\
-Add one slide talking about systems management in past\\
----also talk about parallel programming slide.\\
 Talk about metabolism, but not gene expression here. \\
-Maybe add a table of function calls\\
 List new improvements to flux fitting.\\
 Step through code blocks.\\
 Correction section advancement at top of slide.\\
