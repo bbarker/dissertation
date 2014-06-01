@@ -504,9 +504,6 @@ comoplex.}
 \begin{frame}[fragile]
 \frametitle{GPR API examples}
 
-Before this, put in an example showing actual GPR data
-(and maybe other recon data) for human.
-
 \begin{columns}
 %
 \begin{column}{0.5\textwidth}
@@ -704,10 +701,39 @@ permuted.}
 \end{figure}
 }
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\note{To introduce this slide, may be good to include one of the correlation
-figures between expression and proteomics for instance}.
+\note{ In almost every type of biological data studied today, there is
+a certain degree of error. But in high throughput data, even very
+noisy data is valuable because there is so much of it. Here is an
+example comparison of two proteomic data sets taken from the same cell
+types but using different instruments to measure protein
+intensity. The important thing to note in these three visulaizations
+is that, while there is a correlation, there is also a fair amount of
+noise. We need to make sure our algorithm is capable of handling a
+reasonable amount of noise.}
+
+\frame{\frametitle{An example of noise in the input data} 
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{proteomicComparison}
+\caption{Various scatters for two human proteomic datasets for the
+same condition.}
+\label{fig:protCmp}
+\end{figure}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\note{In the previous slide, we saw an $r$ of 0.7 for the input
+data. This corresponds roughly to a $\sigma$ of 1.25, so that on
+average, we might expect an $r$ of 0.6 in the output data, or
+flux. But, it is obvious that the worst case is much worse. However,
+the good news is that we can take model annotations of known
+constraints and reduce the sensitivity even further.
+}
 
 \frame{\frametitle{Sensitivity to expression noise} 
 \begin{figure}
@@ -720,6 +746,28 @@ unperturbed complex abundance for the Yeast~7 model.}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\note{In this example for yeast, we restored all of the known reaction
+directions from the model, and we now see that for a $\sigma$ of 1.25,
+we can expect an $r$ of nearly 0.95, and the number of poor
+correlations in output at this $\sigma$ level is much less than in the
+previous slide. We wanted to test both constraint sets because many
+models are not as well understood as yeast, and additionally, reaction
+direction may change depending on environmental conditions, though for
+many enzymes, it is often safe to assume a given reaction direction.
+}
+
+\frame{\frametitle{Sensitivity to expression noise: Highly Constrained} 
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{noise_y7HCflux}
+\caption{Correlation of flux vectors estimated from perturbed versus
+unperturbed complex abundance for the Yeast~7 model.}
+\label{fig:ExpSensH}
+\end{figure}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 %%%%%%%%%%%%%%%%%%%%%%
                      %
@@ -932,17 +980,6 @@ associated unperturbed vector for the Yeast~7 model.}
 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{\frametitle{Sensitivity to expression noise: HC} 
-\begin{figure}
-\centering
-  \includegraphics[width=\textwidth]{noise_y7HCflux}
-\caption{Correlation of flux vectors estimated from perturbed versus
-unperturbed complex abundance for the Yeast~7 model.}
-\label{fig:ExpSensH}
-\end{figure}
-}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
