@@ -98,8 +98,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title Page Info %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{An Efficient Systems Approach to Whole-Cell Modeling}
-%\subtitle{With a View}
+\title{Data-driven Whole-Cell Metabolic Modeling}
+\subtitle{An Efficient Systems Approach for Flux Estimation}
 \author{\texorpdfstring{Brandon Barker\newline
   \url{brandon.barker@gmail.com}}{Brandon Barker}}
 \institute{
@@ -136,11 +136,19 @@ Cornell University \\ \vspace{.25cm}CAC Job Search}
 \note{
 Good morning/thanks/whatever. It has been good meeting everyoe
 so far and I look forward to talking with most/all of you later in the
-day. In this presentation I will mainly be discussing a recent project
+day. I'm a studeint in the Tri-Institutional program in
+Computational Biology and Medicine, which has associations
+with the Weill Cornell Medical School and Memorial Sloan-Kettering
+campuses in NYC.  I'm graduating from Zhenglong Gu's laboratory in 
+Nutritional  Sciences - one of the more computational groups in Biology 
+at Cornell. Our goal in this research and much of my thesis is
+to build tools enabling the computation of a fundamental metabolic,
+quantity, flux, in models that may help us to understand disease as
+well as various microbial interactiosn, which are somewhat easier
+to tackle. In this presentation I will mainly be discussing a recent project
 that we've been working on for about a year and a half related to
 modeling metabolism of whole cells, but before we get in to that, I
 just want to briefly introduce my computational history.
-Test testing
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -211,8 +219,10 @@ with Microsoft as the student representative on our campus for
 teaching .NET and helping students get access to Microsoft software.
 \par
 
-I'd always been interested in biology in addition to my computing
-interests, and began working as a cluster administrator, which soon
+I'd always been interested in nature since I grew up in a rural area,
+and this later transitioned into interest in biology. I picked up
+Biology again more seriously near the end of my undergraduate studies
+ and began working as a bioinformatics cluster administrator, which soon
 transitioned into a full time position that included maintaining a
 database, training its users, and extending its features. The most
 prominent feature I added was a K-means clustering web-interface. I
@@ -227,10 +237,9 @@ Once I transition to graduate research, I couldn't really give up the
 sys-admin bug in me, and convinced my advisor to buy one server after
 another, which I realize may run counter to the CAC's business
 model. But it let me keep my skills sharp. My studies in graduate
-school focused on optimization and dynamical systems, the former of
-which was helpful in designing a highly efficient and more accurate
-algorithm which I'll mention today, and the latter of which was
-helpful to keep myself grounded in reality.
+school focused on optimization and mathematical modeling, 
+which were helpful in designing a highly efficient and more accurate
+algorithm which I'll be focusing on today.
 \par
 }
 
@@ -242,19 +251,31 @@ helpful to keep myself grounded in reality.
 {metabolism-zoom-start}
 \end{center}
 }
-%
-%
 
-\note{Here you can see the rest of the first pathway, oxidative
-phosphorylation, and its sister pathway, the TCA cycle. And this
-little linear pathway is glycolysis, which converts glucose into a
-usable form for the TCA cycle. In practice, these pathways also
-require many other pathway dependencies that process or recycle other
-chemicals that are not quite in the right form to be used by the later
-stages. What's more, this poster from 2003 is actually relatively
-simple: chemicals that are similar are often omitted, and there can be
-thousands of these for some classes. Also, reactions are present but
-are thought to be unimportant often are not drawn. }
+
+\note{\footnotesize
+One way to describe metabolism is as the set of reactions
+and the rate of the reactions made possible by enzymatic catalysts.
+Metabolism is critical for understanding wide classes of
+diseases including diabetes, cancer, and inborn errors in metabolism.
+Here we can see several very important reactions that organisms from
+yeasts to humans require, the ultimate step being the generation of
+ATP by this motor-like enzyme complex called ATP Synthase. We'll come
+back to ATP synthase in a later example.
+\par
+
+Unfortunately, metabolism is much more complex than is often
+depicted, and so the problem of determining fluxes that might help
+us to better understand disease is also difficult problem.
+This depiction only shows a little over half of what would
+be considered a fairly typical length for a pathway.  This pathway is
+inherently linked to another pathway of about the same size, and that
+pathway depends on another core pathway of roughly the same length for
+preprocessing glucose. When we zoom out, we can start to see some of
+this complexity.
+\par}
+
+
 \frame{\frametitle{Important metabolic pathways}
 \begin{center}
 \includemedia[
@@ -267,29 +288,17 @@ are thought to be unimportant often are not drawn. }
 \end{center}
 }
 
+\note{Here you can see the rest of the first pathway, oxidative
+phosphorylation, and its sister pathway, the TCA cycle. And this
+little linear pathway is glycolysis, which converts glucose into a
+usable form for the TCA cycle. In practice, these pathways also
+require many other pathway dependencies that process or recycle other
+chemicals that are not quite in the right form to be used by the later
+stages. What's more, this poster from 2003 is actually relatively
+simple: chemicals that are similar are often omitted, and there can be
+thousands of these for some classes. Also, reactions are present but
+are thought to be unimportant often are not drawn. }
 
-\note{\footnotesize
-Metabolism is critical for understanding wide classes of
-diseases including diabetes, cancer, and inborn errors in metabolism.
-Bio-energy and industrial bio-synthetics are inherently tied to the
-engineering of robust and novel metabolic networks. Metabolism is also
-beginning to provide fine-grained detail to understanding microbial
-ecologies. One way to describe metabolism is as the set of reactions
-and the rate of the reactions made possible by enzymatic catalysts.
-Here we can see several very important reactions that organisms from
-yeasts to humans require, the ultimate step being the generation of
-ATP by this motor-like enzyme complex called ATP Synthase. We'll come
-back to ATP synthase in a later example.
-\par
-
-Unfortunately, metabolism is much more complex than is often
-depicted. This depiction only shows a little over half of what would
-be considered a fairly typical length for a pathway.  This pathway is
-inherently linked to another pathway of about the same size, and that
-pathway depends on another core pathway of roughly the same length for
-preprocessing glucose. When we zoom out, we can start to see some of
-this complexity.
-\par}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -835,6 +844,15 @@ many enzymes, it is often safe to assume a given reaction direction.
 \end{column}
 %
 \end{columns}  
+}
+
+\note{
+*Incomplete*
+
+Bio-energy and industrial bio-synthetics are inherently tied to the
+engineering of robust and novel metabolic networks. Metabolism is also
+beginning to provide fine-grained detail to understanding microbial
+ecologies.
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
