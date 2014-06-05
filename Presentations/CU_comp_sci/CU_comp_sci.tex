@@ -92,6 +92,7 @@
 \xyoption{arc}
 \usepackage{url}
 \usepackage{hyperref}
+\usepackage{picture}
 %\usepackage{bmpsize}
      
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -304,23 +305,33 @@ are thought to be unimportant often are not drawn. }
 
 
 \frame{\frametitle{An overview to constraint-based modeling}
-\begin{columns}
-\begin{column}{0.6\textwidth}
+
+\newsavebox{\toynet}
+\savebox{\toynet}{  
 \includegraphics*[width=\textwidth, viewport=0 418 708 718, clip=true]
-{SmatExample}
-\\
+{SmatExample}  }
+
+\newsavebox{\toySmat}
+\savebox{\toySmat}{
 \includegraphics*[width=\textwidth, viewport=0 0 708 418, clip=true]
-{SmatExample}
-\end{column}
-\begin{column}{0.4\textwidth}
-\includegraphics*[width=\textwidth, viewport=411 793 643 938, clip=true]
-{SmatExample}
-\\
-\includegraphics*[width=\textwidth, viewport=0 712 631 1130, clip=true]
-{SmatExample}
-\end{column}
-\end{columns}
-}
+{SmatExample} }
+
+\newsavebox{\FBAgeom}
+
+\begin{picture}(\textwidth, \textheight)
+\put(0,\textheight){\usebox{\toynet}}
+
+\end{picture}
+} % end of \frame
+
+% \\
+%\put(0, \textheight}{\usebox{\toySmat}}
+
+%\put(\textwidth, \textheight){)\includegraphics*[width=\textwidth, viewport=411 793 643 938, clip=true]
+%{SmatExample}}
+%\\
+%\includegraphics*[width=\textwidth, viewport=0 712 631 1130, clip=true]
+%{SmatExample}
 
 \note{\scriptsize
 To work with a system computationally, we write all known
@@ -336,10 +347,13 @@ network depicted here begins to generate a fair-sized matrix.
 \par
 
 Now that we are armed with this matrix, we can make mathematical
-assumptions about it, such as the steady state condition shown here,
-which asserts that concentrations do not change over time. We can
-use an optimization objective, such as the maximization of growth
-rate for many microbes.
+assumptions about the system, such as the steady state condition shown
+here, which asserts that concentrations do not change over large
+enough time scales. In symbols, the S matrix multiplied by the flux
+vector yields the change in concenrtation over time for each
+metabolite, which is constrained to be zero.  Finally, we need an
+optimization objective, such as the maximization of growth rate, which
+is common objective used for many microbes.
 \par
 
 While this framework is powerful, it is also theoretically simplistic
@@ -358,26 +372,25 @@ complexes.
 \frame{\frametitle{An objective for fitting fluxes.}
 
 \begin{block}{Flux fitting}
-% Started as a way to fit a perturbed model to a wild-type flux.\\
+Started as a way to fit a perturbed model to a wild-type flux, \\
+but can also be used to fit empircal flux estimations in a model.\\
 Formulated as quadratic least-squares optimization\\(Segr\`e et al 2002):\\
 \begin{center}
 $\textnormal{minimize}\ \sum\limits_{i=1}^N (v_i-a_i)^2$ 
 \end{center}
-Later formulated as a linear programing (LAD) variant.
-\end{block}
-
-
-\begin{block}{Expression-flux fitting}
-A new way to constrain models.\\
-Expression is widely available, especially for diseases.
-
+Later formulated as a linear programing (least absolute devation, or LAD) variant.
 \end{block}
 
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{A popular enzyme complex.}
+\frame{\frametitle{From expression to enzyme complex abundance.}
+
+\begin{block}{Expression-flux fitting}
+Expression is widely available, especially for diseases. \\
+But, expression must be converted to enzyme abundance. 
+\end{block}
 
 \begin{figure}
 \centering
