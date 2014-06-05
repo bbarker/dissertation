@@ -456,7 +456,7 @@ $r_2$ & := & [A and (B or C)]       & $\rightarrow$ & $e_2$  &=&  $\min(a, b + c
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}[fragile]
-\frametitle{Flowchart illustrating the two algorithms in the pipeline.}
+\frametitle{The pipeline and primary interfaces.}
 
 \begin{columns}
 \begin{column}{0.45\textwidth}
@@ -500,13 +500,22 @@ $r_2$ & := & [A and (B or C)]       & $\rightarrow$ & $e_2$  &=&  $\min(a, b + c
 \end{column}
 
 \begin{column}{0.55\textwidth}
+
+{\color{gray!80}
+
+{\only<1>{\color{black}}
 \begin{lstlisting}[basicstyle=\ttfamily\tiny, language=ATS, showstringspaces=false]
+
 
 fun parse_fileref (inp: FILEref): grexplst
 fun parse_grexplst (!tokener): grexplst
 fun parse_grexp (!tokener): grexp
 
 
+\end{lstlisting}}
+
+{\only<2>{\color{black}}
+\begin{lstlisting}[basicstyle=\ttfamily\tiny, language=ATS, showstringspaces=false]
 
 
 
@@ -520,16 +529,18 @@ fun grexp_cnfize (gx: grexp): grcnf
 //
 fun grcnf_minmean_stdev
   (grcnf: !grcnf, emap: GDMap, smap: GDMap): expvar
-\end{lstlisting}
+\end{lstlisting}}
 
 \vspace{4ex}
 
+{\only<3>{\color{black}}
 \begin{lstlisting}[basicstyle=\ttfamily\tiny, language=MATLAB, showstringspaces=false]
 function [e, e_sd, rxn_rule_group] = ...
     computeMinDisj(model, genedata_filename)
 function v = falcon(model, e, e_sd, varargin)
-\end{lstlisting}
+\end{lstlisting}}
 
+} % end of \color{gray!80}
 \end{column}
 
 \end{columns}
