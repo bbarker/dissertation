@@ -450,6 +450,28 @@ $r_2$ & := & [A and (B or C)]       & $\rightarrow$ & $e_2$  &=&  $\min(a, b + c
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\frame{\frametitle{An example of a larger GPR rule in Human Recon 2}
+
+\tiny
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+                        %
+\input{exampleRule.tex} %
+                        %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\note{Now that we have this framework in hand, you might wonder why we
+went to the trouble of developing a parser. Some rules can be quite
+large. There are several examples in the human model, such as this
+one, that won't even fit on a page given a tiny font. In fact, it
+would take tens of of pages. the reason for this is due to having
+alternative proteins fulfulling identical roles within a large
+comoplex.}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Methods}         % 
 \subsection{Complexation} %
@@ -549,49 +571,14 @@ function v = falcon(model, e, e_sd, varargin)
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{An example of a larger GPR rule in Human Recon 2}
+\note{
+*Incomplete*
 
-\tiny
-
-%%%%%%%%%%%%%%%%%%%%%%%%%
-                        %
-\input{exampleRule.tex} %
-                        %
-%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\note{Now that we have this framework in hand, you might wonder why we
-went to the trouble of developing a parser. Some rules can be quite
-large. There are several examples in the human model, such as this
-one, that won't even fit on a page given a tiny font. In fact, it
-would take tens of of pages. the reason for this is due to having
-alternative proteins fulfulling identical roles within a large
-comoplex.}
+If we have time, I can show a couple of examples of these functions being
+used
 
 }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}[fragile]
-\frametitle{GPR API examples}
-
-\begin{columns}
-%
-\begin{column}{0.5\textwidth}
-\lstinputlisting[basicstyle=\ttfamily\tiny, language=ATS, showstringspaces=false]
-{falcon_main_fun.dats}
-\end{column}
-%
-\vrule{}
-%
-\begin{column}{0.5\textwidth}
-\lstinputlisting[basicstyle=\ttfamily\tiny, language=ATS, showstringspaces=false]
-{falcon_example.dats}
-\end{column}
-%
-\end{columns}
-\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -908,18 +895,6 @@ ecologies.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{TODO and notes} 
-
-Mention the areas where we parallelized MATLAB code.\\
-Slides with many bullet points: grey out not active ones.\\
-Maybe use \only http://stackoverflow.com/questions/4683093/beamer-how-to-show-images-as-step-by-step-images\\
-Talk about metabolism, but not gene expression, early on. \\
-Step through code blocks.\\
-Spellcheck!\\
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \frame{\frametitle{Thank you!} 
 
 
@@ -958,6 +933,20 @@ Spellcheck!\\
 \end{columns}
 }
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame{\frametitle{TODO and notes} 
+
+Mention the areas where we parallelized MATLAB code.\\
+Slides with many bullet points: grey out not active ones.\\
+Maybe use \only http://stackoverflow.com/questions/4683093/beamer-how-to-show-images-as-step-by-step-images\\
+Talk about metabolism, but not gene expression, early on. \\
+Step through code blocks.\\
+Spellcheck!\\
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -969,6 +958,29 @@ Spellcheck!\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{}} %blank slide
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}[fragile]
+\frametitle{GPR API examples}
+
+\begin{columns}
+%
+\begin{column}{0.5\textwidth}
+\lstinputlisting[basicstyle=\ttfamily\tiny, language=ATS, showstringspaces=false]
+{falcon_main_fun.dats}
+\end{column}
+%
+\vrule{}
+%
+\begin{column}{0.5\textwidth}
+\lstinputlisting[basicstyle=\ttfamily\tiny, language=ATS, showstringspaces=false]
+{falcon_example.dats}
+\end{column}
+%
+\end{columns}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
