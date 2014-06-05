@@ -312,34 +312,45 @@ are thought to be unimportant often are not drawn. }
 }
 
 \newsavebox{\toynet}
-\savebox{\toynet}{  
-\includegraphics*[width=0.5\textwidth, viewport=0 418 708 718, clip=true]
-{SmatExample}  }
+\savebox{\toynet}{%
+\includegraphics*[width=0.6\textwidth, viewport=0 418 708 718, clip=true]
+{SmatExample}}
 
 \newsavebox{\toySmat}
-\savebox{\toySmat}{
-\includegraphics*[width=0.5\textwidth, viewport=0 0 708 418, clip=true]
-{SmatExample} }
+\savebox{\toySmat}{%
+\includegraphics*[width=0.6\textwidth, viewport=0 0 708 418, clip=true]
+{SmatExample}}
+
+\newsavebox{\FBAeqns}
+\savebox{\FBAeqns}{%
+\includegraphics*[width=0.4\textwidth, viewport=411 793 643 938, clip=true]
+{SmatExample}}
 
 \newsavebox{\FBAgeom}
+\savebox{\FBAgeom}{%
+\includegraphics*[width=0.4\textwidth, viewport=0 712 516 1130, clip=true]
+{SmatExample}}
+
 
 % % % %
 
 \begin{picture}(\textwidth, \textheight)
-\put(0,\textheight){\makebox(\textwidth, 0)[lt]{\usebox{\toynet}}}
-\put(0.01\textwidth,0.95\textheight){\usebox{\hideLetter}}
+\put(0, \textheight){\makebox(0.5\textwidth, 0)[lt]{\usebox{\toynet}}}
+\put(0, 0.95\textheight){\usebox{\hideLetter}}
+
+\put(0, 0.6\textheight){\makebox(0.5\textwidth, 0)[lt]{\usebox{\toySmat}}}
+\put(0, 0.555\textheight){\usebox{\hideLetter}}
+
+\put(0.65\textwidth, \textheight){\makebox(0.5\textwidth, 0)[lt]{\usebox{\FBAeqns}}}
+
+\put(0.65\textwidth, 0.6\textheight){\makebox(0.5\textwidth, 0)[lt]{\usebox{\FBAgeom}}}
+\put(0.65\textwidth, 0.555\textheight){\usebox{\hideLetter}}
+\put(0.98\textwidth, 0.31\textheight){
+  \colorbox{white}{\makebox(0.07\textwidth, 0.11\textheight)[lt]{ }}}
 
 \end{picture}
 } % end of \frame
 
-% \\
-%\put(0, \textheight}{\usebox{\toySmat}}
-
-%\put(\textwidth, \textheight){)\includegraphics*[width=\textwidth, viewport=411 793 643 938, clip=true]
-%{SmatExample}}
-%\\
-%\includegraphics*[width=\textwidth, viewport=0 712 631 1130, clip=true]
-%{SmatExample}
 
 \note{\scriptsize
 To work with a system computationally, we write all known
