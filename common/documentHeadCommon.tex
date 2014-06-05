@@ -8,6 +8,9 @@
 \tikzstyle{iogram} = [trapezium, draw, fill=black!10, %fill=pink!20,
     trapezium left angle=70, trapezium right angle=-70,
     text centered, align=center, node distance=5em]
+\tikzset{
+  onslide/.code args={<#1>#2}{\only<#1>{\pgfkeysalso{#2}}}, 
+}
 
 % Some global commands for alternatives
 
