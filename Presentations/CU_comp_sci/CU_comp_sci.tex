@@ -306,20 +306,28 @@ are thought to be unimportant often are not drawn. }
 
 \frame{\frametitle{An overview to constraint-based modeling}
 
+\newsavebox{\hideLetter}
+\savebox{\hideLetter}{%
+{\colorbox{white}{\makebox(0.015\textwidth, 0.03\textheight)[lt]{ }}}%
+}
+
 \newsavebox{\toynet}
 \savebox{\toynet}{  
-\includegraphics*[width=\textwidth, viewport=0 418 708 718, clip=true]
+\includegraphics*[width=0.5\textwidth, viewport=0 418 708 718, clip=true]
 {SmatExample}  }
 
 \newsavebox{\toySmat}
 \savebox{\toySmat}{
-\includegraphics*[width=\textwidth, viewport=0 0 708 418, clip=true]
+\includegraphics*[width=0.5\textwidth, viewport=0 0 708 418, clip=true]
 {SmatExample} }
 
 \newsavebox{\FBAgeom}
 
+% % % %
+
 \begin{picture}(\textwidth, \textheight)
-\put(0,\textheight){\usebox{\toynet}}
+\put(0,\textheight){\makebox(\textwidth, 0)[lt]{\usebox{\toynet}}}
+\put(0.01\textwidth,0.95\textheight){\usebox{\hideLetter}}
 
 \end{picture}
 } % end of \frame
