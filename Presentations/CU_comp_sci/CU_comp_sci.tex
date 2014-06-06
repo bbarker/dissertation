@@ -943,7 +943,9 @@ a certain degree of error. But in high throughput data, even very
 noisy data is valuable because there is so much of it. Here is an
 example comparison of two proteomic data sets taken from the same cell
 types but using different instruments to measure protein
-intensity. The important thing to note in these three visulaizations
+intensity. I've removed all pairs with a zero value in the middle figure,
+and additionaly all non-metabolic genes in the last figure. 
+The important thing to note in these three schemes
 is that, while there is a correlation, there is also a fair amount of
 noise. We need to make sure our algorithm is capable of handling a
 reasonable amount of noise.}
@@ -987,9 +989,10 @@ directions from the model, and we now see that for a $\sigma$ of 1.25,
 we can expect an $r$ of nearly 0.95, and the number of poor
 correlations in output at this $\sigma$ level is much less than in the
 previous slide. We wanted to test both constraint sets because many
-models are not as well understood as yeast, and additionally, reaction
-direction may change depending on environmental conditions, though for
-many enzymes, it is often safe to assume a given reaction direction.
+models are not as well understood as yeast, hence the reactions may be 
+annotated as being reversible. Additionally, reaction
+direction may change depending on environmental conditions, so it is
+good to know how far we can get with a deconstrained model.
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
