@@ -358,7 +358,18 @@ are thought to be unimportant often are not drawn. }
 } % end of \frame
 
 
-\note{\scriptsize
+\note{\tiny
+
+To illustrate the modeling concepts that I'll be discussing, let
+me briefly introduce a much simpler toy network. Note that the 
+network has several chemcial reactions, the $F_i$, as well as
+transport and exchange reactions. Some reactions are drawn
+with arrows in both directions and are called reversible reactions.
+The distinction between irreversible and reversible is highly
+important in our modeling considerations that we'll be discussing
+later.
+\par
+
 To work with a system computationally, we write all known
 reactions down, including transport reactions across compartments, as
 the columns of a matrix, called the Stoichiometric matrix or S matrix.
@@ -627,12 +638,19 @@ versus with group information (y-axis; default FALCON setting).}
 
 \note{\scriptsize
 
-The scaling constant should be a major help in principle, since it
-isn't biased toward any single reaction. Previously, expression was
-scaled so that a single reaction's complex abundance and forced flux
-would be equal. This is an assumption that doesn't always make sense,
-due to the many to one relationship for some reactions and enzyme
-complexes. Now, we no longer need to do this is, and relatedly, we no
+Now that we've discussed the GPR rule effects in detail, I'd like
+to introduce improvements to the flux fitting algorithm. 
+\par
+
+Because expression units are different than flux units, they aren't
+going to be directly comparable.  Previously, expression was scaled so
+that a single reaction's complex abundance and forced flux would be
+equal.  This is an assumption that doesn't always make sense, due to
+the many to one relationship for some reactions and enzyme complexes.
+Our introduction of the scaling constant as a variable should be a
+major help in principle, since it isn't biased toward any single
+reaction.  Now, we no longer need to worry about finding an enzyme
+complex and reaction flux that should be equal, and relatedly, we no
 longer need to force flux through any particular reaction by assuming
 it has a non-zero flux.
 \par
@@ -644,7 +662,7 @@ summed into one quantity when compared to the enzyme complex's
 abundance.
 \par
 
-Batch evaulation is another major benefit as it increases the
+Batch evaulation of reaction direction is another major benefit as it increases the
 performance enough to allow many perturbations to be peformed with
 ease on microbial models, and it has allowed simulating human cells to
 become much more practical (we're down from about an hour to three and
@@ -939,7 +957,8 @@ ecologies.
 
 \frame{\frametitle{TODO and notes} 
 
-Mention the areas where we parallelized MATLAB code.\\
+Make a figure giving a brief overview of the fitting algorithm(s)?\\
+Mention the areas where we parallelized MATLAB code?\\
 Slides with many bullet points: grey out not active ones.\\
 Maybe use \only http://stackoverflow.com/questions/4683093/beamer-how-to-show-images-as-step-by-step-images\\
 Talk about metabolism, but not gene expression, early on. \\
