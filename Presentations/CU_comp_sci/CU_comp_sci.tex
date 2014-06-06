@@ -333,7 +333,7 @@ are thought to be unimportant often are not drawn. }
 
 \newsavebox{\WIREsCite}
 \savebox{\WIREsCite}{\scriptsize%
-\textit{Shestov, Barker, Gu, and Locasale. WIREs Syst Biol Med, 2013.}}
+\hspace{-0.6cm}\textit{Shestov, Barker, Gu, and Locasale. WIREs Syst Biol Med, 2013.}}
 
 % % % %
 
@@ -359,7 +359,6 @@ are thought to be unimportant often are not drawn. }
 
 
 \note{\tiny
-
 To illustrate the modeling concepts that I'll be discussing, let
 me briefly introduce a much simpler toy network. Note that the 
 network has several chemcial reactions, the $F_i$, as well as
@@ -386,7 +385,8 @@ Now that we are armed with this matrix, we can make mathematical
 assumptions about the system, such as the steady state condition shown
 here, which asserts that concentrations do not change over large
 enough time scales. In symbols, the S matrix multiplied by the flux
-vector yields the change in concenrtation over time for each
+vector (here denotes as an $F$, and sometimes as a $\mathbf{v}$)
+yields the change in concenrtation over time for each
 metabolite, which is constrained to be zero.  Finally, we need an
 optimization objective, such as the maximization of growth rate, which
 is common objective used for many microbes.
@@ -536,7 +536,7 @@ comoplex.}
 
 \begin{column}{0.55\textwidth}
 
-{\color{gray!80}
+{\color{gray}
 
 {\only<1>{\color{black}}
 \begin{lstlisting}[basicstyle=\ttfamily\tiny, language=ATS, showstringspaces=false]
@@ -575,7 +575,7 @@ function [e, e_sd, rxn_rule_group] = ...
 function v = falcon(model, e, e_sd, varargin)
 \end{lstlisting}}
 
-} % end of \color{gray!80}
+} % end of \color{gray}
 \end{column}
 
 \end{columns}
@@ -606,9 +606,75 @@ versus with group information (y-axis; default FALCON setting).}
 \end{figure}
 }
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]
+\frametitle{An overview of the FALCON flux-fitting algorithm.}
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[scale=0.5, every node/.style={scale=0.5, font=\Large}]
+%[scale=0.8, node distance = 1cm, auto]
+
+\node [iogram] (start) 
+  {enzyme abundance, model:\\ 
+  ($\mathbf{S}$ matrix, $\mathbf{v}_{lb}$, $\mathbf{v}_{ub}$)}; 
+
+
+\node [block, right of=start, xshift=6.5cm] (LFP) 
+  {Call LP solver:\\  minimize $\sum\limits_i \left|v_i\right| -n e_i$ 
+  \\ (for all irreversible reactions)};
+
+\node [block, right of=LFP, xshift=6.5cm] (assign_dir) 
+  {For all j, if:\\
+  $\left\{j \mid v_{j,f} + v_{j,b} > 0, v_{j,f} \neq v_{j,b} \right\}$ \\
+  then constrain the smaller of \\
+  $v_{j,f}$ and $v_{j,b}$ to be $0$.};
+
+\node [decision, below of=LFP, yshift=-2.5cm, aspect=2] (if_irrev_inc) 
+  {If:\\ $rxns_{irrev} > rxns_{irrev,prior}$};
+
+\node [iogram, left of=if_irrev_inc, xshift=-6cm] (Vout) {$\mathbf{v}$};
+
+
+\path [line] (start) -- (LFP);
+\path [line] (LFP) -- (assign_dir);
+\path [line] (assign_dir) -- (if_irrev_inc);
+\path [line] (if_irrev_inc) -- node [midway,above] {\color{black} No} (Vout) ;
+\path [line] (if_irrev_inc) -- node [midway,right] {\color{black} Yes} (LFP) ;
+
+\end{tikzpicture}
+\end{figure}
+
+\end{frame}
+
+\note{\scriptsize
+Now that we've discussed the GPR rule effects in detail, I'd like
+to the flux fitting algorithm and some of the improvements we've
+made over the initial formulation. 
+
+The intuition for the algorithm is that, if more enzyme is available,
+then more flux can flow through the reaction. In addition, it is
+unlikely that the organism will highly overproduce enzymes relative to
+the flux demands, as this would be extremely wasteful energetically
+and in terms of cellular space. Therefore, we wish to minimize the
+difference between the absolute value of the flux and the enzyme
+abundance, assuming the units have been scaled.
+\par
+
+First we call the LP solver to minimize the difference between flux
+and scaled expression on non-empty set of irreversible reactions.
+This isn't the actual formulation of the problem; the presence of
+absolute values and the scaling constant $n$ requires a transformation
+of the problem into a linear fraction program.
+
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Novel features in FALCON flux-fitting}
+
 
 \begin{itemize}
   \item Automatic expression scaling
@@ -617,7 +683,8 @@ versus with group information (y-axis; default FALCON setting).}
       \item Expression scaling 'constant' is now a variable in the L(F)P.
       \item Introduces less bias in a scaling constant.  
     \end{itemize}
-  \item Grouping reactions by enzyme complex.
+  \item Grouping reactions by enzyme complex:\\
+    $\left|\sum\nolimits_{j \in R_i} (v_{j,f} + v_{j,b}) - n e_i\right|$
     \begin{itemize}
       \footnotesize
       \item Much more principled approach.
@@ -638,10 +705,7 @@ versus with group information (y-axis; default FALCON setting).}
 
 \note{\scriptsize
 
-Now that we've discussed the GPR rule effects in detail, I'd like
-to introduce improvements to the flux fitting algorithm. 
-\par
-
+Now I would just like to briefly summarize the improvments we've made.
 Because expression units are different than flux units, they aren't
 going to be directly comparable.  Previously, expression was scaled so
 that a single reaction's complex abundance and forced flux would be
@@ -659,7 +723,9 @@ Reaction grouping is a principled improvement where we directly model
 the many-to-one relationship of reactions to enzyme complexes, so that
 flux of all the reactions corresponding to one enzyme complex are
 summed into one quantity when compared to the enzyme complex's
-abundance.
+abundance. This is writtten as the sum of the forward and reverse
+reactions $j$ that belong to an enzyme group $R_i$. This is the actual
+difference used in FALCON, which was simplified in the previous slide.
 \par
 
 Batch evaulation of reaction direction is another major benefit as it increases the
@@ -909,6 +975,11 @@ Bio-energy and industrial bio-synthetics are inherently tied to the
 engineering of robust and novel metabolic networks. Metabolism is also
 beginning to provide fine-grained detail to understanding microbial
 ecologies.
+
+My early experience with FBA modeling was designing a large scale
+simulation for detecting genetic interactions, which I haven't had
+time to discuss today, but I've illustrated one such dynamic 
+genetic interaction here.
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -957,7 +1028,6 @@ ecologies.
 
 \frame{\frametitle{TODO and notes} 
 
-Make a figure giving a brief overview of the fitting algorithm(s)?\\
 Mention the areas where we parallelized MATLAB code?\\
 Slides with many bullet points: grey out not active ones.\\
 Maybe use \only http://stackoverflow.com/questions/4683093/beamer-how-to-show-images-as-step-by-step-images\\
@@ -1003,6 +1073,90 @@ Spellcheck!\\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\begin{frame}[fragile]
+\frametitle{Enzyme complex abundance estimating with CNF.}
+
+\begin{algorithm}[H]
+\scriptsize
+\caption{CNF-izing min disjunction}
+\label{alg:ReductionToCNF}
+\begin{algorithmic}
+%\ifthenelse{\boolean{thesisStyle}}{\singlespacing}{}
+\INPUT $G = \left\{g_i~\mid~i \in{1, \ldots, m}\right\}$ are genes. 
+\INPUT $r$ := A Boolean rule without negation consisting of\\
+  $\left\{x_i~\mid~i \in{1, \ldots, n}\right\}$ Boolean sub-expressions.
+\INPUT $\E{g}$ := A map returning the expression level of gene g.
+\While{$rule \neq o_1 \land \ldots \land o_p$ where each $o_i$ is a disjunction
+  of genes} 
+  \If {Encounter a disjunction $x_d$ of conjunctions of genes}
+  \State \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{
+    Create sets from conjunctions, i.e.:\\
+    Create $G_1$ and $G_2$ with $g_{1,i} \in G_1$ 
+    and $g_{2,i} \in G_2$ where\\ 
+    $x_d = (g_{1,1} \land \ldots \land g_{1,r}) \lor 
+    (g_{2,1} \land \ldots \land g_{2,s})$. 
+    \strut}
+    \If {$G_1 \subseteq G_2$}
+    \State Replace $x_d$ with $(g_{1,1} \land \ldots \land g_{1,r})$.
+    \ElsIf {$G_2 \subseteq G_1$}
+    \State Replace $x_d$ with $(g_{2,1} \land \ldots \land g_{2,s})$.
+    \EndIf 
+  \EndIf
+  \State \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{
+    Distribute $\lor$ over $\land$, e.g.: $(x_1 \land x_2) \lor (x_3 \land x_4)$ \\ 
+    $\rightarrow (x_1 \lor x_3) \land (x_1 \lor x_4) \land 
+    (x_2 \lor x_3) \land (x_2 \lor x_4)$
+    \strut}
+\EndWhile
+\OUTPUT $o_{\min}$ where $o_{\min}$ has the form: $\ORw_{g_i \in G} g_i$ (uses $\E{g}$)
+\end{algorithmic} 
+\end{algorithm}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]
+\frametitle{The FALCON flux-fitting algorithm.}
+
+\begin{algorithm}[H]
+\tiny
+\caption{FALCON}
+\label{alg:FALCON}
+\begin{algorithmic}
+%\ifthenelse{\boolean{thesisStyle}}{\singlespacing}{}
+\State $u_{\min} := \min_j\ \{V_{j,\max} : V_{j,\max} > 0\}$
+\State $V_{lb}^{\Sigma} := u_{\min} \left|\{v_j : e_j \textnormal{ exists}\}\right|$
+\State {Scale data to be of similar size for numeric stability:}
+\ForAll {j}
+  \State $e_j := \frac{e_j V_{lb}^{\Sigma}}
+    {\sum\limits_{j} e_j}$ 
+  \State $\sigma_j := \frac{\sigma_j V_{lb}^{\Sigma}}
+    {\sum\limits_{j} e_j}$
+\EndFor
+\While{$rxns_{irrev} > rxns_{irrev,prior}$}
+  \State {$rxns_{irrev,prior} := rxns_{irrev}$}
+  \State Call LP Solver:
+  \State \hspace{4.8mm} \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{
+    $\textnormal{minimize}\ \sum\limits_i \frac{d_i}{n \sigma_i}$\\
+    s.t.\\
+    $\sum_{j \mid e_j \textnormal{ exists }} v_j \geq V_{lb}^{\Sigma}$\\ 
+    $\forall i: -d_i \leq \sum\nolimits_{j \in R_i} (v_{j,f} +
+    v_{j,b}) - n e_i \leq d_i$\\ 
+    $d_i, v_{j,f}, v_{j,b} \geq 0$\\ 
+    $n > 0$
+    \strut}
+  \ForAll {$\left\{j \mid v_{j,f} + v_{j,b} > 0, v_{j,f} \neq v_{j,b} \right\}$}
+  \State {Constrain the smaller of $v_{j,f}$ and $v_{j,b}$ to be $0$.}  
+  \State {$rxns_{irrev}$++}
+  \EndFor
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Grouping reactions by enzyme complex: HC} 
 
