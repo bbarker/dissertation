@@ -903,14 +903,26 @@ permuted.}
 \note{ 
 We want to be certain that the algorithm actually depends on the input
 data in a meaningful way, and that we aren't just getting lucky.  To
-demonstrate this, on the far right, you can see the FALCON
-correlations for two of the conditions in the previous slide. When we
-randomly permute the input data thousands of times, we can feed the
-permuted expression data into FALCON and see if the correlation
-between FALCON-estimated and experimentally-estimated fluxes are
-close.  Thankfully, we can see that is not the case, as the
-distribution of fluxes is moderately anti-correlated with the
-distribution of the rightly estimated flux.
+demonstrate this, we hope that we can demonstrate that garbage in gives
+us garbage out.
+\par
+
+In order to do this, we randomly permute the input data thousands of
+times and feed the it into FALCON and see if the correlation with the
+experimental data is still good. This gives us a distribution of
+correlations, and actually two distributions are plotted here for
+different experimental conditions (one green and one blue).
+\par
+
+On the far right, we can see the correlations for the two conditions
+with unpermuted data, which were the same correlations from the table
+we just saw.
+\par
+
+Thankfully, we can see that the permuted data does not perform well,
+as the distribution shows moderate anti-correlation with the the
+empirically measured fluxes.
+\par
 }
 
 
