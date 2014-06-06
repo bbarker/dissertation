@@ -84,7 +84,11 @@
 
 % Change some colors:
 \setbeamercolor{structure}{fg=CURed}
+\setbeamercolor{local structure}{fg=CURed}
+\setbeamercolor{block title}{bg=CURed}
+\setbeamercolor{block body}{bg=CURed!10}
 \setbeamercolor*{palette quaternary}{fg=white,bg=CUGrey}
+
 
 % include packages
 \usepackage{multicol}
@@ -174,7 +178,9 @@ just want to briefly introduce my computational history.
 \frame{
 \frametitle{My computing background}
 
+{\setbeamercolor{local structure}{fg=CUGrey}
 \begin{itemize}
+  {\only<1>{\setbeamercolor{local structure}{fg=CURed}}
   \item High school
   \begin{itemize}
     \scriptsize
@@ -182,6 +188,8 @@ just want to briefly introduce my computational history.
     \item Learned distributed computing concepts (Bell Labs' Plan9 OS). 
     \item Self-taught first language (x86 assembly).
   \end{itemize}
+  } % end of \only<1>
+  {\only<2>{\setbeamercolor{local structure}{fg=CURed}}
   \item College activities
   \begin{itemize}
     \scriptsize
@@ -190,6 +198,8 @@ just want to briefly introduce my computational history.
     \item IEEE: communications officer, robotics competition (runner-up).
     \item Organized ACM programming competitions.
   \end{itemize}
+  } % end of \only<2>
+  {\only<3>{\setbeamercolor{local structure}{fg=CURed}}
   \item Bioinformatics IT specialist
   \begin{itemize}
     \scriptsize
@@ -198,6 +208,8 @@ just want to briefly introduce my computational history.
     \item OpenMP parallel sequence alignment (C++).
     \item UNIX scripting for comparative genomics.
   \end{itemize}
+  } % end of \only<3>
+  {\only<4>{\setbeamercolor{local structure}{fg=CURed}}
   \item{Graduate research assistant}
   \begin{itemize}
     \scriptsize
@@ -205,8 +217,9 @@ just want to briefly introduce my computational history.
     \item Parallel computing (MATLAB, Python, ATS/C).
     \item Mathematical modeling (convex optimization and dynamical systems).
   \end{itemize}
+  } % end of \only<4>
 \end{itemize}
-
+} % end of \color{CUGrey}
 }
 
 \note{\scriptsize
@@ -409,7 +422,8 @@ complexes.
 
 \begin{block}{Flux fitting}
 Started as a way to fit a perturbed model to a wild-type flux, \\
-but can also be used to fit empircal flux estimations in a model.\\
+but can also be used to fit empircal flux estimations in a model.\\ 
+\vspace{1ex}
 Formulated as quadratic least-squares optimization\\(Segr\`e et al 2002):\\
 \begin{center}
 $\textnormal{minimize}\ \sum\limits_{i=1}^N (v_i-a_i)^2$ 
@@ -425,6 +439,7 @@ Later formulated as a linear programing (least absolute devation, or LAD) varian
 
 \begin{block}{Expression-flux fitting}
 Expression is widely available, especially for diseases. \\
+\vspace{1ex}
 But, expression must be converted to enzyme abundance. 
 \end{block}
 
@@ -675,14 +690,17 @@ of the problem into a linear fraction program.
 
 \frame{\frametitle{Novel features in FALCON flux-fitting}
 
-
+{\setbeamercolor{local structure}{fg=CUGrey}
 \begin{itemize}
+  {\only<1>{\setbeamercolor{local structure}{fg=CURed}}
   \item Automatic expression scaling
     \begin{itemize}
       \footnotesize
       \item Expression scaling 'constant' is now a variable in the L(F)P.
       \item Introduces less bias in a scaling constant.  
     \end{itemize}
+  } % end of \only<1>
+  {\only<2>{\setbeamercolor{local structure}{fg=CURed}}
   \item Grouping reactions by enzyme complex:\\
     $\left|\sum\nolimits_{j \in R_i} (v_{j,f} + v_{j,b}) - n e_i\right|$
     \begin{itemize}
@@ -691,16 +709,20 @@ of the problem into a linear fraction program.
       \item Major difference for some reactions\\
             ($\approx$60-fold difference in some cases).
     \end{itemize}
+  } % end of \only<2>
+  {\only<3>{\setbeamercolor{local structure}{fg=CURed}}
   \item Batch evaluation of reaction directionality.
     \begin{itemize}
       \footnotesize
       \item Primary reason for increased performance.
       \item Introduces less bias in first stages of directionality assignment.
     \end{itemize}
+  } % end of \only<3>
+  {\only<4>{\setbeamercolor{local structure}{fg=CURed}}
   \item Take into account nondeterministic nature of algorithms.
-
+  } % end of \only<4>
 \end{itemize}
-
+} % end of \color{CUGrey}
 }
 
 \note{\scriptsize
