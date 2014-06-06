@@ -260,11 +260,39 @@ algorithm which I'll be focusing on today.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Important metabolic pathways}
-\begin{center}
-\includegraphics[height=0.85\textheight,width=0.53\textwidth]
+\newcommand{\introduceFlux}{%
+\begin{block}{Flux}
+\small
+Flux is basically the rate at which a reaction occurs.\\
+\vspace{1ex}\hrule\vspace{1ex}
+On a road, flux can be thought of as the throughput of cars.
+\end{block}
+
+\begin{block}{Enzymes}
+\small
+An enzyme is a catalyst that increase the flux for its
+associated reactions.\\
+\vspace{1ex}
+Enzyme complexes are enzymes made of multiple proteins.\\
+\vspace{1ex}\hrule\vspace{1ex}
+An enzyme represents the width of the road for a reaction.\\
+\end{block}
+}
+
+\newcommand{\introduceFluxTitle}
+  {Metabolic pathways and their components.}
+
+\frame{\frametitle{\introduceFluxTitle}
+\begin{columns}
+\begin{column}{0.55\textwidth}
+\includegraphics[height=0.85\textheight, width=\textwidth]
 {metabolism-zoom-start}
-\end{center}
+%height=0.85\textheight,width=0.53\textwidth
+\end{column}
+\begin{column}{0.45\textwidth}
+\introduceFlux
+\end{column}
+\end{columns}
 }
 
 
@@ -291,16 +319,21 @@ this complexity.
 \par}
 
 
-\frame{\frametitle{Important metabolic pathways}
-\begin{center}
+\frame{\frametitle{\introduceFluxTitle}
+\begin{columns}
+\begin{column}{0.55\textwidth}
 \includemedia[
   activate=pageopen,
   height=0.85\textheight,
-  width=0.53\textwidth,
+  width=\textwidth,
   transparent=true
 ]
 {}{./figures/metabolism-zoom.swf}
-\end{center}
+\end{column}
+\begin{column}{0.45\textwidth}
+\introduceFlux
+\end{column}
+\end{columns}
 }
 
 \note{Here you can see the rest of the first pathway, oxidative
