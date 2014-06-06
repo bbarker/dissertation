@@ -184,7 +184,7 @@ just want to briefly introduce my computational history.
   \item High school
   \begin{itemize}
     \scriptsize
-    \item BSD/Linux sys admin in high school at local ISP.
+    \item BSD/Linux sys admin in high school at local internet service provider..
     \item Learned distributed computing concepts (Bell Labs' Plan9 OS). 
     \item Self-taught first language (x86 assembly).
   \end{itemize}
@@ -224,7 +224,8 @@ just want to briefly introduce my computational history.
 
 \note{\scriptsize
 My computing experience began in high school after installing Linux.
-During my internship at a local ISP, I gained experience installing
+During my internship at a local internet service provider, 
+I gained experience installing
 web servers running mostly FreeBSD in a professional setting, and
 spent additional time at home learning operating systems concepts and
 skills. In college, I participated in various organizatios, including
@@ -608,16 +609,26 @@ used
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Grouping reactions by enzyme complex has a large effect} 
+\frame{\frametitle{Complex quantification in flux mapping} 
 
 \begin{figure}
 \centering
-  \includegraphics[height=0.7\textheight]
-  {falconGrp_yeastMC}
-\caption{
-Comparison of setting FALCON to use no reaction group information (x-axis)
-versus with group information (y-axis; default FALCON setting).}
-\label{fig:FalconGrp}
+\begin{tabular}{cc}
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
+  {expCmpY7MC}
+  \caption{yeast} \label{fig:EnzAbundEval:B}
+  \end{subfigure} 
+&
+  \begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
+  {expCmpR2dC}
+  \caption{human} \label{fig:EnzAbundEval:D}
+  \end{subfigure} 
+\\
+\end{tabular}
+\vspace{-4mm}
+\label{fig:EnzAbundEval}
 \end{figure}
 }
 
@@ -768,32 +779,20 @@ that you have seen in the scatter plots.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Complexation effect in flux mapping} 
+\frame{\frametitle{Grouping reactions by enzyme complex has a large effect} 
 
 \begin{figure}
 \centering
-\begin{tabular}{cc}
-  \begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
-  {expCmpY7MC}
-  \caption{yeast} \label{fig:EnzAbundEval:B}
-  \end{subfigure} 
-&
-  \begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
-  {expCmpR2dC}
-  \caption{human} \label{fig:EnzAbundEval:D}
-  \end{subfigure} 
-\\
-\end{tabular}
-\vspace{-4mm}
-\label{fig:EnzAbundEval}
+  \includegraphics[height=0.7\textheight]
+  {falconGrp_yeastMC}
+\caption{
+Comparison of setting FALCON to use no reaction group information (x-axis)
+versus with group information (y-axis; default FALCON setting).}
+\label{fig:FalconGrp}
 \end{figure}
 }
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}        %
@@ -1296,8 +1295,8 @@ associated unperturbed vector for the Yeast~7 model.}
 \\
 \end{tabular}
 \caption{Pearson correlation between FALCON flux magnitudes, and
-various complexation estimates in yeast \textbf{(a)} and human
-\textbf{(b)}.}
+various complex quantification estimates in yeast \textbf{(a)} and
+human \textbf{(b)}.}
 \label{fig:FluxExpCmp}
 \end{figure}
 }
