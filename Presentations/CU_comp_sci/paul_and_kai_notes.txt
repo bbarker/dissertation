@@ -1,0 +1,61 @@
+Thanks, that does look like what I was hoping for. I've updated the question above to include my current progress.
+
+
+Before going over title, talk about three points (hardware/software experience, CS experience, applied to problem solving 
+
+in biology).
+
+Mention all the different backgrounds I've worked with before (Math, stats, physics, nutrition, biology, ...). Emphasize 
+
+interest in helping researchers.
+
+drop "flux estimation"
+
+If keeping the background slide, try to make it a good story and funny. 
+Maybe remove bullet point iteration in this one. '
+Try to bring up themes in story (efficiency, communication, etc.)
+
+
+In talking about metabolic systems complexity, be sure to tell them how important modeling complex
+systems can be in both research and in the systems environment. 
+
+Introduce why we want to use constraint based modeling before going over FBA example.
+italicize analogies; introduce enzyme complexes later.
+Iteratively show images.
+whiteout "FBA"
+Be very careful about clearly and easily explaining equations.
+Be *sure* to give microbiral growth maximization example.
+
+
+Make the flux fitting objective slides' titles better.
+
+*** Flux fitting example: road construction, rerouted traffic ***
+
+Selling points for each point in the algorithm pipeline, change title to show solution oriented approach.
+More contrast for code coloringn.
+Subtitles above code as main innovation for each part.
+(efficient, accurate efficient).
+
+(one possible analogy probably to be included earlier is that gene expression when coupled with complexation
+tells us what a cell can do, flux tells us what it is doing).
+
+
+Probably need to change title for comparing complexation methods to show enchanced accuracy.
+
+For 2nd flowchart: falcon: an iterative approach to flux estimation.
+"Call solver" instead of "Call LP solver".
+
+Change the color of text not just dots.
+
+On ATP Synthase example, knockout caption. Include illustration for central dogma  (with gene, protein, (leave out mRNA) 
+
+terms).
+
+
+
+*** Use road analogy again on FALCON flux fitting ***
+
+For nondeterminism, introduce a minor bullet for value.
+Remove periods.
+
+Simplifly 2nd flowchart, possibly merge with bullets to show innovations.
