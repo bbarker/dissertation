@@ -947,9 +947,15 @@ ever change, so we terminate the process and return the flux vector.
 
 \frame{\frametitle{Novel features in FALCON flux-fitting}
 
-{\setbeamercolor{local structure}{fg=CUGrey}
+{%
+\setbeamercolor{local structure}{fg=CUGrey}
+\setbeamercolor{itemize/enumerate body}{fg=gray!65}
+\setbeamertemplate{alerted text begin}{%
+  \setbeamercolor{local structure}{fg=CURed}%
+  \setbeamercolor{alerted text}{fg=black}%
+  }
 \begin{itemize}
-  {\only<1>{\setbeamercolor{local structure}{fg=CURed}}
+  \alert<1>{
   \item Automatic expression scaling
     \begin{itemize}
       \footnotesize
@@ -957,7 +963,7 @@ ever change, so we terminate the process and return the flux vector.
       \item Introduces less bias in a scaling constant
     \end{itemize}
   } % end of \only<1>
-  {\only<2>{\setbeamercolor{local structure}{fg=CURed}}
+  \alert<2>{
   \item Grouping reactions by enzyme complex:\\
     $\left|\sum\nolimits_{j \in R_i} (v_{j,f} + v_{j,b}) - n e_i\right|$
     \begin{itemize}
@@ -967,7 +973,7 @@ ever change, so we terminate the process and return the flux vector.
             ($\approx$60-fold difference in some cases)
     \end{itemize}
   } % end of \only<2>
-  {\only<3>{\setbeamercolor{local structure}{fg=CURed}}
+  \alert<3>{
   \item Batch evaluation of reaction directionality
     \begin{itemize}
       \footnotesize
@@ -975,7 +981,7 @@ ever change, so we terminate the process and return the flux vector.
       \item Introduces less bias in first stages of directionality assignment
     \end{itemize}
   } % end of \only<3>
-  {\only<4>{\setbeamercolor{local structure}{fg=CURed}}
+  \alert<4>{
   \item Take into account nondeterministic nature of algorithms
     \begin{itemize}
       \footnotesize
