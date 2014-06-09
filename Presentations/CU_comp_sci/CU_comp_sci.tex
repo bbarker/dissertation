@@ -238,14 +238,16 @@ just want to briefly introduce my computational history.
 
 \note{\scriptsize
 My computing experience began in high school after installing Linux.
-During my internship at a local internet service provider, 
-I gained experience installing
-web servers running mostly FreeBSD in a professional setting, and
-spent additional time at home learning operating systems concepts and
-skills. In college, I participated in various organizatios, including
-the ACM, IEEE. I also was a proponent of .NET at the time, and worked
-with Microsoft as the student representative on our campus for
-teaching .NET and helping students get access to Microsoft software.
+During my internship at a local internet service provider, I gained
+experience installing web servers running mostly FreeBSD in a
+professional setting, and spent additional time at home learning
+operating systems concepts and skills. In college, I participated in
+various organizations, including the ACM and IEEE, where I helped
+organize programming competitions and student chapter web sites,
+participated in a robotics competition where I won 2nd place, and I
+also was a proponent of .NET at the time, and worked with Microsoft as
+the student representative on our campus for teaching .NET and helping
+students get access to Microsoft software.
 \par
 
 I'd always been interested in nature since I grew up in a rural area,
@@ -259,7 +261,8 @@ also developed a novel algorithm for biological sequence alignment
 that allowed arbritrary precision parameters (using libGMP) and
 non-embarassingly parallel execution (using OpenMP). I also did some
 comparative genomics research that heavily relied on the UNIX style of
-data processing.
+data processing, and collaborated with a statistician on the tree
+of life.
 \par
 
 Once I transition to graduate research, I couldn't really give up the
@@ -407,8 +410,10 @@ are thought to be unimportant often are not drawn. }
 
 \put(0.65\textwidth, 0.6\textheight){\makebox(0.5\textwidth, 0)[lt]{\usebox{\FBAgeom}}}
 \put(0.65\textwidth, 0.555\textheight){\usebox{\hideLetter}}
-\put(0.98\textwidth, 0.31\textheight){
+\put(0.98\textwidth, 0.31\textheight){% cover cutoff equations
   \colorbox{white}{\makebox(0.07\textwidth, 0.11\textheight)[lt]{ }}}
+\put(0.77\textwidth, 0.55\textheight){% cover 'FBA'
+  \colorbox{white}{\makebox(0.07\textwidth, 0.05\textheight)[lt]{ }}}
 
 \put(0, 0.1\textheight){\usebox{\WIREsCite}}
 
@@ -491,10 +496,11 @@ But, expression must be converted to enzyme abundance.
 
 \begin{figure}
 \centering
-\includegraphics[clip=true,trim=0cm 0cm 0cm 0cm, width=6cm]{2F43}
-\caption{Illustration of the $F_1$ part of the ATP Synthase complex
-(PDB ID 1E79).}
-\label{fig:2F43}
+\begin{tabular}{cc}
+\includegraphics[width=0.5\textwidth]{centraldogma} %
+& %
+\includegraphics[width=0.5\textwidth]{2F43} %
+\end{tabular}
 \end{figure}
 
 }
