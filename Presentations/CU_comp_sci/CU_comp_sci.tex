@@ -241,7 +241,13 @@ My computing experience began in high school after installing Linux.
 During my internship at a local internet service provider, I gained
 experience installing web servers running mostly FreeBSD in a
 professional setting, and spent additional time at home learning
-operating systems concepts and skills. In college, I participated in
+operating systems concepts and skills. \textbf{My first language was 
+x86 assembly, which makes me sound as old as I look.} I wanted to 
+learn things from the ground up, so it seemed like a good idea
+at the time.
+\par
+
+In college, I participated in
 various organizations, including the ACM and IEEE, where I helped
 organize programming competitions and student chapter web sites,
 participated in a robotics competition where I won 2nd place, and I
@@ -330,7 +336,10 @@ be considered a fairly typical length for a pathway.  This pathway is
 inherently linked to another pathway of about the same size, and that
 pathway depends on another core pathway of roughly the same length for
 preprocessing glucose. When we zoom out, we can start to see some of
-this complexity.
+this complexity. Due to all this complexity and the inability to
+measure directly most fluxes, as well as the need to quantitatively
+understand what the reaction fluxes are, a mechanistic modeling
+framework is needed to really get at the system.
 \par}
 
 
@@ -448,14 +457,19 @@ network depicted here begins to generate a fair-sized matrix.
 \par
 
 Now that we are armed with this matrix, we can make mathematical
-assumptions about the system, such as the steady state condition shown
-here, which asserts that concentrations do not change over large
-enough time scales. In symbols, the S matrix multiplied by the flux
+assumptions about the system. The S matrix multiplied by the flux
 vector (here denotes as an $F$, and sometimes as a $\mathbf{v}$)
 yields the change in concenrtation over time for each
-metabolite, which is constrained to be zero.  Finally, we need an
-optimization objective, such as the maximization of growth rate, which
-is common objective used for many microbes.
+metabolite, which is here constrained to be zero and is called
+the steady state assumption. The steady state assumption 
+asserts that concentrations do not change over large enough timescales.
+Finally, we need an optimization objective. 
+\textbf{An objective has a dual meaning: it is
+something that we suppose instills the biological imperative of
+the cell, and it is a mathematical function that we can optimize.
+A common example is the maximization of growth rate, which
+is used for many microbes that often grow as fast as the
+nutrient supply and physiological constraints will allow.}
 \par
 
 While this framework is powerful, it is also theoretically simplistic

@@ -1,19 +1,14 @@
-If keeping the background slide, try to make it a good story and funny. 
+  (If keeping the background slide, try to make it a good story and funny. )
 
   (Maybe remove bullet point iteration in this one.)
   (Try to bring up themes in story (efficiency, communication, etc.))
 
 
-In talking about metabolic systems complexity, be sure to tell them how important modeling complex
-systems can be in both research and in the systems environment. 
+  (In talking about metabolic systems complexity, be sure to tell them
+  how important modeling complex) systems can be in both research and
+  in the systems environment.
 
-*** Introduce why we want to use constraint based modeling before going over FBA example.
-Iteratively show images.
-
-Be very careful about clearly and easily explaining equations.
-
-Be *sure* to give microbiral growth maximization example.
-
+  (Be very careful about clearly and easily explaining equations.)
 
   (Selling points for each point in the algorithm pipeline, 
   change title to show solution oriented approach.)
