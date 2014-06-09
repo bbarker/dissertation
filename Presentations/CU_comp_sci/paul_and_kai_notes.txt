@@ -1,13 +1,13 @@
 If keeping the background slide, try to make it a good story and funny. 
-(Maybe remove bullet point iteration in this one.)
-(Try to bring up themes in story (efficiency, communication, etc.))
+
+  (Maybe remove bullet point iteration in this one.)
+  (Try to bring up themes in story (efficiency, communication, etc.))
 
 
 In talking about metabolic systems complexity, be sure to tell them how important modeling complex
 systems can be in both research and in the systems environment. 
 
-Introduce why we want to use constraint based modeling before going over FBA example.
-italicize analogies; introduce enzyme complexes later.
+*** Introduce why we want to use constraint based modeling before going over FBA example.
 Iteratively show images.
 
 Be very careful about clearly and easily explaining equations.
@@ -15,33 +15,21 @@ Be very careful about clearly and easily explaining equations.
 Be *sure* to give microbiral growth maximization example.
 
 
-Make the flux fitting objective slides' titles better.
+  (Selling points for each point in the algorithm pipeline, 
+  change title to show solution oriented approach.)
 
-*** Flux fitting example: road construction, rerouted traffic ***
-
-Selling points for each point in the algorithm pipeline, change title to show solution oriented approach.
-
-Subtitles above code as main innovation for each part.
-(efficient, accurate efficient).
+  (Subtitles above code as main innovation for each part.
+  (efficient, accurate efficient).)
 
 (one possible analogy probably to be included earlier is that gene expression when coupled with complexation
 tells us what a cell can do, flux tells us what it is doing).
 
 
-Probably need to change title for comparing complexation methods to show enchanced accuracy.
 
-(For 2nd flowchart: falcon: an iterative approach to flux estimation.
-"Call solver" instead of "Call LP solver".)
-
-On ATP Synthase example, knockout caption. Include illustration for central dogma  (with gene, protein, (leave out mRNA) 
-
-terms).
-
+  (For 2nd flowchart: falcon: an iterative approach to flux estimation.
+  "Call solver" instead of "Call LP solver".)
 
 
 *** Use road analogy again on FALCON flux fitting ***
-
-For nondeterminism, introduce a minor bullet for value.
-Remove periods.
 
 Simplifly 2nd flowchart, possibly merge with bullets to show innovations.
