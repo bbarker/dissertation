@@ -104,7 +104,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title{Data-driven Whole-Cell Metabolic Modeling}
-\subtitle{An Efficient Systems Approach for Flux Estimation}
+\subtitle{An Efficient Systems Approach}
 \author{\texorpdfstring{Brandon Barker\newline
   \url{brandon.barker@gmail.com}}{Brandon Barker}}
 \institute{
@@ -141,15 +141,23 @@ Cornell University \\ \vspace{.25cm}CAC Job Search}
 \note{
 Good morning/thanks/whatever. It has been good meeting everyoe
 so far and I look forward to talking with most/all of you later in the
-day. I'm a studeint in the Tri-Institutional program in
+day. I'm a student in the Tri-Institutional program in
 Computational Biology and Medicine, which has associations
 with the Weill Cornell Medical School and Memorial Sloan-Kettering
-campuses in NYC.  I'm graduating from Zhenglong Gu's laboratory in 
-Nutritional  Sciences - one of the more computational groups in Biology 
+campuses in NYC. With my training in computer science theory, software
+implementation, server administration, and collaborating with
+researchers in diverse fields like biology, medicine, physics,
+statistics, mathematics, and computer science, I hope to use my
+experience to continue aiding some the exciting research that will
+happen at Cornell.
+\par
+
+I'm graduating from Zhenglong Gu's laboratory in 
+Nutritional  Sciences - one of the computational groups in Biology 
 at Cornell. Our goal in this research and much of my thesis is
 to build tools enabling the computation of a fundamental metabolic,
 quantity, flux, in models that may help us to understand disease as
-well as various microbial interactiosn, which are somewhat easier
+well as various microbial interactions, which are somewhat easier
 to tackle. In this presentation I will mainly be discussing a recent project
 that we've been working on for about a year and a half related to
 modeling metabolism of whole cells, but before we get in to that, I
@@ -178,9 +186,15 @@ just want to briefly introduce my computational history.
 \frame{
 \frametitle{My computing background}
 
-{\setbeamercolor{local structure}{fg=CUGrey}
+{%
+\setbeamercolor{local structure}{fg=CUGrey}
+\setbeamercolor{itemize/enumerate body}{fg=gray!65}
+\setbeamertemplate{alerted text begin}{%
+  \setbeamercolor{local structure}{fg=CURed}%
+  \setbeamercolor{alerted text}{fg=black}%
+  }
 \begin{itemize}
-  {\only<1>{\setbeamercolor{local structure}{fg=CURed}}
+  \alert<1>{
   \item High school
   \begin{itemize}
     \scriptsize
@@ -189,7 +203,7 @@ just want to briefly introduce my computational history.
     \item Self-taught first language (x86 assembly).
   \end{itemize}
   } % end of \only<1>
-  {\only<2>{\setbeamercolor{local structure}{fg=CURed}}
+  \alert<2>{
   \item College activities
   \begin{itemize}
     \scriptsize
@@ -199,7 +213,7 @@ just want to briefly introduce my computational history.
     \item Organized ACM programming competitions.
   \end{itemize}
   } % end of \only<2>
-  {\only<3>{\setbeamercolor{local structure}{fg=CURed}}
+  \alert<3>{
   \item Bioinformatics IT specialist
   \begin{itemize}
     \scriptsize
@@ -209,7 +223,7 @@ just want to briefly introduce my computational history.
     \item UNIX scripting for comparative genomics.
   \end{itemize}
   } % end of \only<3>
-  {\only<4>{\setbeamercolor{local structure}{fg=CURed}}
+  \alert<4>{
   \item{Graduate research assistant}
   \begin{itemize}
     \scriptsize
@@ -551,8 +565,8 @@ comoplex.}
       ($\mu$,~$\sigma$)}; 
     \node [iogram, below of=start, right of=start] (rules) {Reactions:
       GPR Rule}; 
-    \node [block, below of=rules, onslide=<1>{fill=yellow!50}] (parse) {Parse Rule}; 
-    \node [block, below of=parse, left of=parse, xshift=-0.5cm, onslide=<2>{fill=yellow!50}]
+    \node [block, below of=rules, onslide=<1>{fill=yellow!80}] (parse) {Parse Rule}; 
+    \node [block, below of=parse, left of=parse, xshift=-0.5cm, onslide=<2>{fill=yellow!80}]
       (mindisj) {Find minimum disjunction};
     \node [iogram, below of=mindisj] (expstd)
           {Reactions (enzyme~complexes):\\ abundance ($\mu$,~$\sigma$)};
@@ -561,7 +575,7 @@ comoplex.}
     \node [iogram, left of=falcon, below of=expstd, xshift=-0.3cm] (vbnd) 
       {Reactions:\\ flux bounds ($\mathbf{v}_{lb}$, $\mathbf{v}_{ub}$)};
     \node [block, below of=vbnd, left of=smat, right of=vbnd, 
-      below of=expstd, yshift=-0.5cm, onslide=<3>{fill=yellow!50}] (falcon) 
+      below of=expstd, yshift=-0.5cm, onslide=<3>{fill=yellow!80}] (falcon) 
       {Flux fitting (FALCON)};
     \node [iogram, below of=falcon] (fluxout) 
       {Reactions:\\ fluxes ($\mathbf{v}:$ $\mu$,~$\sigma$)};
@@ -583,7 +597,7 @@ comoplex.}
 
 \begin{column}{0.55\textwidth}
 
-{\color{gray}
+{\color{gray!65}
 
 {\only<1>{\color{black}}
 \begin{lstlisting}[basicstyle=\ttfamily\tiny, language=ATS, showstringspaces=false]
