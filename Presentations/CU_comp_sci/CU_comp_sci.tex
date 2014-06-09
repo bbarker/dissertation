@@ -145,19 +145,21 @@ so far and I look forward to talking with most/all of you later in the
 day. I'm a student in the Tri-Institutional program in
 Computational Biology and Medicine, which has associations
 with the Weill Cornell Medical School and Memorial Sloan-Kettering
-campuses in NYC. With my training in computer science theory, software
-implementation, server administration, and collaborating with
-researchers in diverse fields like biology, medicine, physics,
-statistics, mathematics, and computer science, I hope to use my
-experience to continue aiding some the exciting research that will
-happen at Cornell.
+campuses in NYC.
 \par
 
-I'm graduating from Zhenglong Gu's laboratory in 
-Nutritional  Sciences - one of the computational groups in Biology 
-at Cornell. Our goal in this research and much of my thesis is
+I'm graduating from Zhenglong Gu's laboratory in Nutritional Sciences
+- one of the computational groups in Biology at Cornell.  With my
+prior training in computer science theory, software implementation,
+server administration, and collaborating with researchers in diverse
+fields like biology, medicine, physics, statistics, mathematics, and
+computer science, I hope to continue aiding in the exciting and
+important research that happens at Cornell.
+\par
+
+Our goal in this research and much of my thesis is
 to build tools enabling the computation of a fundamental metabolic,
-quantity, flux, in models that may help us to understand disease as
+quantity, called flux, in models that may help us to understand disease as
 well as various microbial interactions, which are somewhat easier
 to tackle. In this presentation I will mainly be discussing a recent project
 that we've been working on for about a year and a half related to
@@ -238,48 +240,51 @@ just want to briefly introduce my computational history.
 } % end of \color{CUGrey}
 }
 
-\note{\scriptsize
-My computing experience began in high school after installing Linux.
+\note{\tiny
+My real computing experience began in high school after installing Linux.
 During my internship at a local internet service provider, I gained
-experience installing web servers running mostly FreeBSD in a
-professional setting, and spent additional time at home learning
+experience installing web servers running mostly FreeBSD, 
+and spent additional time at home learning
 operating systems concepts and skills. \textbf{My first language was 
 x86 assembly, which makes me sound as old as I look.} I wanted to 
 learn things from the ground up, so it seemed like a good idea
 at the time.
 \par
 
-In college, I participated in
-various organizations, including the ACM and IEEE, where I helped
-organize programming competitions and student chapter web sites,
-participated in a robotics competition where I won 2nd place, and I
-also was a proponent of .NET at the time, and worked with Microsoft as
-the student representative on our campus for teaching .NET and helping
-students get access to Microsoft software.
+In college, I participated in various organizations, including the ACM
+and IEEE, where I helped organize programming competitions and student
+chapter web sites, and participated in an IEEE robotics competition
+which won a 2nd place prize.  I was a proponent of the .NET framework
+at the time, and worked with Microsoft as the student representative
+on our campus for teaching .NET and helping students get access to
+Microsoft software.
 \par
 
 I'd always been interested in nature since I grew up in a rural area,
 and this later transitioned into interest in biology. I picked up
 Biology again more seriously near the end of my undergraduate studies
- and began working as a bioinformatics cluster administrator, which soon
-transitioned into a full time position that included maintaining a
-database, training its users, and extending its features. The most
+and began working as a bioinformatics cluster administrator, which
+soon transitioned into a full time position that included maintaining
+a database, training its users, and extending its features. The most
 prominent feature I added was a K-means clustering web-interface. I
 also developed a novel algorithm for biological sequence alignment
 that allowed arbritrary precision parameters (using libGMP) and
-non-embarassingly parallel execution (using OpenMP). I also did some
-comparative genomics research that heavily relied on the UNIX style of
-data processing, and collaborated with a statistician on the tree
-of life.
+non-embarassingly parallel execution (using OpenMP).  Comparative
+genomics research was also part of the position, and that relied
+heavily on the UNIX style of data processing. Finally, I initiated
+collaboration with a statistician on tree of life problems during 
+this time.
 \par
 
-Once I transition to graduate research, I couldn't really give up the
+Once I transitioned to graduate research, I couldn't really give up the
 sys-admin bug in me, and convinced my advisor to buy one server after
 another, which I realize may run counter to the CAC's business
-model. But it let me keep my skills sharp. My studies in graduate
-school focused on optimization and mathematical modeling, 
-which were helpful in designing a highly efficient and more accurate
-algorithm which I'll be focusing on today.
+model. But it let me keep my skills sharp. 
+\par
+
+My studies in graduate school focused on optimization and mathematical
+modeling, which were helpful in designing a highly efficient and more
+accurate algorithm which I'll be focusing on during this talk.
 \par
 }
 
@@ -288,14 +293,14 @@ algorithm which I'll be focusing on today.
 \newcommand{\introduceFlux}{%
 \begin{block}{Flux}
 \small
-The rate at which a reaction occurs\\
+rate at which a reaction occurs\\
 \vspace{1ex}\hrule\vspace{1ex}
 \textit{throughput of cars on a road}
 \end{block}
 
-\begin{block}{Enzymes}
+\begin{block}{Enzyme}
 \small
-A catalyst that increase the flux for its
+protein catalyst that increase the flux for its
 associated reactions\\
 \vspace{1ex}\hrule\vspace{1ex}
 \textit{the width of the road}\\
@@ -319,9 +324,12 @@ associated reactions\\
 }
 
 
-\note{
-One way to describe metabolism is as the set of reactions
-and the rate of the reactions made possible by enzymatic catalysts.
+\note{\scriptsize
+One way to describe metabolism is as the set of reactions and the rate
+of the reactions made possible by enzymatic catalysts.  The rate of a
+reaction is called flux, and if the reactions are the roads, then the
+flux is the throughput of traffic on the road. Enzymes, which are
+protein catalysts, can be thought of as the width of the road.
 Metabolism is critical for understanding wide classes of
 diseases including diabetes, cancer, and inborn errors in metabolism.
 Here we can see several very important reactions that organisms from
@@ -332,7 +340,7 @@ back to ATP synthase in a later example.
 
 Unfortunately, metabolism is much more complex than is often
 depicted, and so the problem of determining fluxes that might help
-us to better understand disease is also difficult problem.
+us to better understand disease is also a difficult problem.
 This depiction only shows a little over half of what would
 be considered a fairly typical length for a pathway.  This pathway is
 inherently linked to another pathway of about the same size, and that
@@ -368,14 +376,14 @@ require many other pathway dependencies that process or recycle other
 chemicals that are not quite in the right form to be used by the later
 stages. What's more, this poster from 2003 is actually relatively
 simple: chemicals that are similar are often omitted, and there can be
-thousands of these for some classes. Also, reactions are present but
-are thought to be unimportant often are not drawn.
+thousands of these for some classes. Also, reactions thought to be
+unimportant often are not drawn.
 \par
 
-Due to all this complexity and the inability to
-measure directly most fluxes, as well as the need to quantitatively
-understand what the reaction fluxes are, a mechanistic modeling
-framework is needed to really get at the system.
+\textbf{Due to all this complexity and the inability to measure
+directly most fluxes, as well as the need to quantitatively understand
+what the reaction fluxes are, a mechanistic modeling framework is
+needed to really get at the system.}
 \par}
 
 
@@ -453,9 +461,9 @@ later.
 
 To work with a system computationally, we write all known
 reactions down, including transport reactions across compartments, as
-the columns of a matrix, called the Stoichiometric matrix or S matrix.
+the columns of a matrix, called the Stoichiometric matrix or the S matrix.
 The rows correspond to compartmentally unique chemicals, often called
-metabolites in the context of metabolism. The entries of the matrix
+metabolites. The entries of the matrix
 correspond to the coefficients in the reaction equation: a negative
 coefficient denotes it is a reactant, and a positive coefficient
 signifies it is a product. For instance, reaction $F_1$ consumes two
@@ -463,10 +471,10 @@ $I$ and one $J$ to produce an $A$. We can see that the small toy
 network depicted here begins to generate a fair-sized matrix.
 \par
 
-Now that we are armed with this matrix, we can make mathematical
+Now that we have this matrix, we can make mathematical
 assumptions about the system. The S matrix multiplied by the flux
 vector (here denotes as an $F$, and sometimes as a $\mathbf{v}$)
-yields the change in concenrtation over time for each
+yields the change in concentration over time for each
 metabolite, which is here constrained to be zero and is called
 the steady state assumption. The steady state assumption 
 asserts that concentrations do not change over large enough timescales.
@@ -483,7 +491,7 @@ While this framework is powerful, it is also theoretically simplistic
 (so far we only make use of a simple objective and known
 reactions). It can also be inaccurate, especially for multicellular
 organisms with many different cell types. But the framework is
-extendable, and in this work, we extend this framework by using two
+extendable, and in this work, we extend it by using two
 types of data: annotation on how the enzymatic complexes come
 together, and data on abundance of the components of these enzyme
 complexes.
