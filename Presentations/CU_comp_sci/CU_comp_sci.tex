@@ -907,7 +907,7 @@ the difference between rules can have a much larger effect.
 
 \end{frame}
 
-\note{\scriptsize
+\note{\tiny
 Now that we've discussed the gene rule effects in detail, I'd like
 to the flux fitting algorithm and some of the improvements we've
 made over the initial formulation. 
@@ -925,9 +925,23 @@ First we call the LP solver to minimize the difference between flux
 and scaled expression on non-empty set of irreversible reactions.
 This isn't the actual formulation of the problem; the presence of
 absolute values and the scaling constant $n$ requires a transformation
-of the problem into a linear fraction program.
+of the problem into a linear fraction program. After this step, we
+want to assign reaction directionality whenever there is a preference
+for the forward or backward reaction. It is helpful to break down
+the original flux, which can be positive or negative, into a forward
+and backward flux, $v_f$ and $v_b$, that can only be non-zero.
+This can be thought of in terms of our road analogy again: we aren't
+interested in the total amount of traffic in opposing lanes, but only
+the net flow of traffic, so we can see which side of the highways we
+want to build our gas stations on.  I promise, that will be the last
+time I use the road analogy.  If there is a preference in direction,
+we assing the other direction to be zero.
+\par
 
-}
+If the number of irreversible reactions increased, then we repeat the
+process.  But if nothing changed since the last time, nothing will
+ever change, so we terminate the process and return the flux vector.
+\par}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1028,6 +1042,16 @@ versus with group information (y-axis; default FALCON setting).}
 \end{figure}
 }
 
+\note{
+To emphasize a couple of the points in the previous slide, we can see
+that using reaction groups, as opposed to not using them (on the
+x-axis), doesn't give us a very good relationship. Additionally, we
+can see the error bars in both cases that are due to alternative
+optima. The error bars with reaction group does tend to go up, likely
+due to there being fewer constraints overall (there's one contraint
+per enzyme complex instead of one constraint per reaction).
+\par}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1060,7 +1084,26 @@ yeast exometabolic fluxes in two growth conditions (75~\% and 85~\%
 Max.~$\mu$)}
 \label{tab:FalcPerf}
 \end{figure}
+
 }
+
+\note{
+When it comes to predicting performance, we used a benchmark that
+included 7 measured fluxes from yeast in two different conditions
+correpsonding to 75 and 85 percent of maximum growth rate. We
+additionally used two variants (minimally and highly contrained) of
+two different versions of a yeast model, to see if any of these
+conditions largely effectect the methods in the panel. While all of
+the methods are constraint based methods, the Lee method is the only
+similar method to ours (its the one that uses direct evaluation of
+gene rules to estimate complex abundance) and can be thought of as the
+predecessor. As can be seen in yellow, the Lee method performs quite
+well when the model is highly constrained, which are the default
+constaints on directionality that ship with the yeast model. When
+these are largely removed, it loses much of its performance, whereas
+our method retains good corrleation.
+\par}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1087,6 +1130,21 @@ Max.~$\mu$)}
 \label{tab:FalcSpeed}
 \end{figure}
 }
+
+
+\note{
+We also wanted to improve the efficienncy of the method, primarily to
+get at large models like the human model. In this panel, we only look
+at performance on yeast for the same datasets and models as in the
+previous slide, but note an increase in performance over Lee.  The Lee and
+FALCON methods are really the only good contenders in terms for
+correlation, and we see that FALCON has about two orders of magnitude
+increase in speed over Lee. The same is true for human models, where
+it takes about a minute to estimate a flux with FALCON and over an
+hour with the Lee method. All of thse benchmarks were done on a single
+processer, with the exception of iMAT, which could take quite a while
+even on 32 processors.
+\par}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1278,9 +1336,11 @@ dynamic genetic interaction here.
 \ul{\textit{Other thanks}}
 \begin{itemize}
 \item David Christini 
+\item Paul Billing-Ross
 \item Michael Stillman
 \item Neil Swainston
 \item Lin Xu
+\item Kaixiong Ye
 \item Tri-I CBM
 \item Cornell's CAC
 \end{itemize}
@@ -1301,7 +1361,6 @@ dynamic genetic interaction here.
 \frame{\frametitle{TODO and notes} 
 
 Mention the areas where we parallelized MATLAB code?\\
-Slides with many bullet points: grey out not active ones.\\
 Maybe use \only http://stackoverflow.com/questions/4683093/beamer-how-to-show-images-as-step-by-step-images\\
 Talk about metabolism, but not gene expression, early on. \\
 Step through code blocks.\\
