@@ -472,20 +472,25 @@ complexes.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{An objective for fitting fluxes}
-\begin{block}{\textit{find the best detour due to road construction}}
-Started as a way to fit a perturbed model to an original flux\\
+\begin{block}{Find the best detour due to road construction}
+Started as a way to fit a perturbed model to an original flux.\\
 \vspace{1ex}
-Can also be used to fit empircal flux estimations in a model\\ 
+Can also be used to fit empircal flux estimations in a model.\\ 
 \vspace{1ex}
 Formulated as quadratic least-squares optimization\\(Segr\`e et al 2002):\\
 \begin{center}
 $\textnormal{minimize}\ \sum\limits_{i=1}^N (v_i-a_i)^2$ 
 \end{center}
-Later formulated as a linear programing (LP) variant
+Later formulated as a linear programing (LP) variant.
 % \vspace{1ex}\hrule\vspace{1ex}
 % \textit{find the best detour due to road construction}
 \end{block}
 
+\begin{block}{Fitting fluxes from expression is more difficult}
+But important: expression tells us what the system can do.\\
+\vspace{1ex}
+Flux tells us what the system is doing.
+\end{block}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -590,6 +595,8 @@ comoplex.}
       {Flux fitting (FALCON)};
     \node [iogram, below of=falcon] (fluxout) 
       {Reactions:\\ fluxes ($\mathbf{v}:$ $\mu$,~$\sigma$)};
+
+
     % Draw edges
     \path [line] (start) -- (exp);
     \path [line] (start) -- (rules);
@@ -701,8 +708,8 @@ used
 %[scale=0.8, node distance = 1cm, auto]
 
 \node [iogram] (start) 
-  {enzyme abundance, model:\\ 
-  ($\mathbf{S}$ matrix, $\mathbf{v}_{lb}$, $\mathbf{v}_{ub}$)}; 
+  {enzyme abundance ($e_i$),\\ 
+  model ($\mathbf{S}$ matrix, $\mathbf{v}_{lb}$, $\mathbf{v}_{ub}$)}; 
 
 
 \node [block, right of=start, xshift=6.5cm] (LFP) 
@@ -710,13 +717,20 @@ used
   \\ (for all irreversible reactions)};
 
 \node [block, right of=LFP, xshift=6.5cm] (assign_dir) 
-  {For all j, if:\\
-  $\left\{j \mid v_{j,f} + v_{j,b} > 0, v_{j,f} \neq v_{j,b} \right\}$ \\
+  {For all reactions, if:\\
+  $v_{f} + v_{b} > 0, v_{f} \neq v_{b}$ \\
   then constrain the smaller of \\
-  $v_{j,f}$ and $v_{j,b}$ to be $0$.};
+  $v_{f}$ and $v_{b}$ to be $0$.};
+
+\node[align=center,draw, fill, gray!25, text=black, cloud
+  callout,cloud puffs=17,cloud puff arc =190,callout pointer
+  segments=2, above of=assign_dir, xshift=-1cm, yshift=3.8cm,
+  aspect=4,scale=1, inner sep=-25pt] (roadFALCON) 
+  {We only care about non-zero net traffic,\\
+   not the total traffic in both directions.};
 
 \node [decision, below of=LFP, yshift=-2.5cm, aspect=2] (if_irrev_inc) 
-  {If:\\ $rxns_{irrev} > rxns_{irrev,prior}$};
+  {If the number of\\ irreversible reactions increased};
 
 \node [iogram, left of=if_irrev_inc, xshift=-6cm] (Vout) {$\mathbf{v}$};
 

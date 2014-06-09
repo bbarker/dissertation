@@ -21,15 +21,8 @@ Be *sure* to give microbiral growth maximization example.
   (Subtitles above code as main innovation for each part.
   (efficient, accurate efficient).)
 
-(one possible analogy probably to be included earlier is that gene expression when coupled with complexation
-tells us what a cell can do, flux tells us what it is doing).
-
-
-
   (For 2nd flowchart: falcon: an iterative approach to flux estimation.
   "Call solver" instead of "Call LP solver".)
 
 
-*** Use road analogy again on FALCON flux fitting ***
-
-Simplifly 2nd flowchart, possibly merge with bullets to show innovations.
+  (Simplifly 2nd flowchart, possibly merge with bullets to show innovations.)
