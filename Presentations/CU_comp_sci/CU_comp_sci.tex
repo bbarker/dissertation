@@ -139,6 +139,7 @@ Cornell University \\ \vspace{.25cm}CAC Job Search}
 }
 
 \note{
+\scriptsize
 Good morning/thanks/whatever. It has been good meeting everyoe
 so far and I look forward to talking with most/all of you later in the
 day. I'm a student in the Tri-Institutional program in
@@ -162,6 +163,7 @@ to tackle. In this presentation I will mainly be discussing a recent project
 that we've been working on for about a year and a half related to
 modeling metabolism of whole cells, but before we get in to that, I
 just want to briefly introduce my computational history.
+\par
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -317,7 +319,7 @@ associated reactions\\
 }
 
 
-\note{\footnotesize
+\note{
 One way to describe metabolism is as the set of reactions
 and the rate of the reactions made possible by enzymatic catalysts.
 Metabolism is critical for understanding wide classes of
@@ -336,10 +338,7 @@ be considered a fairly typical length for a pathway.  This pathway is
 inherently linked to another pathway of about the same size, and that
 pathway depends on another core pathway of roughly the same length for
 preprocessing glucose. When we zoom out, we can start to see some of
-this complexity. Due to all this complexity and the inability to
-measure directly most fluxes, as well as the need to quantitatively
-understand what the reaction fluxes are, a mechanistic modeling
-framework is needed to really get at the system.
+this complexity. 
 \par}
 
 
@@ -360,7 +359,8 @@ framework is needed to really get at the system.
 \end{columns}
 }
 
-\note{Here you can see the rest of the first pathway, oxidative
+\note{
+Here you can see the rest of the first pathway, oxidative
 phosphorylation, and its sister pathway, the TCA cycle. And this
 little linear pathway is glycolysis, which converts glucose into a
 usable form for the TCA cycle. In practice, these pathways also
@@ -369,7 +369,14 @@ chemicals that are not quite in the right form to be used by the later
 stages. What's more, this poster from 2003 is actually relatively
 simple: chemicals that are similar are often omitted, and there can be
 thousands of these for some classes. Also, reactions are present but
-are thought to be unimportant often are not drawn. }
+are thought to be unimportant often are not drawn.
+\par
+
+Due to all this complexity and the inability to
+measure directly most fluxes, as well as the need to quantitatively
+understand what the reaction fluxes are, a mechanistic modeling
+framework is needed to really get at the system.
+\par}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -507,6 +514,37 @@ Flux tells us what the system is doing.
 \end{block}
 }
 
+\note{\scriptsize
+Having discussed one type of biological objective, let's move to a
+type of objective that relates directly to our present study, that of
+flux fitting. Flux fitting can be thought of in terms of our road
+analogy as a traffic jam or construction work causing a detour. We
+want the detour to be as short as possible while getting us to our
+original destination.
+\par
+
+In actuality, this is very similar to the first application, which was
+to mutate a model by knocking out certain reactions to see what the
+mutant phenotype would be, with the original flux, here denoted by the
+$a_i$ found by some other objective, such as the aforementioned growth
+rate maximization. The same objective can be used to estimate a global
+flux fit for the model when we only know some of the $a_i$ from
+experimental measurements. Mathematically the objective is just a
+constrained least squares problem, which also has a linear variant
+that makes it amenable to linear programming solvers.  In our work, we
+also use the linear programming variant.
+\par
+
+Fitting fluxes to expression, rather than to other fluxes, is more
+difficult.  This is a mathematical issue that arises from the fact
+that expression is non-negative but fluxes are bidirectional and can
+assume any real value. \textbf{ Despite this difficutly, it is
+important to develop efficient methods for calculating the flux from
+expression due to the abundance of medically important expression
+data, since expression only tells us what the cell is capable of doing
+and flux tells us what the cell is in fact doing.}
+\par}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{From expression to enzyme complex abundance}
@@ -526,8 +564,34 @@ Flux tells us what the system is doing.
 \includegraphics[width=0.7\textwidth]{2F43} %
 %\end{tabular}
 \end{figure}
-
 }
+
+\note{\scriptsize
+Before we get into the details of estimating flux from expression, it
+is helpful to know how enzyme complexes are formed, as these are the
+fundamental catalytic units for biological reactions. Genes are
+encoded in DNA, which can be thought of as the master blue prints.
+Copies of these blue prints are made, and are sent out to be converted
+into proteins. Since reading a template and writing a protein takes
+time and energy, the the number of these RNA template copies roughly
+corresponds to the amount of protein created. Quantities of both RNAs
+and proteins can be called expression, but typically we use it to
+refer to the former, since measurement of RNA is far easier
+experimentally. Though still no walk in the park, RNA measurement 
+has become widely used due to low cost.
+\par
+
+Once we have the proteins, it is often the case that a single protein
+is not catalytic on its own, and must join with other proteins in
+order to be functional. Here is visualization of a famous protein
+subcomplex that we saw earlier, part of ATP synthase.  This protein
+has 7 individual protein molecules, called subunits. But in total,
+there are only three genes that contribute to this subcomplex.  The
+expression of each of these genes is what we have to go on when trying
+to quantify the overall complex, along with which genes are a part of
+the complex and whether or not their function within the complex can
+be assumed by some other gene. 
+\par}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -547,8 +611,32 @@ $r_1$ & := & [A and B] or [A and C] & $\rightarrow$ & $e_1$  &=& $\min(a,b$) + $
 $r_2$ & := & [A and (B or C)]       & $\rightarrow$ & $e_2$  &=&  $\min(a, b + c$) 
 \end{tabular} 
 \end{center}
-
 }
+
+\note{\scriptsize
+This relationship between necessity or redundancy of a gene in a
+complex is annotated in models as boolean gene rules. Previously, a
+study from a collaborator noted that one possible way of doing
+quantification is to substitute the gene names with the expression
+levels, the ANDs with minimums, and the ORs with sums. This is great
+intuition since an AND rule states that both genes are required, so
+the mimimum amount of either gene will limit the formation of the
+complex, and an OR rule similarly states that there is redundancy of
+the genes within the complex, so that the expression of both genes may
+be summed. However, problems frequently arise in practice, as illulstrated
+in this example. We can look at two simple rules, $r_1$ and $r_2$,
+that are logically equivalent, but when evaluated with direct substituion, 
+lead to two different results. In the case of $r_1$, the level of $a$ can
+is double counted if it is in fact the minimum value of $a$, $b$, and $c$.
+\par
+
+This issue does not occur in $r_2$, which has a special structure
+known in computer science as conjunctive normal form, where the rule
+is a conjunction of many disjunctions, or more plainly, an AND of many
+ORs.  A major part of our work has bene to show that conjunctive
+normal form makes sense in the general case. We call our method for
+enzyme complex quantification 'min disjunction'.
+\par}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -561,16 +649,22 @@ $r_2$ & := & [A and (B or C)]       & $\rightarrow$ & $e_2$  &=&  $\min(a, b + c
 \input{exampleRule.tex} %
                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%
-
-\note{Now that we have this framework in hand, you might wonder why we
-went to the trouble of developing a parser. Some rules can be quite
-large. There are several examples in the human model, such as this
-one, that won't even fit on a page given a tiny font. In fact, it
-would take tens of of pages. the reason for this is due to having
-alternative proteins fulfulling identical roles within a large
-comoplex.}
-
 }
+\note{
+Now that know the kind of rule we need, we need to write software that
+can parse the rues into an abstract syntax tree so they can be
+manipulated into conjunctive normal form.  This is the main reason why
+we developed a parser for gene rules, instead of just using regular
+expression substition as was done previously. This has another
+benefit; some rules can be quite large. There are several examples in
+the human model, such as this one, that won't even fit on a page given
+a tiny font. In fact, it would take tens of of pages. The reason for
+this is due to having alternative proteins fulfulling identical roles
+within a large complex. It took many minutes to deal with such a rule
+using the original regular expression framework (once we had fixed it
+to do so), whereas using our framework takes far less than a second.
+}% end of \note
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -594,7 +688,7 @@ comoplex.}
     \node [iogram, below of=start, left of=start, xshift=-0.2cm] (exp) {Genes:\\ expression 
       ($\mu$,~$\sigma$)}; 
     \node [iogram, below of=start, right of=start] (rules) {Reactions:
-      GPR Rule}; 
+      Gene Rule}; 
     \node [block, below of=rules, onslide=<1>{fill=yellow!80}] (parse) {Parse Rule}; 
     \node [block, below of=parse, left of=parse, xshift=-0.5cm, onslide=<2>{fill=yellow!80}]
       (mindisj) {Find minimum disjunction};
@@ -676,13 +770,56 @@ function v = falcon(model, e, e_sd, varargin)
 \end{frame}
 
 
-\note{
-*Incomplete*
+\note{\tiny
+Now we can take a moment to look at the big picture of our flux
+estimation framework. On the right side of the screen I've shown the
+main interfaces we've used for each part of the processes in the
+flowchart; the first two processes are implemented in a StandardML
+variant, and the last block, which is the one most users will
+be working with, is in MATLAB.
+\par
 
-If we have time, I can show a couple of examples of these functions being
-used
+Taking as inputs the gene rules and the mean and standard deviation of
+all genes' expression values from a sample, we parse the rule into an
+abstract syntax tree. Since users may be interested in various levels
+of experimentations (including ourselves), the first function, which
+parses a list of gene rules found in a file, is implemented in terms
+of the second function, which parses a list of gene rules emitted from
+a tokenizer. Finally, this function itself is built on the parse\_grexp
+function, which parses a single gene rule.
+\par
 
-}
+Now we are interested in working with the grexps or grexplsts, and
+converting them into conjunctive normal form. We define a new type,
+grcnflst, to denote this special form of the grexplst. It is actually
+a much simpler type that is essentially a list of list of genes, since
+the outer list is taken to be joined by an AND, and the inner list
+joined by ORs. This has the additional benefit of preventing
+operations that should only be performed on CNFized rules from being
+performed on more general rule types. This function, which returns a
+list of cnfized rules, can be easily implemented in the language by
+using a template function, list\_map\_fun, with the corresponding
+function grexp\_cnfize which converts a single rule to conjunctive
+normal form. Finally we have a function taht takes a map of gene names
+to values (actually one each for the mean and standard deviation of
+expression), and returns a tuple type with the mean and standard
+deviation of the complex.
+\par
+
+The flux fitting algorithm and interface are implemented in MATLAB.
+The first function shown is just a MATLAB interface to the last
+function shown above in our StandardML language, with the additional
+functionality of identifying which reactions belong to a specific
+enzyme complex group, which we will discuss soon. That return values
+of computeMinDisj are iputs to falcon, which will estimate a flux
+vector.
+\par
+
+Although I haven't shown nearly all of the functions used in our
+framework, these are the main functions and give a taste of how the
+system can be used.  If we have time, I can show a couple of examples
+of these functions being used.
+\par}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -710,6 +847,16 @@ used
 \end{figure}
 }
 
+\note{
+A first application of our entire framework can be to see what effect
+the first part of the framework has when substituted with the
+previously used direct substitution method for enzyme complex
+quantification.  The x axis of both figures shows flux values when
+calculated from direct substituion, and the y-axis from our minimum
+disjunction method.  We can see that there is relatively little effect
+for yeast, which has simple rules compare dto the human model, where
+the difference between rules can have a much larger effect.
+\par}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

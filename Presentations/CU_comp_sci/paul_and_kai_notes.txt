@@ -1,3 +1,6 @@
+Talk somewhere about how my experience with complex systems will make
+dealing with most problems relatively easy, or something.
+
   (If keeping the background slide, try to make it a good story and funny. )
 
   (Maybe remove bullet point iteration in this one.)
