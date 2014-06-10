@@ -997,42 +997,42 @@ ever change, so we terminate the process and return the flux vector.
 
 \note{\scriptsize
 
-Now I would just like to briefly summarize the improvments we've made.
-Because expression units are different than flux units, they aren't
-going to be directly comparable.  Previously, expression was scaled so
-that a single reaction's complex abundance and forced flux would be
+Now I'd like to talk about some of the improvements we've made.
+First, a fundamental issue is that expression units are different
+from flux units, so they aren't
+going to be directly comparable.  Previously, expression was scaled by
+assuming that a single reaction's complex abundance and flux would be
 equal.  This is an assumption that doesn't always make sense, due to
 the many to one relationship for some reactions and enzyme complexes.
-Our introduction of the scaling constant as a variable should be a
-major help in principle, since it isn't biased toward any single
-reaction.  Now, we no longer need to worry about finding an enzyme
+Our introduction of the scaling constant as a variable is a major help, 
+since it isn't biased toward any single reaction.  
+Now we no longer need to worry about finding an enzyme
 complex and reaction flux that should be equal, and relatedly, we no
 longer need to force flux through any particular reaction by assuming
 it has a non-zero flux.
 \par
 
-Reaction grouping is a principled improvement where we directly model
-the many-to-one relationship of reactions to enzyme complexes, so that
-flux of all the reactions corresponding to one enzyme complex are
-summed into one quantity when compared to the enzyme complex's
-abundance. This is writtten as the sum of the forward and reverse
-reactions $j$ that belong to an enzyme group $R_i$. This is the actual
-difference used in FALCON, which was simplified in the previous slide.
+We introduced reaction groups to more accurately represent the fact
+that often, enzyme complexes catalyze different reactions. So what we
+actually want to do, is sum all the fluxes that are catalyzed by the
+enzyme complex and minimize the difference between this summed
+quantity and the scaled expression. That's represented here by enzyme
+complex $i$ and its reaction group $R_i$, the forward and backward
+fluxes, and the scaled expression $n e_i$. This is the actual
+difference equation minimized in FALCON, which was simplified in the
+previous slide.
 \par
 
-Batch evaulation of reaction direction is another major benefit as it increases the
-performance enough to allow many perturbations to be peformed with
-ease on microbial models, and it has allowed simulating human cells to
-become much more practical (we're down from about an hour to three and
-a half minutes). Less bias is introduced in batch evaluation, as 
-the order of assignment of directionality can influence later
-iterations of the algorithm.
+Batch evaulation of reaction direction is another major benefit as it
+greatly increases running time. Less bias is introduced in batch
+evaluation, as the order of assignment of directionality can influence
+later iterations of the algorithm.
 \par
 
-While both our method and a prior method are somewhat
-nondeterministic, we added capabilities to both methods to take this
-nondeterminism into account, which are represented by the error bars
-that you have seen in the scatter plots.
+While both our method and thee Lee method are somewhat
+nondeterministic, we added capabilities to both software packages to
+take this nondeterminism into account, which can be seen in the error
+bars in my scatter plots.
 \par
 }
 
@@ -1057,8 +1057,8 @@ that using reaction groups, as opposed to not using them (on the
 x-axis), doesn't give us a very good relationship. Additionally, we
 can see the error bars in both cases that are due to alternative
 optima. The error bars with reaction group does tend to go up, likely
-due to there being fewer constraints overall (there's one contraint
-per enzyme complex instead of one constraint per reaction).
+due to there being fewer constraints overall, since there's one contraint
+per enzyme complex instead of one constraint per reaction.
 \par}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1097,20 +1097,20 @@ Max.~$\mu$)}
 }
 
 \note{
-When it comes to predicting performance, we used a benchmark that
+To evaluate performance, we used a benchmark that
 included 7 measured fluxes from yeast in two different conditions
 correpsonding to 75 and 85 percent of maximum growth rate. We
 additionally used two variants (minimally and highly contrained) of
 two different versions of a yeast model, to see if any of these
-conditions largely effectect the methods in the panel. While all of
+factors largely effected the methods in the panel. While all of
 the methods are constraint based methods, the Lee method is the only
 similar method to ours (its the one that uses direct evaluation of
 gene rules to estimate complex abundance) and can be thought of as the
-predecessor. As can be seen in yellow, the Lee method performs quite
-well when the model is highly constrained, which are the default
-constaints on directionality that ship with the yeast model. When
-these are largely removed, it loses much of its performance, whereas
-our method retains good corrleation.
+predecessor. The Lee method performs quite well when the model is
+highly constrained, which are the default constaints on directionality
+that ship with the yeast model. When these constraints are largely
+removed, it loses much of its performance (as shown in yellow),
+whereas our method (shown in green) retains good corrleation.
 \par}
 
 
@@ -1142,15 +1142,15 @@ Max.~$\mu$)}
 
 
 \note{
-We also wanted to improve the efficienncy of the method, primarily to
+We also wanted to improve the efficiency of the method, primarily to
 get at large models like the human model. In this panel, we only look
 at performance on yeast for the same datasets and models as in the
 previous slide, but note an increase in performance over Lee.  The Lee and
 FALCON methods are really the only good contenders in terms for
 correlation, and we see that FALCON has about two orders of magnitude
 increase in speed over Lee. The same is true for human models, where
-it takes about a minute to estimate a flux with FALCON and over an
-hour with the Lee method. All of thse benchmarks were done on a single
+it takes a couple of minutes to estimate a flux with FALCON and over an
+hour with the Lee method. All of these benchmarks were done on a single
 processer, with the exception of iMAT, which could take quite a while
 even on 32 processors.
 \par}
@@ -1172,14 +1172,15 @@ permuted.}
 \note{ 
 We want to be certain that the algorithm actually depends on the input
 data in a meaningful way, and that we aren't just getting lucky.  To
-demonstrate this, we hope that we can demonstrate that garbage in gives
+demonstrate this, we want to show that garbage in gives
 us garbage out.
 \par
 
 In order to do this, we randomly permute the input data thousands of
 times and feed the it into FALCON and see if the correlation with the
-experimental data is still good. This gives us a distribution of
-correlations, and actually two distributions are plotted here for
+experimental flux data is still good. This gives us a distribution of
+correlations corresponding to each permutation. 
+Actually two distributions are plotted here for
 different experimental conditions (one green and one blue).
 \par
 
@@ -1232,11 +1233,11 @@ unperturbed complex abundance for the Yeast~7 model.}
 \end{figure}
 }
 
-\note{In the previous slide, we saw an $r$ of 0.7 for the input
+\note{In the previous slide, we saw a Pearson's $r$ of 0.7 for the input
 data. This corresponds roughly to a $\sigma$ of 1.25, so that on
-average, we might expect an $r$ of 0.6 in the output data, or
-flux. But, it is obvious that the worst case is much worse. However,
-the good news is that we can take model annotations of known
+average, we might expect an $r$ of about 0.6 in the output data, that is,
+int the flux. But, it is obvious that the worst case is much worse.
+The good news is that we can take model annotations of known
 constraints and reduce the sensitivity even further.
 }
 
@@ -1307,19 +1308,29 @@ good to know how far we can get with a deconstrained model.
 \end{columns}  
 }
 
-\note{
-*Incomplete*
-
-Bio-energy and industrial bio-synthetics are inherently tied to the
-engineering of robust and novel metabolic networks. Metabolism is also
-beginning to provide fine-grained detail to understanding microbial
-ecologies.
+\note{\scriptsize
+Going forward, I have high hopes of how this particular
+constraint-based framework can be integrated with other methods.
+Given that expression is available for nearly all cell types, we can
+imagine linking cells together to simulate entire tissues in
+parallel. Similarly, the same could be done for microbial ecosystems,
+which are important for bioenergy and biosynthetics. 
+Since cells only need to talk to neighboring cells, except
+in rare cases, the approach should be amenable to distributed
+computing, and could catch the public's interest, like a worm
+simulator that aims to run in a web browser and was recently funded
+on kickstarter for a \$125, 000.
+\par
 
 My early experience with constraint-based modeling was designing a
 large scale simulation for detecting genetic interactions, which I
 haven't had time to discuss today, but I've illustrated one such
-dynamic genetic interaction here.
-}
+dynamic genetic interaction here. I think a lot of researchers,
+especially a nuber of groups at Cornell, would be interested
+in large scale metabolic simulations of these types going forward,
+and I'd love to have the opportunity to build up frameworks
+that enable these researchers to study complex systems.
+\par}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1363,6 +1374,11 @@ dynamic genetic interaction here.
 \end{columns}
 }
 
+\note{
+
+Add thanks here
+
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
