@@ -636,7 +636,8 @@ known in computer science as conjunctive normal form, where the rule
 is a conjunction of many disjunctions, or more plainly, an AND of many
 ORs.  A major part of our work has bene to show that conjunctive
 normal form makes sense in the general case. We call our method for
-enzyme complex quantification 'min disjunction'.
+enzyme complex quantification 'min disjunction', since we are finding
+the minimum of all disjunctions.
 \par}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -652,7 +653,7 @@ enzyme complex quantification 'min disjunction'.
 %%%%%%%%%%%%%%%%%%%%%%%%%
 }
 \note{
-Now that know the kind of rule we need, we need to write software that
+Now that we know the kind of rule we need, we need to write software that
 can parse the rues into an abstract syntax tree so they can be
 manipulated into conjunctive normal form.  This is the main reason why
 we developed a parser for gene rules, instead of just using regular
@@ -795,9 +796,9 @@ Now we are interested in working with the grexps or grexplsts, and
 converting them into conjunctive normal form. We define a new type,
 grcnflst, to denote this special form of the grexplst. It is actually
 a much simpler type that is essentially a list of list of genes, since
-the outer list is taken to be joined by an AND, and the inner list
+the outer list is taken to be joined by an AND, and the inner lists
 joined by ORs. This has the additional benefit of preventing
-operations that should only be performed on rules ins conjunctive normal form
+operations that should only be performed on rules in conjunctive normal form
 from being performed on more general rules. This function, which returns a
 list of cnfized rules, can be easily implemented in the language by
 using a template function, list\_map\_fun, with the corresponding
@@ -925,7 +926,7 @@ abundance, assuming the units have been scaled.
 
 First we call the linear programming solver to minimize the difference
 between flux and scaled expression on a non-empty set of irreversible
-reactions.  This objective shown is a simiplified formulation of the
+reactions.  The objective shown is a simiplified formulation of the
 problem; the presence of absolute values and the scaling constant $n$
 requires a transformation of the problem into a linear fractional
 program, which can subsequently be transformed into an equivalent
@@ -933,13 +934,13 @@ linear programming problem. After this step, we
 want to assign reaction directionality whenever there is a preference
 for the forward or backward reaction. It is helpful to break down
 the original flux, which can be positive or negative, into a forward
-and backward flux, $v_f$ and $v_b$, that can only be non-zero.
+and backward flux, $v_f$ and $v_b$, that can only be non-negative.
 \textbf{This can be thought of in terms of our road analogy again: we aren't
 interested in the total amount of traffic in opposing lanes, but only
 the net flow of traffic, so we can see which side of the highways we
 want to build our gas stations on.  I promise, that'll be the last
 time I use the road analogy.} If there is a preference in direction,
-we assing the other direction to be zero.
+we assigning the other direction to be zero.
 \par
 
 If the number of irreversible reactions increased, then we repeat the
