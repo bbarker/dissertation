@@ -140,31 +140,24 @@ Cornell University \\ \vspace{.25cm}CAC Job Search}
 
 \note{
 \scriptsize
-Good morning/thanks/whatever. It has been good meeting everyoe
-so far and I look forward to talking with most/all of you later in the
+``   `` Thanks. It has been good meeting everyone
+so far and I look forward to talking with all of you later in the
 day. I'm a student in the Tri-Institutional program in
 Computational Biology and Medicine, which has associations
 with the Weill Cornell Medical School and Memorial Sloan-Kettering
-campuses in NYC.
+in NYC.
 \par
 
 I'm graduating from Zhenglong Gu's laboratory in Nutritional Sciences
-- one of the computational groups in Biology at Cornell.  With my
-prior training in computer science theory, software implementation,
-server administration, and collaborating with researchers in diverse
-fields like biology, medicine, physics, statistics, mathematics, and
-computer science, I hope to continue aiding in the exciting and
-important research that happens at Cornell.
-\par
-
-Our goal in this research and much of my thesis is
-to build tools enabling the computation of a fundamental metabolic,
-quantity, called flux, in models that may help us to understand disease as
-well as various microbial interactions, which are somewhat easier
-to tackle. In this presentation I will mainly be discussing a recent project
-that we've been working on for about a year and a half related to
-modeling metabolism of whole cells, but before we get in to that, I
-just want to briefly introduce my computational history.
+- one of the computational groups in Biology at Cornell.  Our goal in
+this research and much of my thesis is to build tools enabling the
+computation of a fundamental metabolic quantity, called flux, in
+models that may help us to understand disease as well as various
+microbial interactions. In this presentation I will mainly be
+discussing a recent project that we've been working on for about a
+year and a half related to modeling metabolism of whole cells, but
+before we get in to that, I just want to briefly introduce my
+computational history.
 \par
 }
 
@@ -257,7 +250,7 @@ chapter web sites, and participated in an IEEE robotics competition
 which won a 2nd place prize.  I was a proponent of the .NET framework
 at the time, and worked with Microsoft as the student representative
 on our campus for teaching .NET and helping students get access to
-Microsoft software.
+Microsoft resources.
 \par
 
 I'd always been interested in nature since I grew up in a rural area,
@@ -265,15 +258,11 @@ and this later transitioned into interest in biology. I picked up
 Biology again more seriously near the end of my undergraduate studies
 and began working as a bioinformatics cluster administrator, which
 soon transitioned into a full time position that included maintaining
-a database, training its users, and extending its features. The most
-prominent feature I added was a K-means clustering web-interface. I
-also developed a novel algorithm for biological sequence alignment
-that allowed arbritrary precision parameters (using libGMP) and
-non-embarassingly parallel execution (using OpenMP).  Comparative
-genomics research was also part of the position, and that relied
-heavily on the UNIX style of data processing. Finally, I initiated
-collaboration with a statistician on tree of life problems during 
-this time.
+a database, training its users, and extending its features. I
+developed a novel, parallel algorithm for biological sequence
+alignment, conducted comparative genomics research that relied heavily
+on the UNIX style of data processing, and I initiated collaboration
+with a statistician on tree of life problems.
 \par
 
 Once I transitioned to graduate research, I couldn't really give up the
@@ -325,11 +314,14 @@ associated reactions\\
 
 
 \note{\scriptsize
-One way to describe metabolism is as the set of reactions and the rate
+Metabolism can be described as the set of reactions and the rate
 of the reactions made possible by enzymatic catalysts.  The rate of a
-reaction is called flux, and if the reactions are the roads, then the
-flux is the throughput of traffic on the road. Enzymes, which are
-protein catalysts, can be thought of as the width of the road.
+reaction is called flux, and if we think of the reactions as being roads, 
+then the flux of a reaction is the throughput of traffic on the road. 
+Enzymes, which are protein catalysts, can be thought of as the width
+or the number of lanes of the road.
+\par
+
 Metabolism is critical for understanding wide classes of
 diseases including diabetes, cancer, and inborn errors in metabolism.
 Here we can see several very important reactions that organisms from
@@ -376,12 +368,12 @@ require many other pathway dependencies that process or recycle other
 chemicals that are not quite in the right form to be used by the later
 stages. What's more, this poster from 2003 is actually relatively
 simple: chemicals that are similar are often omitted, and there can be
-thousands of these for some classes. Also, reactions thought to be
-unimportant often are not drawn.
+thousands of these for some types of chemicals. Also, reactions
+thought to be unimportant often are not drawn.
 \par
 
-\textbf{Due to all this complexity and the inability to measure
-directly most fluxes, as well as the need to quantitatively understand
+\textbf{Due to all this complexity and the inability to measure most fluxes
+directly, as well as the need to quantitatively understand
 what the reaction fluxes are, a mechanistic modeling framework is
 needed to really get at the system.}
 \par}
@@ -452,11 +444,11 @@ needed to really get at the system.}
 To illustrate the modeling concepts that I'll be discussing, let
 me briefly introduce a much simpler toy network. Note that the 
 network has several chemcial reactions, the $F_i$, as well as
-transport and exchange reactions. Some reactions are drawn
+transport reactions. Some reactions are drawn
 with arrows in both directions and are called reversible reactions.
 The distinction between irreversible and reversible is highly
-important in our modeling considerations that we'll be discussing
-later.
+important in our modeling considerations, and we'll be discussing
+reversibility more later.
 \par
 
 To work with a system computationally, we write all known
@@ -467,15 +459,14 @@ metabolites. The entries of the matrix
 correspond to the coefficients in the reaction equation: a negative
 coefficient denotes it is a reactant, and a positive coefficient
 signifies it is a product. For instance, reaction $F_1$ consumes two
-$I$ and one $J$ to produce an $A$. We can see that the small toy
-network depicted here begins to generate a fair-sized matrix.
+$I$ and one $J$ to produce an $A$. 
 \par
 
 Now that we have this matrix, we can make mathematical
 assumptions about the system. The S matrix multiplied by the flux
 vector (here denotes as an $F$, and sometimes as a $\mathbf{v}$)
 yields the change in concentration over time for each
-metabolite, which is here constrained to be zero and is called
+metabolite, which is typically constrained to be zero and is called
 the steady state assumption. The steady state assumption 
 asserts that concentrations do not change over large enough timescales.
 Finally, we need an optimization objective. 
@@ -488,13 +479,13 @@ nutrient supply and physiological constraints will allow.}
 \par
 
 While this framework is powerful, it is also theoretically simplistic
-(so far we only make use of a simple objective and known
+(so far we only make use of a simple objective and the known
 reactions). It can also be inaccurate, especially for multicellular
-organisms with many different cell types. But the framework is
-extendable, and in this work, we extend it by using two
-types of data: annotation on how the enzymatic complexes come
-together, and data on abundance of the components of these enzyme
-complexes.
+organisms with many different types of cells, where one objective
+doesn't fit all.  But the framework is extendable, and in this work,
+we augment it by using two types of data: annotation on how the
+enzymatic complexes come together, and data on abundance of the
+components of these enzyme complexes.
 \par}
 
 
@@ -525,14 +516,14 @@ Flux tells us what the system is doing.
 \note{\scriptsize
 Having discussed one type of biological objective, let's move to a
 type of objective that relates directly to our present study, that of
-flux fitting. Flux fitting can be thought of in terms of our road
-analogy as a traffic jam or construction work causing a detour. We
-want the detour to be as short as possible while getting us to our
-original destination.
+flux fitting. \textbf{Flux fitting can be thought of in terms of our
+road analogy as a traffic jam or construction work causing a
+detour. We want the detour to be as short as possible while getting us
+to our original destination, and not distrupting traffic elsewhere.}
 \par
 
-In actuality, this is very similar to the first application, which was
-to mutate a model by knocking out certain reactions to see what the
+In actuality, this is very similar to the first application of flux fitting, 
+which was to mutate a model by knocking out certain reactions to see what the
 mutant phenotype would be, with the original flux, here denoted by the
 $a_i$ found by some other objective, such as the aforementioned growth
 rate maximization. The same objective can be used to estimate a global
@@ -550,7 +541,7 @@ assume any real value. \textbf{ Despite this difficutly, it is
 important to develop efficient methods for calculating the flux from
 expression due to the abundance of medically important expression
 data, since expression only tells us what the cell is capable of doing
-and flux tells us what the cell is in fact doing.}
+and flux tells us what the cell is, in fact, doing.}
 \par}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -580,9 +571,9 @@ is helpful to know how enzyme complexes are formed, as these are the
 fundamental catalytic units for biological reactions. Genes are
 encoded in DNA, which can be thought of as the master blue prints.
 Copies of these blue prints are made, and are sent out to be converted
-into proteins. Since reading a template and writing a protein takes
-time and energy, the the number of these RNA template copies roughly
-corresponds to the amount of protein created. Quantities of both RNAs
+into proteins. Since reading a template and building a protein takes
+time, the the number of these RNA template copies roughly
+correlates with the amount of protein created. Quantities of both RNAs
 and proteins can be called expression, but typically we use it to
 refer to the former, since measurement of RNA is far easier
 experimentally. Though still no walk in the park, RNA measurement 
@@ -591,7 +582,7 @@ has become widely used due to low cost.
 
 Once we have the proteins, it is often the case that a single protein
 is not catalytic on its own, and must join with other proteins in
-order to be functional. Here is visualization of a famous protein
+order to be functional. Here is a visualization of a famous protein
 subcomplex that we saw earlier, part of ATP synthase.  This protein
 has 7 individual protein molecules, called subunits. But in total,
 there are only three genes that contribute to this subcomplex.  The
@@ -622,8 +613,8 @@ $r_2$ & := & [A and (B or C)]       & $\rightarrow$ & $e_2$  &=&  $\min(a, b + c
 }
 
 \note{\scriptsize
-This relationship between necessity or redundancy of a gene in a
-complex is annotated in models as boolean gene rules. Previously, a
+\textbf{This relationship between necessity or redundancy of a gene in a
+complex is annotated in models as boolean gene rules.} Previously, a
 study from a collaborator noted that one possible way of doing
 quantification is to substitute the gene names with the expression
 levels, the ANDs with minimums, and the ORs with sums. This is great
@@ -669,8 +660,8 @@ the human model, such as this one, that won't even fit on a page given
 a tiny font. In fact, it would take tens of of pages. The reason for
 this is due to having alternative proteins fulfulling identical roles
 within a large complex. It took many minutes to deal with such a rule
-using the original regular expression framework (once we had fixed it
-to do so), whereas using our framework takes far less than a second.
+using the original regular expression framework, 
+whereas using our framework takes far less than a second.
 }% end of \note
 
 
@@ -783,14 +774,15 @@ Now we can take a moment to look at the big picture of our flux
 estimation framework. On the right side of the screen I've shown the
 main interfaces we've used for each part of the processes in the
 flowchart; the first two processes are implemented in a StandardML
-variant, and the last block, which is the one most users will
+variant, and the last process, which is the one most users will
 be working with, is in MATLAB.
 \par
 
 Taking as inputs the gene rules and the mean and standard deviation of
 all genes' expression values from a sample, we parse the rule into an
-abstract syntax tree. Since users may be interested in various levels
-of experimentations (including ourselves), the first function, which
+abstract syntax tree, called a grexp, short for gene rule expression. 
+Since users may be interested in various levels
+of experimentation, the first function, which
 parses a list of gene rules found in a file, is implemented in terms
 of the second function, which parses a list of gene rules emitted from
 a tokenizer. Finally, this function itself is built on the parse\_grexp
@@ -803,12 +795,12 @@ grcnflst, to denote this special form of the grexplst. It is actually
 a much simpler type that is essentially a list of list of genes, since
 the outer list is taken to be joined by an AND, and the inner list
 joined by ORs. This has the additional benefit of preventing
-operations that should only be performed on CNFized rules from being
-performed on more general rule types. This function, which returns a
+operations that should only be performed on rules ins conjunctive normal form
+from being performed on more general rules. This function, which returns a
 list of cnfized rules, can be easily implemented in the language by
 using a template function, list\_map\_fun, with the corresponding
 function grexp\_cnfize which converts a single rule to conjunctive
-normal form. Finally we have a function taht takes a map of gene names
+normal form. Finally we have a function that takes a map of gene names
 to values (actually one each for the mean and standard deviation of
 expression), and returns a tuple type with the mean and standard
 deviation of the complex.
@@ -816,10 +808,10 @@ deviation of the complex.
 
 The flux fitting algorithm and interface are implemented in MATLAB.
 The first function shown is just a MATLAB interface to the last
-function shown above in our StandardML language, with the additional
+function shown above it, with the additional
 functionality of identifying which reactions belong to a specific
-enzyme complex group, which we will discuss soon. That return values
-of computeMinDisj are iputs to falcon, which will estimate a flux
+enzyme complex, which we'll discuss more soon. The return values
+of computeMinDisj are inputs to falcon, which will estimate a flux
 vector.
 \par
 
@@ -857,12 +849,12 @@ of these functions being used.
 
 \note{
 A first application of our entire framework can be to see what effect
-the first part of the framework has when substituted with the
-previously used direct substitution method for enzyme complex
-quantification.  The x axis of both figures shows flux values when
-calculated from direct substituion, and the y-axis from our minimum
+the first part of our framework, enzyme complex quantification, will
+have when substituted with the previously used direct evaluation
+method.  The x axis of both figures shows flux values when
+calculated from direct evaluation, and the y-axis from our minimum
 disjunction method.  We can see that there is relatively little effect
-for yeast, which has simple rules compare dto the human model, where
+for yeast, which has simple rules compared to the human model, where
 the difference between rules can have a much larger effect.
 \par}
 
@@ -917,7 +909,7 @@ the difference between rules can have a much larger effect.
 
 \note{\tiny
 Now that we've discussed the gene rule effects in detail, I'd like
-to the flux fitting algorithm and some of the improvements we've
+to focus on the flux fitting algorithm and some of the improvements we've
 made over the initial formulation. 
 
 The intuition for the algorithm is that, if more enzyme is available,
@@ -929,25 +921,28 @@ difference between the absolute value of the flux and the enzyme
 abundance, assuming the units have been scaled.
 \par
 
-First we call the LP solver to minimize the difference between flux
-and scaled expression on non-empty set of irreversible reactions.
-This isn't the actual formulation of the problem; the presence of
-absolute values and the scaling constant $n$ requires a transformation
-of the problem into a linear fraction program. After this step, we
+First we call the linear programming solver to minimize the difference
+between flux and scaled expression on a non-empty set of irreversible
+reactions.  This objective shown is a simiplified formulation of the
+problem; the presence of absolute values and the scaling constant $n$
+requires a transformation of the problem into a linear fractional
+program, which can subsequently be transformed into an equivalent
+linear programming problem. After this step, we
 want to assign reaction directionality whenever there is a preference
 for the forward or backward reaction. It is helpful to break down
 the original flux, which can be positive or negative, into a forward
 and backward flux, $v_f$ and $v_b$, that can only be non-zero.
-This can be thought of in terms of our road analogy again: we aren't
+\textbf{This can be thought of in terms of our road analogy again: we aren't
 interested in the total amount of traffic in opposing lanes, but only
 the net flow of traffic, so we can see which side of the highways we
-want to build our gas stations on.  I promise, that will be the last
-time I use the road analogy.  If there is a preference in direction,
+want to build our gas stations on.  I promise, that'll be the last
+time I use the road analogy.} If there is a preference in direction,
 we assing the other direction to be zero.
 \par
 
 If the number of irreversible reactions increased, then we repeat the
-process.  But if nothing changed since the last time, nothing will
+process, as the constraints on the system have been updated. 
+But if nothing changed since the last time, nothing will
 ever change, so we terminate the process and return the flux vector.
 \par}
 
