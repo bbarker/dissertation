@@ -1068,7 +1068,7 @@ To emphasize a couple of the points in the previous slide, we can see
 that using reaction groups, as opposed to not using them (on the
 x-axis), doesn't give us a very good relationship. Additionally, we
 can see the error bars in both cases that are due to alternative
-optima. The error bars with reaction group does tend to go up, likely
+optima. The error bars with reaction groups do tend to be larger, likely
 due to there being fewer constraints overall, since there's one contraint
 per enzyme complex instead of one constraint per reaction.
 \par}
@@ -1188,7 +1188,7 @@ us garbage out.
 In order to do this, we randomly permute the input data thousands of
 times and feed the it into FALCON and see if the correlation with the
 experimental flux data is still good. This gives us a distribution of
-correlations corresponding to each permutation. 
+correlations, where each correlation corresponds to a single permutation. 
 Actually two distributions are plotted here for
 different experimental conditions (one green and one blue).
 \par
@@ -1242,13 +1242,23 @@ unperturbed complex abundance for the Yeast~7 model.}
 \end{figure}
 }
 
-\note{In the previous slide, we saw a Pearson's $r$ of 0.7 for the input
+\note{
+In order to evaluate the sensitivity of FALCON to noise, we can
+multiply the enzyme complex abundance values by randomly sampled noise
+from a multivariate log-normal distribution with parameter
+$\sigma$. The larger the $\sigma$, the more noise there will be. In
+this figure, you see the $\sigma$ on the x-axis, and the corresponding
+correlation between flux vectors estimated based on the perturubed and
+unperturbed enzyme complex abundance. The green line is the interval
+median correlation.
+
+In the previous slide, we saw a Pearson's $r$ of 0.7 for the input
 data. This corresponds roughly to a $\sigma$ of 1.25, so that on
 average, we might expect an $r$ of about 0.6 in the output data, that is,
-int the flux. But, it is obvious that the worst case is much worse.
+in the flux. But, it is obvious that the worst case is much worse.
 The good news is that we can take model annotations of known
 constraints and reduce the sensitivity even further.
-}
+\par}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1328,7 +1338,7 @@ Since cells only need to talk to neighboring cells, except
 in rare cases, the approach should be amenable to distributed
 computing, and could catch the public's interest, like a worm
 simulator that aims to run in a web browser and was recently funded
-on kickstarter for a \$125, 000.
+on kickstarter with a \$125,000 backing.
 \par
 
 My early experience with constraint-based modeling was designing a
@@ -1385,11 +1395,11 @@ that enable these researchers to study complex systems.
 
 \note{
 
-First, thank you all for listening and having mere here today.  I'd
+Finally, thank you all for listening and having mere here today.  I'd
 like to also credit my coauthors who helped make the work as strong as
-it is, and finally several members of my committee and my lab have
-also helped, especially Lin Xu who really introduced me to a lot of
-exciting ideas in biology.
+it is, as well as several members of my committee and my lab,
+especially Lin Xu who really introduced me to a lot of exciting ideas
+in biology.
 
 }
 
