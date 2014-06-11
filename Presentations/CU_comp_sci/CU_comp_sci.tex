@@ -1,6 +1,13 @@
-\documentclass[compress,red,notes]{beamer}
-% Useful for practice: %can use [notes] or [notes=only]
+\documentclass[compress]{beamer}
 % Useful for large documents with lots of images: [draft]
+
+%
+% Other possibilities exist for notes, e.g.:
+% \usepackage{pgfpages}
+% \setbeameroption{show notes on second screen}
+\setbeameroption{show notes}
+
+
 \usepackage{etex} %helps when using lots of packages
 \mode<presentation>
 
@@ -173,7 +180,7 @@ computational history.
 %%%%%%%%%%%%%%%%%%%%%%%%%
                         %
 \section{Introduction}  %
-\subsection{Grne rules} %
+\subsection{Gene rules} %
                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -670,10 +677,12 @@ whereas using our framework takes far less than a second.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Methods}         % 
-\subsection{Complexation} %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                             %
+\section{Methods \& Results} % 
+\subsection{Complexation}    %
+                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1066,10 +1075,7 @@ per enzyme complex instead of one constraint per reaction.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Results}        %
-\subsection{Performance} %
-%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Performance}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1392,11 +1398,9 @@ exciting ideas in biology.
 
 \frame{\frametitle{TODO and notes} 
 
-Mention the areas where we parallelized MATLAB code?\\
-Maybe use \only http://stackoverflow.com/questions/4683093/beamer-how-to-show-images-as-step-by-step-images\\
-Talk about metabolism, but not gene expression, early on. \\
-Step through code blocks.\\
 Spellcheck!\\
+Add more subsections.\\
+
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1645,8 +1649,64 @@ human \textbf{(b)}.}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Flux estimates and empirical flux measurements in Yeast} 
+
+\begin{figure}
+\begin{tabular}{cc}
+
+\newdimen\fluxfigwidth
+\fluxfigwidth=0.4\textwidth
+\newdimen\fluxlegwidth
+\fluxlegwidth=\textwidth
+%\advance\fluxlegwidth-\fluxfigwidth
+%  \begin{subfigure}[lb]{\fluxfigwidth\textwidth}
+  \begin{subfigure}[lb]{\fluxfigwidth}
+  \includegraphics<1>[width=\textwidth]{gluc75_bars}
+  \includegraphics<2>[width=\textwidth]{eth75_bars}
+  \includegraphics<3>[width=\textwidth]{co2_75_bars}
+  \caption{\the\fluxfigwidth}
+  \end{subfigure}
+&
+  \begin{subfigure}[lb]{\fluxlegwidth}
+%  \begin{subfigure}{\subtract{1}{\fluxfigwidth}\textwidth}
+  \raisebox{0.3\height}{\includegraphics[scale=0.4,center]{legend_bars}}
+  \caption{\the\fluxlegwidth}
+  \end{subfigure}
+\\
+\end{tabular}
+%\caption{\only<1>{glucose}\only<2>{ethanol}\only<3>{$CO_2$}}
+
+\end{figure}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% End Your Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{document}
 
+
+%  [width=\textwidth, trim=9cm 4cm 5cm 1cm, clip=true]{legend_bars}}
+% \\
+%   \begin{subfigure}[b]{0.48\textwidth}
+%   \includegraphics[width=\textwidth]{eth75_bars}
+%   \caption{ethanol}
+%   \end{subfigure} 
+% &
+%   \begin{subfigure}[b]{0.48\textwidth}
+%   \includegraphics[width=\textwidth]{co2_75_bars}
+%   \caption{CO$_2$}
+%   \end{subfigure} 
+% \\
+%   \begin{subfigure}[b]{0.48\textwidth}
+%   \includegraphics[width=\textwidth]{glycerol75_bars}
+%   \caption{glycerol}
+%   \end{subfigure} 
+% &
+%   \begin{subfigure}[b]{0.48\textwidth}
+%   \includegraphics[width=\textwidth]{acetate75_bars}
+%   \caption{acetate}
+%   \end{subfigure} 
+% \\
