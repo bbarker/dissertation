@@ -5,7 +5,7 @@
 % Other possibilities exist for notes, e.g.:
 % \usepackage{pgfpages}
 % \setbeameroption{show notes on second screen}
-\setbeameroption{show notes}
+%\setbeameroption{show notes}
 
 
 \usepackage{etex} %helps when using lots of packages
@@ -225,6 +225,7 @@ computational history.
     \item Maintained, extended, and taught Microarray database (Oracle SQL/Perl)
     \item OpenMP parallel sequence alignment (C++)
     \item UNIX scripting for comparative genomics
+    \item Collaborated on statistical phylogenetics (``tree of life'' problems)
   \end{itemize}
   } % end of \only<3>
   \alert<4>{
@@ -278,7 +279,7 @@ another, which I realize may run counter to the CAC's business
 model. But it let me keep my skills sharp. 
 \par
 
-My studies in graduate school focused on optimization and mathematical
+My studies have focused on optimization and mathematical
 modeling, which were helpful in designing a highly efficient and more
 accurate algorithm which I'll be focusing on during this talk.
 \par
@@ -449,7 +450,7 @@ needed to really get at the system.}
 \note{\tiny
 To illustrate the modeling concepts that I'll be discussing, let
 me briefly introduce a much simpler toy network. Note that the 
-network has several chemcial reactions, the $F_i$, as well as
+network has several chemical reactions, the $F_i$, as well as
 transport reactions. Some reactions are drawn
 with arrows in both directions and are called reversible reactions.
 The distinction between irreversible and reversible is highly
@@ -504,13 +505,13 @@ components of these enzyme complexes.
 \begin{block}{Find the best detour due to road construction}
 Started as a way to fit a perturbed model to an original flux.\\
 \vspace{1ex}
-Can also be used to fit empircal flux estimations in a model.\\ 
+Can also be used to fit empirical flux estimations in a model.\\ 
 \vspace{1ex}
 Formulated as quadratic least-squares optimization\\(Segr\`e et al 2002):\\
 \begin{center}
 $\textnormal{minimize}\ \sum\limits_{i=1}^N (v_i-a_i)^2$ 
 \end{center}
-Later formulated as a linear programing (LP) variant.
+Later formulated as a linear programming (LP) variant.
 % \vspace{1ex}\hrule\vspace{1ex}
 % \textit{find the best detour due to road construction}
 \end{block}
@@ -528,7 +529,7 @@ type of objective that relates directly to our present study, that of
 flux fitting. \textbf{Flux fitting can be thought of in terms of our
 road analogy as a traffic jam or construction work causing a
 detour. We want the detour to be as short as possible while getting us
-to our original destination, and not distrupting traffic elsewhere.}
+to our original destination, and not disrupting traffic elsewhere.}
 \par
 
 In actuality, this is very similar to the first application of flux fitting, 
@@ -546,7 +547,7 @@ also use the linear programming variant.
 Fitting fluxes to expression, rather than to other fluxes, is more
 difficult.  This is a mathematical issue that arises from the fact
 that expression is non-negative but fluxes are bidirectional and can
-assume any real value. \textbf{ Despite this difficutly, it is
+assume any real value. \textbf{ Despite this difficulty, it is
 important to develop efficient methods for calculating the flux from
 expression due to the abundance of medically important expression
 data, since expression only tells us what the cell is capable of doing
@@ -623,17 +624,17 @@ $r_2$ & := & [A and (B or C)]       & $\rightarrow$ & $e_2$  &=&  $\min(a, b + c
 
 \note{\scriptsize
 \textbf{This relationship between necessity or redundancy of a gene in a
-complex is annotated in models as boolean gene rules.} Previously, a
+complex is annotated in models as Boolean gene rules.} Previously, a
 study from a collaborator noted that one possible way of doing
 quantification is to substitute the gene names with the expression
 levels, the ANDs with minimums, and the ORs with sums. This is great
 intuition since an AND rule states that both genes are required, so
-the mimimum amount of either gene will limit the formation of the
+the minimum amount of either gene will limit the formation of the
 complex, and an OR rule similarly states that there is redundancy of
 the genes within the complex, so that the expression of both genes may
-be summed. However, problems frequently arise in practice, as illulstrated
+be summed. However, problems frequently arise in practice, as illustrated
 in this example. We can look at two simple rules, $r_1$ and $r_2$,
-that are logically equivalent, but when evaluated with direct substituion, 
+that are logically equivalent, but when evaluated with direct substitution, 
 lead to two different results. In the case of $r_1$, the level of $a$ can
 is double counted if it is in fact the minimum value of $a$, $b$, and $c$.
 \par
@@ -641,7 +642,7 @@ is double counted if it is in fact the minimum value of $a$, $b$, and $c$.
 This issue does not occur in $r_2$, which has a special structure
 known in computer science as conjunctive normal form, where the rule
 is a conjunction of many disjunctions, or more plainly, an AND of many
-ORs.  A major part of our work has bene to show that conjunctive
+ORs.  A major part of our work has been to show that conjunctive
 normal form makes sense in the general case. We call our method for
 enzyme complex quantification 'min disjunction', since we are finding
 the minimum of all disjunctions.
@@ -664,11 +665,11 @@ Now that we know the kind of rule we need, we need to write software that
 can parse the rues into an abstract syntax tree so they can be
 manipulated into conjunctive normal form.  This is the main reason why
 we developed a parser for gene rules, instead of just using regular
-expression substition as was done previously. This has another
+expression substitution as was done previously. This has another
 benefit; some rules can be quite large. There are several examples in
 the human model, such as this one, that won't even fit on a page given
 a tiny font. In fact, it would take tens of of pages. The reason for
-this is due to having alternative proteins fulfulling identical roles
+this is due to having alternative proteins fulfilling identical roles
 within a large complex. It took many minutes to deal with such a rule
 using the original regular expression framework, 
 whereas using our framework takes far less than a second.
@@ -886,7 +887,7 @@ the difference between rules can have a much larger effect.
 
 
 \node [block, right of=start, xshift=6.5cm] (LFP) 
-  {Call LP solver:\\  minimize $\sum\limits_i \left|v_i\right| -n e_i$ 
+  {Call LP solver:\\  minimize $\sum\limits_i \left|\left|v_i\right| -n e_i\right|$ 
   \\ (for all irreversible reactions)};
 
 \node [block, right of=LFP, xshift=6.5cm] (assign_dir) 
@@ -935,7 +936,7 @@ abundance, assuming the units have been scaled.
 
 First we call the linear programming solver to minimize the difference
 between flux and scaled expression on a non-empty set of irreversible
-reactions.  The objective shown is a simiplified formulation of the
+reactions.  The objective shown is a simplified formulation of the
 problem; the presence of absolute values and the scaling constant $n$
 requires a transformation of the problem into a linear fractional
 program, which can subsequently be transformed into an equivalent
@@ -985,14 +986,14 @@ ever change, so we terminate the process and return the flux vector.
       \footnotesize
       \item Much more principled approach
       \item Major difference for some reactions\\
-            ($\approx$60-fold difference in some cases)
+            ($>$60 reactions per group in some cases)
     \end{itemize}
   } % end of \only<2>
   \alert<3>{
   \item Batch evaluation of reaction directionality
     \begin{itemize}
       \footnotesize
-      \item Primary reason for increased performance
+      \item Primary reason for increased speed
       \item Introduces less bias in first stages of directionality assignment
     \end{itemize}
   } % end of \only<3>
@@ -1035,10 +1036,12 @@ difference equation minimized in FALCON, which was simplified in the
 previous slide.
 \par
 
-Batch evaulation of reaction direction is another major benefit as it
+Batch evaluation of reaction direction is another major benefit as it
 greatly increases running time. Less bias is introduced in batch
 evaluation, as the order of assignment of directionality can influence
-later iterations of the algorithm.
+later iterations of the algorithm. Since each iteration has some influence
+on the subsequent iteration, having fewer iterations by doing batch
+assignment gets us closer to solving a global optimization problem.
 \par
 
 While both our method and thee Lee method are somewhat
@@ -1069,7 +1072,7 @@ that using reaction groups, as opposed to not using them (on the
 x-axis), doesn't give us a very good relationship. Additionally, we
 can see the error bars in both cases that are due to alternative
 optima. The error bars with reaction groups do tend to be larger, likely
-due to there being fewer constraints overall, since there's one contraint
+due to there being fewer constraints overall, since there's one constraint
 per enzyme complex instead of one constraint per reaction.
 \par}
 
@@ -1108,18 +1111,18 @@ Max.~$\mu$)}
 \note{
 To evaluate performance, we used a benchmark that
 included 7 measured fluxes from yeast in two different conditions
-correpsonding to 75 and 85 percent of maximum growth rate. We
-additionally used two variants (minimally and highly contrained) of
+corresponding to 75 and 85 percent of maximum growth rate. We
+additionally used two variants (minimally and highly constrained) of
 two different versions of a yeast model, to see if any of these
 factors largely effected the methods in the panel. While all of
 the methods are constraint based methods, the Lee method is the only
 similar method to ours (its the one that uses direct evaluation of
 gene rules to estimate complex abundance) and can be thought of as the
 predecessor. The Lee method performs quite well when the model is
-highly constrained, which are the default constaints on directionality
+highly constrained, which are the default constraints on directionality
 that ship with the yeast model. When these constraints are largely
 removed, it loses much of its performance (as shown in yellow),
-whereas our method (shown in green) retains good corrleation.
+whereas our method (shown in green) retains good correlation.
 \par}
 
 
@@ -1160,7 +1163,7 @@ correlation, and we see that FALCON has about two orders of magnitude
 increase in speed over Lee. The same is true for human models, where
 it takes a couple of minutes to estimate a flux with FALCON and over an
 hour with the Lee method. All of these benchmarks were done on a single
-processer, with the exception of iMAT, which could take quite a while
+processor, with the exception of iMAT, which could take quite a while
 even on 32 processors.
 \par}
 
@@ -1223,7 +1226,7 @@ noisy data is valuable because there is so much of it. Here is an
 example comparison of two proteomic data sets taken from the same cell
 types but using different instruments to measure protein
 intensity. I've removed all pairs with a zero value in the middle figure,
-and additionaly all non-metabolic genes in the last figure. 
+and additionally all non-metabolic genes in the last figure. 
 The important thing to note in these three schemes
 is that, while there is a correlation, there is also a fair amount of
 noise. We need to make sure our algorithm is capable of handling a
@@ -1248,7 +1251,7 @@ multiply the enzyme complex abundance values by randomly sampled noise
 from a multivariate log-normal distribution with parameter
 $\sigma$. The larger the $\sigma$, the more noise there will be. In
 this figure, you see the $\sigma$ on the x-axis, and the corresponding
-correlation between flux vectors estimated based on the perturubed and
+correlation between flux vectors estimated based on the perturbed and
 unperturbed enzyme complex abundance. The green line is the interval
 median correlation.
 
@@ -1302,14 +1305,15 @@ good to know how far we can get with a deconstrained model.
 \begin{column}{0.35\textwidth}
 \begin{itemize}
   \footnotesize
-  \item Expression is available for nearly all cell types.
-  \item Can simulate tissues, microbial ecosystems, and multicellular organisms.
-  \item Amenable to distributed computing.
+  \item Expression is available for nearly all cell types
+  \item Can simulate tissues, microbial ecosystems, and multicellular organisms
+  \item Amenable to distributed computing
   \begin{itemize}
     \scriptsize
-    \item Cells only need to talk to neighboring cells.
-    \item Only a small vector of concentration data needs needs to be passed.
+    \item Cells only need to talk to neighboring cells
+    \item Only a small vector of concentration data needs needs to be passed
   \end{itemize}
+  \item Several interested Cornell faculty
 \end{itemize}
 
 \end{column}
@@ -1345,7 +1349,7 @@ My early experience with constraint-based modeling was designing a
 large scale simulation for detecting genetic interactions, which I
 haven't had time to discuss today, but I've illustrated one such
 dynamic genetic interaction here. I think a lot of researchers,
-especially a nuber of groups at Cornell, would be interested
+especially a number of groups at Cornell, would be interested
 in large scale metabolic simulations of these types going forward,
 and I'd love to have the opportunity to build up frameworks
 that enable these researchers to study complex systems.
@@ -1359,7 +1363,7 @@ that enable these researchers to study complex systems.
 \begin{columns}[t]
 %
 \begin{column}{0.5\textwidth}
-\ul{\textit{Coauthors}}
+\ul{\textit{Co-authors}}
 \begin{itemize}
 \item Zhenglong Gu
 \item Jason W. Locasale
@@ -1396,20 +1400,10 @@ that enable these researchers to study complex systems.
 \note{
 
 Finally, thank you all for listening and having mere here today.  I'd
-like to also credit my coauthors who helped make the work as strong as
+like to also credit my co-authors who helped make the work as strong as
 it is, as well as several members of my committee and my lab,
 especially Lin Xu who really introduced me to a lot of exciting ideas
 in biology.
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\frame{\frametitle{TODO and notes} 
-
-Spellcheck!\\
-Add more subsections.\\
 
 }
 
@@ -1632,9 +1626,6 @@ associated unperturbed vector for the Yeast~7 model.}
 
 \frame{\frametitle{Flux estimates give us more than just complex abundance} 
 
-\hl{advantage of looking at flux over expression, which is commonly}
-\hl{move this figure out and cite correlation}
-
 \begin{figure}
 \begin{tabular}{cc}
   \begin{subfigure}[b]{0.5\textwidth}   % l   b   r   t
@@ -1663,29 +1654,32 @@ human \textbf{(b)}.}
 \frame{\frametitle{Flux estimates and empirical flux measurements in Yeast} 
 
 \begin{figure}
-\begin{tabular}{cc}
 
 \newdimen\fluxfigwidth
-\fluxfigwidth=0.4\textwidth
+\fluxfigwidth=0.75\textwidth
 \newdimen\fluxlegwidth
 \fluxlegwidth=\textwidth
-%\advance\fluxlegwidth-\fluxfigwidth
-%  \begin{subfigure}[lb]{\fluxfigwidth\textwidth}
+\advance\fluxlegwidth-\fluxfigwidth
+
+\begin{tabular}{cc}
   \begin{subfigure}[lb]{\fluxfigwidth}
   \includegraphics<1>[width=\textwidth]{gluc75_bars}
   \includegraphics<2>[width=\textwidth]{eth75_bars}
   \includegraphics<3>[width=\textwidth]{co2_75_bars}
-  \caption{\the\fluxfigwidth}
+  \includegraphics<4>[width=\textwidth]{glycerol75_bars}
+  \includegraphics<5>[width=\textwidth]{acetate75_bars}
+
+%  \caption{\the\fluxfigwidth}
   \end{subfigure}
 &
   \begin{subfigure}[lb]{\fluxlegwidth}
-%  \begin{subfigure}{\subtract{1}{\fluxfigwidth}\textwidth}
-  \raisebox{0.3\height}{\includegraphics[scale=0.4,center]{legend_bars}}
-  \caption{\the\fluxlegwidth}
+  \raisebox{0.3\height}{\includegraphics[scale=0.25,center]{legend_bars}}
+%  \caption{\the\fluxlegwidth}
   \end{subfigure}
 \\
 \end{tabular}
-%\caption{\only<1>{glucose}\only<2>{ethanol}\only<3>{$CO_2$}}
+\caption{\only<1>{glucose}\only<2>{ethanol}\only<3>{CO$_2$}%
+\only<4>{glycerol}\only<5>{acetate}}
 
 \end{figure}
 }
@@ -1697,26 +1691,3 @@ human \textbf{(b)}.}
 
 \end{document}
 
-
-%  [width=\textwidth, trim=9cm 4cm 5cm 1cm, clip=true]{legend_bars}}
-% \\
-%   \begin{subfigure}[b]{0.48\textwidth}
-%   \includegraphics[width=\textwidth]{eth75_bars}
-%   \caption{ethanol}
-%   \end{subfigure} 
-% &
-%   \begin{subfigure}[b]{0.48\textwidth}
-%   \includegraphics[width=\textwidth]{co2_75_bars}
-%   \caption{CO$_2$}
-%   \end{subfigure} 
-% \\
-%   \begin{subfigure}[b]{0.48\textwidth}
-%   \includegraphics[width=\textwidth]{glycerol75_bars}
-%   \caption{glycerol}
-%   \end{subfigure} 
-% &
-%   \begin{subfigure}[b]{0.48\textwidth}
-%   \includegraphics[width=\textwidth]{acetate75_bars}
-%   \caption{acetate}
-%   \end{subfigure} 
-% \\
