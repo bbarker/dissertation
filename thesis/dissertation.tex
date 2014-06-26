@@ -667,25 +667,9 @@ Helikar2012}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\chapter{Epistasis Landscapes Arising From Adaptive Mutations}
-The literature so far has been remarkably biased in the simulation of only
-deleterious mutants rather than beneficial mutants in the constraint-based modeling
-literature. This has numerous reasons, but it is undoubtedly due largely to 
-the absence of a notion of any improvement in the objecitve function when a global optimum
-is found. 
-
-\section{Introduction to Adaptive Mutations}
-Biologists have long wondered the extent to which evolution occurs due to nearly neutral 
-and slighly deleterious mutations, or adaptive mutations, or more complex situations involving
-these types of mutations as well as their epistatic interactions (cite the work of Kimura etc.).
- 
-\subsection{Adaptive Mutations and Epistasis}
-
-\subsection{The Need for a New Modeling Framework}
-Clearly, using FBA with the growth objective alone is not enough--we only ever get the 
-optimum for our fitness objective.
-
-\chapter{FALCON: Flux Assignment (with) LAD Convex Objectives}
+\chapter{A robust and efficient method for
+estimating enzyme complex abundance
+and metabolic flux from expression data}
 
 \falconAbstractMotivation \falconAbstractResults
 
@@ -695,69 +679,15 @@ optimum for our fitness objective.
 %                          %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{FALCON-SOAR (Sortig of all RNAs - need better acronym) and its performance in E. coli} 
 
+\chapter{Epistasis Landscapes Arising From Adaptive Mutations}
 
-\chapter{Analysis of Cancer Transcriptomes with FALCON}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                 %
+\input{\commonDir epistasisBeneficialMutant.tex}  %
+%                                                 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Analysis}
-
-\subsection{An Analysis of Cancer Tissue Metabolism}
-\subsection{Cancer's Influence on Nighboring Tissue}
-\subsection{Epistasis Extended to Beneficial Mutations and Non-Microbial Models}
-
-The occurence of beneficial mutations and how they affect adaptation
-is currently an area of active interest in evolutionary biology
-\cite{Chou2011} \cite{Weinreich2006}. The questions are often
-difficult or impossible to assess experimentally due to limited
-resources.  In genome-scale models, to our knowledge, only microbial
-epistasis has so far been studied for all enzymes (often referred to
-as genome-scale in this context). This is due to several factors.
-
-One issue is that these computations can still take a significant
-amount of time, and the increase in model size of Human Recon 2 over
-Yeast can cause even a relatively simple FBA run to go up by an order
-of magnitude.  This problem is compounded by the increase in the
-number of genes in the human model, since computing epistasis consumes
-space and time as $O(n^2)$ where $n$ is the number of genes in the
-model. More important than this issue, which might be overcome with
-enough computational resources, is the issue of an objective
-function. It has been shown numerous times that FBA with a biomass
-objective can be a reasonable approximation to what a microbe is
-trying to achieve metabolically
-~\cite{Schuetz2012}~\cite{Fong2004}~\cite{Varma1994} . While Recon 2
-is equipped with a ``generalized biomass reaction'', it is not clear
-what the meaning of this is, and it certainly seems unlikely to
-estimate the metabolism even of fast-growing cancer cells \hl{(cite
-  Locasale?)}. We propose FALCON as a method to get around this issue
-for non-microbial models.
-
-Another advantage to FALCON is that it allows one to directly probe
-mutations that are represented as gene expresion perturbations. A
-decreased level of gene expression may also be metabolically
-equivalent to the effect of a missense mutation, for example. This
-allows a different sampling strategy than before; for instance, we
-could observe how uniform expression restriction compares to uniform
-flux restriction~\cite{Xu2012}. Assuming an accurate model of
-enzyme-complex expression measurement, the former should be the more
-realistic model.
-
-One issue discussed elsewhere is that combining traditional flux
-restriction mutations, which are known as \emph{hard constraints}, may
-result in an unsolvable system, which is almost certainly an undesired
-effect of this mutation modeling formalism. Instead, it would be
-better if mutations could be modeled as \emph{soft
-  constraints}. Concretely, whereas hard constraints are enacted in
-the actual constraints of the optimization problem, soft constraints
-merely change the objective. This means that multiple soft constaints
-combined together under some mutational model would be compatible in
-the sense that they wouldn't unexpectedly result in an unsolvable
-system. FALCON provides two possible avenues for soft constraints:
-expression level and expression variation. \emph{However, it is not
-  clear yet what expression variation really means, so further
-  investigation is necessary.}
-
-\chapter{Cancer Phenotypes and FALCON}
 
 \appendix
 
