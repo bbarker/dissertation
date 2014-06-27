@@ -355,20 +355,19 @@ expression, are discussed in \suppOrApp Section~\ref{sec:FALCON}.
 \begin{figure}
 \centering
 \begin{tabular}{c}
-  \begin{subfigure}[b]{0.45\textwidth}
-  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
+  \begin{subfigure}[b]{0.6\textwidth}
+  \includegraphics[width=\textwidth, height=0.4\textheight]
   {falconGrp_yeastHC}
   \caption{} \label{fig:FalconGrp:A}
   \end{subfigure}
 \\
-  \begin{subfigure}[b]{0.45\textwidth}
-  \includegraphics[width=\textwidth, trim=9cm 0cm 9cm 0cm, clip=true]
+  \begin{subfigure}[b]{0.6\textwidth}
+  \includegraphics[width=\textwidth, height=0.4\textheight]
   {falconGrp_yeastMC}
   \caption{} \label{fig:FalconGrp:B}
   \end{subfigure} 
 \\
 \end{tabular}
-\vspace{-4mm} 
 \caption{
 Comparison of setting FALCON to use no reaction group information (x-axis)
 versus with group information (y-axis; default FALCON setting) for
@@ -497,18 +496,17 @@ still shows strong differences.
 \begin{figure}
 \centering
 \begin{tabular}{c}
-  \begin{subfigure}[b]{0.5\textwidth}
+  \begin{subfigure}[b]{\textwidth}
   \includegraphics[width=\textwidth]{pExp}
   \caption{highly constrained} \label{fig:YpermCorr:A}
   \end{subfigure}
 \\
-  \begin{subfigure}[b]{0.5\textwidth}
+  \begin{subfigure}[b]{\textwidth}
   \includegraphics[width=\textwidth]{pExp_dirr}
   \caption{minimally constrained} \label{fig:YpermCorr:B}
   \end{subfigure} 
 \\
 \end{tabular}
-\vspace{-4mm} 
 \caption{Kernel-smoothed PDFs of correlation between experimental
 fluxes and fluxes estimated from FALCON when all gene expression data
 points are permuted. Arrows mark the correlation when FALCON is run on
@@ -547,27 +545,8 @@ sophisticated means of constraint, such as enzyme crowding constraints
 \citep{Shlomi2011}, or using FALCON in conjunction with tissue
 specific modeling tools, may prove highly beneficial.
 
-\begin{figure}
-\centering
-\begin{tabular}{c}
-  \begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth]{noise_y7EC}
-  \caption{enzyme complex abundance} \label{fig:ExpSens:A}
-  \end{subfigure}
-\\
-  \begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth]{noise_y7HCflux}
-  \caption{flux: highly constrained} \label{fig:ExpSens:B}
-  \end{subfigure} 
-\\
-  \begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth]{noise_y7MCflux}
-  \caption{flux: minimally constrained} \label{fig:ExpSens:C}
-  \end{subfigure} 
-\\
-\end{tabular}
-\vspace{-4mm} 
-\caption{
+
+\captionpage{figure}{%
 Correlation of perturbed enzyme abundance vectors and flux
 vectors with the associated unperturbed vector for the 
 Yeast~7 model. The interval median
@@ -579,6 +558,28 @@ y-axis shows the Pearson correlation between the two vectors
 with FALCON using the same perturbed and unperturbed expression
 vectors \textbf{(b-c)}.}
 \label{fig:ExpSens}
+
+\newlength{\expSensLen}
+\setlength{\expSensLen}{0.85\textwidth}
+\begin{figure}[H]
+\centering
+\begin{tabular}{c}
+  \begin{subfigure}[b]{\expSensLen}
+  \includegraphics[width=\textwidth]{noise_y7EC}
+  \caption{enzyme complex abundance} \label{fig:ExpSens:A}
+  \end{subfigure}
+\\
+  \begin{subfigure}[b]{\expSensLen}
+  \includegraphics[width=\textwidth]{noise_y7HCflux}
+  \caption{flux: highly constrained} \label{fig:ExpSens:B}
+  \end{subfigure} 
+\\
+  \begin{subfigure}[b]{\expSensLen}
+  \includegraphics[width=\textwidth]{noise_y7MCflux}
+  \caption{flux: minimally constrained} \label{fig:ExpSens:C}
+  \end{subfigure} 
+\\
+\end{tabular}
 \end{figure}
 
 

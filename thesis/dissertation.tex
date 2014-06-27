@@ -13,7 +13,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\graphicspath{{./figures/}{../falconBioinfo/figures/}}
+\graphicspath{{./figures/}{../falconBioinfo/figures/}%
+{../epistasisSameGeneArXiv/figures/}}
 
 % Document specific
 % (it is empty)
@@ -655,7 +656,7 @@ Helikar2012}.
 %$\varepsilon_i$ is the dielectric constant of neighboring insulator,
 %and $\varepsilon_{air}$ is the dielectric constant of air.
 
-\chapter{Dynamic Epistasis Under Varying Environmental Perturbations}
+\chapter{Dynamic Epistasis for Different Alleles of the Same Gene}
 
 \section{Introduction}
 \epiSameGeneAbstract
@@ -665,6 +666,10 @@ Helikar2012}.
 \input{\commonDir epistasisSameGene}  %
 %                                     %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Dynamic Epistasis Under Varying Environmental Perturbations}
+
+\hl{it is empty}
 
 
 \chapter{A robust and efficient method for
@@ -682,16 +687,25 @@ and metabolic flux from expression data}
 
 \chapter{Epistasis Landscapes Arising From Adaptive Mutations}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                 %
-\input{\commonDir epistasisBeneficialMutant.tex}  %
-%                                                 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                             %
+\input{\commonDir epistasisBeneficialMutant}  %
+%                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \appendix
 
-\chapter{Appendix 1: FALCON}
+\chapter{Supporting Information for
+Dynamic Epistasis for Different Alleles of the Same Gene}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                              %
+\input{\commonDir epistasisSameGene_appendix}  %
+%                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{FALCON}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
