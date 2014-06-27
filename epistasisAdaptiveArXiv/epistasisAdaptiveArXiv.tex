@@ -15,7 +15,7 @@
 \bibliographystyle{unsrtnat}
 
 
-\graphicspath{{../falconBioinfo/figures/}}
+\graphicspath{{./figures/}{../falconBioinfo/figures/}}
 
 \usepackage{url}
 \usepackage{fullpage}
@@ -81,17 +81,11 @@
 \def\suppOrApp{}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                     %
-\input{\commonDir epistasisSameGene}  %
-%                                     %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                              %
-\input{\commonDir epistasisSameGene_appendix}  %
-%                                              %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                             %
+\input{\commonDir epistasisBeneficialMutant}  %
+%                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \bibliography{\commonDir dissertation}
 \end{document}

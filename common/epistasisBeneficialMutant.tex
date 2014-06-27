@@ -1,26 +1,87 @@
 
-The literature so far has been remarkably biased in the simulation of only
-deleterious mutants rather than beneficial mutants in the constraint-based modeling
-literature. This has numerous reasons, but it is undoubtedly due largely to 
-the absence of a notion of any improvement in the objecitve function when a global optimum
-is found. 
+To our knowledge, existing literature has only dealt with the
+simulation of only deleterious mutants rather than beneficial mutants
+in the constraint-based modeling literature, which is chiefly due to
+existing studies optimizing the fitness function, which leaves no room
+for improvement. In this study, we develop a constraint-based
+approach that can simulate beneficial, neutral, and deleterious
+mutations.  We show that this simulation technique can be useful for
+understanding adaptive trajectories, for which we develop an
+analytical software library.  Our mechanistic model can reproduce the
+distribution of epistases between beneficial mutations that was
+observed in a data set and a population genetic model fit to the same
+data set, showing that our model behaves appropriately in this conext
+and may be a useful tool for further evolutionary analyses. Finally,
+in experimental data sets and in our simulations, slightly beneficial
+mutations are much more likely to have positive (synergistic)
+epistasis with other beneficial mutations, making their likelihood of
+becoming fixed higher than would be expected without considering
+epistatic effects.
 
-\section{Introduction to Adaptive Mutations}
-Biologists have long wondered the extent to which evolution occurs due to nearly neutral 
-and slighly deleterious mutations, or adaptive mutations, or more complex situations involving
-these types of mutations as well as their epistatic interactions (cite the work of Kimura etc.).
- 
-\subsection{Adaptive Mutations and Epistasis}
 
-\subsection{The Need for a New Modeling Framework}
-Clearly, using FBA with the growth objective alone is not enough--we only ever get the 
-optimum for our fitness objective.
+\section{Introduction}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Adaptive Mutations}
+
+Biologists have long wondered the extent to which evolution occurs due
+to nearly neutral and slighly deleterious mutations, or adaptive
+mutations, or more complex situations involving these types of
+mutations as well as their epistatic interactions (cite the work of
+Kimura etc.).
 
 The occurence of beneficial mutations and how they affect adaptation
 is currently an area of active interest in evolutionary biology
-\cite{Chou2011} \cite{Weinreich2006}. The questions are often
+\cite{Chou2011} \cite{Weinreich2006}. Although much focus in the past
+has been placed on deleterious mutations because of their prevalence
+in nature and disease, it is ultimately beneficial mutations that
+are responsible for adaptive evolution.
+ 
+\subsection{Adaptive Mutations and Epistasis}
+
+
+
+\subsection{The Need for a New Modeling Framework}
+Clearly, using FBA with the growth objective alone is not enough--we
+only ever get the optimum for our fitness objective.  A way to
+circumvent this issue is to associate a feature of the system
+(e.g. flux into biomass) as the fitness while optimizing some other
+objective. This latter mechanism is not generally used as most models
+tend to be rather under-constrained as is. However, as we've seen, the
+FALCON method \hl{cite} and other fitting methods like MoMA provide a
+way to use high-throughput data to introduce many additional
+constraints to the system.
+
+Having a systems tool that can work with models of particular organisms
+will not only add another tool in the computational evolution and
+population genetics arsenal, but also in applied fields such as
+evolutionary engineering of microbial engineering, and understanding
+which gene mutant combinations which may be most advantageous for
+a cancer cell population.
+
+\section{Results}
+
+\subsection{Adaptive mutations with objective weights}
+
+Aside from the problem of separating the fitness function from the 
+optimization objective function, there is the issue of combining traditional flux
+restriction mutations, which are known as \emph{hard constraints}, which may
+result in an unsolvable system --- an almost certainly undesirable
+effect of this mutation modeling formalism. Instead, it would be
+better if mutations could be modeled as \emph{soft
+  constraints}. Concretely, whereas hard constraints are enacted in
+the actual constraints of the optimization problem, soft constraints
+merely change the objective. This means that multiple soft constaints
+combined together under some mutational model would be compatible in
+the sense that they wouldn't unexpectedly result in an unsolvable
+system. FALCON provides two possible avenues for soft constraints:
+expression level and expression variation. \emph{However, it is not
+  clear yet what expression variation really means, so further
+  investigation is necessary.}
+
+
+\section{Discussion}
+
+The questions are often
 difficult or impossible to assess experimentally due to limited
 resources.  In genome-scale models, to our knowledge, only microbial
 epistasis has so far been studied for all enzymes (often referred to
@@ -54,21 +115,20 @@ flux restriction~\cite{Xu2012}. Assuming an accurate model of
 enzyme-complex expression measurement, the former should be the more
 realistic model.
 
-One issue discussed elsewhere is that combining traditional flux
-restriction mutations, which are known as \emph{hard constraints}, may
-result in an unsolvable system, which is almost certainly an undesired
-effect of this mutation modeling formalism. Instead, it would be
-better if mutations could be modeled as \emph{soft
-  constraints}. Concretely, whereas hard constraints are enacted in
-the actual constraints of the optimization problem, soft constraints
-merely change the objective. This means that multiple soft constaints
-combined together under some mutational model would be compatible in
-the sense that they wouldn't unexpectedly result in an unsolvable
-system. FALCON provides two possible avenues for soft constraints:
-expression level and expression variation. \emph{However, it is not
-  clear yet what expression variation really means, so further
-  investigation is necessary.}
+A limitation is that we have only considered metabolic genes and their
+effect on steady-state metabolism. While in principle a similar method
+could be applied to whole cell models \hl{cite myco and e.coli}, the
+computation time would not be feasible to the screening for beneficial
+muatations, nor of exploring them combinatorally, as the time needed
+for a single mutant takes at least a day even in the smallest
+bacterial model \hl{cite}. Future isnights into improving the
+efficiency of whole cell models, or making a compromise on which
+systems are simulated, may improve these efforts.
 
+\section{Methods}
+\hl{it is empty}
+
+\section{TODO}
 
 \hl{need more background}
 
@@ -89,3 +149,11 @@ need to update to work with FALCON}
 
 
 \hl{briefly discuss FBA weight possibility}
+
+
+\hl{Since beneficial mutations are relatively rare, and since
+combining multiple mutants in the lab is increasingly difficult for
+the more mutations that are to be combined, an \textit{in silico}
+analysis can shed light on what may be expected in adaptive
+evolution.}
+
