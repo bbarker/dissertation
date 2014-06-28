@@ -1,24 +1,3 @@
-
-To our knowledge, existing literature has only dealt with the
-simulation of only deleterious mutants rather than beneficial mutants
-in the constraint-based modeling literature, which is chiefly due to
-existing studies optimizing the fitness function, which leaves no room
-for improvement. In this study, we develop a constraint-based
-approach that can simulate beneficial, neutral, and deleterious
-mutations.  We show that this simulation technique can be useful for
-understanding adaptive trajectories, for which we develop an
-analytical software library.  Our mechanistic model can reproduce the
-distribution of epistases between beneficial mutations that was
-observed in a data set and a population genetic model fit to the same
-data set, showing that our model behaves appropriately in this conext
-and may be a useful tool for further evolutionary analyses. Finally,
-in experimental data sets and in our simulations, slightly beneficial
-mutations are much more likely to have positive (synergistic)
-epistasis with other beneficial mutations, making their likelihood of
-becoming fixed higher than would be expected without considering
-epistatic effects.
-
-
 \section{Introduction}
 
 \subsection{Adaptive Mutations}
@@ -59,6 +38,26 @@ which gene mutant combinations which may be most advantageous for
 a cancer cell population.
 
 \section{Results}
+
+\subsection{Weighted MoMA-FBA Objectives}
+
+Minimization of metabolic adjustment (MoMA), along with Flux Balance
+Analysis (FBA), has proven successful in simulating growth rates and
+predicting in silico fluxes. Here we discuss a weighted objective
+approach that combines both objectives. \hl{Insert some math background
+from original \LaTeX~report.} 
+
+The difference in fitness between weighted quadratic MoMA and linear
+MoMA can be illustrated by considering the growth rate to be a
+function of the weight placed on the biomass objective \ref{fig1}.  An
+advantage of quadratic MoMA is that it simulates a continuous range of
+fitnesses, potentially matching any required fitness level exactly.
+However, this is not necessarily always biologically relevant;
+discrete mutations may give a discrete jump in fitness. Weighted
+linear MoMA models these discrete transitions in flux state, and often
+this is reflected in discrete jumps in fitness, as seen above.
+
+\hl{fig1}
 
 \subsection{Adaptive mutations with objective weights}
 
