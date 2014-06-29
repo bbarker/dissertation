@@ -49,7 +49,7 @@ from original \LaTeX~report.}
 
 The difference in fitness between weighted quadratic MoMA and linear
 MoMA can be illustrated by considering the growth rate to be a
-function of the weight placed on the biomass objective \ref{fig1}.  An
+function of the weight placed on the biomass objective \ref{fig:Fitness_LM_QP}.  An
 advantage of quadratic MoMA is that it simulates a continuous range of
 fitnesses, potentially matching any required fitness level exactly.
 However, this is not necessarily always biologically relevant;
@@ -57,9 +57,73 @@ discrete mutations may give a discrete jump in fitness. Weighted
 linear MoMA models these discrete transitions in flux state, and often
 this is reflected in discrete jumps in fitness, as seen above.
 
-\hl{fig1}
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{Fitness_LM_QP}
+  \caption{\hl{it is empty}}
+  \label{fig:Fitness_LM_QP}
+\end{figure}
 
-\subsection{Adaptive mutations with objective weights}
+In the above figure, the difference in fitness between weighted
+quadratic MoMA and linear MoMA can be seen. An advantage of quadratic
+MoMA is that it simulates a continuous range of fitnesses, potentially
+matching any required fitness level exactly.  However, this is not
+necessarily always biologically relevant; discrete mutations may give
+a discrete jump in fitness. Weighted linear MoMA models these discrete
+transitions in flux state, and often this is reflected in discrete
+jumps in fitness, as seen above.
+
+\subsubsection{Weighted MoMA predicts expression states}
+
+Using tiling array data for s288c in YPD and YPE conditions from
+\hl{Xu et al.}, we compare the number of genes expected to have a
+greater than two-fold change in expression from YPD to YPE to the fluxes
+mapped to genes also having greater than two-fold change in the same
+environmental transition. The x-axis represents the weight on
+growth. Scaled fitness (green) is shown for reference. The number of
+genes having more than two-fold flux and expression change in the model and and
+in the experiment are shown in blue. The red and red dotted lines
+represent the random expectation and 95\% CI for expression agreement
+for a random expression vector with the genes belonging to the model
+and experimental dataset. The random expression vector has the same
+number of two-fold up-regulated and two-fold down-regulated genes as the
+real relative expression vector.
+
+\begin{figure}
+\centering
+\begin{tabular}{c}
+\begin{subfigure}[b]{\textwidth}
+  \includegraphics[width=\textwidth]{randGene_noFit}
+  \caption{Linear MoMA} 
+  \label{fig:randGene_noFit}
+\end{subfigure}
+\\
+\begin{subfigure}[b]{\textwidth}
+  \includegraphics[width=\textwidth]{randGene_noFit_QP}
+  \caption{Quadratic MoMA} 
+  \label{fig:randGene_noFit_QP}
+\end{subfigure}
+\\
+\end{tabular}
+\caption{\hl{It is empty}} 
+\label{fig:wMoMA_expMatch}
+\end{figure}
+
+
+Interestingly, the weight and corresponding fitness that agrees most
+with the experimental predictions is sub-optimal in both the quadratic
+and linear cases, suggesting that the s288c strain was not fully
+adapted to the YPE environment when the expression was assayed.  To
+compare directly with geometric FBA (a min-L1 norm solution), we found
+that geometric FBA had 123 concurring genes whereas weighted linear
+MoMA had 124; similarly, a min-L2 norm FBA solution in Ethanol had 162
+agreeing solutions and weighted quadratic MoMA had 165, showing that
+weighted MoMA can do at least as good as the gold standards for de
+novo FBA solutions in predicting accurate fluxes.
+
+
+
+\subsubsection{Adaptive mutations with objective weights}
 
 Aside from the problem of separating the fitness function from the 
 optimization objective function, there is the issue of combining traditional flux
@@ -76,6 +140,72 @@ system. FALCON provides two possible avenues for soft constraints:
 expression level and expression variation. \emph{However, it is not
   clear yet what expression variation really means, so further
   investigation is necessary.}
+
+
+Perturbations other than flux constraint are possible. One problem
+with flux constraint occurs when we select two different reactions
+that are to have their flux increased. It is all too easy for these
+perturbations to be viable and even beneficial under weighted MoMA,
+but for the corresponding double mutant to be inviable. This is true
+for even small increases in flux, however one defines small, due to
+the rigidity of flux constraint. For instance, if we only have a
+specific amount of subtrate to work with, and a particular pathway is
+already operating at optimal capacity, raising the lower bound to a
+value greater than that capacity will result in zero fitness, which is
+certainly not the intent of what we wish to capture nor is it
+physically realistic. An alternative that can address this issue is to
+perturb the linear objective vector. When performing growth
+optimization in FBA, normally only the biomass pseudo-reaction has a
+non-zero (positive) entry. Nonzero values for any other entry could
+only decrease the flux. In weighted MoMA nonzero values could prove
+potentially beneficial, as they may push the system in a direction
+that is more in line with growth optimization and less in line with
+MoMA.
+
+An example \ref{fig:wMoMA_smoothness} for both the quadratic and linear cases.
+The same reaction is used in both instances, and in both instances, a
+slightly negative weight on the reaction appears to be most beneficial
+(compare to 0, which represents the wild-type).
+
+\begin{figure}
+\centering
+\begin{tabular}{c}
+\begin{subfigure}[b]{\textwidth}
+  \includegraphics[width=\textwidth]{R264LP}
+  \caption{Linear MoMA} 
+  \label{fig:R264LP}
+\end{subfigure}
+\\
+\begin{subfigure}[b]{\textwidth}
+  \includegraphics[width=\textwidth]{R264QP}
+  \caption{Quadratic MoMA} 
+  \label{fig:R264QP}
+\end{subfigure}
+\\
+\end{tabular}
+\caption{\hl{It is empty}} 
+\label{fig:wMoMA_smoothness}
+\end{figure}
+
+
+
+\subsubsection{Simulated adaptation induces complexity in sub-optimal solutions}
+
+Previous work by \hl{Nishikawa et al.} explored the complexity of optimal
+and sub-optimal flux vectors, finding that generally the sub-optimal
+solutions have more active fluxes than the optimal solutions. We found
+a similar trend where, once growth is non-zero, the initial flux state
+has more active reactions than in the ancestral environment (glucose;
+red dashed line) or than in the more adapted stages in the current
+(ethanol) environment.
+
+
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{complexityEth}
+  \caption{\hl{it is empty}} 
+  \label{fig:complexityEth}
+\end{figure}
 
 
 \section{Discussion}
