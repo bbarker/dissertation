@@ -186,6 +186,54 @@ quadratic objective for weighted MoMA with objective weights (mutations)
 on a particular reaction (\Fig~\ref{fig:wMoMA_smoothness}).
 
 
+\subsection{Adaptive trajectories and evolutionary path analysis}
+
+Phenotypes involving a small number of mutations have had their
+adaptive paths analyzed systematically (e.g. Weinreich 2007: five
+mutations). In the case of Weinreich, all mutations occur on a single
+enzyme, and even in such a localized case, sign epistasis, which gives
+rise to evolutionary traps, occurs for the majority of mutational
+paths.
+
+In a genome-scale metabolic model, we observe that while the majority
+of paths are not likely to have a problem, once eight or nine genes are
+involved, the average number of paths to reach the optimum without
+experiencing a trap are only ~65\%. This demonstrates that the
+presence of traps are heterogeneous, just as in the single-enzyme
+experiment of Weinreich (see ref below), suggesting that the order of
+mutations often matter to a very significant degree in evolution.
+
+The fact that more unobstructed evolutionary paths are observed as we
+approach the genome-scale suggests that evolution is, in general, not
+very predictable as the scale of the system increases, whereas for a
+single-enzyme analysis as in the Weinreich study, it may be be
+(however, need to compare to other similar studies).
+
+\hl{include 2 subfigures}
+
+\subsubsection{Software for evolutionary path analysis}
+
+Storing all evolutionary paths in memory or disk can become 
+intractable. For instance, even 10 mutations has $10! \approx
+3.6$ million possible paths, but only $2^{10} = 1024$ mutant
+combinations. Due to this difficulty, we have created software to allow 
+the dynamic exploration and analyses of these paths. 
+
+The C programs for dynnamically performing analyses on text files
+containing fitness data for all combinations of $n$ mutations
+can be found at \url{https://github.com/bbarker/COBRAscripts}
+in the \texttt{MyProjects/AdaptiveMuts/TreeTraversal} subdirectory.
+\hl{Some of the features include (backtracking?, etc)}.  An example of
+some of the files and use cases are described \hl{cite appendix
+section}.
+
+Notes: See Weinreich 2007 for really nice discussion and refs:
+%http://webpub.brown.edu/Research/Weinreich/WeinreichPublications/Poelwijk_etal2007.pdf
+%http://onlinelibrary.wiley.com/doi/10.1111/j.0014-3820.2005.tb01768.x/pdf
+
+Note: also discuss the trends found for sign epistasis, if any, in the two recent science papers:
+Khan et al.
+Chou et al.
 
 \section{Discussion}
 
