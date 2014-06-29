@@ -10,7 +10,7 @@ Kimura etc.).
 
 The occurence of beneficial mutations and how they affect adaptation
 is currently an area of active interest in evolutionary biology
-\cite{Chou2011} \cite{Weinreich2006}. Although much focus in the past
+\citep{Chou2011, Weinreich2006}. Although much focus in the past
 has been placed on deleterious mutations because of their prevalence
 in nature and disease, it is ultimately beneficial mutations that
 are responsible for adaptive evolution.
@@ -47,9 +47,9 @@ predicting in silico fluxes. Here we discuss a weighted objective
 approach that combines both objectives. \hl{Insert some math background
 from original \LaTeX~report.} 
 
-The difference in fitness between weighted quadratic MoMA and linear
+The difference in smoothness between weighted quadratic MoMA and linear
 MoMA can be illustrated by considering the growth rate to be a
-function of the weight placed on the biomass objective \ref{fig:Fitness_LM_QP}.  An
+function of the weight placed on the biomass objective (\Fig~\ref{fig:Fitness_LM_QP}).  An
 advantage of quadratic MoMA is that it simulates a continuous range of
 fitnesses, potentially matching any required fitness level exactly.
 However, this is not necessarily always biologically relevant;
@@ -68,7 +68,7 @@ In the above figure, the difference in fitness between weighted
 quadratic MoMA and linear MoMA can be seen. An advantage of quadratic
 MoMA is that it simulates a continuous range of fitnesses, potentially
 matching any required fitness level exactly.  However, this is not
-necessarily always biologically relevant; discrete mutations may give
+necessarily always biologically relevant; in reality, discrete mutations may give
 a discrete jump in fitness. Weighted linear MoMA models these discrete
 transitions in flux state, and often this is reflected in discrete
 jumps in fitness, as seen above.
@@ -122,8 +122,26 @@ weighted MoMA can do at least as good as the gold standards for de
 novo FBA solutions in predicting accurate fluxes.
 
 
+\subsubsection{Simulated adaptation induces complexity in sub-optimal solutions}
 
-\subsubsection{Adaptive mutations with objective weights}
+Previous work by \hl{Nishikawa et al.} explored the complexity of optimal
+and sub-optimal flux vectors, finding that generally the sub-optimal
+solutions have more active fluxes than the optimal solutions. We found
+a similar trend where, once growth is non-zero, the initial flux state
+has more active reactions than in the ancestral environment (glucose;
+red dashed line) or than in the more adapted stages in the current
+(ethanol) environment.
+
+
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{complexityEth}
+  \caption{\hl{it is empty}} 
+  \label{fig:complexityEth}
+\end{figure}
+
+
+\subsection{Adaptive mutations with objective weights}
 
 Aside from the problem of separating the fitness function from the 
 optimization objective function, there is the issue of combining traditional flux
@@ -162,50 +180,11 @@ potentially beneficial, as they may push the system in a direction
 that is more in line with growth optimization and less in line with
 MoMA.
 
-An example \ref{fig:wMoMA_smoothness} for both the quadratic and linear cases.
-The same reaction is used in both instances, and in both instances, a
-slightly negative weight on the reaction appears to be most beneficial
-(compare to 0, which represents the wild-type).
+An example for both the quadratic and linear cases exemplifies the
+difference in smoothness obtained from using either a linear or
+quadratic objective for weighted MoMA with objective weights (mutations)
+on a particular reaction (\Fig~\ref{fig:wMoMA_smoothness}).
 
-\begin{figure}
-\centering
-\begin{tabular}{c}
-\begin{subfigure}[b]{\textwidth}
-  \includegraphics[width=\textwidth]{R264LP}
-  \caption{Linear MoMA} 
-  \label{fig:R264LP}
-\end{subfigure}
-\\
-\begin{subfigure}[b]{\textwidth}
-  \includegraphics[width=\textwidth]{R264QP}
-  \caption{Quadratic MoMA} 
-  \label{fig:R264QP}
-\end{subfigure}
-\\
-\end{tabular}
-\caption{\hl{It is empty}} 
-\label{fig:wMoMA_smoothness}
-\end{figure}
-
-
-
-\subsubsection{Simulated adaptation induces complexity in sub-optimal solutions}
-
-Previous work by \hl{Nishikawa et al.} explored the complexity of optimal
-and sub-optimal flux vectors, finding that generally the sub-optimal
-solutions have more active fluxes than the optimal solutions. We found
-a similar trend where, once growth is non-zero, the initial flux state
-has more active reactions than in the ancestral environment (glucose;
-red dashed line) or than in the more adapted stages in the current
-(ethanol) environment.
-
-
-\begin{figure}
-\centering
-  \includegraphics[width=\textwidth]{complexityEth}
-  \caption{\hl{it is empty}} 
-  \label{fig:complexityEth}
-\end{figure}
 
 
 \section{Discussion}
@@ -227,7 +206,7 @@ enough computational resources, is the issue of an objective
 function. It has been shown numerous times that FBA with a biomass
 objective can be a reasonable approximation to what a microbe is
 trying to achieve metabolically
-~\cite{Schuetz2012}~\cite{Fong2004}~\cite{Varma1994} . While Recon 2
+\citep{Schuetz2012, Fong2004, Varma1994}. While Recon 2
 is equipped with a ``generalized biomass reaction'', it is not clear
 what the meaning of this is, and it certainly seems unlikely to
 estimate the metabolism even of fast-growing cancer cells \hl{(cite
@@ -240,7 +219,7 @@ decreased level of gene expression may also be metabolically
 equivalent to the effect of a missense mutation, for example. This
 allows a different sampling strategy than before; for instance, we
 could observe how uniform expression restriction compares to uniform
-flux restriction~\cite{Xu2012}. Assuming an accurate model of
+flux restriction~\citep{Xu2012}. Assuming an accurate model of
 enzyme-complex expression measurement, the former should be the more
 realistic model.
 
