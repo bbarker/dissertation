@@ -189,25 +189,28 @@ on a particular reaction (\Fig~\ref{fig:wMoMA_smoothness}).
 \subsection{Adaptive trajectories and evolutionary path analysis}
 
 Phenotypes involving a small number of mutations have had their
-adaptive paths analyzed systematically (e.g. Weinreich 2007: five
-mutations). In the case of Weinreich, all mutations occur on a single
-enzyme, and even in such a localized case, sign epistasis, which gives
-rise to evolutionary traps, occurs for the majority of mutational
-paths.
+adaptive paths analyzed systematically (\citep{Poelwijk2007,Weinreich2006, 
+Khan2011, Chou2011}; five mutations). In \citet{Weinreich2006}, all
+mutations occur on a single enzyme, and even in such a localized case,
+sign epistasis, which gives rise to evolutionary traps, occurs for the
+majority of mutational paths.
 
 In a genome-scale metabolic model, we observe that while the majority
 of paths are not likely to have a problem, once eight or nine genes are
 involved, the average number of paths to reach the optimum without
 experiencing a trap are only ~65\%. This demonstrates that the
 presence of traps are heterogeneous, just as in the single-enzyme
-experiment of Weinreich (see ref below), suggesting that the order of
+experiment of \citet{Weinreich2006}, suggesting that the order of
 mutations often matter to a very significant degree in evolution.
 
 The fact that more unobstructed evolutionary paths are observed as we
-approach the genome-scale suggests that evolution is, in general, not
-very predictable as the scale of the system increases, whereas for a
-single-enzyme analysis as in the Weinreich study, it may be be
-(however, need to compare to other similar studies).
+approach the genome-scale ($> 85$\% for five mutations) suggests that
+evolution is, in general, not very predictable as the scale of the
+system increases, whereas for a single-enzyme analysis as in the
+Weinreich study, the one case studied so far suggests evolution is
+more heavily constrained (\citep{Weinreich2006}; 102 of 120 paths are
+evolutionarily inaccessible).
+
 
 \hl{include 2 subfigures}
 
@@ -221,9 +224,8 @@ the dynamic exploration and analyses of these paths.
 
 The C programs for dynnamically performing analyses on text files
 containing fitness data for all combinations of $n$ mutations
-can be found at \url{https://github.com/bbarker/COBRAscripts}
-in the \texttt{MyProjects/AdaptiveMuts/TreeTraversal} subdirectory.
-\hl{Some of the features include (backtracking?, etc)}.  An example of
+can be found online (\suppOrApp Section~\ref{sec:pathAnalysis}).
+\hl{Some of the features include (backtracking?, etc)}.  Examples of
 some of the files and use cases are described \hl{cite appendix
 section}.
 
