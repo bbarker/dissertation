@@ -251,18 +251,40 @@ we also see that predictions for epistasis involving weakly beneficial
 mutations also tend to have positive epistasis (\hl{cite some
 figures}). This trend is verified for two experiments involving
 multiple genes (as in our simulation) where fitnesses are readily
-calculated (\citep{Chou2011, Khan2011}; \hl{cite tables}).
+calculated (\citep{Chou2011, Khan2011}; Table~\ref{tab:pairwiseBeneEpi}).
 
 \begin{table}
+\newcommand{\hlB}{\cellcolor{blue!20}}
+\newcommand{\hlR}{\cellcolor{red!20}}
 \centering
+\begin{tabular}{cc}
+\begin{subtable}[b]{0.5\textwidth}
+\caption{\citet{Khan2011}}
 \begin{tabular}{cccccc}
-fitness &   & t      & s      & g      & r      \\
-1.145   & t &        &        &        &        \\
-1.108   & s & -0.060 &        &        &        \\
-1.030   & g & -0.027 & -0.014 &        &        \\
-1.015   & r & -0.056 & -0.004 & 0.005  &        \\
-1.003   & p &  0.049 &  0.078 & 0.045  & 0.007  \\
+fitness &   & t           & s           & g           & r           \\
+1.145   & t &             &             &             &             \\
+1.108   & s & \hlB -0.060 &             &             &             \\
+1.030   & g & \hlB -0.027 & \hlB -0.014 &             &             \\
+1.015   & r & \hlB -0.056 & \hlB -0.004 & \hlR 0.005  &             \\
+1.003   & p & \hlR  0.049 & \hlR  0.078 & \hlR 0.045  & \hlR 0.007  \\
 \end{tabular}
+\end{subtable}
+&
+\begin{subtable}[b]{0.5\textwidth}
+\caption{\citet{Chou2011}}
+\begin{tabular}{ccccc}
+fitness &       & gshA        & GB          & fgh         \\
+1.509   & gshA  &             &             &             \\
+1.166   & GB    & \hlB -0.120 &             &             \\
+1.142   & fgh   & \hlB -0.100 & \hlB -0.012 &             \\
+1.096   & pntAB & \hlB -0.040 & \hlR  0.021 & \hlR 0.029  \\
+\end{tabular}
+\end{subtable}
+\\
+\end{tabular}
+\caption{Pairwise epistasis values (calculated multiplicatively) from 
+two experimental systems. \hl{Need to describe mutations and systems}.}
+\label{tab:pairwiseBeneEpi}
 \end{table}
 
 
