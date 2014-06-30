@@ -190,7 +190,7 @@ on a particular reaction (\Fig~\ref{fig:wMoMA_smoothness}).
 
 Phenotypes involving a small number of mutations have had their
 adaptive paths analyzed systematically (\citep{Poelwijk2007,Weinreich2006, 
-Khan2011, Chou2011}; five mutations). In \citet{Weinreich2006}, all
+Khan2011, Chou2011}; four or five mutations). In \citet{Weinreich2006}, all
 mutations occur on a single enzyme, and even in such a localized case,
 sign epistasis, which gives rise to evolutionary traps, occurs for the
 majority of mutational paths.
@@ -210,6 +210,7 @@ system increases, whereas for a single-enzyme analysis as in the
 Weinreich study, the one case studied so far suggests evolution is
 more heavily constrained (\citep{Weinreich2006}; 102 of 120 paths are
 evolutionarily inaccessible).
+\hl{need to check Chou and Khan datasets as well}
 
 
 \hl{include 2 subfigures}
@@ -236,6 +237,32 @@ Notes: See Weinreich 2007 for really nice discussion and refs:
 Note: also discuss the trends found for sign epistasis, if any, in the two recent science papers:
 Khan et al.
 Chou et al.
+
+\subsubsection{Small beneficial mutants exhibit positive epistasis}
+
+Prior studies using metabolic models have shown that deleterious
+mutations tend to exhibit negative epistasis for stronger mutations
+and positive epistasis for weaker mutations (\citep{He2010, Xu2012};
+\hl{add full figure from MS1}). The reason for positive epistasis
+being prevalent for deleterious mutations is that most of them occur
+in essential pathways, and one mutation will buffer against the
+effects of a second mutation (\citep{Xu2012}). Somewhat surprisingly,
+we also see that predictions for epistasis involving weakly beneficial
+mutations also tend to have positive epistasis (\hl{cite some
+figures}). This trend is verified for two experiments involving
+multiple genes (as in our simulation) where fitnesses are readily
+calculated (\citep{Chou2011, Khan2011}; \hl{cite tables}).
+
+The trend for increasing negative epistasis as mutations become
+increasingly beneficial (also termed \textit{diminishing returns
+epistasis}; \citep{Chou2011}) can be easily understood in most
+contexts, including metabolism, due to the fact that in any given
+environment there must be a physiological maximum value for most
+phenotypes, including growth rate of a cell or individual organism.
+Thus, if one mutant is extremely beneficial, it proportionally limits
+the effect another beneficial mutant might have when combined
+together.
+
 
 \section{Discussion}
 
