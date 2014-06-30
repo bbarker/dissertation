@@ -1,5 +1,6 @@
 library.bib
 *~
+*.#*
 *.pdf
 *.dvi
 *.acn
