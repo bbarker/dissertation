@@ -203,15 +203,23 @@ presence of traps are heterogeneous, just as in the single-enzyme
 experiment of \citet{Weinreich2006}, suggesting that the order of
 mutations often matter to a very significant degree in evolution.
 
-The fact that more unobstructed evolutionary paths are observed as we
-approach the genome-scale ($> 85$\% for five mutations) suggests that
-evolution is, in general, not very predictable as the scale of the
-system increases, whereas for a single-enzyme analysis as in the
-Weinreich study, evolution is more heavily constrained
-(\citep{Weinreich2006}; 102 of 120 paths are evolutionarily
-inaccessible) and only a single fitness peak appears to be present
-\citep{Lunzer2005,Weinreich2006}.
-\hl{need to check Chou and Khan datasets as well}
+The fact that many unobstructed evolutionary paths are observed at the
+genome-scale (\hl{cite figure}) suggests that evolution is, in
+general, not very predictable. However, if we consider that neutral
+mutations are unlikely to fix in a population, the number of viable
+paths would greatly decrease (\suppOrApp
+Section~\ref{sec:pathAnalysis}). Interestingly, in every experimental
+case (Table~\ref{tab:threeAdaptEvoDats}), only a single fitness peak
+appears to be present
+\citep{Lunzer2005,Weinreich2006}. When we consider simulations from
+genome-scale models instead of isolated pathways or single protein, we
+still observe the single fitness optima for five mutation sets, but
+once we consider eight mutations, every set of eight or more mutations
+presents with multiple local optima. This suggests that evolution
+becomes not only less predictable when we look at evolution of larger
+systems or evolution at a large time scale, but also less likely to
+reach the global optimal fitness.
+
 
 
 \hl{include 2 subfigures}
@@ -225,11 +233,9 @@ combinations. Due to this difficulty, we have created software to allow
 the dynamic exploration and analyses of these paths. 
 
 The C programs for dynnamically performing analyses on text files
-containing fitness data for all combinations of $n$ mutations
-can be found online (\suppOrApp Section~\ref{sec:pathAnalysis}).
-\hl{Some of the features include (backtracking?, etc)}.  Examples of
-some of the files and use cases are described \hl{cite appendix
-section}.
+containing fitness data for all combinations of $n$ mutations can be
+found online, and additional information and and examples related to
+usage is available (\suppOrApp Section~\ref{sec:pathAnalysis}).
 
 Notes: See Weinreich 2007 for really nice discussion and refs:
 %http://webpub.brown.edu/Research/Weinreich/WeinreichPublications/Poelwijk_etal2007.pdf
