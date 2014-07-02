@@ -306,6 +306,47 @@ the effect another beneficial mutant might have when combined
 together.
 
 
+This trend in epistasis can also be captured by our constraint-based
+modeling framework. After screening \textit{in silico} for beneficial
+mutations (Section~\ref{sec:epiBeneMethodSS}), we can examine trends in
+pairwise epistasis as a function of the single mutant fitnesses 
+\Fig~\ref{fig:beneEpiPairwise}. A fairly distinct border appears
+to be present between the region that has some positive epistasis and
+no positive epistasis. By considering that an epistatic cutoff (call
+it $\epsilon_c$) is employed, we may use the multiplicative epistatic
+relationship $W_{xy} - W_x W_y > \epsilon_c$, which yields the
+reciprocal function $W_y > \frac{W_{xy} - \epsilon_c}{W_x}$ for fixed
+$W_{xy}$, which limits the region in which positive epistasis, as
+defined by $\epsilon_c$, can occur. Since $W_{xy}$ is not a constant,
+there may be some variation in the actual trend from a true reciprocal
+function. The reason the mean has a similar curve is because of the
+decreasing marginal benefits of epistasis, which means correspondingly
+greater magnitudes for negative epistasis as the single mutant
+fitnesses increase.
+
+%Change to two col later?
+\begin{figure}
+\centering
+\begin{tabular}{c}
+\begin{subfigure}[b]{\textwidth}
+  \includegraphics[width=\textwidth]{beneEpiPerc_tmp}
+  \caption{mean epistasis} 
+  \label{fig:beneEpiPairwise:mean}
+\end{subfigure}
+\\
+\begin{subfigure}[b]{\textwidth}
+  \includegraphics[width=\textwidth]{beneEpiPerc_tmp}
+  \caption{percent of positive epistasis}
+  \label{fig:beneEpiPairwise:perc}
+\end{subfigure}
+\\
+\end{tabular}
+\caption{The mean epistasis (\ref{fig:beneEpiPairwise:mean}) and percentage
+  (\ref{fig:beneEpiPairwise:perc}) of positive epistasis for epistases such
+  that $\left|\epsilon\right| \ge 0.01$.}
+\label{fig:beneEpiPairwise}
+\end{figure}
+
 \section{Discussion}
 
 The questions are often
@@ -353,6 +394,10 @@ efficiency of whole cell models, or making a compromise on which
 systems are simulated, may improve these efforts.
 
 \section{Methods}
+\label{sec:epiBeneMethod}
+
+\subsection{Mutation screening and sampling}
+\label{sec:epiBeneMethodSS}
 \hl{it is empty}
 
 \section{TODO}

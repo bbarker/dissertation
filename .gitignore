@@ -1,3 +1,9 @@
+#
+# Temporary figures
+#
+*beneEpiMean_tmp.eps
+*beneEpiPerc_tmp.eps
+
 library.bib
 *~
 *.#*
