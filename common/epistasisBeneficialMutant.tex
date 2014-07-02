@@ -130,14 +130,17 @@ The difference in smoothness between weighted quadratic MoMA and linear
 MoMA can be illustrated by considering the growth rate to be a
 function of the weight placed on the biomass objective
 (\Fig~\ref{fig:Fitness_LM_QP}).  An advantage of quadratic MoMA is
-that it simulates a continuous range of fitnesses (quadratic
-programming does not admit alternative optima either, except possibly
-in rare boundary cases), potentially matching any required fitness
-level exactly.
-However, this is not necessarily always biologically relevant;
-discrete mutations may give a discrete jump in fitness. Weighted
-linear MoMA models these discrete transitions in flux state, and often
-this is reflected in discrete jumps in fitness, as seen above.
+that it simulates a continuous range of fitnesses 
+potentially matching any required fitness level exactly.  Quadratic
+programming does not admit alternative optima either, if the objective
+is convex, as in MoMA. However, these benefits are not necessarily
+always biologically relevant; discrete mutations may give a discrete
+jump in fitness. There is no obvious reason why having a unique optima
+would be biologically preferred; in fact, when compared to simple
+objectives like MoMA or FBA, most biological systems appear to operate
+suboptimally \citep{Schuetz2012}. Weighted linear MoMA can model these
+discrete transitions in flux state, and often this is reflected in
+discrete jumps in fitness, as seen above.
 
 \begin{figure}
 \centering
