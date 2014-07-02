@@ -19,6 +19,14 @@ are responsible for adaptive evolution.
 
 
 
+Since beneficial mutations are relatively rare, and since
+combining multiple mutants in the lab is increasingly difficult for
+the more mutations that are to be combined, an \textit{in silico}
+analysis can shed light on what may be expected in adaptive
+evolution.
+
+
+
 \subsection{The Need for a New Modeling Framework}
 Clearly, using FBA with the growth objective alone is not enough--we
 only ever get the optimum for our fitness objective.  A way to
@@ -193,7 +201,42 @@ adaptive paths analyzed systematically (\citep{Poelwijk2007,Weinreich2006,
 Khan2011, Chou2011}; four or five mutations). In \citet{Weinreich2006}, all
 mutations occur on a single enzyme, and even in such a localized case,
 sign epistasis, which gives rise to evolutionary traps, occurs for the
-majority of mutational paths.
+majority of mutational paths. In the present study, we used less
+severe grounds for deciding if an evolutionary path is a likely
+dead-end, but even so, we can see that (\Fig~\ref{fig:trapAnalysis};
+\suppOrApp Section~\ref{sec:pathAnalysis}).
+
+\captionpage{figure}{%
+An examination of simulated evolutionary dead-ends. Randomly selecting
+10 beneficial mutations from over 150 total benefical mutations in a
+yeast model will have a varying number of mutations that are present
+in the combinatorial mutant with the highest fitness The percent of
+paths that reach the optimal mutant by avoid traps tends to decrease
+as more mutations are considered (\ref{fig:trapAnalysis:percPath}), or
+viewed another way, the mean number of paths stopped by traps tends to
+increase (\ref{fig:trapAnalysis:meanStop}).}
+\label{fig:trapAnalysis}
+
+\begin{figure}[H]
+\newlength{\figwidth}
+\setlength{\figwidth}{0.9\textwidth}
+\centering
+\begin{tabular}{c}
+\begin{subfigure}[b]{\figwidth}
+  \includegraphics[width=\textwidth]{percNoTrap_tmp}
+  \caption{}
+  \label{fig:trapAnalysis:percPath}
+\end{subfigure}
+\\
+\begin{subfigure}[b]{\figwidth}
+  \includegraphics[width=\textwidth]{trapMeanStop_tmp}
+  \caption{} 
+  \label{fig:trapAnalysis:meanStop}
+\end{subfigure}
+\\
+\end{tabular}
+\end{figure}
+
 
 In a genome-scale metabolic model, we observe that while the majority
 of paths are not likely to have a problem, once eight or nine genes are
@@ -204,14 +247,14 @@ experiment of \citet{Weinreich2006}, suggesting that the order of
 mutations often matter to a very significant degree in evolution.
 
 The fact that many unobstructed evolutionary paths are observed at the
-genome-scale (\hl{cite figure}) suggests that evolution is, in
-general, not very predictable. However, if we consider that neutral
-mutations are unlikely to fix in a population, the number of viable
-paths would greatly decrease (\suppOrApp
+genome-scale suggests that evolution is, in general, not very
+predictable (\Fig~\ref{fig:trapAnalysis}). However, if we consider
+that neutral mutations are unlikely to fix in a population, the number
+of viable paths would greatly decrease (\suppOrApp
 Section~\ref{sec:pathAnalysis}). Interestingly, in every experimental
 case (Table~\ref{tab:threeAdaptEvoDats}), only a single fitness peak
-appears to be present
-\citep{Lunzer2005,Weinreich2006}. When we consider simulations from
+appears to be present \citep{Lunzer2005,Weinreich2006}. When we
+consider simulations from
 genome-scale models instead of isolated pathways or single protein, we
 still observe the single fitness optima for five mutation sets, but
 once we consider eight mutations, every set of eight or more mutations
@@ -220,9 +263,6 @@ becomes not only less predictable when we look at evolution of larger
 systems or evolution at a large time scale, but also less likely to
 reach the global optimal fitness.
 
-
-
-\hl{include 2 subfigures}
 
 \subsubsection{Software for evolutionary path analysis}
 
@@ -236,14 +276,6 @@ The C programs for dynnamically performing analyses on text files
 containing fitness data for all combinations of $n$ mutations can be
 found online, and additional information and and examples related to
 usage is available (\suppOrApp Section~\ref{sec:pathAnalysis}).
-
-Notes: See Weinreich 2007 for really nice discussion and refs:
-%http://webpub.brown.edu/Research/Weinreich/WeinreichPublications/Poelwijk_etal2007.pdf
-%http://onlinelibrary.wiley.com/doi/10.1111/j.0014-3820.2005.tb01768.x/pdf
-
-Note: also discuss the trends found for sign epistasis, if any, in the two recent science papers:
-Khan et al.
-Chou et al.
 
 \subsubsection{Small beneficial mutants exhibit positive epistasis}
 
@@ -435,32 +467,25 @@ these efforts.
 \label{sec:epiBeneMethodSS}
 \hl{it is empty}
 
-\section{TODO}
+%%% TODO %%%
 
-\hl{need more background}
+% need more background
 
+% actually try to use FALCON for GxG interactions, discuss caveat
+% that it is possible that influencing one enzymatic gene's abundance
+% could affect another enzymatic gene's abundance, and we can't directly
+% take this into account in our model
 
-\hl{include weighted moma subsection to introduce need for FBA
-in conjunction with FALCON; tie in this multiobjective function
-to the multiobjective optimality found by Shuetz}
-
-\hl{add images of Lin's experimental data}
-
-\hl{actually try to use FALCON for GxG interactions, discuss caveat
-that it is possible that influencing one enzymatic gene's abundance
-could affect another enzymatic gene's abundance, and we can't directly
-take this into account in our model}
-
-\hl{discuss C software I developed for analysing adaptive trajectories;
-need to update to work with FALCON}
+% discuss C software a bit more in supplement
 
 
-\hl{briefly discuss FBA weight possibility}
+% briefly discuss FBA weight possibility as it relates to FALCON
 
-
-\hl{Since beneficial mutations are relatively rare, and since
-combining multiple mutants in the lab is increasingly difficult for
-the more mutations that are to be combined, an \textit{in silico}
-analysis can shed light on what may be expected in adaptive
-evolution.}
+% Discuss sign epistasis (and understand it) more:
+% Notes: See Weinreich 2007 for really nice discussion and refs:
+% http://webpub.brown.edu/Research/Weinreich/WeinreichPublications/Poelwijk_etal2007.pdf
+% http://onlinelibrary.wiley.com/doi/10.1111/j.0014-3820.2005.tb01768.x/pdf
+% Note: also discuss the trends found for sign epistasis, if any, in the two recent science papers:
+% Khan et al.
+% Chou et al.
 
