@@ -1,6 +1,6 @@
 \section{Introduction}
 
-\subsection{Adaptive Mutations}
+\subsection{Adaptive mutations}
 
 Biologists have long wondered the extent to which evolution occurs due
 to nearly neutral and slighly deleterious mutations, or adaptive
@@ -15,8 +15,7 @@ has been placed on deleterious mutations because of their prevalence
 in nature and disease, it is ultimately beneficial mutations that
 are responsible for adaptive evolution.
  
-\subsection{Adaptive Mutations and Epistasis}
-
+\subsection{Adaptive mutations and epistasis}
 
 
 Since beneficial mutations are relatively rare, and since
@@ -27,14 +26,16 @@ evolution.
 
 
 
-\subsection{The Need for a New Modeling Framework}
+\subsection{The need for a new modeling framework}
 Clearly, using FBA with the growth objective alone is not enough--we
 only ever get the optimum for our fitness objective.  A way to
 circumvent this issue is to associate a feature of the system
 (e.g. flux into biomass) as the fitness while optimizing some other
 objective. This latter mechanism is not generally used as most models
 tend to be rather under-constrained as is. However, as we've seen, the
-FALCON method \hl{cite} and other fitting methods like MoMA provide a
+FALCON method 
+\ifthenelse{\boolean{thesisStyle}}{(Chapter~\ref{chap:FALCON})}{} 
+and other fitting methods like MoMA provide a
 way to use high-throughput data to introduce many additional
 constraints to the system.
 
@@ -47,19 +48,92 @@ a cancer cell population.
 
 \section{Results}
 
-\subsection{Weighted MoMA-FBA Objectives}
+\subsection{Weighted MoMA-FBA objectives}
 
 Minimization of metabolic adjustment (MoMA), along with Flux Balance
 Analysis (FBA), has proven successful in simulating growth rates and
 predicting in silico fluxes. Here we discuss a weighted objective
-approach that combines both objectives. \hl{Insert some math background
-from original \LaTeX~report.} 
+approach that combines both objectives. 
+
+The typical MoMA problem is framed as a least-squares optimization
+problem and is typically employed to calculate the flux vector of an
+\emph{in silico} organism after a mutation \cite{Segre2002_sb2013}.
+The biological intuition is that the organism has not had time to
+adapt to the restricted metabolic capacity and will maintain a similar
+flux to the wild-type (WT). If $\mathbf{a}$ is the WT flux vector
+obtained by an optimization procedure, such as min-norm FBA (flux
+balance analysis), then in a model with $N$ reactions the optimization
+objective can be expressed as
+\[ \textnormal{minimize}\ \sum^N_{i=1}(v_i-a_i)^2 \] 
+subject to the stoichiometric constraints $\mathbf{S_{int} v} =
+\mathbf{0}$ where $\mathbf{S_{int}}$ is composed of rows in the
+stoichiometric matrix involving internal metabolites and $\mathbf{v} =
+(v_1, \ldots, v_N)^T$.  Additional constant bounds on fluxes are often
+present, such as substrate uptake limits, so we write $\mathbf{v}_{lb}
+\preceq \mathbf{v} \preceq \mathbf{v}_{ub}$. The objective may be
+equivalently expressed in the canonical quadratic programming (QP)
+form
+\[ \textnormal{minimize}\ \frac{1}{2}\mathbf{x}^T \mathbf{Q x} + \mathbf{c}^T \mathbf{x}\]
+as  
+\[ \textnormal{minimize}\ \frac{1}{2}\mathbf{v}^T \mathbf{v} - \mathbf{a}^T \mathbf{v}\textnormal{.}\]
+
+When we try the standard MoMA procedure in a new environment, several
+things become clear. For instance, switching the energy and carbon
+source from glucose to ethanol will result in zero growth because the
+biomass is relatively small compared to other fluxes numerically.
+This is easily fixed by adding a weight to the biomass, though there
+are also certain numerical issues related to this with at least some
+solvers (e.g. MOSEK) that require an inverse weight on all other
+fluxes.
+
+To accomodate these weights, let $w$ be a positive scalar weight, and
+let $f(w)$ and $g(w)$ be two scalar weight functions such that $f(w) >
+0$ and $g(w) > 0$ for all $w \ge 1$. We also assume $f(w)$ is
+monotonically increasing and $g(w)$ is monotonically decreasing. While
+$g(w)$ is employed to achieve the inverse weighting mentioned above,
+$f(w)$ is used to achieve gradual regularization as $w$
+increases. Biologically, regularization is important as it allows
+efficiency in enzyme synthesis to be modeled, which is typically done
+in FBA by requiring a min-norm flux.  We incorporate these weights
+into the objective:
+
+\[ \textnormal{minimize}\ \sum^N_{i=1,i\ne b}g(w)(v_i-a_i)^2 - w v_b + \sum^N_{i=1,i\ne b}f(w)v^2_i \]
+
+Index $b$ corresponds to the growth or biomass pseudo-reaction.  In
+the simulations below, $g(w) = \frac{1}{\sqrt{w}}$. For some
+simulations we haven't yet used a nonzero $f(w)$, but an example we
+have used is $f(w) = \frac{\log{(\log{w}+1)}}{C}$ where $C$ is a
+scaling constant.
+
+% \footnote{We
+% typically also incorporate shadow prices, see section XXXX.}
+  
+Express this objective as
+
+\[ \textnormal{minimize}\ \frac{1}{2}\mathbf{v}^T \mathbf{Q v} - \tilde{\mathbf{a}}^T \mathbf{v}\]
+
+where $b = N$ for convenience, $\tilde{\mathbf{a}} = g(w)\mathbf{a}$
+with the Nth entry replaced by $w$, and
+
+\[ \mathbf{Q} = \begin{pmatrix}
+f(w)+g(w) & 0       & \cdots    & 0 \\
+0         & \ddots  & 0         & \vdots \\
+\vdots    & 0       & f(w)+g(w) & 0 \\
+0         & \cdots  & 0         & 0  
+\end{pmatrix}\textnormal{.}\]
+
+For convenience, informally denote this objective function as
+$\mathcal{M}(w,d_1,\dots,d_m)$ where the optional $d_i$ represent
+possible mutations to the model.
 
 The difference in smoothness between weighted quadratic MoMA and linear
 MoMA can be illustrated by considering the growth rate to be a
-function of the weight placed on the biomass objective (\Fig~\ref{fig:Fitness_LM_QP}).  An
-advantage of quadratic MoMA is that it simulates a continuous range of
-fitnesses, potentially matching any required fitness level exactly.
+function of the weight placed on the biomass objective
+(\Fig~\ref{fig:Fitness_LM_QP}).  An advantage of quadratic MoMA is
+that it simulates a continuous range of fitnesses (quadratic
+programming does not admit alternative optima either, except possibly
+in rare boundary cases), potentially matching any required fitness
+level exactly.
 However, this is not necessarily always biologically relevant;
 discrete mutations may give a discrete jump in fitness. Weighted
 linear MoMA models these discrete transitions in flux state, and often
@@ -68,7 +142,10 @@ this is reflected in discrete jumps in fitness, as seen above.
 \begin{figure}
 \centering
   \includegraphics[width=\textwidth]{Fitness_LM_QP}
-  \caption{\hl{it is empty}}
+  \caption{Weight on the biomass component of an objective (x-axis)
+  influences the growth rate, where the other objective component is a
+  MoMA objective that tries to minimize the flux difference with an
+  ancestral environment.}
   \label{fig:Fitness_LM_QP}
 \end{figure}
 
@@ -84,11 +161,11 @@ jumps in fitness, as seen above.
 \subsubsection{Weighted MoMA predicts expression states}
 
 Using tiling array data for s288c in YPD and YPE conditions from
-\hl{Xu et al.}, we compare the number of genes expected to have a
-greater than two-fold change in expression from YPD to YPE to the fluxes
+\citet{Xu2009}, we compare the number of genes expected to have a
+two-fold or greater change in expression from YPD to YPE to the fluxes
 mapped to genes also having greater than two-fold change in the same
 environmental transition. The x-axis represents the weight on
-growth. Scaled fitness (green) is shown for reference. The number of
+growth. The number of
 genes having more than two-fold flux and expression change in the model and and
 in the experiment are shown in blue. The red and red dotted lines
 represent the random expectation and 95\% CI for expression agreement
@@ -113,7 +190,11 @@ real relative expression vector.
 \end{subfigure}
 \\
 \end{tabular}
-\caption{\hl{It is empty}} 
+\caption{Number of yeast genes that are at least two-fold up-regulated
+or down-regulated when going from YPD to YPE media with matching
+predictions from weighted MoMA (blue line) and the associated 95\%
+confidence interval (red dotted line) around the prediction to random
+chance (red line).}
 \label{fig:wMoMA_expMatch}
 \end{figure}
 
@@ -132,19 +213,23 @@ novo FBA solutions in predicting accurate fluxes.
 
 \subsubsection{Simulated adaptation induces complexity in sub-optimal solutions}
 
-Previous work by \hl{Nishikawa et al.} explored the complexity of optimal
-and sub-optimal flux vectors, finding that generally the sub-optimal
-solutions have more active fluxes than the optimal solutions. We found
-a similar trend where, once growth is non-zero, the initial flux state
+Previous work explored the complexity of optimal and sub-optimal flux
+vectors, finding that generally the sub-optimal solutions have more
+active fluxes than the optimal solutions \citep{SangLee2012}. We found
+a similar trend with weighted MoMA where, once growth is non-zero, the initial flux state
 has more active reactions than in the ancestral environment (glucose;
 red dashed line) or than in the more adapted stages in the current
-(ethanol) environment.
+(ethanol) environment (\Fig~\ref{fig:complexityEth}).
 
 
 \begin{figure}
 \centering
   \includegraphics[width=\textwidth]{complexityEth}
-  \caption{\hl{it is empty}} 
+  \caption{The number of active reactions (reactions with non-zero
+  flux) plotted against the weight on the biomass component of a
+  weighted linear MoMA objective (blue). An flux that maximizes biomass
+  production that is centered among alternative optima is shown for
+  comparison (red dotted line).}
   \label{fig:complexityEth}
 \end{figure}
 
@@ -162,31 +247,24 @@ the actual constraints of the optimization problem, soft constraints
 merely change the objective. This means that multiple soft constaints
 combined together under some mutational model would be compatible in
 the sense that they wouldn't unexpectedly result in an unsolvable
-system. FALCON provides two possible avenues for soft constraints:
-expression level and expression variation. \emph{However, it is not
-  clear yet what expression variation really means, so further
-  investigation is necessary.}
+system. When performing growth optimization in FBA, normally only the
+biomass pseudo-reaction has a non-zero (positive) entry. Nonzero
+values for any other entry could only decrease the flux. In weighted
+MoMA or FALCON, nonzero coefficients for any enzymatic reaction could
+prove potentially beneficial, as they may push the system in a
+direction that is more in line with growth optimization and less in
+line with MoMA or the FALCON flux-fitting objective.
 
-
-Perturbations other than flux constraint are possible. One problem
-with flux constraint occurs when we select two different reactions
-that are to have their flux increased. It is all too easy for these
-perturbations to be viable and even beneficial under weighted MoMA,
-but for the corresponding double mutant to be inviable. This is true
-for even small increases in flux, however one defines small, due to
-the rigidity of flux constraint. For instance, if we only have a
-specific amount of subtrate to work with, and a particular pathway is
-already operating at optimal capacity, raising the lower bound to a
-value greater than that capacity will result in zero fitness, which is
-certainly not the intent of what we wish to capture nor is it
-physically realistic. An alternative that can address this issue is to
-perturb the linear objective vector. When performing growth
-optimization in FBA, normally only the biomass pseudo-reaction has a
-non-zero (positive) entry. Nonzero values for any other entry could
-only decrease the flux. In weighted MoMA nonzero values could prove
-potentially beneficial, as they may push the system in a direction
-that is more in line with growth optimization and less in line with
-MoMA.
+FALCON and weighted MoMA provide two possible avenues for soft constraints:
+expression level and expression variation. However, it is not clear
+yet what expression variation really means, so further investigation
+is necessary. Furthermore, using a hard constraint model for mutants,
+as opposed to a soft constraint like weights on fluxes, appears to
+reduce the amount of non-trivial interactions: in the hard-constraint
+method one highly beneficial mutation may exactly subsume the mutation
+of a less beneficial mutant by forcing flux through the reaction; this
+happens to a certain extent in the weighted model as well, but not
+nearly as frequently.
 
 An example for both the quadratic and linear cases exemplifies the
 difference in smoothness obtained from using either a linear or
@@ -287,8 +365,9 @@ being prevalent for deleterious mutations is that most of them occur
 in essential pathways, and one mutation will buffer against the
 effects of a second mutation (\citep{Xu2012}). Somewhat surprisingly,
 we also see that predictions for epistasis involving weakly beneficial
-mutations also tend to have positive epistasis (\hl{cite some
-figures}). This trend is verified for two experiments involving
+mutations also tend to have positive epistasis
+(\Fig~\ref{fig:beneEpiPairwise}). This trend is verified for two
+experiments involving
 multiple genes (as in our simulation) where fitnesses are readily
 calculated (\citep{Chou2011, Khan2011}; Table~\ref{tab:pairwiseBeneEpi}).
 
@@ -451,11 +530,11 @@ realistic model.
 
 A limitation is that we have only considered metabolic genes and their
 effect on steady-state metabolism. While in principle a similar method
-could be applied to whole cell models \hl{cite myco and e.coli}, the
+could be applied to whole cell models \citep{Karr2012, O'Brien2013}, the
 computation time would not be feasible to the screening for beneficial
 muatations, nor of exploring them combinatorally, as the time needed
 for a single mutant takes at least a day even in the smallest
-bacterial model \hl{cite}. Future isnights into improving the
+bacterial model \citep{Karr2012}. Future isnights into improving the
 efficiency of whole cell models, or making a compromise on which
 systems are simulated (e.g. rFBA, \citep{Covert2001}), may improve
 these efforts.
@@ -465,7 +544,29 @@ these efforts.
 
 \subsection{Mutation screening and sampling}
 \label{sec:epiBeneMethodSS}
-\hl{it is empty}
+To more closely follow existing theory in population genetics, in
+addition to performing uniform sampling of allele phenotypes (first
+figure below; same as previous figures), we also performed gaussian
+sampling centered at the WT phenotype.  For each reaction, we sampled
+flux restrictions where the WT flux was at the mean of the Gaussian
+distribution. Since there is some ambiguity in the spread, we used
+several different spreads and employed the FVA bounds for beneficial
+mutants to bound the spread.  For example, for the 99\% Gaussian
+sampling below, for each reaction, we sampled fluxes from a truncated
+normal distribution between FVA\_min and FVA\_max where the underlying
+normal distribution would have 99\% of its density between WT\_flux +/-
+FVA\_major where FVA\_major = max( |WT\_flux-FVA\_min|,
+|WT\_flux-FVA\_max|).  As usual, only beneficial mutants were kept for
+analysis.
+
+A 99\% sampling strategy will be less likely to sample extremely
+divergent fluxes than a 50\% sampling strategy since the tails of the
+distribution will be placed further away from the WT. It can be seen
+that epistasis distributions resulting from EVA-conforming fitness
+distributions result in a skew toward near-zero epistasis and positive
+epistasis as we tend to sample more mutants near the WT.
+
+
 
 %%% TODO %%%
 
