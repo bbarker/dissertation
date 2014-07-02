@@ -329,7 +329,7 @@ fitnesses increase.
 \centering
 \begin{tabular}{c}
 \begin{subfigure}[b]{\textwidth}
-  \includegraphics[width=\textwidth]{beneEpiPerc_tmp}
+  \includegraphics[width=\textwidth]{beneEpiMean_tmp}
   \caption{mean epistasis} 
   \label{fig:beneEpiPairwise:mean}
 \end{subfigure}
@@ -347,7 +347,41 @@ fitnesses increase.
 \label{fig:beneEpiPairwise}
 \end{figure}
 
+The distribution of epistases arising from beneficial mutations is
+highly similar to that found in natural biological systems that are
+also described by population genetic models
+(\Fig~\ref{fig:epiBeneDist}; \citep{Martin2007a}). Interestingly, the
+small-scale data from \citet{Martin2007a} is from an RNA virus (VSV),
+whereas our stoichiometric models are not designed for modeling
+viruses. Nonetheless, the trend remains similar, suggesting that this
+is a trend that extends across completely different types of models as
+well as from the fitness of complex life forms and simple non-living
+viruses. This excellent fit requires that an appropriate distribution
+of fitnesses is sampled according to extreme value theory (EVA;
+Section~\ref{sec:epiBeneMethodSS}; \citep{Orr2005, Orr2003}).
+
+
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{99p9_epi_YPD_tmp}
+  \caption{Distribution of epistases arising in a yeast model from
+beneficial mutations sampled according to EVA.}
+  \label{fig:epiBeneDist}
+\end{figure}
+
 \section{Discussion}
+
+We have developed a data-driven modeling framework in the
+constraint-based metabolic modeling family that allows the exploration
+of combinatorial epistases and reproduces trends seen from studies in
+the forefront of evolutionary research \citep{Martin2007a, Chou2011,
+Khan2011}. Contemporaneous, theoretical insights in to how a general
+clas of mechanistic models, encompassing those used in this study,
+give rise to traditional population genetic models such as Fisher's
+geometric model \citep{Martin2014}.  The methodologies described in
+this paper should have applications in diverse fields due to their
+reliance on mechanistic models available for many organisms
+\citep{Monk}.
 
 The questions are often
 difficult or impossible to assess experimentally due to limited
@@ -391,7 +425,8 @@ muatations, nor of exploring them combinatorally, as the time needed
 for a single mutant takes at least a day even in the smallest
 bacterial model \hl{cite}. Future isnights into improving the
 efficiency of whole cell models, or making a compromise on which
-systems are simulated, may improve these efforts.
+systems are simulated (e.g. rFBA, \citep{Covert2001}), may improve
+these efforts.
 
 \section{Methods}
 \label{sec:epiBeneMethod}
