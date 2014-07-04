@@ -417,12 +417,34 @@ environment there must be a physiological maximum value for most
 phenotypes, including growth rate of a cell or individual organism.
 Thus, if one mutant is extremely beneficial, it proportionally limits
 the effect another beneficial mutant might have when combined
-together.
+together. Such decreasing marginal benefits are not the only reason we
+may tend to see small mutants with positive epistasis; Fisher's
+geometric model implies that increasing complexity will decrease the
+likelihood that any given mutation will be beneficial, and
+increasingly so for mutations with more extreme changes in the
+phenotypic space \citep{Orr2000}. Since a mutation that exhibits
+positive epistasis with many other mutations is just a way of saying
+the mutation is likely to be beneficial on many genetic backgrounds,
+the effect observed by \citet{Orr2000} extends beyond absolute fitness
+values and into the epistatic landscape. Furthermore, in our
+metabolic models (as in most biological systems), fluxes do not
+operate in isolation; a mutation in a gene expression level or
+reaction constraint will affect other reaction fluxes in the system,
+and can be classified as pluripotent. If it is an essential reaction,
+many fluxes are likely to be affected, thus exhibiting a complex
+phenotype and a high degree of pluripotency. Large pluripotent
+mutations would then be expected to have a larger total length in
+Fisher's geometric model, and be less likely to be beneficial or have
+positive epistasis.  This is exactly what we see in metabolic models
+with deleterious mutations, which tends to exhibit positive epistasis
+for smaller mutations and negative epistasis for more extreme
+mutations (\hl{cite suppl grid fig}; \citep{He2010, Xu2012}).
 
 
 This trend in epistasis can also be captured by our constraint-based
-modeling framework. After screening \textit{in silico} for beneficial
-mutations (Section~\ref{sec:epiBeneMethodSS}), we can examine trends in
+modeling framework for beneficial mutations. After screening
+\textit{in silico} for beneficial mutations
+(Section~\ref{sec:epiBeneMethodSS}), we can examine trends in
 pairwise epistasis as a function of the single mutant fitnesses 
 \Fig~\ref{fig:beneEpiPairwise}. A fairly distinct border appears
 to be present between the region that has some positive epistasis and
@@ -433,10 +455,7 @@ reciprocal function $W_y > \frac{W_{xy} - \epsilon_c}{W_x}$ for fixed
 $W_{xy}$, which limits the region in which positive epistasis, as
 defined by $\epsilon_c$, can occur. Since $W_{xy}$ is not a constant,
 there may be some variation in the actual trend from a true reciprocal
-function. The reason the mean has a similar curve is because of the
-decreasing marginal benefits of epistasis, which means correspondingly
-greater magnitudes for negative epistasis as the single mutant
-fitnesses increase.
+function.
 
 %Change to two col later?
 \begin{figure}
@@ -516,9 +535,9 @@ objective can be a reasonable approximation to what a microbe is
 trying to achieve metabolically
 \citep{Schuetz2012, Fong2004, Varma1994}. While Recon 2
 is equipped with a ``generalized biomass reaction'', it is not clear
-what the meaning of this is, and it certainly seems unlikely to
-estimate the metabolism even of fast-growing cancer cells \hl{(cite
-  Locasale?)}. We propose FALCON as a method to get around this issue
+what the meaning of this is, and it certainly seems to greatly overestimate
+the metabolism even of fast-growing cancer cells \citep{Mehrara2009}.
+We propose FALCON as a potential method to get around this issue
 for non-microbial models.
 
 Another advantage of FALCON is that it allows one to directly probe
@@ -544,22 +563,32 @@ these efforts.
 
 \section{Methods}
 \label{sec:epiBeneMethod}
+%
+% Some defs
+%
+\newcommand{\FVAmin}{F_{\textnormal{min}}}
+\newcommand{\FVAmax}{F_{\textnormal{max}}}
 
 \subsection{Mutation screening and sampling}
+\label{sec:combinatorialEpi}
+\hl{It is empty}
+
 \label{sec:epiBeneMethodSS}
 To more closely follow existing theory in population genetics, in
-addition to performing uniform sampling of allele phenotypes (first
-figure below; same as previous figures), we also performed gaussian
-sampling centered at the WT phenotype.  For each reaction, we sampled
-flux restrictions where the WT flux was at the mean of the Gaussian
-distribution. Since there is some ambiguity in the spread, we used
-several different spreads and employed the FVA bounds for beneficial
-mutants to bound the spread.  For example, for the 99\% Gaussian
+addition to performing uniform sampling of allele phenotypes (\hl{first
+figure below; same as previous figures}), we also performed Gaussian
+sampling centered at the WT phenotype. For each reaction, we sampled
+flux restrictions where the WT flux ($F_{WT}$) was at the mean of the Gaussian
+distribution. Since there is some uncertainty in the underlying distribution
+of mutational effects that would best reflect nature, we used
+several different distributions and employed the FVA to bound the distribution
+ \citep{Muller2013}. For example, for the 99\% Gaussian
 sampling below, for each reaction, we sampled fluxes from a truncated
-normal distribution between FVA\_min and FVA\_max where the underlying
-normal distribution would have 99\% of its density between WT\_flux +/-
+normal distribution between the FVA minimum ($\FVAmin$) and 
+FVA maximum ($\FVAmax$) where the underlying
+normal distribution would have 99\% of its density in $F_{WT} \pm$
 FVA\_major where FVA\_major = max( |WT\_flux-FVA\_min|,
-|WT\_flux-FVA\_max|).  As usual, only beneficial mutants were kept for
+|WT\_flux-FVA\_max|).  Only beneficial mutants were kept for the present
 analysis.
 
 A 99\% sampling strategy will be less likely to sample extremely
@@ -569,6 +598,8 @@ that epistasis distributions resulting from EVA-conforming fitness
 distributions result in a skew toward near-zero epistasis and positive
 epistasis as we tend to sample more mutants near the WT.
 
+\label{sec:falconLMoMAEpistasis}
+\hl{It is empty}
 
 
 %%% TODO %%%
