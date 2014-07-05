@@ -26,6 +26,39 @@ constant both biologically and for removing invalid flux cycles
 \label{fig:wMoMA_smoothness}
 \end{figure}
 
+\begin{figure}[H]
+\centering
+  \includegraphics[width=\textwidth]{deleteriousYeastEpiLandscape}
+  \caption{Flux restriction increases the percentage of negative
+  epistasic interactions. Data taken from \citet{Xu2012}.}
+  \label{fig:delYeastEpiLandscape}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tabular}{c}
+\begin{subfigure}[b]{\textwidth}
+  \includegraphics[width=\textwidth]{50_mut_YPE_tmp}
+  \caption{50\% Gaussian sampling} 
+  \label{fig:beneEpiPairwise:50}
+\end{subfigure}
+\\
+\begin{subfigure}[b]{\textwidth}
+  \includegraphics[width=\textwidth]{uni_mut_YPE_tmp}
+  \caption{Uniform sampling}
+  \label{fig:beneEpiPairwise:uni}
+\end{subfigure}
+\\
+\end{tabular}
+\caption{Example distributions of beneficial mutations for the yeast
+YPE example when sampling 50\% of flux mutations within the larger FVA
+bound using a truncated normal distribution
+\textbf(\ref{fig:beneEpiPairwise:50}) or when using uniform sampling
+between the FVA bounds \textbf(\ref{fig:beneEpiPairwise:uni}).}
+\label{fig:50andUniSampling}
+\end{figure}
+
+
 \section{Supporting information}
 
 \subsection{Evolutionary path analysis}

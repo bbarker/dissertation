@@ -5,8 +5,7 @@
 Biologists have long wondered the extent to which evolution occurs due
 to nearly neutral and slighly deleterious mutations, or adaptive
 mutations, or more complex situations involving these types of
-mutations as well as their epistatic interactions (cite the work of
-Kimura etc.).
+mutations as well as their epistatic interactions \citep{Kimura1989, Orr2003}.
 
 The occurence of beneficial mutations and how they affect adaptation
 is currently an area of active interest in evolutionary biology
@@ -15,16 +14,11 @@ has been placed on deleterious mutations because of their prevalence
 in nature and disease, it is ultimately beneficial mutations that
 are responsible for adaptive evolution.
  
-\subsection{Adaptive mutations and epistasis}
-
-
 Since beneficial mutations are relatively rare, and since
 combining multiple mutants in the lab is increasingly difficult for
 the more mutations that are to be combined, an \textit{in silico}
 analysis can shed light on what may be expected in adaptive
 evolution.
-
-
 
 \subsection{The need for a new modeling framework}
 Clearly, using FBA with the growth objective alone is not enough--we
@@ -65,10 +59,11 @@ obtained by an optimization procedure, such as min-norm FBA (flux
 balance analysis), then in a model with $N$ reactions the optimization
 objective can be expressed as
 \[ \textnormal{minimize}\ \sum^N_{i=1}(v_i-a_i)^2 \] 
-subject to the stoichiometric constraints $\mathbf{S_{int} v} =
-\mathbf{0}$ where $\mathbf{S_{int}}$ is composed of rows in the
-stoichiometric matrix involving internal metabolites and $\mathbf{v} =
-(v_1, \ldots, v_N)^T$.  Additional constant bounds on fluxes are often
+subject to the stoichiometric constraints $\mathbf{S v} =
+\mathbf{0}$ where $\mathbf{S}$ is the
+stoichiometric matrix and $\mathbf{v} =
+(v_1, \ldots, v_N)^T$ is the undetermined flux vector.  
+Additional constant bounds on fluxes are often
 present, such as substrate uptake limits, so we write $\mathbf{v}_{lb}
 \preceq \mathbf{v} \preceq \mathbf{v}_{ub}$. The objective may be
 equivalently expressed in the canonical quadratic programming (QP)
@@ -363,7 +358,7 @@ usage is available (\suppOrApp Section~\ref{sec:pathAnalysis}).
 Prior studies using metabolic models have shown that deleterious
 mutations tend to exhibit negative epistasis for stronger mutations
 and positive epistasis for weaker mutations (\citep{He2010, Xu2012};
-\hl{add full figure from MS1}). The reason for positive epistasis
+\suppOrApp \Fig~\ref{fig:delYeastEpiLandscape}). The reason for positive epistasis
 being prevalent for deleterious mutations is that most of them occur
 in essential pathways, and one mutation will buffer against the
 effects of a second mutation (\citep{Xu2012}). Somewhat surprisingly,
@@ -404,7 +399,7 @@ fitness &       & gshA        & GB          & fgh         \\
 \\
 \end{tabular}
 \caption{Pairwise epistasis values (calculated multiplicatively) from 
-two experimental systems. \hl{Need to describe mutations and systems}.}
+two experimental systems.}
 \label{tab:pairwiseBeneEpi}
 \end{table}
 
@@ -438,7 +433,8 @@ Fisher's geometric model, and be less likely to be beneficial or have
 positive epistasis.  This is exactly what we see in metabolic models
 with deleterious mutations, which tends to exhibit positive epistasis
 for smaller mutations and negative epistasis for more extreme
-mutations (\hl{cite suppl grid fig}; \citep{He2010, Xu2012}).
+mutations (\suppOrApp \Fig~\ref{fig:delYeastEpiLandscape};
+\citep{He2010, Xu2012}).
 
 
 This trend in epistasis can also be captured by our constraint-based
@@ -452,8 +448,8 @@ no positive epistasis. By considering that an epistatic cutoff (call
 it $\epsilon_c$) is employed, we may use the multiplicative epistatic
 relationship $W_{xy} - W_x W_y > \epsilon_c$, which yields the
 reciprocal function $W_y > \frac{W_{xy} - \epsilon_c}{W_x}$ for fixed
-$W_{xy}$, which limits the region in which positive epistasis, as
-defined by $\epsilon_c$, can occur. Since $W_{xy}$ is not a constant,
+$W_{xy}$, bounding the region in which positive epistasis, as
+defined by the threshold $\epsilon_c$, can occur. Since $W_{xy}$ is not a constant,
 there may be some variation in the actual trend from a true reciprocal
 function.
 
@@ -572,15 +568,17 @@ these efforts.
 \subsection{Beneficial mutation simulation for pairwise epistasis}
 \label{sec:falconLMoMAEpistasis}
 In order to generate a realistic WT flux, we use experimental
-expression data to fit a flux vector (\hl{cite falcon and
-Lee2012}). Because even FALCON can take one or two orders of magnitude
+expression data to fit a flux vector (\citep{Lee2012, Barkerb}). 
+Because even FALCON can take one or two orders of magnitude
 longer than MoMA (or linear MoMA), we use linear MoMA to estimate the
 flux vectors for single and double mutants. Since our fitness is just
 flux through the biomass pseudo-reaction, which is a complicated sink,
 it never seems to carry a flux in practice when expression-flux
 fitting techniques are used. Therefore, we used experimentally
 determined growth rates as a constraint in the flux fitting step for
-calculation of the WT flux vector \hl{cite these}. Though this
+calculation of the WT flux vector (strain S96 in YPE (3\% ethanol):
+$\mu = 0.1249$, YPD (2\% glucose): $\mu = 0.4621$, strain BY 
+in YPEG: $\mu = 0.21$). Though this
 approach was only used for pairwise epistasis in the current study, it
 would also be appropriate for combinatorial epistasis (we simply used
 FBA to generate wild-type adapted flux vectors for our combinatorial
@@ -590,19 +588,19 @@ epistasis simulations).
 \subsection{Mutation screening and sampling}
 \label{sec:epiBeneMethodSS}
 
-To more closely follow existing theory in population genetics, in
-addition to performing uniform sampling of allele phenotypes (\hl{first
-figure below; same as previous figures}), we also performed Gaussian
-sampling centered at the WT phenotype. For each reaction, we sampled
+To more closely follow existing theory in population genetics we
+performed Gaussian sampling centered at the WT phenotype
+\citep{Orr2005}. For each reaction, we sampled
 flux restrictions where the WT flux ($F_{WT}$) was at the mean of the
 Gaussian distribution. Since there is some uncertainty in the
 underlying distribution of mutational effects that would best reflect
 nature, we used several different distributions and employed the FVA
 to bound the distribution \citep{Muller2013}. For example, for the
-99\% Gaussian sampling below, for each reaction, we sampled fluxes
+99.9\% Gaussian sampling (\Fig s \ref{fig:epiBeneDist} and \ref{fig:mutBeneDist}), 
+for each reaction, we sampled fluxes
 from a truncated normal distribution between the FVA minimum
 ($\FVAmin$) and FVA maximum ($\FVAmax$) where the underlying normal
-distribution would have 99\% of its density in $F_{WT} \pm
+distribution would have 99.9\% of its density in $F_{WT} \pm
 \textnormal{max}\left( \left|F_{WT}-\FVAmin\right|,
 \left|F_{WT}-\FVAmin\right|\right)$. This sampling technique (in
 particular the symmetric bounds about $F_{WT}$) was chosen in order to
@@ -611,18 +609,34 @@ results in a beneficial mutation distribution distribution conforming
 to extreme value distributions \citep{Orr2005, Orr2006}. Only
 beneficial mutants were kept for the present analysis.
 
-A 99\% sampling strategy will be less likely to sample extremely
-divergent fluxes than a 50\% sampling strategy since the tails of the
-distribution will be placed further away from the WT in the latter
-case. We find it is preferable to sample a high percentage of mutations
-that are closer to the WT in order to generate a beneficial
-mutation distribution conforming to extreme value theory, since otherwise
-the mutation sampling in our metabolic model begins to approximate
-a uniform distribution (\hl{\suppOrApp \Fig~\ref{}}).  It can be
-seen that epistasis distributions resulting from EVA-conforming
-fitness distributions result in a skew toward near-zero epistasis and
-positive epistasis as we tend to sample more mutants near the WT
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{99p9_mut_YPE_tmp}
+  \caption{Distribution of beneficial mutations arising in a yeast YPE model 
+  sampled according to EVA (truncated normal sampling with 99.9\% mutations
+  occuring within the larger FVA bound).}
+  \label{fig:mutBeneDist}
+\end{figure}
+
+A truncated normal sampling strategy drawing 99.9\% of mutations
+within the larger FVA bound will be less likely to sample extremely
+divergent fluxes than a sampling strategy drawing 50\% of mutations
+within the larger FVA bound since the tails of the latter distribution
+will be placed further away from the WT. We find it is preferable to
+sample a high percentage of mutations that are closer to the WT in
+order to generate beneficial mutations distribution conforming to
+extreme value theory, since otherwise the mutation sampling in our
+metabolic model begins to approximate a uniform distribution
+(\suppOrApp \Fig~\ref{fig:50andUniSampling}). It can be seen that
+epistasis distributions resulting from EVA-conforming fitness
+distributions result in a skew toward near-zero epistasis and positive
+epistasis as we tend to sample more mutants near the WT
 (\Fig~\ref{fig:epiBeneDist}).
+
+\section{Acknowledgements}
+We thank Xiaoxian Guo and Zhe Wang for measuring the growth rate of
+yeast in YPE and YPEG media, respectively, as well as discussing yeast
+biology and experiments more generally.
 
 
 %%% TODO %%%
