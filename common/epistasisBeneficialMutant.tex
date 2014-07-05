@@ -578,25 +578,32 @@ To more closely follow existing theory in population genetics, in
 addition to performing uniform sampling of allele phenotypes (\hl{first
 figure below; same as previous figures}), we also performed Gaussian
 sampling centered at the WT phenotype. For each reaction, we sampled
-flux restrictions where the WT flux ($F_{WT}$) was at the mean of the Gaussian
-distribution. Since there is some uncertainty in the underlying distribution
-of mutational effects that would best reflect nature, we used
-several different distributions and employed the FVA to bound the distribution
- \citep{Muller2013}. For example, for the 99\% Gaussian
-sampling below, for each reaction, we sampled fluxes from a truncated
-normal distribution between the FVA minimum ($\FVAmin$) and 
-FVA maximum ($\FVAmax$) where the underlying
-normal distribution would have 99\% of its density in $F_{WT} \pm$
-FVA\_major where FVA\_major = max( |WT\_flux-FVA\_min|,
-|WT\_flux-FVA\_max|).  Only beneficial mutants were kept for the present
-analysis.
+flux restrictions where the WT flux ($F_{WT}$) was at the mean of the
+Gaussian distribution. Since there is some uncertainty in the
+underlying distribution of mutational effects that would best reflect
+nature, we used several different distributions and employed the FVA
+to bound the distribution \citep{Muller2013}. For example, for the
+99\% Gaussian sampling below, for each reaction, we sampled fluxes
+from a truncated normal distribution between the FVA minimum
+($\FVAmin$) and FVA maximum ($\FVAmax$) where the underlying normal
+distribution would have 99\% of its density in $F_{WT} \pm
+\textnormal{max}\left( \left|F_{WT}-\FVAmin\right|,
+\left|F_{WT}-\FVAmin\right|\right)$. This sampling technique (in
+particular the symmetric bounds about $F_{WT}$) was chosen in order to
+approximate how sampling mutations from Fisher's geometric model
+results in a beneficial mutation distribution distribution conforming
+to extreme value distributions \citep{Orr2005, Orr2006}. Only
+beneficial mutants were kept for the present analysis.
 
 A 99\% sampling strategy will be less likely to sample extremely
 divergent fluxes than a 50\% sampling strategy since the tails of the
-distribution will be placed further away from the WT. It can be seen
-that epistasis distributions resulting from EVA-conforming fitness
-distributions result in a skew toward near-zero epistasis and positive
-epistasis as we tend to sample more mutants near the WT.
+distribution will be placed further away from the wild-type in the latter
+case. Thus, it is preferable to sample a high percentage of mutations
+that are closer to the wild-type in order to generate a beneficial
+mutation distribution conforming to extreme value theory.  It can be
+seen that epistasis distributions resulting from EVA-conforming
+fitness distributions result in a skew toward near-zero epistasis and
+positive epistasis as we tend to sample more mutants near the WT.
 
 \label{sec:falconLMoMAEpistasis}
 \hl{It is empty}
