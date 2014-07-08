@@ -7,14 +7,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                                        %
 % change this line for portable code:  %
-\newcommand*{\commonDir}{../common/}   %
+\newcommand*{\commonDir}{./common/}    %
 \input{\commonDir preambleCommon}      %
                                        %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\graphicspath{{./figures/}{../falconBioinfo/figures/}%
-{../epistasisSameGeneArXiv/figures/}{../epistasisAdaptiveArXiv/figures/}}
+\graphicspath{{./thesis/figures/}{./falcon/figures/}%
+{./epistasisSameGene/figures/}{./epistasisBeneficialMutant/figures/}}
 
 % Document specific
 % (it is empty)
@@ -741,6 +741,6 @@ Dynamic Epistasis for Different Alleles of the Same Gene}
 %                                                      %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\bibliography{\commonDir dissertation}
+\bibliography{library}
 
 \end{document}

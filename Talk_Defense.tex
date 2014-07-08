@@ -10,7 +10,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                                        %
 % change this line for portable code:  %
-\newcommand*{\commonDir}{../../common/}%
+\newcommand*{\commonDir}{./common/}%
 \input{\commonDir preambleCommon}      %
                                        %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -21,8 +21,8 @@
 \usepackage{stfloats}
 \captionsetup[figure]{labelformat=empty}
 
-\graphicspath{{./figures}{../../falconBioinfo/figures/}%
-{../../epistasisSameGeneArXiv/figures/}{../../thesis/figures/}}
+\graphicspath{{\commonDir figuresFalconTalk/}{./falcon/figures/}%
+{./epistasisSameGene/figures/}{./thesis/figures/}}
 
 \usetheme{Warsaw}
 % other themes: AnnArbor, Antibes, Bergen, Berkeley, Berlin, Boadilla, boxes, CambridgeUS, Copenhagen, Darmstadt, default, Dresden, Frankfurt, Goettingen,
@@ -167,7 +167,7 @@ this complexity.}
 \frame{\frametitle{Important metabolic pathways}
 \begin{center}
 \includegraphics[height=0.85\textheight,width=0.53\textwidth]
-{./figures/metabolism-zoom-start}
+{metabolism-zoom-start}
 \end{center}
 }
 %
@@ -191,7 +191,7 @@ are thought to be unimportant often are not drawn. }
   width=0.53\textwidth,
   transparent=true
 ]
-{}{./figures/metabolism-zoom.swf}
+{}{\commonDir ./figuresFalconTalk/metabolism-zoom.swf}
 \end{center}
 }
 
@@ -364,14 +364,14 @@ Before this, put in an example showing actual GPR data
 %
 \begin{column}{0.5\textwidth}
 \lstinputlisting[basicstyle=\ttfamily\tiny, language=ATS, showstringspaces=false]
-{falcon_main_fun.dats}
+{\commonDir falcon_main_fun.dats}
 \end{column}
 %
 \vrule{}
 %
 \begin{column}{0.5\textwidth}
 \lstinputlisting[basicstyle=\ttfamily\tiny, language=ATS, showstringspaces=false]
-{falcon_example.dats}
+{\commonDir falcon_example.dats}
 \end{column}
 %
 \end{columns}

@@ -7,7 +7,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                                        %
 % change this line for portable code:  %
-\newcommand*{\commonDir}{../common/}   %
+\newcommand*{\commonDir}{./common/}    %
 \input{\commonDir preambleCommon}      %
                                        %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -15,7 +15,7 @@
 \bibliographystyle{unsrtnat}
 
 
-\graphicspath{{./figures/}{../falconBioinfo/figures/}}
+\graphicspath{{./epistasisBeneficialMutant/figures/}}
 
 \usepackage{url}
 \usepackage{fullpage}
@@ -39,20 +39,21 @@
 
 \newcounter{LinBrandonCoAuthor}
 
-\author[1,2]{Brandon Barker%
-  \thanks{Electronic address: \texttt{beb82@cornell.edu}; Corresponding author}}
+\author{ } 
+% \author[1,2]{Brandon Barker%
+%   \thanks{Electronic address: \texttt{beb82@cornell.edu}; Corresponding author}}
 
-\author[3]{Lin Xu}
+% \author[3]{Lin Xu}
 
-\author[1,3]{Zhenglong Gu%
-  \thanks{Electronic address: \texttt{zg27@cornell.edu}; Corresponding author}}
+% \author[1,3]{Zhenglong Gu%
+%   \thanks{Electronic address: \texttt{zg27@cornell.edu}; Corresponding author}}
 
-\affil[1]{Tri-Institutional Training Program in Computational
-  Biology and Medicine, 1300 York Avenue, Box 194, New York, NY, USA.}
-\affil[2]{Department of Biological Statistics and Computational Biology,
-    Cornell University, 1198 Comstock Hall, Ithaca, NY, USA.}
-\affil[3]{Division of Nutritional Sciences, Cornell University,
-  Savage Hall, Ithaca, NY, USA.}
+% \affil[1]{Tri-Institutional Training Program in Computational
+%   Biology and Medicine, 1300 York Avenue, Box 194, New York, NY, USA.}
+% \affil[2]{Department of Biological Statistics and Computational Biology,
+%     Cornell University, 1198 Comstock Hall, Ithaca, NY, USA.}
+% \affil[3]{Division of Nutritional Sciences, Cornell University,
+%   Savage Hall, Ithaca, NY, USA.}
 
 
 \newboolean{thesisStyle}
@@ -87,5 +88,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\bibliography{\commonDir dissertation}
+\bibliography{library}
 \end{document}

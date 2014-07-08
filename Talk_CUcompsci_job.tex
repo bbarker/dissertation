@@ -17,7 +17,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                                        %
 % change this line for portable code:  %
-\newcommand*{\commonDir}{../../common/}%
+\newcommand*{\commonDir}{./common/}%
 \input{\commonDir preambleCommon}      %
                                        %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -28,8 +28,8 @@
 \usepackage{stfloats}
 \captionsetup[figure]{labelformat=empty}
 
-\graphicspath{{./figures/}{../../falconBioinfo/figures/}%
-{../../epistasisSameGeneArXiv/figures/}{../../thesis/figures/}}
+\graphicspath{{\commonDir figuresFalconTalk/}{./falcon/figures/}%
+{./epistasisSameGene/figures/}{./thesis/figures/}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                               %
@@ -358,7 +358,7 @@ this complexity.
   width=\textwidth,
   transparent=true
 ]
-{}{./figures/metabolism-zoom.swf}
+{}{\commonDir figuresFalconTalk/metabolism-zoom.swf}
 \end{column}
 \begin{column}{0.45\textwidth}
 \introduceFlux
@@ -654,11 +654,11 @@ the minimum of all disjunctions.
 
 \tiny
 
-%%%%%%%%%%%%%%%%%%%%%%%%%
-                        %
-\input{exampleRule.tex} %
-                        %
-%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                   %
+\input{\commonDir exampleRule.tex} %
+                                   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 }
 \note{
 Now that we know the kind of rule we need, we need to write software that
@@ -1429,14 +1429,14 @@ in biology.
 %
 \begin{column}{0.5\textwidth}
 \lstinputlisting[basicstyle=\ttfamily\tiny, language=ATS, showstringspaces=false]
-{falcon_main_fun.dats}
+{\commonDir falcon_main_fun.dats}
 \end{column}
 %
 \vrule{}
 %
 \begin{column}{0.5\textwidth}
 \lstinputlisting[basicstyle=\ttfamily\tiny, language=ATS, showstringspaces=false]
-{falcon_example.dats}
+{\commonDir falcon_example.dats}
 \end{column}
 %
 \end{columns}
