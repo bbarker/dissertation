@@ -29,7 +29,9 @@
 \captionsetup[figure]{labelformat=empty}
 
 \graphicspath{{\commonDir figuresFalconTalk/}{./falcon/figures/}%
-{./epistasisSameGene/figures/}{./thesis/figures/}}
+{./epistasisSameGene/figures/}{./thesis/figures/}%
+{./epistasisBeneficialMutant/figures/}%
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                               %
@@ -398,6 +400,62 @@ enzymatic complexes come together, and data on abundance of the
 components of these enzyme complexes.
 \par}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Epistasis} 
+
+\begin{columns}[t]
+%
+\begin{column}{0.5\textwidth}
+\hfill\ul{\textbf{Model}}\hfill
+\begin{itemize}
+\item \textit{Genetic interactions}
+\item Genes X and Y
+\item Fitnesses relative to wild-type
+\item Single mutant fitnesses $W_x$ and $W_y$
+\item Double mutant fitness $W_{xy}$
+\item $\epsilon = W_{xy} $ -- $W_xW_y$   %not sure why $-$ isn't rendered
+\end{itemize}
+\end{column}
+
+\begin{column}{0.5\textwidth}
+\hfill\ul{\textbf{Applications}}\hfill
+\begin{itemize}
+\item Evolution of sex
+\item Speciation
+\item Mutational load
+\item Ploidy
+\item Genetic drift
+\item Drug interactions \& disease
+\item Complex traits
+\end{itemize}
+\end{column}
+
+%
+\end{columns}
+} % end of \frame
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Flux restrictions in two reactions can cause sign-epistasis}
+
+\begin{figure}
+\centering
+\includegraphics[height=0.8\textheight]{Figure_S2}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Increasing flux restriction increases the
+percentage of negative epistasic interactions.}
+
+\begin{figure}
+\centering
+  \includegraphics[height=0.75\textheight]{deleteriousYeastEpiLandscape}
+\end{figure}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1246,74 +1304,6 @@ good to know how far we can get with a deconstrained model.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                            %
-\section{Future Directions} %
-                            %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
-\frametitle{Large-scale coupled simulations will be important} 
-
-\begin{columns}
-%
-\begin{column}{0.35\textwidth}
-\begin{itemize}
-  \footnotesize
-  \item Expression is available for nearly all cell types
-  \item Can simulate tissues, microbial ecosystems, and multicellular organisms
-  \item Amenable to distributed computing
-  \begin{itemize}
-    \scriptsize
-    \item Cells only need to talk to neighboring cells
-    \item Only a small vector of concentration data needs needs to be passed
-  \end{itemize}
-  \item Several interested Cornell faculty
-\end{itemize}
-
-\end{column}
-%
-\begin{column}{0.65\textwidth}
-\begin{picture}(200,200)
-\centering
-\put(0,15){\includegraphics[width=\textwidth]{Figure_S2}}
-\put(0,190){\ul{Millions of pairwise simulations reveal}}
-\put(0,175){\ul{trends and complex genetic interactions.}}
-\put(0,0){\textit{Xu, Barker and Gu. PNAS, 2012.}}
-\end{picture}
-\end{column}
-%
-\end{columns}  
-}
-
-\note{\scriptsize
-Going forward, I have high hopes of how this particular
-constraint-based framework can be integrated with other methods.
-Given that expression is available for nearly all cell types, we can
-imagine linking cells together to simulate entire tissues in
-parallel. Similarly, the same could be done for microbial ecosystems,
-which are important for bioenergy and biosynthetics. 
-Since cells only need to talk to neighboring cells, except
-in rare cases, the approach should be amenable to distributed
-computing, and could catch the public's interest, like a worm
-simulator that aims to run in a web browser and was recently funded
-on kickstarter with a \$125,000 backing.
-\par
-
-My early experience with constraint-based modeling was designing a
-large scale simulation for detecting genetic interactions, which I
-haven't had time to discuss today, but I've illustrated one such
-dynamic genetic interaction here. I think a lot of researchers,
-especially a number of groups at Cornell, would be interested
-in large scale metabolic simulations of these types going forward,
-and I'd love to have the opportunity to build up frameworks
-that enable these researchers to study complex systems.
-\par}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \frame{\frametitle{Thank you!} 
 
 
@@ -1329,6 +1319,7 @@ that enable these researchers to study complex systems.
 \item Kieran Smallbone
 \item Yiping Wang
 \item Hongwei Xi
+\item Lin Xu
 \end{itemize}
 \end{column}
 
@@ -1339,13 +1330,12 @@ that enable these researchers to study complex systems.
 \item Paul Billing-Ross
 \item Michael Stillman
 \item Neil Swainston
-\item Lin Xu
 \item Kaixiong Ye
 \item Tri-I CBM
 \item Cornell's CAC
 \end{itemize}
 
-\vspace{0.4in}
+\vspace{0.2in}
 \TriILogo{0.6in}
 
 \end{column}
