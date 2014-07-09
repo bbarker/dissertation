@@ -439,12 +439,24 @@ to have a higher percentage of negative epistasis in yeast.}
 \centering
   \includegraphics[height=0.65\textheight, viewport=48 421 479 682, clip=true]
   {sgeFigure_2}
-\label{fig:ExpFBAconfirm}
+\label{fig:ExpFBAconfirm:A}
 \end{figure}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\frame{\frametitle{Eukaryotic models tend to exhibit prevalent negative epistasis in
+severe mutants.} 
+
+\begin{figure}
+\centering
+  \includegraphics[height=0.8\textheight]
+  {sgeFigure_3}
+\label{fig:ExpFBAconfirm:A}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{An objective for fitting fluxes}
 \begin{block}{Find the best detour due to road construction}
@@ -1363,6 +1375,113 @@ in biology.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{}} %blank slide
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Distribution of \textit{in silico} samples of mutant allele pairs
+where the more severe mutant exhibits prevalent negative epistasis.} 
+
+\begin{figure}
+\centering
+  \includegraphics[height=0.65\textheight, viewport=50 200 376 409, clip=true]
+  {sgeFigure_2}
+\label{fig:ExpFBAconfirm:B}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Prevalent negative epistasis in severe mutants is robust across
+parameter selection.} 
+
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth, viewport=16 7 434 189, clip=true]
+  {sgeFigure_2}
+\label{fig:ExpFBAconfirm:C}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Increased efficiency of purging deleterious mutations in
+eukaryotic organisms} 
+\framesubtitle{Population genetic model for allele
+frequency changes from generation to generation}
+
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth, viewport=11 475 519 663, clip=true]
+  {sgeFigure_4}
+\label{fig:sgePopGen:A}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newsavebox{\popgenRow}
+\newsavebox{\popgenXlabel}
+\newsavebox{\popgenYlabel}
+\newsavebox{\popgenYlabelTop}
+
+\newlength{\popgenRowWid}
+\setlength{\popgenRowWid}{0.95\textwidth}
+
+
+\frame{\frametitle{Increased efficiency of mutation purging in
+eukaryotic organisms: ratio of severe to weak gene-A alleles}
+\framesubtitle{%
+\only<1>{The 50th, 100th, and 150th generations}%
+\only<2>{The 200th, 250th, and 300th generations}%
+}
+
+
+
+\savebox{\popgenRow}{%
+\includegraphics<1>[width=\popgenRowWid, viewport=51 276 479 407, clip=true]
+{sgeFigure_4}%
+\includegraphics<2>[width=\popgenRowWid, viewport=51 141 479 269, clip=true]
+{sgeFigure_4}%
+}
+
+\savebox{\popgenXlabel}{%
+\includegraphics[width=\popgenRowWid, viewport=68 11 491 114, clip=true]
+{sgeFigure_4}%
+}
+
+\savebox{\popgenYlabel}{%
+\includegraphics[width=0.035\textwidth, viewport=29 136 43 276, clip=true]
+{sgeFigure_4}%
+}
+
+\savebox{\popgenYlabelTop}{\scriptsize%
+\hspace{-0.0cm}%
+\only<1>{\hspace{1.1cm}50th Generation \hspace{1em}\hspace{1.1cm}%
+  100th Generation \hspace{1cm} 150th Generation}%
+\only<2>{\hspace{1.1cm}200th Generation            \hspace{1.1cm}%
+  250th Generation \hspace{1.1cm} 300th Generation}%
+}
+
+% % % %
+
+\begin{picture}(\textwidth, \textheight)
+
+\put(0.05\textwidth, 0.35\textheight){%
+  \makebox(\popgenRowWid, 0.55\textheight)[lt]{\usebox{\popgenRow}}}
+
+\put(0.08\textwidth, 0.3\textheight){%
+  \makebox(\popgenRowWid, 0.25\textheight)[lt]{\usebox{\popgenXlabel}}}
+
+\put(0.0\textwidth, 0.37\textheight){%
+  \makebox(0.05\textwidth, 0.55\textheight)[lt]{\usebox{\popgenYlabel}}}
+
+\put(0.05\textwidth, 0.88\textheight){%
+  \makebox(\popgenRowWid, 0.05\textheight)[lt]{\usebox{\popgenYlabelTop}}}
+
+\end{picture}
+
+} % end of \frame
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
