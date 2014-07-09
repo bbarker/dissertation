@@ -5,7 +5,7 @@
 % Other possibilities exist for notes, e.g.:
 % \usepackage{pgfpages}
 % \setbeameroption{show notes on second screen}
-\setbeameroption{show notes}
+%\setbeameroption{show notes}
 
 
 \usepackage{etex} %helps when using lots of packages
@@ -184,106 +184,6 @@ computational history.
                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
-\frametitle{My computing background}
-
-{%
-\setbeamercolor{local structure}{fg=CUGrey}
-\setbeamercolor{itemize/enumerate body}{fg=gray!65}
-\setbeamertemplate{alerted text begin}{%
-  \setbeamercolor{local structure}{fg=CURed}%
-  \setbeamercolor{alerted text}{fg=black}%
-  }
-\begin{itemize}
-  \alert<1>{
-  \item High school
-  \begin{itemize}
-    \scriptsize
-    \item BSD/Linux sys admin in high school at local internet service provider
-    \item Learned distributed computing concepts (Bell Labs' Plan9 OS)
-    \item Self-taught first language (x86 assembly)
-  \end{itemize}
-  } % end of \only<1>
-  \alert<2>{
-  \item College activities
-  \begin{itemize}
-    \scriptsize
-    \item Microsoft student ambassador in college:\\
-    Promoted, taught, and provided resources for .NET
-    \item IEEE: communications officer, robotics competition (runner-up)
-    \item Organized ACM programming competitions
-  \end{itemize}
-  } % end of \only<2>
-  \alert<3>{
-  \item Bioinformatics IT specialist
-  \begin{itemize}
-    \scriptsize
-    \item Installed OS X cluster with MPI
-    \item Maintained, extended, and taught Microarray database (Oracle SQL/Perl)
-    \item OpenMP parallel sequence alignment (C++)
-    \item UNIX scripting for comparative genomics
-    \item Collaborated on statistical phylogenetics (``tree of life'' problems)
-  \end{itemize}
-  } % end of \only<3>
-  \alert<4>{
-  \item{Graduate research assistant}
-  \begin{itemize}
-    \scriptsize
-    \item Install \& maintain three servers (Linux/Solaris) for ten active users
-    \item Parallel computing (MATLAB, Python, ATS/C)
-    \item Mathematical modeling (convex optimization and dynamical systems)
-  \end{itemize}
-  } % end of \only<4>
-\end{itemize}
-} % end of \color{CUGrey}
-}
-
-\note{\tiny
-My real computing experience began in high school after installing Linux.
-During my internship at a local internet service provider, I gained
-experience installing web servers running mostly FreeBSD, 
-and spent additional time at home learning
-operating systems concepts and skills. \textbf{My first language was 
-x86 assembly, which makes me sound as old as I look.} I wanted to 
-learn things from the ground up, so it seemed like a good idea
-at the time.
-\par
-
-In college, I participated in various organizations, including the ACM
-and IEEE, where I helped organize programming competitions and student
-chapter web sites, and participated in an IEEE robotics competition
-which won a 2nd place prize.  I was a proponent of the .NET framework
-at the time, and worked with Microsoft as the student representative
-on our campus for teaching .NET and helping students get access to
-Microsoft resources.
-\par
-
-I'd always been interested in nature since I grew up in a rural area,
-and this later transitioned into interest in biology. I picked up
-Biology again more seriously near the end of my undergraduate studies
-and began working as a bioinformatics cluster administrator, which
-soon transitioned into a full time position that included maintaining
-a database, training its users, and extending its features. I
-developed a novel, parallel algorithm for biological sequence
-alignment, conducted comparative genomics research that relied heavily
-on the UNIX style of data processing, and I initiated collaboration
-with a statistician on tree of life problems.
-\par
-
-Once I transitioned to graduate research, I couldn't really give up the
-sys-admin bug in me, and convinced my advisor to buy one server after
-another, which I realize may run counter to the CAC's business
-model. But it let me keep my skills sharp. 
-\par
-
-My studies have focused on optimization and mathematical
-modeling, which were helpful in designing a highly efficient and more
-accurate algorithm which I'll be focusing on during this talk.
-\par
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -499,7 +399,52 @@ components of these enzyme complexes.
 \par}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Epistatic relations between genes are allele specific} 
+
+\begin{figure}
+\centering
+  \includegraphics[height=0.7\textheight, viewport=16 370 395 618, clip=true]
+  {sgeFigure_1}
+\caption{Results based on FBA simulations. Solid and broken lines
+represent mean and 95\% confidence intervals, respectively.}
+\label{fig:FBAdynEpi}
+\end{figure}
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Epistatic relations between genes are allele specific} 
+
+\begin{figure}
+\centering
+  \includegraphics[height=0.65\textheight, viewport=20 16 398 273, clip=true]
+  {sgeFigure_1}
+\caption{Cumulative distribution for the percentage of shared
+epistatic interaction partners between two mutant alleles 
+on real experimental data. Broken lines represent
+10\% and 20\% of shared epistatic profiling.}
+\label{fig:ExpdynEpi}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frame{\frametitle{Mutant alleles in the same gene with more severe defects tend
+to have a higher percentage of negative epistasis in yeast.} 
+
+\begin{figure}
+\centering
+  \includegraphics[height=0.65\textheight, viewport=48 421 479 682, clip=true]
+  {sgeFigure_2}
+\label{fig:ExpFBAconfirm}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \frame{\frametitle{An objective for fitting fluxes}
 \begin{block}{Find the best detour due to road construction}
