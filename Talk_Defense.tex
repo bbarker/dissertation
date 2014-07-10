@@ -439,6 +439,16 @@ components of these enzyme complexes.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                       %
+\section{Allele-Specific Epistasis}    %
+\subsection{Allele-Specific Epistasis} %
+                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \frame{\frametitle{Flux restrictions in two reactions can cause sign-epistasis}
 
 \begin{figure}
@@ -514,6 +524,15 @@ severe mutants.}
 \label{fig:ExpFBAconfirm:A}
 \end{figure}
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                       %
+\section{Environmental Epistasis}      %
+\subsection{Environmental Epistasis}   %
+                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -606,6 +625,14 @@ severe mutants.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                          %
+\section{Flux Fitting with Expression}    %
+\subsection{Flux Fitting with Expression} %
+                                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{An objective for fitting fluxes}
 \begin{block}{Find the best detour due to road construction}
@@ -781,15 +808,6 @@ using the original regular expression framework,
 whereas using our framework takes far less than a second.
 }% end of \note
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                             %
-\section{Methods \& Results} % 
-\subsection{Complexation}    %
-                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1447,6 +1465,42 @@ with increasing complexity}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\frame{\frametitle{Observed and population genetically predicted distributions of epistasis}
+\framesubtitle{15 epistasis estimates from VSV beneficial mutations}
+
+\begin{figure}
+\centering
+  \includegraphics[height=0.65\textheight]{LenormandVSVepistasis}
+\end{figure}
+{\scriptsize%
+\hspace{-0.6cm}\textit{Martin, Elena, \& Lenormand. Nature Genetics, 2007.}}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{\textit{In silico} metabolic epistasis distribution
+from beneficial mutations in yeast}
+
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{99p9_epi_YPD_tmp}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{\textit{In silico} metabolic beneficial
+single-mutant fitness distribution}
+\framesubtitle{Fitness distribution used to generate epistasis distribution in the last slide}
+
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{99p9_mut_YPE_tmp}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \frame{\frametitle{Global pairwise epistasis between beneficial mutants in yeast}
 
 \begin{figure}
@@ -2052,6 +2106,30 @@ with increasing complexity}
 \begin{figure}
 \centering
   \includegraphics[width=\textwidth]{R264QP}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{\textit{In silico} metabolic beneficial
+single-mutant fitness distribution}
+\framesubtitle{50\% Gaussian sampling around WT flux and symmetric FVA bounds}
+
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{50_mut_YPE_tmp}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{\textit{In silico} metabolic beneficial
+single-mutant fitness distribution}
+\framesubtitle{Uniform sampling between FVA bounds}
+
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{uni_mut_YPE_tmp}
 \end{figure}
 }
 
