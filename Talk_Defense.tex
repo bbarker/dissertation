@@ -1395,6 +1395,117 @@ good to know how far we can get with a deconstrained model.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                               %
+\section{Adaptation}           %
+\subsection{Adaptation}        %
+                               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Fitness as a non-trivial objective component allows \textit{in silico}
+beneficial mutations}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth]{Fitness_LM_QP}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Prediction of two-fold change in expression}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth]{randGene_noFit}
+  \caption{Linear MoMA} 
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Active reactions versus weight on biomass}
+
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{complexityEth}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Percent of accessible evolutionary paths decreases
+with increasing complexity}
+
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{percNoTrap_tmp}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Global pairwise epistasis between beneficial mutants in yeast}
+
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{beneEpiMean_tmp}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Global pairwise epistasis between beneficial mutants in yeast}
+
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{beneEpiPerc_tmp}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Pairwise epistasis values from two experimental systems}
+
+\begin{figure}
+\newcommand{\hlB}{\cellcolor{blue!20}}
+\newcommand{\hlR}{\cellcolor{red!20}}
+\hspace{2cm}
+\begin{tabular}{l}
+\begin{subfigure}[l]{0.5\textwidth}
+\caption{Khan et al. 2011}
+\begin{tabular}{cccccc}
+fitness &   & t           & s           & g           & r           \\
+1.145   & t &             &             &             &             \\
+1.108   & s & \hlB -0.060 &             &             &             \\
+1.030   & g & \hlB -0.027 & \hlB -0.014 &             &             \\
+1.015   & r & \hlB -0.056 & \hlB -0.004 & \hlR 0.005  &             \\
+1.003   & p & \hlR  0.049 & \hlR  0.078 & \hlR 0.045  & \hlR 0.007  \\
+\end{tabular}
+\end{subfigure}
+\\
+\begin{subfigure}[l]{0.5\textwidth}
+\caption{Chou et al. 2011}
+\begin{tabular}{ccccc}
+fitness &       & gshA        & GB          & fgh         \\
+1.509   & gshA  &             &             &             \\
+1.166   & GB    & \hlB -0.120 &             &             \\
+1.142   & fgh   & \hlB -0.100 & \hlB -0.012 &             \\
+1.096   & pntAB & \hlB -0.040 & \hlR  0.021 & \hlR 0.029  \\
+\end{tabular}
+\end{subfigure}
+\\
+\end{tabular}
+\hfill\
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \frame{\frametitle{Thank you!} 
 
 
@@ -1900,6 +2011,51 @@ human \textbf{(b)}.}
 
 \end{figure}
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Fitness as a non-trivial objective component allows \textit{in silico}
+beneficial mutations}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth]{randGene_noFit_QP}
+  \caption{Quadratic MoMA} 
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Mean number of evolutionary traps increases
+with increasing complexity}
+
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{trapMeanStop_tmp}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Weighted linear MoMA surface}
+
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{R264LP}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Weighted quadratic MoMA surface}
+
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{R264QP}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
