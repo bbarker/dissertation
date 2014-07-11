@@ -1501,22 +1501,42 @@ single-mutant fitness distribution}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Global pairwise epistasis between beneficial mutants in yeast}
+% \frame{\frametitle{Global pairwise epistasis between beneficial mutants in yeast}
 
-\begin{figure}
-\centering
-  \includegraphics[width=\textwidth]{beneEpiMean_tmp}
-\end{figure}
-}
+% \begin{figure}
+% \centering
+%   \includegraphics[width=\textwidth]{beneEpiPerc_tmp}
+% \end{figure}
+% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Global pairwise epistasis between beneficial mutants in yeast}
 
+
+\begin{columns}[t]
+
+\begin{column}{0.4\textwidth}
+\begin{block}{Epistasis thresholds}
+Given a cutoff $\epsilon_c$ for epistatic interactions:\\
+%(that is, $\left|\epsilon\right| \geq \epsilon_c$):\\
+\vspace{2ex}
+$W_{xy} - W_x W_y > \epsilon_c$\\
+\vspace{2ex}
+$W_y > \frac{W_{xy} - \epsilon_c}{W_x}$
+\end{block}
+\end{column}
+%
+\begin{column}{0.6\textwidth}
 \begin{figure}
 \centering
-  \includegraphics[width=\textwidth]{beneEpiPerc_tmp}
+  \vspace{-0.4cm}
+  \includegraphics<1>[width=\textwidth]{beneEpiMean_tmp}
+  \includegraphics<2>[width=\textwidth]{beneEpiPerc_tmp}
 \end{figure}
+\end{column}
+
+\end{columns}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1577,6 +1597,8 @@ fitness &       & gshA        & GB          & fgh         \\
 \item Hongwei Xi
 \item Lin Xu
 \end{itemize}
+\vspace{0.2in}
+\TriILogo{0.6in}
 \end{column}
 
 \begin{column}{0.5\textwidth}
@@ -1587,13 +1609,10 @@ fitness &       & gshA        & GB          & fgh         \\
 \item Michael Stillman
 \item Neil Swainston
 \item Kaixiong Ye
+\item Lei Huang
+\item Eli Bogart
 \item Tri-I CBM
-\item Cornell's CAC
 \end{itemize}
-
-\vspace{0.2in}
-\TriILogo{0.6in}
-
 \end{column}
 
 %
