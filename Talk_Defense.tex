@@ -13,6 +13,8 @@
 
 \usepackage{amsmath}
 \usepackage{amsthm}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.8}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                                        %
@@ -517,12 +519,27 @@ to have a higher percentage of negative epistasis in yeast.}
 \frame{\frametitle{Eukaryotic models tend to exhibit prevalent negative epistasis in
 severe mutants.} 
 
-\begin{figure}
-\centering
-  \includegraphics[height=0.8\textheight]
-  {sgeFigure_3}
-\label{fig:ExpFBAconfirm:A}
-\end{figure}
+% Note that values are approximate and based on original bar plot.
+
+\begin{tikzpicture}[scale=0.81]
+\begin{axis}[
+    ybar stacked,
+%    enlarge x limits={abs=0.1cm}, %0.15,
+    legend style={at={(1.1,0.5)},
+      anchor=west,legend columns=1},
+    ylabel={Percentage of allele-pairs},
+    symbolic x coords={E. coli, H. pylori, S. typhimurium, 
+      M. barkeri, P. falciparum, S. cerevisiae},
+    xtick=data,
+    x tick label style={rotate=45,anchor=east},
+    ]
+\addplot+[ybar,red] plot coordinates {(E. coli,22) (H. pylori,32) (S. typhimurium, 17)
+  (M. barkeri,20) (P. falciparum,51) (S. cerevisiae,77)};
+\addplot+[ybar,yellow] plot coordinates {(E. coli,78) (H. pylori,68) (S. typhimurium, 83) 
+  (M. barkeri,80) (P. falciparum,49) (S. cerevisiae,23)};
+\legend{severe allele has more $-\epsilon$, severe allele has more $+\epsilon$}
+\end{axis}
+\end{tikzpicture}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1699,6 +1716,19 @@ eukaryotic organisms: ratio of severe to weak gene-A alleles}
 \end{picture}
 
 } % end of \frame
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Eukaryotic models tend to exhibit prevalent negative epistasis in
+severe mutants.} 
+
+\begin{figure}
+\centering
+  \includegraphics[height=0.8\textheight]
+  {sgeFigure_3}
+\label{fig:ExpFBAconfirm:A}
+\end{figure}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
