@@ -1,0 +1,36 @@
+\begin{tikzpicture}[scale=0.5, every node/.style={scale=0.5}]%[scale=0.8, node distance = 1cm, auto]
+    % Place nodes
+    \node [block] (start) {start}; 
+    \node [iogram, below of=start, left of=start, xshift=-0.2cm] (exp) {Genes:\\ expression 
+      ($\mu$,~$\sigma$)}; 
+    \node [iogram, below of=start, right of=start] (rules) {Reactions:
+      Gene Rule}; 
+    \node [block, below of=rules, onslide=<1>{fill=yellow!80}] (parse) {Parse Rule}; 
+    \node [block, below of=parse, left of=parse, xshift=-0.5cm, onslide=<2>{fill=yellow!80}]
+      (mindisj) {Find minimum disjunction};
+    \node [iogram, below of=mindisj] (expstd)
+          {Reactions (enzyme~complexes):\\ abundance ($\mu$,~$\sigma$)};
+    \node [iogram, right of=falcon, below of=expstd, xshift=0.2cm] (smat) 
+      {$\mathbf{S}$ matrix};
+    \node [iogram, left of=falcon, below of=expstd, xshift=-0.3cm] (vbnd) 
+      {Reactions:\\ flux bounds ($\mathbf{v}_{lb}$, $\mathbf{v}_{ub}$)};
+    \node [block, below of=vbnd, left of=smat, right of=vbnd, 
+      below of=expstd, yshift=-0.5cm, onslide=<3>{fill=yellow!80}] (falcon) 
+      {Flux fitting (FALCON)};
+    \node [iogram, below of=falcon] (fluxout) 
+      {Reactions:\\ fluxes ($\mathbf{v}:$ $\mu$,~$\sigma$)};
+
+
+    % Draw edges
+    \path [line] (start) -- (exp);
+    \path [line] (start) -- (rules);
+    \path [line] (rules) -- (parse);
+    \path [line] (exp.south) -- (mindisj);
+    \path [line] (parse) -- (mindisj);
+    \path [line] (mindisj) -- (expstd);
+    \path [line, transform canvas={xshift=0.1cm}] (expstd) -- (falcon);
+    \path [line] (rules.east) |- (falcon.east);
+    \path [line] (smat) -- (falcon);
+    \path [line] (vbnd) -- (falcon);
+    \path [line] (falcon) -- (fluxout);
+\end{tikzpicture}

@@ -651,14 +651,33 @@ severe mutants.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newsavebox{\envFigOneC}
+\newsavebox{\envFigOneCYLabel}
+
 \frame{\frametitle{Ratio of positive to negative differential epistasis}
 \framesubtitle{Transition from high-glucose to 16 other conditions} 
 
-\begin{figure}
-\centering
-  \includegraphics[height=0.7\textheight, viewport=20 1 312 177, clip=true]
+\savebox{\envFigOneC}{%
+  \includegraphics[height=0.7\textheight, viewport=68 1 312 177, clip=true]
   {envFigure_1}
-\end{figure}
+}
+
+\savebox{\envFigOneCYLabel}{%
+\pbox{0.2\textwidth}{\LARGE $\frac{ %
+\left| +\D\epsilon\textnormal{'s}\right| %
+}{ %
+\left| -\D\epsilon\textnormal{'s}\right|}$ %
+}}
+
+\begin{picture}(\textwidth, \textheight)
+
+\put(0.17\textwidth, 0.4\textheight){%
+  \makebox(0.75\textwidth, 0.6\textheight)[lt]{\usebox{\envFigOneC}}}
+
+\put(-0.02\textwidth, 0.11\textheight){%
+  \makebox(0.2\textwidth, 0.6\textheight)[lt]{\usebox{\envFigOneCYLabel}}}
+
+\end{picture}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -883,94 +902,14 @@ whereas using our framework takes far less than a second.
 \begin{frame}[fragile]
 \frametitle{An efficient pipeline going from gene expression to flux}
 
-\begin{columns}
-\begin{column}{0.45\textwidth}
 \begin{figure}
 \centering
-\begin{tikzpicture}[scale=0.5, every node/.style={scale=0.5}]%[scale=0.8, node distance = 1cm, auto]
-    % Place nodes
-    \node [block] (start) {start}; 
-    \node [iogram, below of=start, left of=start, xshift=-0.2cm] (exp) {Genes:\\ expression 
-      ($\mu$,~$\sigma$)}; 
-    \node [iogram, below of=start, right of=start] (rules) {Reactions:
-      Gene Rule}; 
-    \node [block, below of=rules, onslide=<1>{fill=yellow!80}] (parse) {Parse Rule}; 
-    \node [block, below of=parse, left of=parse, xshift=-0.5cm, onslide=<2>{fill=yellow!80}]
-      (mindisj) {Find minimum disjunction};
-    \node [iogram, below of=mindisj] (expstd)
-          {Reactions (enzyme~complexes):\\ abundance ($\mu$,~$\sigma$)};
-    \node [iogram, right of=falcon, below of=expstd, xshift=0.2cm] (smat) 
-      {$\mathbf{S}$ matrix};
-    \node [iogram, left of=falcon, below of=expstd, xshift=-0.3cm] (vbnd) 
-      {Reactions:\\ flux bounds ($\mathbf{v}_{lb}$, $\mathbf{v}_{ub}$)};
-    \node [block, below of=vbnd, left of=smat, right of=vbnd, 
-      below of=expstd, yshift=-0.5cm, onslide=<3>{fill=yellow!80}] (falcon) 
-      {Flux fitting (FALCON)};
-    \node [iogram, below of=falcon] (fluxout) 
-      {Reactions:\\ fluxes ($\mathbf{v}:$ $\mu$,~$\sigma$)};
-
-
-    % Draw edges
-    \path [line] (start) -- (exp);
-    \path [line] (start) -- (rules);
-    \path [line] (rules) -- (parse);
-    \path [line] (exp.south) -- (mindisj);
-    \path [line] (parse) -- (mindisj);
-    \path [line] (mindisj) -- (expstd);
-    \path [line, transform canvas={xshift=0.1cm}] (expstd) -- (falcon);
-    \path [line] (rules.east) |- (falcon.east);
-    \path [line] (smat) -- (falcon);
-    \path [line] (vbnd) -- (falcon);
-    \path [line] (falcon) -- (fluxout);
-\end{tikzpicture}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                          %
+\input{\commonDir minDisjBeamerFlowchart} %
+                                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{figure}
-\end{column}
-
-\begin{column}{0.55\textwidth}
-
-{\color{gray!65}
-
-{\only<1>{\color{black}}
-\begin{lstlisting}[basicstyle=\ttfamily\tiny, language=ATS, showstringspaces=false]
-
-
-fun parse_fileref (inp: FILEref): grexplst
-fun parse_grexplst (!tokener): grexplst
-fun parse_grexp (!tokener): grexp
-
-
-\end{lstlisting}}
-
-{\only<2>{\color{black}}
-\begin{lstlisting}[basicstyle=\ttfamily\tiny, language=ATS, showstringspaces=false]
-
-
-
-fun grexplst_cnfize (gxs: grexplst): grcnflst
-// Easily done with templates:
-implement
-grexplst_cnfize (gxs) =
-  list_map_fun<grexp><grcnf> (gxs, grexp_cnfize)
-//
-fun grexp_cnfize (gx: grexp): grcnf
-//
-fun grcnf_minmean_stdev
-  (grcnf: !grcnf, emap: GDMap, smap: GDMap): expvar
-\end{lstlisting}}
-
-\vspace{4ex}
-
-{\only<3>{\color{black}}
-\begin{lstlisting}[basicstyle=\ttfamily\tiny, language=MATLAB, showstringspaces=false]
-function [e, e_sd, rxn_rule_group] = ...
-    computeMinDisj(model, genedata_filename)
-function v = falcon(model, e, e_sd, varargin)
-\end{lstlisting}}
-
-} % end of \color{gray}
-\end{column}
-
-\end{columns}
 
 \end{frame}
 
@@ -1884,6 +1823,124 @@ severe mutants.}
 %
 \end{columns}
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]
+\frametitle{An efficient pipeline going from gene expression to flux}
+
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\begin{figure}
+\centering
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                          %
+\input{\commonDir minDisjBeamerFlowchart} %
+                                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{figure}
+\end{column}
+
+\begin{column}{0.55\textwidth}
+
+{\color{gray!65}
+
+{\only<1>{\color{black}}
+\begin{lstlisting}[basicstyle=\ttfamily\tiny, language=ATS, showstringspaces=false]
+
+
+fun parse_fileref (inp: FILEref): grexplst
+fun parse_grexplst (!tokener): grexplst
+fun parse_grexp (!tokener): grexp
+
+
+\end{lstlisting}}
+
+{\only<2>{\color{black}}
+\begin{lstlisting}[basicstyle=\ttfamily\tiny, language=ATS, showstringspaces=false]
+
+
+
+fun grexplst_cnfize (gxs: grexplst): grcnflst
+// Easily done with templates:
+implement
+grexplst_cnfize (gxs) =
+  list_map_fun<grexp><grcnf> (gxs, grexp_cnfize)
+//
+fun grexp_cnfize (gx: grexp): grcnf
+//
+fun grcnf_minmean_stdev
+  (grcnf: !grcnf, emap: GDMap, smap: GDMap): expvar
+\end{lstlisting}}
+
+\vspace{4ex}
+
+{\only<3>{\color{black}}
+\begin{lstlisting}[basicstyle=\ttfamily\tiny, language=MATLAB, showstringspaces=false]
+function [e, e_sd, rxn_rule_group] = ...
+    computeMinDisj(model, genedata_filename)
+function v = falcon(model, e, e_sd, varargin)
+\end{lstlisting}}
+
+} % end of \color{gray}
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+
+\note{\tiny
+Now we can take a moment to look at the big picture of our flux
+estimation framework. On the right side of the screen I've shown the
+main interfaces we've used for each part of the processes in the
+flowchart; the first two processes are implemented in a StandardML
+variant, and the last process, which is the one most users will
+be working with, is in MATLAB.
+\par
+
+Taking as inputs the gene rules and the mean and standard deviation of
+all genes' expression values from a sample, we parse the rule into an
+abstract syntax tree, called a grexp, short for gene rule expression. 
+Since users may be interested in various levels
+of experimentation, the first function, which
+parses a list of gene rules found in a file, is implemented in terms
+of the second function, which parses a list of gene rules emitted from
+a tokenizer. Finally, this function itself is built on the parse\_grexp
+function, which parses a single gene rule.
+\par
+
+Now we are interested in working with the grexps or grexplsts, and
+converting them into conjunctive normal form. We define a new type,
+grcnflst, to denote this special form of the grexplst. It is actually
+a much simpler type that is essentially a list of list of genes, since
+the outer list is taken to be joined by an AND, and the inner lists
+joined by ORs. This has the additional benefit of preventing
+operations that should only be performed on rules in conjunctive normal form
+from being performed on more general rules. This function, which returns a
+list of cnfized rules, can be easily implemented in the language by
+using a template function, list\_map\_fun, with the corresponding
+function grexp\_cnfize which converts a single rule to conjunctive
+normal form. Finally we have a function that takes a map of gene names
+to values (actually one each for the mean and standard deviation of
+expression), and returns a tuple type with the mean and standard
+deviation of the complex.
+\par
+
+The flux fitting algorithm and interface are implemented in MATLAB.
+The first function shown is just a MATLAB interface to the last
+function shown above it, with the additional
+functionality of identifying which reactions belong to a specific
+enzyme complex, which we'll discuss more soon. The return values
+of computeMinDisj are inputs to falcon, which will estimate a flux
+vector.
+\par
+
+Although I haven't shown nearly all of the functions used in our
+framework, these are the main functions and give a taste of how the
+system can be used.  If we have time, I can show a couple of examples
+of these functions being used.
+\par}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
