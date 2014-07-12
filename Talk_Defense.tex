@@ -1537,7 +1537,19 @@ beneficial mutations}
   \includegraphics[width=\textwidth]{Fitness_LM_QP}
 \end{figure}
 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\frame{\frametitle{A process for generating beneficial mutations}
+\begin{enumerate}
+\item Constrain growth rate (or fitness of interest) to WT value
+\item Use FALCON on expression data to generate WT flux vector
+\item Sample mutant flux values ``near'' WT flux
+\begin{itemize}
+  \item We used a truncated Gaussian distribution parameterized by flux bounds
+\end{itemize}
+\item Optionally, retain only beneficial mutations
+\end{enumerate}
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Percent of accessible evolutionary paths decreases
@@ -1667,10 +1679,9 @@ fitness &       & gshA        & GB          & fgh         \\
 \begin{itemize}
   \item Used for an ancestral environment and current environment
 \end{itemize}
-\item Used FALCON and known growth rate to generate wild-type flux 
+\item Used FALCON and known growth rate to get WT flux 
 \begin{itemize}
-  \item Sample mutant fluxes near wild-type flux
-  \item Can be used for a single environment (no need to assume ancestral environment)
+  \item Can be used for a single environment\\(no need to assume ancestral environment)
 \end{itemize}
 \item Complex systems have fewer accessible evolutionary paths
 \item Generates realistic epistasis distribution from beneficial mutations
