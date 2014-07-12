@@ -781,10 +781,12 @@ With Lin Xu and Zhenglong Gu
 \frame{\frametitle{Summary}
 
 \begin{itemize}
-\item Most conditions have more essential genes than a high-glucose environment.
-\item Differential epistasis tends to become more positive with genes related
-to the environment.
-
+\item Epistasis tends to become more positive with genes
+related to the environment.
+\item Gene importance will correlate positively with a shift toward
+positive epistasis ($\rho = -0.994$). 
+\item Stable epistases form a highly connected gene-network.
+\item FBA-predicted stable epistases tend to co-evolve.
 \end{itemize}
 
 }
@@ -1513,6 +1515,25 @@ good to know how far we can get with a deconstrained model.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\frame{\frametitle{Summary}
+
+\begin{itemize}
+\item Developed efficient algorithm and modular software for parsing
+gene rules and evaluating enzyme-complex abundance
+\item Developed flux-fitting algorithm that uses enzyme abundance
+\begin{itemize}
+  \item Integrates more mechanistic considerations
+  \item $\approx$ 100X speed improvement
+  \item Implemented using the COBRA Toolbox for MATLAB
+  \item Improved or maintained accuracy for benchmark dataset
+\end{itemize}
+\item Explored sensitivity and alternative optima in flux-fitting algorithms
+\end{itemize}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                                %
 \section{Adaptation}           %
@@ -1712,13 +1733,14 @@ fitness &       & gshA        & GB          & fgh         \\
 \begin{column}{0.5\textwidth}
 \ul{\textit{Other thanks}}
 \begin{itemize}
-\item David Christini 
 \item Paul Billing-Ross
+\item Eli Bogart
+\item David Christini 
+\item Lei Huang
 \item Michael Stillman
 \item Neil Swainston
+\item Lin Xue
 \item Kaixiong Ye
-\item Lei Huang
-\item Eli Bogart
 \item Tri-I CBM
 \end{itemize}
 \end{column}
