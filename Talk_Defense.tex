@@ -562,15 +562,43 @@ Percentage of shared epistatic interactions %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\frame{\frametitle{Mutant alleles in the same gene with more severe defects tend
+\newsavebox{\sgeFigTwo}
+\newsavebox{\sgeFigTwoNeg}
+\newsavebox{\sgeFigTwoPos}
+
+\frame{\frametitle{Mutant alleles with more severe defects tend
 to have a higher percentage of negative epistasis in yeast.} 
 
-\begin{figure}
-\centering
-  \includegraphics[height=0.65\textheight, viewport=48 421 479 682, clip=true]
+\savebox{\sgeFigTwo}{%
+  \includegraphics[height=0.7\textheight, viewport=48 421 479 682, clip=true]
   {sgeFigure_2}
-\label{fig:ExpFBAconfirm:A}
-\end{figure}
+}
+
+\savebox{\sgeFigTwoNeg}{%
+\pbox{0.1\textwidth}{\raggedright more $-\epsilon$'s}%
+}
+
+\savebox{\sgeFigTwoPos}{%
+\pbox{0.1\textwidth}{\raggedright more $+\epsilon$'s}%
+}
+
+
+% % % %
+
+\begin{picture}(\textwidth, \textheight)
+
+\put(0.0\textwidth, 0.3\textheight){%
+  \makebox(0.9\textwidth, 0.7\textheight)[lt]{\usebox{\sgeFigTwo}}}
+
+\put(0.96\textwidth, 0.7\textheight){%
+  \makebox(0.2\textwidth, 0.1\textheight)[lt]{\usebox{\sgeFigTwoNeg}}}
+
+\put(0.96\textwidth, 0.44\textheight){%
+  \makebox(0.2\textwidth, 0.1\textheight)[lt]{\usebox{\sgeFigTwoPos}}}
+
+
+\end{picture}
+
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -596,7 +624,7 @@ severe mutants.}
   (M. barkeri,20) (P. falciparum,51) (S. cerevisiae,77)};
 \addplot+[ybar,yellow] plot coordinates {(E. coli,78) (H. pylori,68) (S. typhimurium, 83) 
   (M. barkeri,80) (P. falciparum,49) (S. cerevisiae,23)};
-\legend{severe allele has more $-\epsilon$, severe allele has more $+\epsilon$}
+\legend{severe allele has more $-\epsilon$'s, severe allele has more $+\epsilon$'s}
 \end{axis}
 \end{tikzpicture}
 }
