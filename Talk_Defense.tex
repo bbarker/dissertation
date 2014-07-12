@@ -1663,8 +1663,15 @@ fitness &       & gshA        & GB          & fgh         \\
 \frame{\frametitle{Summary}
 
 \begin{itemize}
-\item Combined FBA and MoMA objectives to simulation adaptation
-\item Use objective weights to simulate mutation (not flux constraints)
+\item Combined FBA and MoMA objectives to simulate adaptation
+\begin{itemize}
+  \item Used for an ancestral environment and current environment
+\end{itemize}
+\item Used FALCON and known growth rate to generate wild-type flux 
+\begin{itemize}
+  \item Sample mutant fluxes near wild-type flux
+  \item Can be used for a single environment (no need to assume ancestral environment)
+\end{itemize}
 \item Complex systems have fewer accessible evolutionary paths
 \item Generates realistic epistasis distribution from beneficial mutations
 \item Small-effect beneficial mutations tend to exhibit positive epistasis
@@ -2465,6 +2472,31 @@ single-mutant fitness distribution}
   \includegraphics[width=\textwidth]{uni_mut_YPE_tmp}
 \end{figure}
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \frame{\frametitle{Objective weights provide a new mutational model}
+
+% \begin{columns}
+% \begin{column}{0.5\textwidth}
+% \begin{block}{Objective reaction weights}
+% \textbf{+} For deleterious mutations, easily understood as decreasing $V_{\textnormal{max}}$\\
+% \textbf{-} For beneficial mutations, easily understood as decreasing $V_{\textnormal{max}}$\\
+
+% \end{block}
+
+% \end{column}
+% %
+% \begin{column}{0.5\textwidth}
+% \begin{block}{Objective reaction weights}
+% \textbf{+} Can be easily combined without changing feasible solution space\\
+% \textbf{-} Are not easily described physically\\
+% \end{block}
+% \end{column}
+% \end{columns}
+
+% }
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
