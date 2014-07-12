@@ -1399,11 +1399,11 @@ even on 32 processors.
 
 \begin{figure}
 \centering
-  \includegraphics[width=\textwidth]{pExp_dirr}
+  \includegraphics[width=\textwidth]{pExp}
 \caption{PDFs of correlation between experimental fluxes and fluxes
 estimated from FALCON when all gene expression data points are
 permuted.}
-\label{fig:YpermCorr}
+\label{fig:YpermCorrH}
 \end{figure}
 }
 
@@ -1462,37 +1462,6 @@ reasonable amount of noise.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Sensitivity to expression noise} 
-\begin{figure}
-\centering
-  \includegraphics[width=\textwidth]{noise_y7MCflux}
-\caption{Correlation of flux vectors estimated from perturbed versus
-unperturbed complex abundance for the Yeast~7 model.}
-\label{fig:ExpSens}
-\end{figure}
-}
-
-\note{
-In order to evaluate the sensitivity of FALCON to noise, we can
-multiply the enzyme complex abundance values by randomly sampled noise
-from a multivariate log-normal distribution with parameter
-$\sigma$. The larger the $\sigma$, the more noise there will be. In
-this figure, you see the $\sigma$ on the x-axis, and the corresponding
-correlation between flux vectors estimated based on the perturbed and
-unperturbed enzyme complex abundance. The green line is the interval
-median correlation.
-
-In the previous slide, we saw a Pearson's $r$ of 0.7 for the input
-data. This corresponds roughly to a $\sigma$ of 1.25, so that on
-average, we might expect an $r$ of about 0.6 in the output data, that is,
-in the flux. But, it is obvious that the worst case is much worse.
-The good news is that we can take model annotations of known
-constraints and reduce the sensitivity even further.
-\par}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{\frametitle{Sensitivity to expression noise: Highly Constrained} 
 \begin{figure}
 \centering
   \includegraphics[width=\textwidth]{noise_y7HCflux}
@@ -1647,6 +1616,10 @@ $W_y < \frac{W_{xy} - \epsilon_c}{W_x}$
 \end{column}
 %
 \begin{column}{0.6\textwidth}
+\hfill{%
+\only<1>{Mean $\epsilon$}%
+\only<2>{\% of $+\epsilon$'s}%
+\hfill} 
 \begin{figure}
 \centering
   \vspace{-0.4cm}
@@ -2169,15 +2142,15 @@ versus with group information (y-axis; default FALCON setting).}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Permuted expression validates fitting method: HC} 
+\frame{\frametitle{Permuted expression validates fitting method: MC} 
 
 \begin{figure}
 \centering
-  \includegraphics[width=\textwidth]{pExp}
+  \includegraphics[width=\textwidth]{pExp_dirr}
 \caption{PDFs of correlation between experimental fluxes and fluxes
 estimated from FALCON when all gene expression data points are
 permuted.}
-\label{fig:YpermCorrH}
+\label{fig:YpermCorr}
 \end{figure}
 }
 
@@ -2245,6 +2218,37 @@ associated unperturbed vector for the Yeast~7 model.}
 \end{figure}
 
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Sensitivity to expression noise: MC} 
+\begin{figure}
+\centering
+  \includegraphics[width=\textwidth]{noise_y7MCflux}
+\caption{Correlation of flux vectors estimated from perturbed versus
+unperturbed complex abundance for the Yeast~7 model.}
+\label{fig:ExpSens}
+\end{figure}
+}
+
+\note{
+In order to evaluate the sensitivity of FALCON to noise, we can
+multiply the enzyme complex abundance values by randomly sampled noise
+from a multivariate log-normal distribution with parameter
+$\sigma$. The larger the $\sigma$, the more noise there will be. In
+this figure, you see the $\sigma$ on the x-axis, and the corresponding
+correlation between flux vectors estimated based on the perturbed and
+unperturbed enzyme complex abundance. The green line is the interval
+median correlation.
+
+In the previous slide, we saw a Pearson's $r$ of 0.7 for the input
+data. This corresponds roughly to a $\sigma$ of 1.25, so that on
+average, we might expect an $r$ of about 0.6 in the output data, that is,
+in the flux. But, it is obvious that the worst case is much worse.
+The good news is that we can take model annotations of known
+constraints and reduce the sensitivity even further.
+\par}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
