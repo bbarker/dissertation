@@ -129,12 +129,11 @@ experimental data, such as biochemical information about the reactions
 that can occur in a system or the composition and localization of enzyme
 complexes, with high-throughput data including expression data,
 metabolomics, or DNA sequencing. The desired result is to increase
- predictive capability resulting in improved understanding of metabolism.
+ predictive capability and improve our understanding of metabolism.
  The approach typically employed when only gene (or protein) intensities
 are available is the creation of tissue-specific models, which reduces
 the available reactions in an organism model, and does not provide an
-objective function for the estimation of fluxes, which is an important
-limitation in many modeling applications.
+objective function for the estimation of fluxes.
 }
 
 \newcommand{\falconAbstractResults}{%
@@ -143,22 +142,21 @@ deviation) convex objectives and normalization (FALCON),
  that employs metabolic network reconstructions along with expression
 data to estimate fluxes. In order to use such a method, accurate
 measures of enzyme complex abundance are needed, so we first
-present a new algorithm that addresses quantification of complex
+present an algorithm that addresses quantification of complex
 abundance. Our extensions to prior techniques include the
 capability to work with large models and significantly improved
 run-time performance even for smaller models, an improved analysis of
-enzyme complex formation logic, the ability to handle very large enzyme
-complex rules that may incorporate multiple isoforms, and depending on
-the model constraints, either maintained or significantly improved
-correlation with experimentally measured fluxes.
+enzyme complex formation, the ability to handle large enzyme
+complex rules that may incorporate multiple isoforms, and either
+maintained or significantly improved correlation with experimentally
+measured fluxes.
 }
 
 \newcommand{\falconAbstractAvail}{%
 FALCON has been implemented in MATLAB and ATS, and can be downloaded
 from: \url{https://github.com/bbarker/FALCON}. ATS is not required to
-compile the software, as intermediate C source code is available, and
-binaries are provided for Linux x86-64 systems. FALCON requires use
-of the COBRA Toolbox, also implemented in MATLAB.
+compile the software, as intermediate C source code is available. 
+FALCON requires use of the COBRA Toolbox, also implemented in MATLAB.
 }
 
 
