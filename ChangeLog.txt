@@ -1,10 +1,19 @@
 7/25/2014 (Changes since initial draft)
 
-
 * Added github repository information for FALCON.
 
 * Made some figures larger in Chapter 5.
 
 * Acknowledgements added to FALCON paper (Chapter 4).
+
+* Removed min-disjunction algorithm, since it is 
+  essentially a couple of superficial changes to the standard
+  CNF conversion algorithm. Instead, we now simply describe
+  these changes and reference a textbook.
+
+* Removed heuristic min-disjunction algorithm, as it is
+  complicated, ended up being unnecessary, and is troublesome to
+  really measure how bad it can be compared to the standard
+  CNF conversion approach.
 
 

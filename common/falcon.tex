@@ -102,7 +102,7 @@ enzyme complex abundance as accurately as possible given the gene expression
 data. Although there is not a one-to-one correspondence between
 reactions and enzyme complexes, the correspondence is much closer
 than that between individual genes and metabolic reactions. In the
-first part of this work, we describe an algorithm that can account for
+first part of this work, we employ an algorithm that can account for
 enzyme complex formation and thus quantify enzyme complex
 abundance. Next, we build on the original MoMA objective, which must
 be altered in several ways (also discussed in \citealt{Lee2012} which
@@ -133,11 +133,10 @@ referred to as complex abundance) can be estimated. We address these
 in the next section and have attached a flow chart to illustrate the
 overall process of mapping expression of individual genes to enzyme
 complexes within the greater context of flux estimation 
-(\Fig~\ref{ECCN_flowchart}). We develop an algorithm for
+(\Fig~\ref{ECCN_flowchart}). We employ an algorithm for
 this step---finding the minimum disjunction---for estimating complex
 abundance as efficiently and as accurately as possible given the
-assumptions (due primarily to limitations in data quality; \suppOrApp
-Section~\ref{sec:complexation}).
+assumptions (\suppOrApp Section~\ref{sec:complexation}).
 
 Consideration of constraint availability is crucial in this type of
 analysis. In order to work with different constraint sets in yeast, we
@@ -197,7 +196,7 @@ Constraint sets for Human Recon~2 are described in \suppOrApp
     \path [line] (falcon) -- (fluxout);
 
 \end{tikzpicture}
-\caption{Flowchart illustrating the two algorithms presented in this
+\caption{Flowchart illustrating the two algorithms used in this
 paper. The process of estimating enzyme complex abundance is displayed
 in detail, whereas the flux-fitting algorithm (FALCON) is illustrated
 as a single step for simplicity. First, for each gene in the model
@@ -205,7 +204,7 @@ with available expression data, the mean and (if available) standard
 deviation or some other measure of uncertainty are read in. Gene rules
 (also called GPR rules) are also read in for each enzymatic
 reaction. The reaction rules are parsed and the minimum disjunction
-algorithm (\suppOrApp Algorithm~\ref{alg:ReductionToCNF}) is applied, making use
+algorithm is applied, making use
 of the gene's mean expression. Next, the estimated and unitless enzyme
 complex abundance and variance are output for each enzymatic
 reaction. Finally, flux fitting with FALCON
@@ -231,7 +230,7 @@ frequently available in genome-scale annotations.
 The original expression to complex abundance mapping procedure
 performed a direct evaluation of GPR rule expression
 values---replacing gene names with their expression values, ANDs with
-minimums, and ORs with sums, without altering the logical expression
+minimums, and ORs with sums, without altering the Boolean expression
 of the GPR rule in any way \citep{Lee2012}. Below we illustrate a 
 problem that can occur with this mapping where some genes' expression
 levels may be counted more than once. 
@@ -270,7 +269,8 @@ that this can cause problems rather quickly. For instance, suppose $b
 = a$ and $c = 0$; then min($a$,$b+c$) $=b=a$ appears to be correct,
 not min($\frac{a}{2},b$) + min($\frac{a}{2},c$) = $\frac{a}{2} + 0$.
 From this example, we can see that conversion to conjunctive normal
-form (CNF), as in $r_2$ appears to be a promising prerequisite for evaluation.
+form (CNF; \citealt{Russell2009}), as in $r_2$ appears to be a
+promising prerequisite for evaluation.
 
 %\newcount\hyphenpenaltysave
 %\hyphenpenaltysave=\hyphenpenalty
@@ -281,25 +281,30 @@ form (CNF), as in $r_2$ appears to be a promising prerequisite for evaluation.
 
 In \suppOrApp Section~\ref{sec:complexation}, we show that
 converting a rule to CNF is a sound method
-to aid in the estimation of enzyme complex abundance. We use a
-reduction rule that removes redundant genes from the complex
-(e.g. holoenzymes; see \suppOrApp Assumption~\ref{asm:holo}), outlined
-below. This effectively finds the \emph{rate-limiting} component of
-enzyme-complex formation (\suppOrApp Algorithm~\ref{alg:ReductionToCNF}).
+to aid in the estimation of enzyme complex abundance. The minimum disjunction
+algorithm is essentially just the standard CNF conversion algorithm \citep{Russell2009},
+with the implementation caveat that a gene that is in disjunction with itself should be
+reduced to a literal. We've found that this makes the CNF conversion algorithm tractable
+for all rules and prevents double counting of gene
+expression. Conversion to CNF and selection of the minimum disjunction
+also removes redundant genes from the complex (e.g. holoenzymes; see
+\suppOrApp Assumption~\ref{asm:holo}). Biologically, selecting the
+minimum disjunction effectively finds the \emph{rate-limiting}
+component of enzyme-complex formation. After conversion to CNF, the
+minimum disjunction algorithm substitutes gene-expression values as
+described in \citealt{Lee2012} and evaluates the resulting arithmetic
+expression.
 
-Although conversion to CNF may be intractable for some rules
+Although conversion to CNF may be intractable for some expressions
 \citep{Russell2009}, we tested our implementation of the algorithm on
-three of the most well-curated models which likely contain some of the
-most complex gene rules available. These models are for \textit{E. coli}
+three of the most well-curated models which contain some of the
+most complex GPR rules available. These models are for \textit{E. coli}
 \citep{Orth2011}, yeast \citep{Aung2013}, and human
 \citep{Thiele2013}. In all cases, the rules were converted to CNF in
 less than half a second, which is far less than the typical flux
-fitting running time from \suppOrApp Algorithm~\ref{alg:FALCON}. We also present
-a heuristic algorithm (Section~\ref{sec:HeuristicToCNF}) that should
-work quickly even on rules that are not able to be strictly converted
-to CNF, and in most cases should still yield the minimum disjunction.
+fitting running time from \suppOrApp Algorithm~\ref{alg:FALCON}.
 
-Application of \suppOrApp Algorithm~\ref{alg:ReductionToCNF} results in several
+Using the minimum disjunction method results in several
 differences from direct substitution and evaluation in yeast GPR
 rules. When data completely covers the genes in the model
 (e.g. \citealt{Lee2012}), complex abundance tends to have few differences in yeast
