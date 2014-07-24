@@ -427,10 +427,8 @@ assumption~\ref{asm:holo} shows how you might have one subcomponent
 composed of a single isoform, and another subcomponent composed of
 that gene in addition to another isoform. In this case, it is simply
 reduced to being the first gene only that is required, since clearly
-the second is strictly optional (no additional algorithmic
-considerations are needed, as this is a by-product of the conversion
-to CNF). That isn't to say that the second
-gene may not have some effect, such as (potentially) aiding in
+the second is strictly optional. That isn't to say that the second
+gene may not have some metabolic effect, such as (potentially) aiding in
 structural ability or altering the catalytic rate, but it should have
 no bearing on the formation of a functional catalytic
 complex. Holoenzymes---enzymes with metabolic cofactors or protein
@@ -439,6 +437,34 @@ likely be the only situation where this type of rule might need to be
 considered in more detail. But in the absence of detailed kinetic
 information, this consideration (much like allosteric
 regulation) is not useful.
+
+No additional algorithmic considerations are needed, as this is a
+by-product of the conversion to CNF. For instance, take the following
+example where the second conjunction has the redundant gene $g_3$: 
+
+\[(g_1 \land g_2) \lor (g_1 \land g_2 \land g_3)\]
+
+Distributing during the process of conversion to CNF results in:
+
+\[
+g_1 \land (g_1 \lor g_2 ) \land (g_1 \lor g_3) \land (g_2 \lor g_1) 
+\land g_2 \land (g_2 \lor g_3)
+\]
+
+Because every disjunction with more than one literal is in conjunction
+with another disjunction with only one of its literals, the
+disjunction with fewer literals will be the minimum of the two once
+evaluated. This applies to both of the singleton disjunctions $g_1$
+and $g_2$, so all other disjunctions will effectively be ignored (it
+is up to the implementer whether the redundant sub-expressions are
+removed before evaluation):
+
+\[
+g_1 \land \bcancel{(g_1 \lor g_2 ) \land} \bcancel{(g_1 \lor g_3) \land} 
+\bcancel{(g_2 \lor g_1) \land} g_2 \bcancel{\land (g_2 \lor g_3)} 
+= (g_1 \land g_2)
+\]
+
 
 \emph{Assumption~\ref{asm:enzyme_sensitivity}.}
 Another important biochemical assumption is that reactions should

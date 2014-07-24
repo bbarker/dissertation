@@ -24,6 +24,9 @@ Chapter 4:
   really measure how bad it can be compared to the standard
   CNF conversion approach.
 
+* Added example showing how conversion to CNF and taking the 
+  minimum disjunction removes redundant holoenzymes.
+
 * Added github repository information for FALCON.
 
 * Acknowledgements added.
