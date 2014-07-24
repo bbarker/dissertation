@@ -21,6 +21,8 @@ Chapter 4:
   the algorithm pseudocode more self contained, and 
   provided explicit inputs and outputs.
 
+* Added an assumption about post-translational modification.
+
 * Removed min-disjunction algorithm, since it is 
   essentially a couple of superficial changes to the standard
   CNF conversion algorithm. Instead, we now simply describe
