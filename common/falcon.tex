@@ -208,7 +208,7 @@ algorithm is applied, making use
 of the gene's mean expression. Next, the estimated and unitless enzyme
 complex abundance and variance are output for each enzymatic
 reaction. Finally, flux fitting with FALCON
-(\suppOrApp Algorithm~\ref{alg:FALCON}) can be applied, and requires the model's
+(Algorithm~\ref{alg:FALCON}) can be applied, and requires the model's
 stoichiometry and flux bounds. The final output has the option of
 being a deterministically estimated flux, or a mean and standard
 deviation of fluxes if alternative optima are explored.}
@@ -302,7 +302,7 @@ most complex GPR rules available. These models are for \textit{E. coli}
 \citep{Orth2011}, yeast \citep{Aung2013}, and human
 \citep{Thiele2013}. In all cases, the rules were converted to CNF in
 less than half a second, which is far less than the typical flux
-fitting running time from \suppOrApp Algorithm~\ref{alg:FALCON}.
+fitting running time from Algorithm~\ref{alg:FALCON}.
 
 Using the minimum disjunction method results in several
 differences from direct substitution and evaluation in yeast GPR
@@ -329,8 +329,8 @@ significant in Human (\suppOrApp \Fig~\ref{fig:EnzAbundEval}).
 % maintain a constant 10% (which thus reverses the wording in a sense).
 %
 
-
-\subsection{Formulation with automatic normalization and batch direction assignment}
+\section{The FALCON algorithm}
+\label{sec:FALCON}
 
 Prior work that served as an inspiration for this method used Flux
 Variability Analysis (FVA) to determine reaction direction
@@ -353,9 +353,10 @@ in the same constraint.
 Both minimally and highly constrained models
 (Section~\ref{sec:sensToExpNoise}) show some fluxes with significant
 differences depending on the use of group information, particularly in
-the minimally constrained model (\Fig~\ref{fig:FalconGrp}). Several
-other features of the algorithm, including automatic scaling of
-expression, are discussed in \suppOrApp Section~\ref{sec:FALCON}.
+the minimally constrained model (\Fig~\ref{fig:FalconGrp}). We now
+discuss the algorithm in detail, including several
+other important features features, including automatic scaling of
+expression.
 
 \begin{figure}
 \centering
@@ -384,9 +385,96 @@ FALCON.}
 \label{fig:FalconGrp}
 \end{figure}
  
+To make working with irreversible fluxes simpler, we convert the model
+to an irreversible model, where each reversible flux $v_j$ in the
+original model is split into a forward and a backward reaction that take
+strictly positive values: $v_{j,f}$ and $v_{j,b}$. If $v_j$ is
+specified without a forward or backward subscript and it is in the
+context of an irreversible model, this implies that the reaction
+direction is irreversible. We also account for enzyme complexes
+catalyzing multiple reactions by including all reactions with identical
+GPR rules in the same residual
+constraint; indexed sets of reactions are denoted $R_i$ and their
+corresponding estimated enzyme abundance is $e_i$. \Fig~\ref{fig:FalconGrp} 
+shows the difference in Algorithm~\ref{alg:FALCON} when we do not 
+use reaction group information. Note that we use a
+slight abuse of notation, since we also choose to index enzyme
+abundance as $e_j$ for a specific reaction, where $j = i$ does not
+imply $e_i = e_j$. The \emph{existence} of $e_j$ merely means that
+some expression data is available for some of the genes for $e_j$;
+missing genes are removed from the rule during the call to
+min-disjunction---values known to be zero can always be specified as
+such. The standard deviation of enzyme abundance, $\sigma_i$, is an
+optional weighting of uncertainty in biological or technical
+replicates.
 
-\suppOrApp Algorithm~\ref{alg:FALCON} and the method in \citealt{Lee2012} are
-both non-deterministic. In the first case, \suppOrApp Algorithm~\ref{alg:FALCON}
+We employ a normalization variable $n$ in the problem's objective and
+flux-fitting constraints to find the most agreeable scaling of
+expression data. The linear fractional program shown below can be
+converted to a linear program by the Charnes-Cooper transformation
+\citep{Boyd2004}. To avoid the need for fixing any specific flux, which
+may introduce bias, we introduce the bound $\sum_{j \mid e_j 
+\textnormal{ exists }} v_j \geq V_{lb}^{\Sigma}$. This guarantees that
+the optimization problem will yield a non-zero flux vector. As an
+example of how this can be beneficial, this means we do not need to
+measure any fluxes or assume a flux is fixed to achieve good results;
+though this does not downplay the value of obtaining
+experimentally-based constraints on flux when available 
+(\suppOrApp \Fig~\ref{fig:FluxBars}).
+
+The actual value of $V_{lb}^{\Sigma}$ is not very important due to the
+scaling introduced by $n$, and we include a conservatively small value
+that should work with any reasonable model. However, for numeric
+reasons, it may be best if a user chooses to specify a value
+appropriate for the model. Similarly, if any fluxes are known or
+assumed to be non-zero, this constraint becomes unnecessary. To keep
+track of how many reactions are irreversible in the current and prior
+iteration, we use the variables $rxns_{irrev}$ and
+$rxns_{irrev,prior}$. The algorithm terminates when no reactions are
+constrained to be exclusively forward or backward after an iteration.
+
+\begin{algorithm}
+\caption{FALCON}
+\label{alg:FALCON}
+\begin{algorithmic}
+\ifthenelse{\boolean{thesisStyle}}{\singlespacing}{}
+\INPUT enzyme abundances (mean: $e_j$, standard deviation: $\sigma_j$)
+\INPUT model ($\mathbf{S}$ matrix, $\mathbf{v}_{lb}$, $\mathbf{v}_{ub}$)
+\State $u_{\min} := \min_j\ \{V_{j,\max} : V_{j,\max} > 0\}$
+\State $V_{lb}^{\Sigma} := u_{\min} \left|\{v_j : e_j \textnormal{ exists}\}\right|$
+\State $rxns_{irrev} := $ number of reactions ($j$) such that either 
+$v_{ub,j} > 0$ or $v_{lb,j} < 0$, but not both. 
+\State {Scale data to be of similar size for numeric stability:}
+\ForAll {j}
+  \State $e_j := \frac{e_j V_{lb}^{\Sigma}}
+    {\sum\limits_{j} e_j}$ 
+  \State $\sigma_j := \frac{\sigma_j V_{lb}^{\Sigma}}
+    {\sum\limits_{j} e_j}$
+\EndFor
+\While{$rxns_{irrev} > rxns_{irrev,prior}$}
+  \State {$rxns_{irrev,prior} := rxns_{irrev}$}
+  \State Call LP Solver:
+  \State \hspace{4.8mm} \parbox[t]{\dimexpr\linewidth-\algorithmicindent}{
+    $\textnormal{minimize}\ \sum\limits_i \frac{d_i}{n \sigma_i}$\\
+    s.t.\\
+    $\sum_{j \mid e_j \textnormal{ exists }} v_j \geq V_{lb}^{\Sigma}$\\ 
+    $\forall i: -d_i \leq \sum\nolimits_{j \in R_i} (v_{j,f} +
+    v_{j,b}) - n e_i \leq d_i$\\ 
+    $d_i, v_{j,f}, v_{j,b} \geq 0$\\ 
+    $n > 0$
+    \strut}
+  \ForAll {$\left\{j \mid v_{j,f} + v_{j,b} > 0, v_{j,f} \neq v_{j,b} \right\}$}
+  \State {Constrain the smaller of $v_{j,f}$ and $v_{j,b}$ to be $0$.}  
+  \State {$rxns_{irrev}$++}
+  \EndFor
+\EndWhile
+\OUTPUT $\mathbf{v}$
+\end{algorithmic}
+\end{algorithm}
+
+
+Algorithm~\ref{alg:FALCON} and the method in \citealt{Lee2012} are
+both non-deterministic. In the first case, Algorithm~\ref{alg:FALCON}
 solves an LP during each iteration, and subsequent iterations depend
 on the LP solution, so that alternative optima may affect the outcome.
 In the latter case, alternative optima of individual LPs is not an
