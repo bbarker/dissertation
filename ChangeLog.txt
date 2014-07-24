@@ -10,6 +10,8 @@ Chapter 3:
 
 Chapter 4:
 
+* Fixed several typos.
+
 * Several improvements for clarity in writing, including
   better reference placement, more thorough introduction,
   description of constraint sets, and removal of some
@@ -42,7 +44,7 @@ Chapter 4:
 
 * Added github repository information for FALCON.
 
-* Acknowledgements added.
+* Acknowledgments added.
 
 Chapter 5:
 
