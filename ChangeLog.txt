@@ -10,8 +10,9 @@ Chapter 4:
 
 * Moved FALCON algorithm from appendix to chapter.
 
-* Clarifications to FALCON algorithm including inputs and
-  outputs.
+* Many clarifications to FALCON algorithm, including making
+  the algorithm pseudocode more self contained, and 
+  provided explicit inputs and outputs.
 
 * Removed min-disjunction algorithm, since it is 
   essentially a couple of superficial changes to the standard
