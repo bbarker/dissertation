@@ -10,6 +10,11 @@ Chapter 3:
 
 Chapter 4:
 
+* Several improvements for clarity in writing, including
+  better reference placement, more thorough introduction,
+  description of constraint sets, and removal of some
+  unnecessary comments. 
+
 * Moved FALCON algorithm from appendix to chapter.
 
 * Many clarifications to FALCON algorithm, including making

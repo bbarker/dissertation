@@ -22,10 +22,10 @@ gradual metabolic adaptation via titration to grow on synthetic media
 \citep{Pirkmajer2011}. Recently, there have been many efforts to
 incorporate both absolute and differential expression data into
 metabolic models \citep{Blazier2012}. The minimization of metabolic
-adjustment (MoMA) algorithm is the simplest metabolic flux fitting
-algorithm, and it can be extended in order to allow the use of
-absolute expression data for the estimation of flux as in FALCON
-\citep{Segre2002,Lee2012}.
+adjustment (MoMA; \citealt{Segre2002}) algorithm is the simplest
+metabolic flux fitting algorithm, and it can be extended in order to
+allow the use of absolute expression data for the estimation of flux
+\citep{Lee2012}, which is the approach taken in this study.
 
 % May eventually want to make this a conditional include section
 % and include it earlier in dissertation.
@@ -96,7 +96,7 @@ under-penalizing fluxes that are less than one
 amenable to more alterations that maintain convexity than a quadratic
 program \citep{Boyd2004}.
 
-If we wish to apply MoMA to expression data rather than flux data, there
+We wish to apply MoMA to expression data rather than flux data, but there
 are two primary problems that must be tackled. First, we must quantify
 enzyme complex abundance as accurately as possible given the gene expression
 data. Although there is not a one-to-one correspondence between
@@ -104,17 +104,24 @@ reactions and enzyme complexes, the correspondence is much closer
 than that between individual genes and metabolic reactions. In the
 first part of this work, we employ an algorithm that can account for
 enzyme complex formation and thus quantify enzyme complex
-abundance. Next, we build on the original MoMA objective, which must
-be altered in several ways (also discussed in \citealt{Lee2012} which
-lays the groundwork for the current method). We automatically scale
-expression values so that they are comparable to flux units obtained
-in the optimization routine, which can be an advantage over the prior
-method as it requires the manual choice of a flux and complex abundance pair
-with ratio that is assumed to be representative of every reaction. 
-Also, expression data has no directionality, necessitating
-reaction direction assignment in order to compare enzyme complex
-abundance and flux directly in the optimization problem
-\citep{Lee2012}.  Finally, we employ several sensitivity analyses and
+abundance. Second, we must fit real-valued variables (fluxes) to 
+non-negative data (expression), which is challenging to do
+efficiently. To accomplish this, we build on the original MoMA
+objective, which must be altered in several ways (also discussed in
+\citealt{Lee2012}, which lays the groundwork for the current
+method). We develop automatic scaling of expression values so that
+they are comparable to flux units obtained in the optimization
+routine. This can be an advantage over the prior method as it no longer requires
+the manual choice of a flux and complex abundance pair with ratio that
+is assumed to be representative of every such pair in the system.
+Related to this, we also implement the sharing of enzyme complex
+abundance between the reactions that the complex catalyzes, rather
+than assuming there is no competition between reactions catalyzed by
+the same complex. Reaction direction assignment enables comparison of
+fluxes and expression by changing fluxes to non-negative values. We
+show that batch assignment, rather than serial assignment
+\citep{Lee2012} of reaction direction can greatly improve time
+efficiency.  Finally, we employ several sensitivity analyses and
 performance benchmarks so that users of the FALCON method and related
 methods may have a better understanding of what to expect in practice.
 
@@ -125,7 +132,7 @@ negation) gene rules to aid in determining whether or not a gene
 deletion will
 completely disable a reaction. These are typically called GPR
 (gene-protein-reaction) rules and are a requirement for FALCON; their
-validity, like the stoichiometric matrix, will undoubtedly be
+validity, like the stoichiometric matrix, is
 important for generating accurate predictions. Also important are the
 assumptions and limitations for the process of mapping expression data
 to complexes so that a scaled enzyme complex abundance (hereafter
@@ -138,8 +145,10 @@ this step---finding the minimum disjunction---for estimating complex
 abundance as efficiently and as accurately as possible given the
 assumptions (\suppOrApp Section~\ref{sec:complexation}).
 
-Consideration of constraint availability is crucial in this type of
-analysis. In order to work with different constraint sets in yeast, we
+Consideration of constraint availability, such as assumed reaction
+directions and nutrient availability, is crucial in this type of
+analysis. In order to work with two sets of constraints with
+significantly different sizes in yeast, we
 wrote the MATLAB function \texttt{removeEnzymeIrrevs} to find all
 enzymatic reactions in a model that are annotated as reversible but
 are constrained to operate in one direction only. The script then
@@ -227,11 +236,11 @@ subunit level represents the actual complex abundance. We formalize a
 model for enzyme complex formation based on GPR rules that are
 frequently available in genome-scale annotations.
 
-The original expression to complex abundance mapping procedure
+The original expression to complex abundance mapping procedure \citep{Lee2012}
 performed a direct evaluation of GPR rule expression
 values---replacing gene names with their expression values, ANDs with
 minimums, and ORs with sums, without altering the Boolean expression
-of the GPR rule in any way \citep{Lee2012}. Below we illustrate a 
+of the GPR rule in any way. Below we illustrate a 
 problem that can occur with this mapping where some genes' expression
 levels may be counted more than once. 
 
@@ -353,7 +362,7 @@ more irreversible fluxes at each iteration, and the objective value of
 a function with more fluxes should supersede the importance of one
 with fewer fluxes.
 
-One major improvement in our method is the consideration of enzyme
+One major advance in our method is the consideration of enzyme
 complexes sharing multiple reactions, which we call reaction groups.
 This is done by partitioning an enzyme complex's abundance across
 its reactions by including all reactions associated to the complex
@@ -759,7 +768,7 @@ number for each gene in a complex. Once more information on enzyme
 complex structure and reaction mechanism becomes available, an
 extension to the current method could make use of this information.
 Even at the current level of structure, we think it is evident
-that GPR rules should ungergo some form of standardization;
+that GPR rules should undergo some form of standardization;
 Boolean rules without negation may not always capture the author's
 intent for more complex purposes like flux fitting.
 
