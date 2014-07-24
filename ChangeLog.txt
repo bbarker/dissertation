@@ -2,6 +2,8 @@
 
 Chapter 1:
 
+* Removed errant template sentence from abstract.
+
 Chapter 2:
 
 Chapter 3:
