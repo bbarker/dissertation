@@ -441,6 +441,7 @@ constrained to be exclusively forward or backward after an iteration.
 \INPUT enzyme abundances (mean: $e_j$, standard deviation: $\sigma_j$)
 \INPUT model ($\mathbf{S}$ matrix, $\mathbf{v}_{lb}$, $\mathbf{v}_{ub}$)
 \State $u_{\min} := \min_j\ \{V_{j,\max} : V_{j,\max} > 0\}$
+       where $V_{j,\max} = \max\left(\left|v_{lb,j}\right|, \left|v_{ub,j}\right|\right)$.
 \State $V_{lb}^{\Sigma} := u_{\min} \left|\{v_j : e_j \textnormal{ exists}\}\right|$
 \State $rxns_{irrev} := $ number of reactions ($j$) such that either 
 $v_{ub,j} > 0$ or $v_{lb,j} < 0$, but not both. 
