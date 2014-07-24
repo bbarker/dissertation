@@ -27,6 +27,10 @@ Chapter 4:
 * Added example showing how conversion to CNF and taking the 
   minimum disjunction removes redundant holoenzymes.
 
+* In discussing the ATP Synthase complex example, now
+  correctly reference the right assumption instead of
+  confusingly stating "discussed above".
+
 * Added github repository information for FALCON.
 
 * Acknowledgements added.
