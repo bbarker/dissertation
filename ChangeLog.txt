@@ -12,6 +12,8 @@ Chapter 4:
 
 * Fixed several typos.
 
+* Made Figure 4 slightly smaller.
+
 * Several improvements for clarity in writing, including
   better reference placement, more thorough introduction,
   description of constraint sets, and removal of some
