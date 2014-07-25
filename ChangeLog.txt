@@ -6,6 +6,8 @@ Chapter 1:
 
 Chapter 2:
 
+* Changed Figures to use LaTeX \ref's.
+
 Chapter 3:
 
 Chapter 4:
