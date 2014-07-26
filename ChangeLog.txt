@@ -10,6 +10,8 @@ Chapter 2:
 
 * Added ref for Zavlanos 2011.
 
+* Moved first paragraph of intro to abstract.
+
 Chapter 3:
 
 Chapter 4:
