@@ -11,27 +11,35 @@ pathway's function may allow for other mutations in the same pathway
 without a fitness consequence, resulting in positive
 epistasis. Conversely, genes or pathways with redundant functions can
 give rise to negative epistasis. It is well established that epistasis
-is important for the evolution of sex [1-3], speciation [4],
-mutational load [5], ploidy [6], genetic architecture of growth traits
-[7], genetic drift [8], genomic complexity [9], and drug resistance
-[10]. As biological systems in nature have to face multiple genetic
+is important for the evolution of sex \citep{Kondrashov1982,
+Azevedo2006, Otto2007}, speciation \citep{Presgraves2007}, mutational
+load \citep{Hansen2001}, ploidy \citep{Musso2008}, genetic
+architecture of growth traits \citep{Xu2011}, genetic drift
+\citep{Perez-Figueroa2009}, genomic complexity \citep{Sanjuan2008},
+and drug resistance \citep{Trindade2009}. As biological systems in
+nature have to face multiple genetic
 and environmental perturbations, understanding the global landscape
 and dynamics of epistasis under these perturbations remains an
 important issue in the evolutionary field. In an earlier study, we
 addressed genome-wide epistasis dynamics under various genetic
-perturbations [11]. In this study, we will investigate the impact of
+perturbations \citep{Xu2012}. In this study, we will investigate the impact of
 environmental perturbations on global epistasis dynamics.
 
 How epistatic interactions among genes change in different
 environmental conditions has been intensively studied in various model
-organisms, including \textit{E. coli} [12-14], \textit{S. cerevisiae}
-[15-17], \textit{C. elegans} [18,19] and \textit{D. melanogaster}
-[20-22]. The results of these studies, however, are very
-controversial. While some studies observed increasing positive
-epistasis under harsh conditions [13,17,20], others have opposite
-findings [14-16,18,19,21-23]. Even within the same species, different
-experimental studies might have conflicting conclusions (e.g. [13] and
-[14]). One possible reason for the above controversy could have
+organisms, including \textit{E. coli} \citep{Remold2001,
+Kishony2003, Cooper2005}, \textit{S. cerevisiae} \citep{Korona1999,
+Szafraniec2001, Jasnos2008}, \textit{C. elegans}
+\citep{Vassilieva2000, Baer2006} and \textit{D. melanogaster}
+\citep{Yang2001, Fry2002, AletheaD.Wang2009}. The results of these
+studies, however, are very controversial. While some studies observed
+increasing positive epistasis under harsh conditions
+\citep{Kishony2003, Jasnos2008, Yang2001}, others have opposite
+findings \citep{Cooper2005, Korona1999, Szafraniec2001, Vassilieva2000,
+Baer2006, Fry2002, AletheaD.Wang2009, Young2009}. Even within the same
+species, different experimental studies might have conflicting
+conclusions (e.g. \citealt{Kishony2003, Cooper2005}). One possible
+reason for the above controversy could have
 originated from the fact that most studies only looked at the
 epistasis dynamics based on a small number of genes, where the
 properties cannot be generalized to the entire organism.
@@ -41,11 +49,13 @@ variety of environments is the difficulty of applying high-throughput
 experimental platforms. To explore epistasis on a genomic scale, a
 number of technologies have been developed to systematically map
 genetic interaction networks, such as synthetic genetic array (SGA)
-[24,25], diploid-based synthetic lethality analysis with microarrays
-(dSLAM) [26,27], synthetic dosage-suppression and lethality screen
-[28-30] and epistatic miniarray profiles (EMAP) [31-33]. A key issue
-for all these experimental studies is that these epistatic networks
-have been constructed only under normal laboratory
+\citep{Tong2004, Costanzo2010}, diploid-based synthetic lethality
+analysis with microarrays (dSLAM) \citep{Pan2004, Pan2006}, synthetic
+dosage-suppression and lethality screen \citep{Measday2002,
+Measday2005, Sopko2006} and epistatic miniarray profiles (EMAP)
+\citep{Collins2007, Fiedler2009, Kornmann2009}. A key issue for all
+these experimental studies is that these epistatic networks have been
+constructed only under normal laboratory
 conditions. However, cells are constantly bombarded by various
 external environmental stresses. Epistasis dynamics under these
 perturbations cannot be predicted based on normal laboratory
@@ -53,20 +63,22 @@ conditions. Few studies have constructed epistatic networks under
 multiple environmental perturbations. A recent study that has only
 constructed epistatic networks for a group of genes with specific
 functions under one normal and one harsh condition already requires a
-large amount of effort [34]. Consequently, genome-scale epistasis
-landscapes under a variety of environmental perturbations remain
-largely uncharacterized.
+large amount of effort \citep{Bandyopadhyay2011}. Consequently,
+genome-scale epistasis landscapes under a variety of environmental
+perturbations remain largely uncharacterized.
 
 Here we explored this issue by using Flux Balance Analysis (FBA) to
 simulate epistasis dynamics among genes under multiple environmental
 perturbations. FBA involves optimization of an objective function,
 commonly growth maximization in microbes, subject to the reactions and
 constraints of a metabolic network, which can provide reliable
-predictions [35-40]. Using this platform, a previous study has
+predictions \citep{Edwards2001, Shlomi2005, Becker2007, Feist2008,
+Smallbone2009a, Orth2010}. Using this platform, a previous study has
 investigated synthetic lethal interactions (one type of negative
 epistasis) under multiple environmental perturbations and showed the
 plasticity of epistatic interactions in the metabolic networks
-[41]. Here we examined both positive and negative epistasis using FBA,
+\citep{Harrison2007}. Here we examined both positive and negative
+epistasis using FBA,
 and were able to show that at the genome scale epistatic interactions
 tend to become more positive in nutrient-limiting conditions relative
 to abundant-glucose media. In addition, while a large proportion of
@@ -81,7 +93,7 @@ epistatic interactions. Implications of our findings were discussed.
 \subsection{FBA modeling and simulated growth conditions}
 
 We applied the yeast \textit{S. cerevisiae} metabolic reconstruction
-iMM904 [42] to examine the dynamics of epistasis under various
+iMM904 \citep{Mo2009} to examine the dynamics of epistasis under various
 environmental perturbations. The reconstruction has 904 metabolic
 genes that are associated with 1,412 metabolic reactions. We conducted
 FBA simulations under an abundant-glucose condition and 16
@@ -101,7 +113,7 @@ phosphorous uptake levels for each of the 16 environmental
 perturbations such that only 20\% of the high-glucose growth rate was
 attained. This was chosen because it has been shown that metabolism
 was directly linked to growth and similar growth rates often induced
-similar metabolic pathways (cite Jakubowska2012). It is therefore
+similar metabolic pathways \citep{Jakubowska2012}. It is therefore
 important to use a fixed growth rate among different conditions to
 control for the relationship between growth rates and the overall
 metabolic activity so as not to induce a growth-rate specific
@@ -110,7 +122,7 @@ types do not support high growth rates, regardless of the abundance of
 the nutrient source. In order to estimate epistasis between genes, we
 created a mutation for each gene in each condition that restricted the
 flux to be 50\% of the wild-type flux found by geometric FBA for all
-reactions associated with the mutant gene [11]. Epistatic relations
+reactions associated with the mutant gene \citep{Xu2012}. Epistatic relations
 between any two genes were calculated under each condition. We also
 tested our core findings allowing maximum growth in each condition
 (Table S1) and the general trends in our results remained similar, as
@@ -160,7 +172,8 @@ between $\approx$~80,000 gene pairs with and without perturbation by a
 DNA-damaging agent (methyl methanesulfonate, MMS). The study
 represents the most comprehensive experimental study so far to explore
 epistatic dynamics from a rich medium to a harsh condition
-[34]. Interestingly, the authors also found more positive differential
+\citep{Bandyopadhyay2011}. Interestingly, the authors also found more
+positive differential
 epistases than negative differential epistases, which is consistent
 with our general observation (Figure 1C). We further allowed maximum
 growth in each condition and the general trends in our results
@@ -186,7 +199,7 @@ terms and pathways, indicating the functional importance of
 differential epistasis (Table S3). This is consistent with
 experimental results that show differential epistatic interactions,
 rather than static epistatic interactions, are functionally related to
-the response of interest [34].
+the response of interest \citep{Bandyopadhyay2011}.
 
 Several system properties were found to correlate with the ratio of
 the number of positive to negative differential epistases (Table
@@ -214,10 +227,11 @@ glycerol. Figure 2A lists the number of gene pairs that have various
 epistatic relationships. It is noteworthy to point out that,
 consistent with previous published results there are significantly
 more positive epistases between genes than negative ones in either
-condition [43].
+condition \citep{He2010}.
 
-If two genes have the same sign of epistasis and $\left|\epsilon\right| \geq 0.01$ in
-both conditions, they are defined as having similar epistatic
+If two genes have the same sign of epistasis and
+$\left|\epsilon\right| \geq 0.01$ in both conditions, they are defined
+as having similar epistatic
 relationship in these two conditions. To quantify epistatic dynamics
 between ethanol and glycerol growth conditions, we defined the
 percentage of gene pairs with similar epistatic relations to be the
@@ -242,7 +256,7 @@ approximately 52\% of these interactions are either condition-specific
 (24\%; termed dynamic) or predicted to exist in all conditions (28\%;
 termed stable), and $\approx$~48\% is intermediate (exists in multiple but not
 all 16 conditions). An analogous result was obtained previously, but
-only for synthetic lethal interactions [41]. We also changed the
+only for synthetic lethal interactions \citep{Harrison2007}. We also changed the
 growth assumption and allowed maximum growth in each condition and
 reanalyzed the global distribution of all epistatic relations. The U
 frequency distribution for the number of growth conditions in which a
@@ -258,7 +272,8 @@ epistases among genes.
 
 Analysis on network properties can reveal various organization
 principles (e.g. frequency of occurrence, centrality) for epistasis
-networks [24,25] and therefore provide valuable information to further
+networks \citep{Tong2004, Costanzo2010} and therefore provide valuable
+information to further
 distinguish stable and dynamic epistasis. To achieve this aim, we
 compared networks formed by extremely stable and extremely dynamic
 epistasis among genes and asked whether they have distinct network
@@ -293,8 +308,8 @@ predicted epistasis also tend to co-evolve, we calculated the
 evolutionary rate differences between two genes with epistasis from
 FBA modeling (Fig 5A). Evolutionary rates
 ($d_\textnormal{N}$/$d_\textnormal{S}$) based on orthologous gene sets
-from four yeast species of the genus Saccharomyces were
-downloaded from a commonly used reference dataset [44]. Simulations
+from four yeast species of the genus Saccharomyces were downloaded
+from a commonly used reference dataset \citep{Wall2005}. Simulations
 based on the same number of gene pairs with FBA-predicted epistasis
 were conducted to estimate the evolutionary rate differences for any
 two randomly selected genes. As shown in Figure 5A, the gene pairs
@@ -319,7 +334,8 @@ different evolutionary rates (\textit{t}-test, P = 0.796, Figure 5B).
 \subsection{Natural selection in nutrient-limiting conditions}
 
 Whether a genetic mutation has a fitness consequence depends on other
-sites, a phenomenon called epistasis (see [45] for a recent review on
+sites, a phenomenon called epistasis (see \citealt{Lehner2011} for a
+recent review on
 molecular mechanisms). Positive epistasis alleviates the total harm
 when multiple deleterious mutations combine together and thus reduces
 the effectiveness of natural selection in removing these deleterious
@@ -331,16 +347,20 @@ differential epistasis from abundant-glucose to nutrient-limiting
 conditions, our results show that epistasis between specific genes can
 become more positive or more negative in nutrient-limiting conditions,
 which is consistent with previous findings in small scale studies
-[12-23]. However, we showed that, at the genome scale, epistasis is
+\citep{Remold2001, Kishony2003, Cooper2005, Korona1999, Szafraniec2001,
+Jasnos2008, Vassilieva2000, Baer2006, Yang2001, Fry2002,
+AletheaD.Wang2009, Young2009}. However, we showed that, at the genome
+scale, epistasis is
 more positive in nutrient-limiting conditions. Interestingly, our
 simulation results are consistent with a recent genome-wide study
-between laboratory and harsh growth conditions [34]. How epistasis
-affects selection in harsh conditions has been controversial [46]. Our
+between laboratory and harsh growth conditions
+\citep{Bandyopadhyay2011}. How epistasis affects selection in harsh
+conditions has been controversial \citep{Agrawal2010}. Our
 results provide the genome-wide evidence arguing that selection might
 be less effective in removing deleterious mutations in harsh
 conditions, which could be one of the underlying reasons for a recent
 observation that stimulation of a stress response can reduce mutation
-penetrance in \textit{Caenorhabditis elegans} [47].
+penetrance in \textit{Caenorhabditis elegans} \citep{Casanueva2012}.
 
 \subsection{Network properties and evolutionary patterns for stable
 and dynamic epistasis}
@@ -348,12 +368,13 @@ and dynamic epistasis}
 Our results indicate that epistasis could be extremely stable or
 dynamic among various environmental perturbations, which is consistent
 with a previous FBA study investigating synthetic lethal relations
-among non-essential genes [41]. The inclusion of essential genes in
-our study allows for investigation on many important metabolic
+among non-essential genes \citep{Harrison2007}. The inclusion of
+essential genes in our study allows for investigation on many
+important metabolic
 pathways that were not previously analyzed. Nevertheless, the
 distribution of epistasis among multiple environments (Figure 3A)
-remains largely unchanged from the previous study [41] even when
-essential genes are included.
+remains largely unchanged from the previous study \citep{Harrison2007}
+even when essential genes are included.
 
 We also found that stable and dynamic epistatic relationships show
 totally different network properties and evolutionary patterns, which
@@ -385,16 +406,18 @@ functional applications. A recent study showed that the synthetic
 lethal (negative epistasis) relationship between fumarate hydratase
 and haem oxygenase can be employed successfully to identify an in
 vitro drug target in hereditary leiomyomatosis and renal-cell cancer
-(HLRCC) cells [48]. Exploring both dynamic and stable epistasis could
-be useful in this context; stable epistatic interactions may be
+(HLRCC) cells \citep{Frezza2011}. Exploring both dynamic and stable
+epistasis could be useful in this context; stable epistatic
+interactions may be
 important for drug target detection in cancer or other pathogens,
 whereas it may sometimes be necessary to exploit dynamic epistatic
 relationships, possibly induced by treatment with an external
 perturbation.
 
 Furthermore, rational evolutionary design techniques such as OptKnock
-[49] and OptGene [50] attempt to find which knockouts will enable a
-reaction of interest to be coupled with growth (i.e. have positive
+\citep{Burgard2003} and OptGene \citep{Patil2005} attempt to find
+which knockouts will enable a reaction of interest to be coupled with
+growth (i.e. have positive
 epistasis with growth-associated genes in a specific
 environment). However, these techniques do not take into account
 epistasis dynamics across different environments. In this study, we
@@ -402,30 +425,32 @@ have found that epistatic relations can be highly dynamic under
 various environmental perturbations, which raises the possibility to
 improve these techniques by considering epistasis dynamics in future
 studies. Research on using compensatory perturbations to reach desired
-network states is ongoing [51].
+network states is ongoing \citep{Cornelius2011}.
 
 \subsection{Caveats and future directions} Though we show several
 novel insights into how varying environments can influence epistasis,
 several caveats should be addressed. First, the FBA modeling used in
 this study, which was proven to have great predictive power and has
 been successfully employed in addressing numerous research problems
-[35,36,39], only includes metabolic genes. Second, even though FBA
+\citep{Edwards2001, Shlomi2005, Smallbone2009a}, 
+only includes metabolic genes. Second, even though FBA
 offers the most comprehensive simulation method for studying
 epistasis, there are many improvements that can be made in order to
 capture the empirically observed set of epistatic interactions
-[52]. For example, integrating transcriptional regulation and physical
-interactions into this framework could improve the current methods in
-predicting epistasis and other evolutionary processes [53]. Related to
+\citep{Covert2001}. For example, integrating transcriptional
+regulation and physical interactions into this framework could improve
+the current methods in predicting epistasis and other evolutionary
+processes \citep{Szappanos2011}. Related to
 this point, FBA as used herein only considers the steady state and
 does not take into account any dynamics or initial conditions, and
 would necessarily miss any epistatic interactions that are due to
 dynamics in the system, such as changing concentrations; dynamic FBA
 (which is part of rFBA) might be a solution, but would likely require
 about a minimum of two orders of magnitude increase in computation
-time [52 (covert at al) and also [Varma \& Palsson 1994] . Recent work
+time \citep{Covert2001, Varma1994}. Recent work
 on new objective functions targeting metabolite turnover rather than
 flux per se has also proven successful in recovering many epistases
-that were previously not found with FBA [54].
+that were previously not found with FBA \citep{Brochado2012}.
 
 Third, in order to understand the impact of environmental
 perturbations on epistasis, we used a reductive approach and only
@@ -438,7 +463,7 @@ to simulate a larger variety of environmental conditions for multiple
 mutations of the same gene, the computational cost is a limiting
 factor. Our previous study showed that different mutants of the same
 gene could have very dynamic epistatic interaction partners in a
-single environment (cite Xu2012). In this study, we chose to use one
+single environment \citep{Xu2012}. In this study, we chose to use one
 mutation per gene as we are focusing on addressing how different
 environments could affect gene epistasis dynamics. Nevertheless, in
 order to see how sensitive our results were, we performed the analysis
@@ -469,15 +494,17 @@ documentation specific to this paper are located in the subdirectory
 Flux Balance Analysis attempts to tackle issues inherent in other
 methods of metabolic modeling, such as the need to measure a large
 number of parameters, slow speed of simulation, and dependence on
-initial conditions [40,55]. Other than needing a fairly complete
+initial conditions \citep{Orth2010, Schellenberger2011a}. 
+Other than needing a fairly complete
 understanding of the reactions present in an organism, the only
 measurements required to perform a genome-scale metabolic simulation
 are those for determining biomass constitution or a gene expression
-profile [36,40]. Strictly speaking, FBA is a particular type of
+profile \citep{Shlomi2005, Mo2009}. Strictly speaking, FBA is a particular type of
 constraint based modeling (CBM). Constraint based modeling frames the
 stoichiometry that describe the reactions present in an organism as a
 matrix equation with indeterminates (reaction fluxes) subject to
-constraints [39,40]. The optimization problem is described as follows:
+constraints \citep{Smallbone2009a, Mo2009}. The optimization problem
+is described as follows:
 
 
 \begin{equation}
@@ -497,11 +524,12 @@ respectively. Multiplying the stoichiometric matrix $\mathbf{S}$ by
 the flux vector v equals the concentration change over time
 ($\frac{\D{\mathbf{x}}}{\D{t}}$). At steady state, the flux through
 each reaction is given by $\mathbf{Sv} = \mathbf{0}$. Further details
-on the underlying methods can be found in the literature [11,39,43].
+on the underlying methods can be found in the literature 
+\citep{Xu2012, Smallbone2009a, He2010}.
 
 The fluxes of mutations employed in this analysis were restricted to
 be 50\% of the wild-type fluxes found for growth rate maximization by
-geometric FBA [43]. To find new conditions with a specified carbon
+geometric FBA \citep{He2010}. To find new conditions with a specified carbon
 source or other limiting nutrient that achieves 20\% of the
 high-glucose growth rate, we can solve a linear program for the
 minimization of the limiting nutrient uptake while requiring the
@@ -511,7 +539,7 @@ and S4), we allowed unrestricted uptake of the limiting nutrient to
 obtain the maximum growth in that condition, up to the point where it
 would reach the high-glucose growth rate. Mutations affecting protein
 complexes and pleiotropic genes are handled by uniform restriction
-across enzymes as described before [11].
+across enzymes as described before \citep{Xu2012}.
 
 \subsection{Definition of epistasis}
 
@@ -524,14 +552,14 @@ calculated relative to the wild-type fitness. Absolute fitness values
 are determined by the value of the biomass maximization objective
 present in the model. Finally, a confidence threshold
 ($\left|\epsilon\right| \geq 0.01$) was applied to generate epistatic
-interactions [11,25,43]. We also conducted analyses based on a
-different threshold for epistasis and the general conclusions still
-hold in our analysis (Figures S1 and S3).
+interactions \citep{Xu2012, Costanzo2010, He2010}. We also conducted
+analyses based on a different threshold for epistasis and the general
+conclusions still hold in our analysis (Figures S1 and S3).
 
 \subsection{Evolutionary rates and network parameters}
 
 Evolutionary rates of \textit{S. cerevisiae} genes were downloaded
-from supplementary materials of ref. [44], in which orthologs were
+from supplementary materials of \citealt{Wall2005}, in which orthologs were
 defined by four complete genomes of \textit{Saccharomyces} species
 (\textit{Saccharomyces cerevisiae}, \textit{Saccharomyces paradoxus},
 \textit{Saccharomyces mikatae} and \textit{Saccharomyces bayanus}) and
@@ -560,7 +588,7 @@ the larger the average clustering coefficient is, the more closely the
 genes are connected, forming modules. The closeness of a network
 measures the centrality of nodes within a network; nodes that occur on
 shortest paths with other nodes have higher closeness than those that
-do not [56].
+do not \citep{Barabasi2004}.
 
 \section{Acknowledgments}
 
