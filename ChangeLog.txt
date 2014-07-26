@@ -8,6 +8,8 @@ Chapter 2:
 
 * Changed Figures to use LaTeX \ref's.
 
+* Added ref for Zavlanos 2011.
+
 Chapter 3:
 
 Chapter 4:
