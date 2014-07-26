@@ -1,5 +1,7 @@
 \section{Introduction}
 
+\textit{Author Summary:} \epistasisEnviroAuthorSummary
+
 Epistasis refers to the phenomenon wherein mutations of two genes can
 modify each other’s phenotypic outcomes. It can be positive
 (alleviating), or negative (aggravating), when a combination of
@@ -119,7 +121,7 @@ nutrient-limiting conditions}
 
 To directly address how the sign and magnitude of epistases change
 under nutrient-limiting conditions, we calculated differential
-epistasis, which is defined as the epistatic changes from
+epistasis ($\D\epsilon$), which is defined as the epistatic changes from
 abundant-glucose media to the nutrient-limiting condition for each
 gene pair in each growth condition. A gene pair with positive (or
 negative) differential interaction under an environmental perturbation
@@ -127,10 +129,10 @@ is defined as these two genes having increasing (or decreasing)
 epistasis values from the abundant-glucose media to that
 condition. Figure 1A depicts the distribution of differential
 epistases in two growth conditions (ethanol and glycerol) as an
-example. Only genes with |differential epistasis| ≥0.01 in at least
+example. Only genes with $\left|\D\epsilon\right| \geq 0.01$ in at least
 one of the two conditions are included in this figure. As quantified
 in Table S2, there are 6.1\% and 5.5\% of total gene pairs with
-|differential epistasis| ≥0.01 from abundant-glucose media to ethanol
+$\left|\D\epsilon\right| \geq 0.01$ from abundant-glucose media to ethanol
 and glycerol growth conditions, respectively. Among them, a large
 number of gene pairs even change their sign of epistasis (Table
 S2). Simulations in other conditions show similar effects (Table S2),
@@ -148,13 +150,13 @@ conditions, respectively. We further explored all 16 nutrient-limiting
 conditions and the results are shown in Figure 1C. In most of our
 simulated conditions (13/16), there are significantly more positive
 differential epistases than negative differential epistases (Binomial
-test, P < 10-5 for each of the 13 conditions), indicating that
+test, P $<$ 10-5 for each of the 13 conditions), indicating that
 epistasis tends to become more positive in nutrient-limiting
 conditions. This conclusion does not depend on the criteria we used to
 define differential epistasis (Figure S1).
 
 A recent high-throughput experiment measured epistatic relations
-between ~80,000 gene pairs with and without perturbation by a
+between $\approx$~80,000 gene pairs with and without perturbation by a
 DNA-damaging agent (methyl methanesulfonate, MMS). The study
 represents the most comprehensive experimental study so far to explore
 epistatic dynamics from a rich medium to a harsh condition
@@ -191,11 +193,11 @@ the number of positive to negative differential epistases (Table
 S4). A strong correlation exists between the number of essential genes
 in a given condition and the ratio of positive to negative
 differential epistasis on transition from high glucose to that
-condition (ρ = 0.9056, p = 1.3905e-006), which was a better predictor
+condition ($\rho = 0.9056$, P = 1.3905e-006), which was a better predictor
 than the number of non-zero fluxes in the wild-type vector for that
-environment (ρ = 0.7131, p = 0.0019). An even stronger predictor for
+environment ($\rho = 0.7131$, P = 0.0019). An even stronger predictor for
 positive differential epistasis was the mean relative fitness of
-single mutants in the new environment (ρ = -0.9941, p=6.4340e-015);
+single mutants in the new environment ($\rho = -0.9941$, P = 6.4340e-015);
 this anticorrelation suggests that a propensity for a lower single
 mutant fitness can cause a shift towards positive epistasis.
 
@@ -214,7 +216,7 @@ consistent with previous published results there are significantly
 more positive epistases between genes than negative ones in either
 condition [43].
 
-If two genes have the same sign of epistasis and |epistasis| ≥0.01 in
+If two genes have the same sign of epistasis and $\left|\epsilon\right| \geq 0.01$ in
 both conditions, they are defined as having similar epistatic
 relationship in these two conditions. To quantify epistatic dynamics
 between ethanol and glycerol growth conditions, we defined the
@@ -238,7 +240,7 @@ U frequency distribution for the number of growth conditions in which
 a specific epistatic interaction is observed. This means that
 approximately 52\% of these interactions are either condition-specific
 (24\%; termed dynamic) or predicted to exist in all conditions (28\%;
-termed stable), and ~48\% is intermediate (exists in multiple but not
+termed stable), and $\approx$~48\% is intermediate (exists in multiple but not
 all 16 conditions). An analogous result was obtained previously, but
 only for synthetic lethal interactions [41]. We also changed the
 growth assumption and allowed maximum growth in each condition and
@@ -248,7 +250,7 @@ specific epistatic interaction is observed remained similar (Figure
 S4). Based on the result in Figure 3A, we further calculated the ratio
 of these three types of epistatic relations in each of the 16
 environmental perturbations. As shown in Figure 3B, we found that in
-each environment, $\approx$ 40-60\% of epistatic interactions are stable ones
+each environment, $\approx$~40-60\% of epistatic interactions are stable ones
 and that each specific environmental condition also has many private
 epistases among genes.
 
@@ -289,27 +291,28 @@ Gene pairs with epistasis identified in real experiments usually show
 similar evolutionary rates. To investigate whether two genes with
 predicted epistasis also tend to co-evolve, we calculated the
 evolutionary rate differences between two genes with epistasis from
-FBA modeling (Fig 5A). Evolutionary rates (dN/dS) based on orthologous
-gene sets from four yeast species of the genus Saccharomyces were
+FBA modeling (Fig 5A). Evolutionary rates
+($d_\textnormal{N}$/$d_\textnormal{S}$) based on orthologous gene sets
+from four yeast species of the genus Saccharomyces were
 downloaded from a commonly used reference dataset [44]. Simulations
 based on the same number of gene pairs with FBA-predicted epistasis
 were conducted to estimate the evolutionary rate differences for any
 two randomly selected genes. As shown in Figure 5A, the gene pairs
 with FBA-predicted epistatic interactions tend to have more similar
-evolutionary rates than random expectation (P < 10-4).
+evolutionary rates than random expectation (P $<$ 10-4).
 
 In Figure 4 we observed unique network properties for extremely stable
 and extremely dynamic epistatic interactions. We further investigate
 the co-evolution between genes with these two types of epistatic
 relationships. As shown in Figure 5A, genes with extremely stable
-epistasis tend to co-evolve (P < 10-4), while the difference between
+epistasis tend to co-evolve (P $<$ 10-4), while the difference between
 genes with extremely dynamic epistasis and random expectation becomes
 much smaller (P = 0.06). The evolutionary rate difference between gene
 pairs with extremely stable and extremely dynamic epistasis is also
-significant (t-test, P = 8×10-6). This difference is not caused by
+significant (\textit{t}-test, P = 8e-6). This difference is not caused by
 genes that are involved in extremely stable or extremely dynamic
 epistasis, because these two groups of genes do not have significantly
-different evolutionary rates (t-test, P = 0.796, Figure 5B).
+different evolutionary rates (\textit{t}-test, P = 0.796, Figure 5B).
 
 \section{Discussion}
 
@@ -419,7 +422,7 @@ would necessarily miss any epistatic interactions that are due to
 dynamics in the system, such as changing concentrations; dynamic FBA
 (which is part of rFBA) might be a solution, but would likely require
 about a minimum of two orders of magnitude increase in computation
-time [52 (covert at al) and also [Varma & Palsson 1994] . Recent work
+time [52 (covert at al) and also [Varma \& Palsson 1994] . Recent work
 on new objective functions targeting metabolite turnover rather than
 flux per se has also proven successful in recovering many epistases
 that were previously not found with FBA [54].
@@ -486,15 +489,15 @@ subject to & $\mathbf{S v} = \frac{\D{\mathbf{x}}}{\D{t}} = \mathbf{0}$   \\
 \end{tabular}
 \end{equation}
 
-S is a matrix, in which rows and columns correspond to cellular
-metabolites and reactions in the reconstructed network respectively. v
-is the reaction flux with upper and lower bounds vub and vlb
-respectively. Multiplying the stoichiometric matrix S by the flux
-vector v equals the concentration change over time (dx/dt). At steady
-state, the flux through each reaction is given by Sv = 0. The linear
-objective is written as a sum of the vi with coefficients ci. Further
-details on the underlying methods can be found in the literature
-[11,39,43].
+$\mathbf{S}$ is a matrix, in which rows and columns correspond to
+cellular metabolites and reactions in the reconstructed network
+respectively. $\mathbf{v}$ is the reaction flux with upper and lower
+bounds $\mathbf{v_{ub}}$ and $\mathbf{v_{lb}}$
+respectively. Multiplying the stoichiometric matrix $\mathbf{S}$ by
+the flux vector v equals the concentration change over time
+($\frac{\D{\mathbf{x}}}{\D{t}}$). At steady state, the flux through
+each reaction is given by $\mathbf{Sv} = \mathbf{0}$. Further details
+on the underlying methods can be found in the literature [11,39,43].
 
 The fluxes of mutations employed in this analysis were restricted to
 be 50\% of the wild-type fluxes found for growth rate maximization by
@@ -513,16 +516,17 @@ across enzymes as described before [11].
 \subsection{Definition of epistasis}
 
 In each gene mutant pair, the epistasis value is calculated based on
-the equation: ε=Wxy-WxWy, in which Wxy is the fitness of an organism
-with two mutations in genes X and Y, whereas Wx or Wy refers to the
-fitness of the organism with mutation only at gene X or Y
-respectively. Each fitness listed previously is calculated relative to
-the wild-type fitness. Absolute fitness values are determined by the
-value of the biomass maximization objective present in the
-model. Finally, a confidence threshold (|ε| ≥ 0.01) was applied to
-generate epistatic interactions [11,25,43]. We also conducted analyses
-based on a different threshold for epistasis and the general
-conclusions still hold in our analysis (Figures S1 and S3).
+the equation: $\epsilon = W_{xy} - W_xW_y$, in which $W_{xy}$ is the
+fitness of an organism with two mutations in genes X and Y, whereas
+$W_{x}$ or $W_{y}$ refers to the fitness of the organism with mutation
+only at gene X or Y respectively. Each fitness listed previously is
+calculated relative to the wild-type fitness. Absolute fitness values
+are determined by the value of the biomass maximization objective
+present in the model. Finally, a confidence threshold
+($\left|\epsilon\right| \geq 0.01$) was applied to generate epistatic
+interactions [11,25,43]. We also conducted analyses based on a
+different threshold for epistasis and the general conclusions still
+hold in our analysis (Figures S1 and S3).
 
 \subsection{Evolutionary rates and network parameters}
 
@@ -546,7 +550,7 @@ of the same size.
 Network parameters such as the shortest path length, clustering
 coefficient and closeness were calculated using the computer software
 Pajek, downloaded from:
-http://vlado.fmf.uni-lj.si/pub/networks/pajek. The shortest path
+\url{http://vlado.fmf.uni-lj.si/pub/networks/pajek}. The shortest path
 length between two genes in a network reflects the overall network
 interconnectedness; the smaller the average shortest path length is,
 the higher chance that genes in this network could interact with the
@@ -573,11 +577,11 @@ Figure 1. More positive differential epistases under environmental
 perturbations. (A) Heat maps describe the global dynamics of
 differential epistasis from abundant-glucose medium to ethanol (left
 panel) and glycerol (right panel) conditions. Only gene pairs with
-|differential epistasis| ≥0.01 in either condition are included in the
+$\left|\D\epsilon\right| \geq 0.01$ in either condition are included in the
 figure. Different colors represent differential epistasis values as
 indicated by the color bar at the bottom. The differential epistasis
 values are assigned to be 0.1 (or -0.1) in the heat-maps when it is
-larger than 0.1 (or smaller than -0.1). It is noteworthy to point out
+greater than 0.1 (or less than -0.1). It is noteworthy to point out
 that the epistasis patterns are indeed very different between the two
 conditions (Fig 2A). (B) Percentage of positive and negative
 differential epistases under ethanol and glycerol conditions. (C)
@@ -597,8 +601,8 @@ environmental conditions simulated in this study.
 
 Figure 3. The global distribution of epistatic relations under
 simulated conditions. (A) Distribution for the number of conditions in
-which each epistatic interaction exists. Note that ~28\% of epistatic
-relations are extremely stable (the very right bar) and ~24\% are
+which each epistatic interaction exists. Note that $\approx$~28\% of epistatic
+relations are extremely stable (the very right bar) and $\approx$~24\% are
 extremely dynamic (the very left bar). (B) Fraction of three types of
 epistatic relations in each of the 16 environmental perturbations, as
 indicated by the color bar to the right. The numbers in the brackets
