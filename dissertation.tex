@@ -14,7 +14,8 @@
 
 
 \graphicspath{{./thesis/figures/}{./falcon/figures/}%
-{./epistasisSameGene/figures/}{./epistasisBeneficialMutant/figures/}}
+{./epistasisSameGene/figures/}{./epistasisBeneficialMutant/figures/}%
+{./epistasisEnvFBA/figures/}}
 
 % Document specific
 % (it is empty)
@@ -683,8 +684,11 @@ Helikar2012}.
 \chapter{Dynamic Epistasis Under Varying Environmental Perturbations}
 \epistasisEnviroAbstract
 
-\hl{Please see MS Word version for now.}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                      %
+\input{\commonDir epistasisEnviroFBA}  %
+%                                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{A robust and efficient method for
 estimating enzyme complex abundance
@@ -719,6 +723,44 @@ Dynamic Epistasis for Different Alleles of the Same Gene}
 \input{\commonDir epistasisSameGene_appendix}  %
 %                                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Supporting Information for
+Dynamic Epistasis Under Varying Environmental Perturbations}
+
+\section{Supporting Figures}
+
+\begin{figure}[H]
+\caption{}
+\label{fig:eefS1}
+\centering
+\includegraphics[height=0.9\textheight]{envFigure_S1}
+\end{figure}
+
+\begin{figure}[H]
+\caption{}
+\label{fig:eefS2}
+\centering
+\includegraphics[width=\textwidth]{envFigure_S2}
+\end{figure}
+
+\begin{figure}[H]
+\caption{}
+\label{fig:eefS3}
+\centering
+\includegraphics[width=\textwidth]{envFigure_S3}
+\end{figure}
+
+\begin{figure}[H]
+\caption{}
+\label{fig:eefS4}
+\centering
+\includegraphics[width=\textwidth]{envFigure_S4}
+\end{figure}
+
+\section{Supporting Tables}
+Tables S1-S6 are available online at
+\url{https://app.box.com/s/x1bx3bntyzlpbh3ciuwq}.
+
 
 \chapter{FALCON}
 
