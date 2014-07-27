@@ -140,7 +140,8 @@ gene pair in each growth condition. A gene pair with positive (or
 negative) differential interaction under an environmental perturbation
 is defined as these two genes having increasing (or decreasing)
 epistasis values from the abundant-glucose media to that
-condition. Figure~\ref{fig:eef1}A depicts the distribution of differential
+condition. \Fig~\ref{fig:eef1}A depicts the
+distribution of differential
 epistases in two growth conditions (ethanol and glycerol) as an
 example. Only genes with $\left|\D\epsilon\right| \geq 0.01$ in at least
 one of the two conditions are included in this figure. As quantified
@@ -165,19 +166,19 @@ conditions.
 }{}
 
 We further investigated the sign of differential epistasis from
-abundant-glucose to nutrient-limiting conditions. As shown in Figure
-1A, we observed more yellow dots (positive differential epistasis)
+abundant-glucose to nutrient-limiting conditions. As shown in \Fig~\ref{fig:eef1}A, 
+we observed more yellow dots (positive differential epistasis)
 than blue dots (negative differential epistasis) in both
-panels. Indeed, as quantified in Figure 1B, 72\% and 57\% of
+panels. Indeed, as quantified in \Fig~\ref{fig:eef1}B, 72\% and 57\% of
 differential epistases are positive in ethanol and glycerol
 conditions, respectively. We further explored all 16 nutrient-limiting
-conditions and the results are shown in Figure 1C. In most of our
+conditions and the results are shown in \Fig~\ref{fig:eef1}C. In most of our
 simulated conditions (13/16), there are significantly more positive
 differential epistases than negative differential epistases (Binomial
 test, P $<$ 10-5 for each of the 13 conditions), indicating that
 epistasis tends to become more positive in nutrient-limiting
 conditions. This conclusion does not depend on the criteria we used to
-define differential epistasis (Figure S1).
+define differential epistasis (\Fig~\ref{fig:eefS1}).
 
 A recent high-throughput experiment measured epistatic relations
 between $\approx$~80,000 gene pairs with and without perturbation by a
@@ -187,9 +188,9 @@ epistatic dynamics from a rich medium to a harsh condition
 \citep{Bandyopadhyay2011}. Interestingly, the authors also found more
 positive differential
 epistases than negative differential epistases, which is consistent
-with our general observation (Figure 1C). We further allowed maximum
+with our general observation (\Fig~\ref{fig:eef1}C). We further allowed maximum
 growth in each condition and the general trends in our results
-remained similar (Figure S2).
+remained similar (\Fig~\ref{fig:eefS2}).
 
 We found that differential epistasis had functional importance after
 performing both Gene Ontology (GO) and Kyoto Encyclopedia of Genes and
@@ -228,18 +229,30 @@ mutant fitness can cause a shift towards positive epistasis.
 
 \subsection{Dynamic epistasis between nutrient-limiting conditions}
 
-Figure 1 explored the epistasis dynamics from abundant-glucose media
+\Fig~\ref{fig:eef1} explored the epistasis dynamics from abundant-glucose media
 to nutrient-limiting conditions. As biological systems in nature
 constantly face changing environmental perturbations, it is
 interesting to investigate the epistasis dynamics among
 nutrient-limiting conditions. To achieve this aim, we first explored
 the epistatic relationship between the same gene pairs in the two
 environmental perturbations based on growth in ethanol and
-glycerol. Figure 2A lists the number of gene pairs that have various
+glycerol. \Fig~\ref{fig:eef2}A lists the number of gene pairs that have various
 epistatic relationships. It is noteworthy to point out that,
 consistent with previous published results there are significantly
 more positive epistases between genes than negative ones in either
 condition \citep{He2010}.
+
+\ifthenelse{\boolean{thesisStyle}}{% 
+\captionpage{figure}{%
+\eeFBAfigTwoCap}
+\label{fig:eef2}
+
+\begin{figure}[H]
+\caption{}
+\centering
+\includegraphics[width=\textwidth]{envFigure_2}
+\end{figure}
+}{}
 
 If two genes have the same sign of epistasis and
 $\left|\epsilon\right| \geq 0.01$ in both conditions, they are defined
@@ -251,17 +264,17 @@ number of gene pairs with similar epistasis relations shared in these
 two conditions (overlap) divided by the number of gene pairs with
 epistasis in either condition (union). Our results show that 79\% of
 gene pairs have similar epistasis relations between these two
-conditions. Figure 2B shows the distribution for the percentages of
+conditions. \Fig~\ref{fig:eef2}B shows the distribution for the percentages of
 gene pairs with similar epistasis relations between any 2 of 16
 conditions, demonstrating a variable degree of epistatic similarity
 between any two conditions.  This conclusion still holds when we used
 different criteria to define epistatic relationships between genes
-(Figure S3).
+(\Fig~\ref{fig:eefS3}).
 
 To understand the global distribution of all epistatic relations, we
 considered 16 conditions together and calculated the fraction of
 epistatic interactions existing in 1, 2, 3, \ldots, 15, and 16
-conditions, respectively. As shown in Fig 3A, we found that there is a
+conditions, respectively. As shown in \Fig~\ref{fig:eef3}A, we found that there is a
 U frequency distribution for the number of growth conditions in which
 a specific epistatic interaction is observed. This means that
 approximately 52\% of these interactions are either condition-specific
@@ -272,13 +285,26 @@ only for synthetic lethal interactions \citep{Harrison2007}. We also changed the
 growth assumption and allowed maximum growth in each condition and
 reanalyzed the global distribution of all epistatic relations. The U
 frequency distribution for the number of growth conditions in which a
-specific epistatic interaction is observed remained similar (Figure
-S4). Based on the result in Figure 3A, we further calculated the ratio
-of these three types of epistatic relations in each of the 16
-environmental perturbations. As shown in Figure 3B, we found that in
+specific epistatic interaction is observed remained similar
+(\Fig~\ref{fig:eefS4}). Based on the result in \Fig~\ref{fig:eef3}A,
+we further calculated the ratio of these three types of epistatic
+relations in each of the 16 environmental perturbations. As shown in
+\Fig~\ref{fig:eef3}B, we found that in
 each environment, $\approx$~40-60\% of epistatic interactions are stable ones
 and that each specific environmental condition also has many private
 epistases among genes.
+
+\ifthenelse{\boolean{thesisStyle}}{% 
+\captionpage{figure}{%
+\eeFBAfigThreeCap}
+\label{fig:eef3}
+
+\begin{figure}[H]
+\caption{}
+\centering
+\includegraphics[width=\textwidth]{envFigure_3}
+\end{figure}
+}{}
 
 \subsection{Different network properties for stable and dynamic epistasis}
 
@@ -290,20 +316,32 @@ distinguish stable and dynamic epistasis. To achieve this aim, we
 compared networks formed by extremely stable and extremely dynamic
 epistasis among genes and asked whether they have distinct network
 properties. The degree distributions for both types of epistasis are
-shown in Figure 4A. Interestingly, extremely stable epistatic
+shown in \Fig~\ref{fig:eef4}A. Interestingly, extremely stable epistatic
 interactions form an exponential network architecture, which is
 homogeneous, meaning that most nodes have a very similar number of
-links (Figure 4A, left panel). In contrast, the extremely dynamic
+links (\Fig~\ref{fig:eef4}A, left panel). In contrast, the extremely dynamic
 epistatic interactions give rise to a scale-free network topology,
 which is heterogeneous, meaning that the majority of nodes have few
-links but a small number of hubs have a large number of links (Figure
-4A, right panel).
+links but a small number of hubs have a large number of links
+(\Fig~\ref{fig:eef4}A, right panel).
+
+\ifthenelse{\boolean{thesisStyle}}{% 
+\captionpage{figure}{%
+\eeFBAfigFourCap}
+\label{fig:eef4}
+
+\begin{figure}[H]
+\caption{}
+\centering
+\includegraphics[width=\textwidth]{envFigure_4}
+\end{figure}
+}{}
 
 In addition, we calculated three network parameters to compare these
 two types of epistatic interactions. We found that the network formed
 by extremely stable epistases has a smaller shortest path length, a
 larger clustering coefficient and larger closeness than the network
-formed by extremely dynamic epistases (Figure 4B). These results are
+formed by extremely dynamic epistases (\Fig~\ref{fig:eef4}B). These results are
 consistent with the scenario that genes with extremely stable
 epistasis are directly linked to most other genes and form an
 exponential network topology, while genes with extremely dynamic
@@ -318,20 +356,33 @@ Gene pairs with epistasis identified in real experiments usually show
 similar evolutionary rates. To investigate whether two genes with
 predicted epistasis also tend to co-evolve, we calculated the
 evolutionary rate differences between two genes with epistasis from
-FBA modeling (Fig 5A). Evolutionary rates
-($d_\textnormal{N}$/$d_\textnormal{S}$) based on orthologous gene sets
+FBA modeling (\Fig~\ref{fig:eef5}A). Evolutionary rates
+($\nicefrac{d_\textnormal{N}}{d_\textnormal{S}}$) based on orthologous
+gene sets
 from four yeast species of the genus Saccharomyces were downloaded
 from a commonly used reference dataset \citep{Wall2005}. Simulations
 based on the same number of gene pairs with FBA-predicted epistasis
 were conducted to estimate the evolutionary rate differences for any
-two randomly selected genes. As shown in Figure 5A, the gene pairs
+two randomly selected genes. As shown in \Fig~\ref{fig:eef5}A, the gene pairs
 with FBA-predicted epistatic interactions tend to have more similar
 evolutionary rates than random expectation (P $<$ 10-4).
 
-In Figure 4 we observed unique network properties for extremely stable
+\ifthenelse{\boolean{thesisStyle}}{% 
+\captionpage{figure}{%
+\eeFBAfigFiveCap}
+\label{fig:eef5}
+
+\begin{figure}[H]
+\caption{}
+\centering
+\includegraphics[height=0.95\textheight]{envFigure_5}
+\end{figure}
+}{}
+
+In \Fig~\ref{fig:eef4} we observed unique network properties for extremely stable
 and extremely dynamic epistatic interactions. We further investigate
 the co-evolution between genes with these two types of epistatic
-relationships. As shown in Figure 5A, genes with extremely stable
+relationships. As shown in \Fig~\ref{fig:eef5}A, genes with extremely stable
 epistasis tend to co-evolve (P $<$ 10-4), while the difference between
 genes with extremely dynamic epistasis and random expectation becomes
 much smaller (P = 0.06). The evolutionary rate difference between gene
@@ -339,7 +390,7 @@ pairs with extremely stable and extremely dynamic epistasis is also
 significant (\textit{t}-test, P = 8e-6). This difference is not caused by
 genes that are involved in extremely stable or extremely dynamic
 epistasis, because these two groups of genes do not have significantly
-different evolutionary rates (\textit{t}-test, P = 0.796, Figure 5B).
+different evolutionary rates (\textit{t}-test, P = 0.796, \Fig~\ref{fig:eef5}B).
 
 \section{Discussion}
 
@@ -384,7 +435,7 @@ among non-essential genes \citep{Harrison2007}. The inclusion of
 essential genes in our study allows for investigation on many
 important metabolic
 pathways that were not previously analyzed. Nevertheless, the
-distribution of epistasis among multiple environments (Figure 3A)
+distribution of epistasis among multiple environments (\Fig~\ref{fig:eef3}A)
 remains largely unchanged from the previous study \citep{Harrison2007}
 even when essential genes are included.
 
@@ -400,7 +451,7 @@ functional network, different from genes in the dynamic epistasis
 network that are loosely connected. Furthermore, the large clustering
 coefficient in the stable epistasis network also supports the idea
 that genes with stable epistasis interactions form a network core in
-the whole epistasis network. Combined with observations in Figure 5,
+the whole epistasis network. Combined with observations in \Fig~\ref{fig:eef5},
 this core module of epistasis in the metabolic network might represent
 stable functional associations between genes that are essential for
 important biological functions and evolutionary conserved even under
@@ -483,7 +534,7 @@ for our core results by simulating 16 environments using different
 growth assumption, where the organisms are allowed to have
 unrestricted uptake of the limiting nutrient to obtain the maximum
 growth in that condition. We found the major trends in our results are
-largely unchanged (Figures S2 and S4; Table S1).
+largely unchanged (\Fig s \ref{fig:eefS2} and \ref{fig:eefS2}; Table S1).
 
 Keeping these issues in mind, our analysis uncovered several prominent
 features of epistatic interactions under a variety of environmental
@@ -546,7 +597,7 @@ source or other limiting nutrient that achieves 20\% of the
 high-glucose growth rate, we can solve a linear program for the
 minimization of the limiting nutrient uptake while requiring the
 growth rate to be equal to 20\% of the abundant-glucose
-growth-rate. For maximum growth rate conditions (Table S1, \Fig s S2
+growth-rate. For maximum growth rate conditions (Table S1, \Fig s \ref{fig:eefS2}
 and \ref{fig:eefS4}), we allowed unrestricted uptake of the limiting nutrient to
 obtain the maximum growth in that condition, up to the point where it
 would reach the high-glucose growth rate. Mutations affecting protein
@@ -566,7 +617,8 @@ present in the model. Finally, a confidence threshold
 ($\left|\epsilon\right| \geq 0.01$) was applied to generate epistatic
 interactions \citep{Xu2012, Costanzo2010, He2010}. We also conducted
 analyses based on a different threshold for epistasis and the general
-conclusions still hold in our analysis (Figures S1 and S3).
+conclusions still hold in our analysis (\Fig s \ref{fig:eefS1} and
+\ref{fig:eefS3}).
 
 \subsection{Evolutionary rates and network parameters}
 
@@ -577,8 +629,9 @@ defined by four complete genomes of \textit{Saccharomyces} species
 \textit{Saccharomyces mikatae} and \textit{Saccharomyces bayanus}) and
 evolutionary rates at synonymous and nonsynonymous sites were
 calculated based on a four-way yeast species alignment for
-\textit{S. cerevisiae} genes by PAML. For the distributions in Figure
-5A, we randomly sampled gene pairs with the same number of gene pairs
+\textit{S. cerevisiae} genes by PAML. For the distributions in
+\ref{fig:eef5}A, we randomly sampled gene pairs with the same number
+of gene pairs
 as in three epistasis networks (epistasis in all 16 conditions,
 extremely stable epistasis, and extremely dynamic epistasis,
 respectively), and calculated the average evolutionary rate
