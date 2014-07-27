@@ -140,7 +140,7 @@ gene pair in each growth condition. A gene pair with positive (or
 negative) differential interaction under an environmental perturbation
 is defined as these two genes having increasing (or decreasing)
 epistasis values from the abundant-glucose media to that
-condition. Figure 1A depicts the distribution of differential
+condition. Figure~\ref{fig:eef1}A depicts the distribution of differential
 epistases in two growth conditions (ethanol and glycerol) as an
 example. Only genes with $\left|\D\epsilon\right| \geq 0.01$ in at least
 one of the two conditions are included in this figure. As quantified
@@ -152,6 +152,17 @@ S2). Simulations in other conditions show similar effects (Table S2),
 indicating that epistatic relationships among genes can be very
 dynamic between abundant-glucose media and nutrient-limiting
 conditions.
+
+\ifthenelse{\boolean{thesisStyle}}{% 
+\captionpage{figure}{%
+\eeFBAfigOneCap}
+\label{fig:eef1}
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=0.95\textheight]{envFigure_1}
+\end{figure}
+}{}
 
 We further investigated the sign of differential epistasis from
 abundant-glucose to nutrient-limiting conditions. As shown in Figure
@@ -520,7 +531,7 @@ subject to & $\mathbf{S v} = \frac{\D{\mathbf{x}}}{\D{t}} = \mathbf{0}$   \\
 $\mathbf{S}$ is a matrix, in which rows and columns correspond to
 cellular metabolites and reactions in the reconstructed network
 respectively. $\mathbf{v}$ is the reaction flux with upper and lower
-bounds $\mathbf{v_{ub}}$ and $\mathbf{v_{lb}}$
+bounds $\mathbf{v}_{ub}$ and $\mathbf{v}_{lb}$
 respectively. Multiplying the stoichiometric matrix $\mathbf{S}$ by
 the flux vector v equals the concentration change over time
 ($\frac{\D{\mathbf{x}}}{\D{t}}$). At steady state, the flux through
@@ -535,8 +546,8 @@ source or other limiting nutrient that achieves 20\% of the
 high-glucose growth rate, we can solve a linear program for the
 minimization of the limiting nutrient uptake while requiring the
 growth rate to be equal to 20\% of the abundant-glucose
-growth-rate. For maximum growth rate conditions (Table S1, Figures S2
-and S4), we allowed unrestricted uptake of the limiting nutrient to
+growth-rate. For maximum growth rate conditions (Table S1, \Fig s S2
+and \ref{fig:eefS4}), we allowed unrestricted uptake of the limiting nutrient to
 obtain the maximum growth in that condition, up to the point where it
 would reach the high-glucose growth rate. Mutations affecting protein
 complexes and pleiotropic genes are handled by uniform restriction

@@ -1,4 +1,6 @@
 \documentclass[letterpaper]{article}
+\usepackage{xr}
+\externaldocument{epistasisEnvFBA_PLOSOne_figures}
 \usepackage[affil-it]{authblk}
 
 \usepackage{amsmath}
@@ -15,7 +17,7 @@
 \bibliographystyle{unsrtnat}
 
 
-\graphicspath{{./epistasisSameGene/figures/}{./falconBioinfo/figures/}}
+\graphicspath{{./epistasisEnvFBA/figures/}}
 
 \usepackage{url}
 \usepackage{fullpage}
@@ -62,7 +64,7 @@
 
 
 \newboolean{thesisStyle}
-\setboolean{thesisStyle}{true} % Might want to reconsider this here.
+\setboolean{thesisStyle}{false} % Might want to reconsider this here.
 
 \maketitle
 
@@ -71,6 +73,13 @@
 \input{\commonDir documentHeadCommon}  %
                                        %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\Fig}{figure}
+\DeclareRobustCommand\Fig{%
+  \ifthenelse{\boolean{thesisStyle}}%
+    {Figure}%
+    {figure}%
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                                                 %

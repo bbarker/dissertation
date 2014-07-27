@@ -1,0 +1,41 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                       %
+% change this line for portable code:  %
+\newcommand*{\commonDir}{./common/}    %
+\input{\commonDir preambleCommon}      %
+                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\graphicspath{{./epistasisEnvFBA/figures/}}
+
+\begin{document}
+
+\begin{figure}[H]
+\caption{}
+\label{fig:eef1}
+\centering
+\includegraphics[height=0.95\textheight]{envFigure_1}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                                 %
+\setcounter{figure}{0}                           %
+\makeatletter                                    %
+\renewcommand{\thefigure}{S\@arabic\c@figure}    %
+\makeatother                                     %
+                                                 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[H]
+\caption{}
+\label{fig:eefS4}
+\centering
+\includegraphics[width=\textwidth]{envFigure_S4}
+\end{figure}
+
+\end{document}
