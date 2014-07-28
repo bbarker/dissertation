@@ -1,5 +1,9 @@
 7/25/2014 (Changes since initial draft)
 
+Overall: 
+
+* Removed "Appendix" as a prefix for things in the appendix.
+
 Chapter 1:
 
 * Removed errant template sentence from abstract.
@@ -7,15 +11,25 @@ Chapter 1:
 * Updated abstract to better reflect recent version of thesis
   and emphasize the FALCON method.
 
+* Added ref for Zavlanos 2011.
+
 Chapter 2:
 
 * Changed Figures to use LaTeX \ref's.
 
-* Added ref for Zavlanos 2011.
-
-* Moved first paragraph of intro to abstract.
+* Added another citation for Costanzo2010.
+ 
+* Clarified "we address this issue" in introduction.
 
 Chapter 3:
+
+* Integrated into dissertation document. 
+
+* Made several changes to writing for simplification.
+
+* Fixed several typos.
+
+* Removed a supplementary figure.
 
 Chapter 4:
 
@@ -61,4 +75,6 @@ Chapter 5:
 
 * Made some figures larger.
 
+* Abstracted: reworded part about "analytical software library".
 
+* Fixed some typos.
