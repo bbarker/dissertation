@@ -4,6 +4,9 @@ Chapter 1:
 
 * Removed errant template sentence from abstract.
 
+* Updated abstract to better reflect recent version of thesis
+  and emphasize the FALCON method.
+
 Chapter 2:
 
 * Changed Figures to use LaTeX \ref's.
