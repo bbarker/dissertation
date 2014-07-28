@@ -16,7 +16,6 @@ perl -pi -e 's/(\\["\''`^~]){([a-zA-Z])}/{\1\2}/g' library.bib
 # Fix specfic control sequences:
 perl -pi -e 's/\\aa\s/{\\aa}/g' library.bib 
 
-
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 # remove file fields since this varies from system to system
 # and will cause git troubles:
