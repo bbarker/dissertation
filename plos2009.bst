@@ -115,8 +115,10 @@ FUNCTION {fin.entry}
   write$
   newline$
   annote missing$
-    { "\bibAnnoteFile{" cite$ * "}" * write$ newline$ }
-    { "\bibAnnote{" cite$ * "}{" * annote * "}" * write$ newline$
+    % BB commented out:
+    { %"\bibAnnoteFile{" cite$ * "}" * write$ newline$ }
+    } % <- (added)
+    { % "\bibAnnote{" cite$ * "}{" * annote * "}" * write$ newline$
     }
   if$
 }
