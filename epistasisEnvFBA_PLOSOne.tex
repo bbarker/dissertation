@@ -1,4 +1,4 @@
-\documentclass[letterpaper]{article}
+\documentclass[10pt]{article}
 \usepackage{xr}
 \externaldocument{epistasisEnvFBA_PLOSOne_figures}
 \usepackage[affil-it]{authblk}
@@ -14,7 +14,10 @@
                                        %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[numbers,sort&compress]{natbib}
-\bibliographystyle{unsrtnat}
+\bibliographystyle{plos2009}
+%\bibliographystyle{unsrtnat}
+%\newcommand{\citep}{\cite}
+\renewcommand{\citet}{\citep}
 
 
 \graphicspath{{./epistasisEnvFBA/figures/}}
@@ -52,15 +55,17 @@
 %\author[2,3]{Brandon Barker}
 %\setcounter{footnote}{\value{LinBrandonCoAuthor}}
 
-\author[1,3]{Zhenglong Gu%
+\author[1,4]{Zhenglong Gu%
   \thanks{Electronic address: \texttt{zg27@cornell.edu}; Corresponding author}}
 
 \affil[1]{Tri-Institutional Training Program in Computational
-  Biology and Medicine, 1300 York Avenue, Box 194, New York, NY, USA.}
+  Biology and Medicine, New York, NY, USA.}
 \affil[2]{Department of Biological Statistics and Computational Biology,
-    Cornell University, 1198 Comstock Hall, Ithaca, NY, USA.}
-\affil[3]{Division of Nutritional Sciences, Cornell University,
-  Savage Hall, Ithaca, NY, USA.}
+    Cornell University, Ithaca, NY, USA.}
+\affil[3]{UT Southwestern Medical Center, Dallas, TX, USA.}
+\affil[4]{Division of Nutritional Sciences, Cornell University,
+  Ithaca, NY, USA.}
+
 
 
 \newboolean{thesisStyle}
