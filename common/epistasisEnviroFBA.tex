@@ -203,10 +203,10 @@ Measday2005, Sopko2006} and epistatic miniarray profiles (EMAP)
 \citep{Collins2007, Fiedler2009, Kornmann2009}. A key issue for all
 these experimental studies is that these epistatic networks have been
 constructed only under normal laboratory
-conditions. However, cells are constantly bombarded by various
+conditions. However, cells in nature are constantly bombarded by various
 external environmental stresses. Epistasis dynamics under these
-perturbations cannot be predicted based on normal laboratory
-conditions. Few studies have constructed epistatic networks for
+perturbations cannot be predicted based on a single laboratory
+condition. Few studies have constructed epistatic networks for
 multiple environments. A recent study that has only
 constructed epistatic networks for a group of genes with specific
 functions under one normal and one harsh condition already requires a
@@ -216,10 +216,10 @@ perturbations remain largely uncharacterized.
 
 Here we explored this issue by using Flux Balance Analysis (FBA) to
 simulate epistasis dynamics among genes under multiple environmental
-perturbations. FBA involves optimization of an objective function,
-commonly growth maximization in microbes, subject to the reactions and
-constraints of a metabolic network, which can provide reliable
-predictions \citep{Edwards2001, Shlomi2005, Becker2007, Feist2008,
+perturbations. FBA can provide reliable predictions by 
+optimizating a presumed objective function,
+commonly growth maximization in microbes, subject to the known reactions and
+constraints of a metabolic network \citep{Edwards2001, Shlomi2005, Becker2007, Feist2008,
 Smallbone2009a, Orth2010}. Using this platform, a previous study has
 investigated synthetic lethal interactions (one type of negative
 epistasis) under multiple environmental perturbations and showed the
@@ -230,7 +230,7 @@ and were able to show that, on a genome scale, epistatic interactions
 tend to become more positive in nutrient-limiting conditions relative
 to abundant-glucose media. In addition, while a large proportion of
 epistatic interactions can be rewired dynamically under varying
-environments, there is a core of epistatic interactions that are
+environments, there is a set of epistatic interactions that are
 stable across all tested environments. We also discovered different
 network and evolutionary properties for genes with stable and dynamic
 epistatic interactions. Implications of our findings were discussed.
@@ -244,8 +244,7 @@ iMM904 \citep{Mo2009} to examine the dynamics of epistasis under various
 environmental perturbations. The reconstruction has 904 metabolic
 genes that are associated with 1,412 metabolic reactions. We conducted
 FBA simulations under an abundant-glucose condition and 16
-nutrient-limiting conditions with the following environmental
-perturbations. In 15 of these perturbations, the carbon source
+nutrient-limiting conditions. In 15 of these conditions, the carbon source
 (abundant glucose) was replaced by one of the following: acetaldehyde,
 acetate, adenosine 3',5'-bisphosphate, adenosyl methionine, adenosine,
 alanine, allantoin, arginine, ethanol, glutamate, glutamine, glycerol,
@@ -254,12 +253,12 @@ represent a wide variety of nutrient and energy sources: nucleosides,
 amino acids, sugars, alcohols, etc. Additionally, we looked at
 abundant glucose under limited phosphorus availability.
 
-To ensure that all these environmental conditions have the same growth
+To ensure that all environments have the same growth
 rates in the following analyses, we restricted the carbon source or
 phosphorous uptake levels for each of the 16 environmental
 perturbations such that only 20\% of the high-glucose growth rate was
 attained. This was chosen because it has been shown that metabolism
-was directly linked to growth and similar growth rates often induced
+is directly linked to growth and similar growth rates often induce
 similar metabolic pathways \citep{Jakubowska2012}. It is therefore
 important to use a fixed growth rate among different conditions to
 control for the relationship between growth rates and the overall
@@ -289,18 +288,18 @@ nutrient-limiting conditions}
 
 To directly address how the sign and magnitude of epistases change
 under nutrient-limiting conditions, we calculated differential
-epistasis ($\D\epsilon$), which is defined as the epistatic changes from
+epistasis ($\D\epsilon$), which is defined as the epistatic change from
 abundant-glucose media to the nutrient-limiting condition for each
 gene pair in each growth condition. A gene pair with positive (or
 negative) differential interaction under an environmental perturbation
-is defined as these two genes having increasing (or decreasing)
+is defined as the gene pair having increasing (or decreasing)
 epistasis values from the abundant-glucose media to that
 condition. \Fig~\ref{fig:eef1}A depicts the
 distribution of differential
 epistases in two growth conditions (ethanol and glycerol) as an
 example. Only genes with $\left|\D\epsilon\right| \geq 0.01$ in at least
 one of the two conditions are included in this figure. As quantified
-in Table S2, there are 6.1\% and 5.5\% of total gene pairs with
+in Table S2, there are 6.1\% and 5.5\% of all gene pairs with
 $\left|\D\epsilon\right| \geq 0.01$ from abundant-glucose media to ethanol
 and glycerol growth conditions, respectively. Among them, a large
 number of gene pairs even change their sign of epistasis (Table
@@ -353,7 +352,7 @@ Genomes (KEGG) enrichment analyses to compare genes with positive and
 negative differential epistases through the glucose-abundant to
 ethanol transition. We chose the ethanol condition as an example
 because it is one of the most widely used conditions for the baker's
-yeast. Interestingly, we observed that 38 GO terms and 8 KEGG pathways
+yeast. We observed that 38 GO terms and 8 KEGG pathways
 are enriched for positive differential epistasis, while 18 GO terms
 and 1 KEGG pathways are enriched for negative differential epistasis
 (Table S3). More importantly, we found positive and negative
@@ -389,12 +388,11 @@ to nutrient-limiting conditions. As biological systems in nature
 constantly face perturbations to the environment, it is
 interesting to investigate the epistasis dynamics among
 nutrient-limiting conditions. To achieve this aim, we first explored
-the epistatic relationship between the same gene pairs in the two
-environmental perturbations based on growth in ethanol and
-glycerol. \Fig~\ref{fig:eef2}A lists the number of gene pairs that have various
+the epistatic relationship between the same gene pairs in ethanol and
+glycerol environments. \Fig~\ref{fig:eef2}A lists the number of gene pairs that have various
 epistatic relationships. It is noteworthy to point out that,
-consistent with previous published results there are significantly
-more positive epistases between genes than negative ones in either
+consistent with previously published results, there are significantly
+more positive epistases than negative epistases between genes in either
 condition \citep{He2010}.
 
 \ifthenelse{\boolean{thesisStyle}}{% 
@@ -408,7 +406,7 @@ condition \citep{He2010}.
 
 If two genes have the same sign of epistasis and
 $\left|\epsilon\right| \geq 0.01$ in both conditions, they are defined
-as having similar epistatic
+as having a similar epistatic
 relationship in these two conditions. To quantify epistatic dynamics
 between ethanol and glycerol growth conditions, we defined the
 percentage of gene pairs with similar epistatic relations to be the
@@ -600,8 +598,8 @@ that genes with stable epistasis interactions form a network core in
 the whole epistasis network. Combined with observations in \Fig~\ref{fig:eef5},
 this core module of epistasis in the metabolic network might represent
 stable functional associations between genes that are essential for
-important biological functions and evolutionary conserved even under
-different environmental perturbations. The lack of co-evolution
+important biological functions and evolutionarily conserved even under
+different environmental perturbations. The lack of co-evolutionary
 pattern and scale-free network properties for the dynamic epistasis
 network, however, might represent unstable functional associations
 between genes, which may only be responsible for unique functions
