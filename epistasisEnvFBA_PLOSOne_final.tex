@@ -131,6 +131,11 @@
 
 %% Include all macros below. Please limit the use of macros.
 
+\def\D{\mathrm{d}}
+
+\newcommand{\Fig}{Fig.}
+\newcommand{\Figs}{Fig.} % It is the same for PLOS
+
 %% END MACROS SECTION
 
 
@@ -222,6 +227,88 @@ $\ast$ E-mail: Corresponding author@institute.edu
 %\label{Figure_label}
 %\end{figure}
 
+\begin{figure}
+\caption{
+{\bf More positive differential epistases under environmental
+perturbations.} (\textbf{A}) Heat maps describe the global dynamics of
+differential epistasis from abundant-glucose medium to ethanol (left
+panel) and glycerol (right panel) conditions. Only gene pairs with
+$\left|\D\epsilon\right| \geq 0.01$ in either condition are included
+in the figure. Different colors represent differential epistasis
+values as indicated by the color bar at the bottom. The differential
+epistasis values are assigned to be 0.1 (or -0.1) in the heat-maps
+when it is greater than 0.1 (or less than -0.1). It is noteworthy to
+point out that the epistasis patterns are indeed very different
+between the two conditions (\Fig~\ref{fig:eef2}A). (\textbf{B})
+Percentage of positive and negative differential epistases under
+ethanol and glycerol conditions. (\textbf{C}) Ratio of positive to
+negative differential epistases
+in each simulated condition. The result from a high-throughput
+experiment is also shown. The letters A-P represent acetaldehyde,
+acetate, adenosine 3',5'-bisphosphate, adenosyl methionine, adenosine,
+alanine, allantoin, arginine, ethanol, glutamate, glutamine, glycerol,
+low glucose, phosphate, trehalose, and xanthosine, respectively.
+}
+\label{fig:eef1}
+\end{figure}
+
+\begin{figure}
+\caption{
+{\bf Epistasis dynamics between environmental perturbations.} (\textbf{A}) 
+Number of gene pairs with various epistatic relationships between ethanol and
+glycerol growth conditions. (\textbf{B}) The distribution for the percentages
+of gene pairs with similar epistasis relation between any 2 of 16
+conditions. The frequency is derived from the 120 pairs of
+environments simulated in this study.
+}
+\label{fig:eef2}
+\end{figure}
+
+
+\begin{figure}
+\caption{
+{\bf The global distribution of epistatic relations under simulated
+conditions.} (\textbf{A}) Distribution for the number of conditions in which
+each epistatic interaction exists. Note that about 28\% of
+epistatic relations are extremely stable (the very right bar) and
+about 24\% are extremely dynamic (the very left bar). (\textbf{B}) Fraction
+of three types of epistatic relations in each of the 16 environmental
+perturbations, as indicated by the color bar to the right. The numbers
+in the brackets represent the number of conditions in which each
+epistatic interaction exists, as indicated in (\textbf{A}). The letters A-P
+represent the simulated conditions as indicated in \Fig~\ref{fig:eef1}.
+}
+\label{fig:eef3}
+\end{figure}
+
+\begin{figure}
+\caption{
+{\bf Network properties for the extremely stable and extremely dynamic
+epistatic interactions.} (\textbf{A}) Degree distribution for genes in two
+epistatic interaction networks. The networks have nodes that
+correspond to genes and edges that correspond to epistatic
+interactions. (\textbf{B}) Three network parameters (the definition of which
+are shown in Methods) for two epistatic interaction networks.
+}
+\label{fig:eef4}
+\end{figure}
+
+\begin{figure}
+\caption{
+{\bf Co-evolution between genes with epistasis.} (\textbf{A}) Average evolutionary
+rate differences between gene pairs with FBA-predicted epistasis
+(green), extremely dynamic epistasis (blue) and extremely stable
+epistasis (red) are highlighted by three arrows, respectively. The
+random simulations with the same number of gene pairs as each of the
+three groups were repeated 10,000 times and the frequency
+distributions are shown (marked by the same colors as the
+corresponding arrows, respectively). (\textbf{B}) The evolutionary rates for
+genes that are involved in extremely stable and extremely dynamic
+epistasis, respectively. The error bars represent standard errors.
+}
+\label{fig:eef5}
+\end{figure}
+
 
 \section*{Tables}
 % 
@@ -249,6 +336,72 @@ $\ast$ E-mail: Corresponding author@institute.edu
 %\item {\bf}
 %\item {\bf}
 %\end{description}
+
+\begin{description}
+\item {\bf Figure S1. More positive differential epistases under environmental perturbations
+for different thresholds of differential epistasis}
+($\left|\D\epsilon\right| \geq 0.001$, \textbf{A}) and
+($\left|\D\epsilon\right| \geq 0.05$, \textbf{B}). Ratio of positive
+to negative differential epistases in each simulated condition are
+shown. The letters A-P represent acetaldehyde, acetate, adenosine
+3',5'-bisphosphate, adenosyl methionine, adenosine, alanine,
+allantoin, arginine, ethanol, glutamate, glutamine, glycerol, low
+glucose, phosphate, trehalose, and xanthosine, respectively.
+
+\item {\bf Figure S2. Analogous to \Fig~\ref{fig:eef1}B-C, but using a
+maximum growth rate for each condition, where the maximum is
+constrained to be no higher than the high-glucose growth rate.}
+(\textbf{A}) Percentage of positive and negative differential
+epistases under ethanol and glycerol conditions. (\textbf{B}) Ratio of
+positive to negative differential epistases in each simulated
+condition. The result from a high-throughput experiment is also
+shown. The letters A-P represent acetaldehyde, acetate, adenosine
+3',5'-bisphosphate, adenosyl methionine, adenosine, alanine,
+allantoin, arginine, ethanol, glutamate, glutamine, glycerol, low
+glucose, phosphate, trehalose, and xanthosine, respectively. Note that
+in (B), low glucose has the same growth rate as high-glucose, but has
+different epistatic interactions since we still use the high-oxygen
+uptake level associated with the low glucose condition.
+
+\item {\bf Figure S3. Epistasis dynamics between environmental
+perturbations under different epistasis definition.} (\textbf{A})
+Number of gene pairs with various epistatic relationships between
+ethanol and glycerol growth conditions under a lower
+($\left|\epsilon\right| \geq 0.001$) and a higher
+($\left|\epsilon\right| \geq 0.05$) epistasis threshold. (\textbf{B})
+The distribution for the percentages of gene pairs with similar
+epistasis relations between any 2 of 16 conditions under a lower
+($\left|\epsilon\right| \geq 0.001$) and a higher
+($\left|\epsilon\right| \geq 0.05$) epistasis threshold.
+
+\item {\bf Figure S4. Analogous to \Fig~\ref{fig:eef3}A, but using a
+maximum growth rate for each condition, where the maximum is
+constrained to be no higher than the high-glucose growth rate.}
+Distribution for the number of conditions in which each epistatic
+interaction exists. Note that about 26\% of epistatic relations are
+extremely stable (the very right bar) and about 19\% are extremely
+dynamic (the very left bar). 
+
+\item {\bf Table S1. Wild-type growth rates used in the maximal growth
+rate simulations used for \Figs S2 and S4.}
+
+\item {\bf Table S2. Condition-specific epistases and sign-epistases
+prevalence in the iMM904 yeast model.}
+
+\item {\bf Table S3. GO term enrichment analysis results for
+differential epistasis in transition to ethanol.}
+
+\item {\bf Table S4. Properties of simulated systems that correlate
+with the ratio of positive to negative differential epistases.}
+
+\item {\bf Table S5. List of epistatic interactions for the extremely
+stable, dynamic, and intermediate epistasis networks.}
+
+\item {\bf Table S6. Table of network parameters for stable, dynamic,
+and intermediate epistasis.}
+
+
+\end{description}
 
 \end{document}
 

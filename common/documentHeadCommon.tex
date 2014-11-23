@@ -36,7 +36,11 @@
     {Fig.}%
 }
 
-
+\DeclareRobustCommand\Figs{%
+  \ifthenelse{\boolean{thesisStyle}}%
+    {Figures}%
+    {Figs.}%
+}
 
 % \ifthenelse{\boolean{thesisStyle}}
 % { 
