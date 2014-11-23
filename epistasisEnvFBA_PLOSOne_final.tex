@@ -82,6 +82,7 @@
 % Custom packages:
 %
 \usepackage{nicefrac}
+% Nicefrac is only used once, replace its occurrence as desired.
 
 % Use the PLoS provided BiBTeX style
 \bibliographystyle{plos2009}
@@ -315,8 +316,8 @@ source or other limiting nutrient that achieves 20\% of the
 high-glucose growth rate, we can solve a linear program for the
 minimization of the limiting nutrient uptake while requiring the
 growth rate to be equal to 20\% of the abundant-glucose
-growth-rate. For maximum growth rate conditions (Table S1, \Figs \ref{fig:eefS2}
-and \ref{fig:eefS4}), we allowed unrestricted uptake of the limiting nutrient to
+growth-rate. For maximum growth rate conditions (Table S1, \Figs S2
+and S4), we allowed unrestricted uptake of the limiting nutrient to
 obtain the maximum growth in that condition, up to the point where it
 would reach the high-glucose growth rate. Mutations affecting protein
 complexes and pleiotropic genes are handled by uniform restriction
@@ -335,8 +336,7 @@ present in the model. Finally, a confidence threshold
 ($\left|\epsilon\right| \geq 0.01$) was applied to generate epistatic
 interactions \citep{Xu2012, Costanzo2010, He2010}. We also conducted
 analyses based on a different threshold for epistasis and the general
-conclusions still hold in our analysis (\Figs \ref{fig:eefS1} and
-\ref{fig:eefS3}).
+conclusions still hold in our analysis (\Figs S1 and S3).
 
 \subsection*{Evolutionary rates and network parameters}
 
@@ -473,7 +473,7 @@ differential epistases than negative differential epistases (Binomial
 test, P $< 10^{-5}$ for each of the 13 conditions), indicating that
 epistasis tends to become more positive in nutrient-limiting
 conditions. This conclusion does not depend on the criteria we used to
-define differential epistasis (\Fig~\ref{fig:eefS1}).
+define differential epistasis (\Fig~S1).
 
 A recent high-throughput experiment measured epistatic relations
 between roughly 80,000 gene pairs with and without perturbation by a
@@ -485,7 +485,7 @@ positive differential
 epistases than negative differential epistases, which is consistent
 with our general observation (\Fig~\ref{fig:eef1}C). We further allowed maximum
 growth in each condition and the general trends in our results
-remained similar (\Fig~\ref{fig:eefS2}).
+remained similar (\Fig~S2).
 
 We found that differential epistasis had functional importance after
 performing both Gene Ontology (GO) and Kyoto Encyclopedia of Genes and
@@ -560,7 +560,7 @@ gene pairs with similar epistasis relations between any 2 of 16
 conditions, demonstrating a variable degree of epistatic similarity
 between any two conditions.  This conclusion still holds when we used
 different criteria to define epistatic relationships between genes
-(\Fig~\ref{fig:eefS3}).
+(\Fig~S3).
 
 To understand the global distribution of all epistatic relations, we
 considered 16 conditions together and calculated the fraction of
@@ -577,7 +577,7 @@ growth assumption and allowed maximum growth in each condition and
 reanalyzed the global distribution of all epistatic relations. The U
 frequency distribution for the number of growth conditions in which a
 specific epistatic interaction is observed remained similar
-(\Fig~\ref{fig:eefS4}). Based on the result in \Fig~\ref{fig:eef3}A,
+(\Fig~S4). Based on the result in \Fig~\ref{fig:eef3}A,
 we further calculated the ratio of these three types of epistatic
 relations in each of the 16 environmental perturbations. As shown in
 \Fig~\ref{fig:eef3}B, we found that in
@@ -820,7 +820,7 @@ for our core results by simulating 16 environments using different
 growth assumption, where the organisms are allowed to have
 unrestricted uptake of the limiting nutrient to obtain the maximum
 growth in that condition. We found the major trends in our results are
-largely unchanged (\Figs \ref{fig:eefS2} and \ref{fig:eefS2}; Table S1).
+largely unchanged (\Figs S2 and S4; Table S1).
 
 Keeping these issues in mind, our analysis uncovered several prominent
 features of epistatic interactions under a variety of environmental
@@ -838,7 +838,7 @@ We firstly thank Tim Connallon for extremely helpful discussion
 related to epistasis. Discussions from Dr. Huifeng Jiang, Dr. Chris
 Myers, and Mr. Kaixiong Ye are also very much appreciated.
 
-\section*{References}
+%\section*{References}
 
 % Either type in your references using
 % \begin{thebibliography}{}
@@ -853,6 +853,332 @@ Myers, and Mr. Kaixiong Ye are also very much appreciated.
 % here.
 % 
 
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+\providecommand{\bibAnnoteFile}[1]{%
+  \IfFileExists{#1}{\begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ \input{#1}\end{quotation}}{}}
+\providecommand{\bibAnnote}[2]{%
+  \begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ #2\end{quotation}}
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem{Kondrashov1982}
+Kondrashov AS (1982) {Selection against harmful mutations in large sexual and
+  asexual populations}.
+\newblock Genetics Research 40: 325--332.
+
+\bibitem{Azevedo2006}
+Azevedo RBR, Lohaus R, Srinivasan S, Dang KK, Burch CL (2006) {Sexual
+  reproduction selects for robustness and negative epistasis in artificial gene
+  networks.}
+\newblock Nature 440: 87--90.
+
+\bibitem{Otto2007}
+Otto SP (2007) {Unravelling the evolutionary advantage of sex: a commentary on
+  'Mutation-selection balance and the evolutionary advantage of sex and
+  recombination' by Brian Charlesworth.}
+\newblock Genetical research 89: 447--9.
+
+\bibitem{Presgraves2007}
+Presgraves DC (2007) {Speciation Genetics: Epistasis, Conflict and the Origin
+  of Species}.
+\newblock Current Biology 17: R125--R127.
+
+\bibitem{Hansen2001}
+Hansen TF, Wagner GP (2001) {Epistasis and the Mutation Load: A
+  Measurement-Theoretical Approach}.
+\newblock Genetics 158: 477--485.
+
+\bibitem{Musso2008}
+Musso G, Costanzo M, Huangfu M, Smith AM, Paw J, et~al. (2008) {The extensive
+  and condition-dependent nature of epistasis among whole-genome duplicates in
+  yeast}.
+\newblock Genome Research 18: 1092--1099.
+
+\bibitem{Xu2011}
+Xu L, Jiang H, Chen H, Gu Z (2011) {Genetic Architecture of Growth Traits
+  Revealed by Global Epistatic Interactions}.
+\newblock Genome Biology and Evolution 3: 909--914.
+
+\bibitem{Perez-Figueroa2009}
+P\'{e}rez-Figueroa A, Caballero A, Garc\'{\i}a-Dorado A, L\'{o}pez-Fanjul C
+  (2009) {The Action of Purifying Selection, Mutation and Drift on Fitness
+  Epistatic Systems}.
+\newblock Genetics 183: 299--313.
+
+\bibitem{Sanjuan2008}
+Sanju\'{a}n R, Nebot MR (2008) {A network model for the correlation between
+  epistasis and genomic complexity}.
+\newblock PLoS ONE 3.
+
+\bibitem{Trindade2009}
+Trindade S, Sousa A, Xavier KB, Dionisio F, Ferreira MG, et~al. (2009)
+  {Positive Epistasis Drives the Acquisition of Multidrug Resistance}.
+\newblock PLoS Genet 5: e1000578.
+
+\bibitem{Xu2012}
+Xu L, Barker B, Gu Z (2012) {Dynamic epistasis for different alleles of the
+  same gene.}
+\newblock Proceedings of the National Academy of Sciences of the United States
+  of America 109: 10420--10425.
+
+\bibitem{Remold2001}
+Remold SK, Lenski RE (2001) {Contribution of individual random mutations to
+  genotype-by-environment interactions in Escherichia coli}.
+\newblock Proceedings of the National Academy of Sciences 98: 11388--11393.
+
+\bibitem{Kishony2003}
+Kishony R, Leibler S (2003) {Environmental stresses can alleviate the average
+  deleterious effect of mutations}.
+\newblock Journal of Biology 2: 14.
+
+\bibitem{Cooper2005}
+Cooper TF, Lenski RE, Elena SF (2005) {Parasites and mutational load: an
+  experimental test of a pluralistic theory for the evolution of sex.}
+\newblock Proceedings Biological sciences / The Royal Society 272: 311--317.
+
+\bibitem{Korona1999}
+Korona R (1999) {Genetic Load of the Yeast Saccharomyces cerevisiae under
+  Diverse Environmental Conditions}.
+\newblock Evolution 53: 1966--1971.
+
+\bibitem{Szafraniec2001}
+Szafraniec K, Borts RH, Korona R (2001) {Environmental stress and mutational
+  load in diploid strains of the yeast Saccharomyces cerevisiae}.
+\newblock Proceedings of the National Academy of Sciences 98: 1107--1112.
+
+\bibitem{Jasnos2008}
+Jasnos L, Tomala K, Paczesniak D, Korona R (2008) {Interactions Between
+  Stressful Environment and Gene Deletions Alleviate the Expected Average Loss
+  of Fitness in Yeast}.
+\newblock Genetics 178: 2105--2111.
+
+\bibitem{Vassilieva2000}
+Vassilieva LL, Hook AM, Lynch M (2000) {THE FITNESS EFFECTS OF SPONTANEOUS
+  MUTATIONS IN CAENORHABDITIS ELEGANS}.
+\newblock Evolution 54: 1234--1246.
+
+\bibitem{Baer2006}
+Baer CF, Phillips N, Ostrow D, Avalos A, Blanton D, et~al. (2006) {Cumulative
+  Effects of Spontaneous Mutations for Fitness in Caenorhabditis: Role of
+  Genotype, Environment and Stress}.
+\newblock Genetics 174: 1387--1395.
+
+\bibitem{Yang2001}
+Yang HP, Tanikawa AY, {Van Voorhies} WA, Silva JC, Kondrashov AS (2001)
+  {Whole-Genome Effects of Ethyl Methanesulfonate-Induced Mutation on Nine
+  Quantitative Traits in Outbred Drosophila melanogaster}.
+\newblock Genetics 157: 1257--1265.
+
+\bibitem{Fry2002}
+Fry JD, Heinsohn SL (2002) {Environment Dependence of Mutational Parameters for
+  Viability in Drosophila melanogaster}.
+\newblock Genetics 161: 1155--1167.
+
+\bibitem{AletheaD.Wang2009}
+Wang AD, Sharp NP, Spencer CC, Tedman-Aucoin K, Agrawal AF (2009) {Selection,
+  Epistasis, and Parent‐of‐Origin Effects on Deleterious Mutations across
+  Environments in Drosophila melanogaster.}
+\newblock The American Naturalist 174: 863--874.
+
+\bibitem{Young2009}
+Young JA, Yourth CP, Agrawal AF (2009) {The effect of pathogens on selection
+  against deleterious mutations in Drosophila melanogaster}.
+\newblock Journal of Evolutionary Biology 22: 2125--2129.
+
+\bibitem{Tong2004}
+Tong AHY, Lesage G, Bader GD, Ding H, Xu H, et~al. (2004) {Global Mapping of
+  the Yeast Genetic Interaction Network}.
+\newblock Science 303: 808--813.
+
+\bibitem{Costanzo2010}
+Costanzo M, Baryshnikova A, Bellay J, Kim Y, Spear ED, et~al. (2010) {The
+  genetic landscape of a cell.}
+\newblock Science (New York, NY) 327: 425--31.
+
+\bibitem{Pan2004}
+Pan X, Yuan DS, Xiang D, Wang X, Sookhai-Mahadeo S, et~al. (2004) {A robust
+  toolkit for functional profiling of the yeast genome}.
+\newblock Molecular Cell 16: 487--496.
+
+\bibitem{Pan2006}
+Pan X, Ye P, Yuan DS, Wang X, Bader JS, et~al. (2006) {A DNA integrity network
+  in the yeast Saccharomyces cerevisiae}.
+\newblock Cell 124: 1069--1081.
+
+\bibitem{Measday2002}
+Measday V, Hieter P (2002) {Synthetic dosage lethality}.
+\newblock In: GUIDE TO YEAST GENETICS AND MOLECULAR AND CELL BIOLOGY, PT B, 525
+  B STREET, SUITE 1900, SAN DIEGO, CA 92101-4495 USA: ACADEMIC PRESS INC,
+  volume 350 of \emph{METHODS IN ENZYMOLOGY}. pp. 316--326.
+
+\bibitem{Measday2005}
+Measday V, Baetz K, Guzzo J, Yuen K, Kwok T, et~al. (2005) {Systematic yeast
+  synthetic lethal and synthetic dosage lethal screens identify genes required
+  for chromosome segregation.}
+\newblock Proceedings of the National Academy of Sciences of the United States
+  of America 102: 13956--13961.
+
+\bibitem{Sopko2006}
+Sopko R, Huang D, Preston N, Chua G, Papp B, et~al. (2006) {Mapping pathways
+  and phenotypes by systematic gene overexpression}.
+\newblock Molecular Cell 21: 319--330.
+
+\bibitem{Collins2007}
+Collins SR, Miller KM, Maas NL, Roguev A, Fillingham J, et~al. (2007)
+  {Functional dissection of protein complexes involved in yeast chromosome
+  biology using a genetic interaction map.}
+\newblock Nature 446: 806--810.
+
+\bibitem{Fiedler2009}
+Fiedler D, Braberg H, Mehta M, Chechik G, Cagney G, et~al. (2009) {Functional
+  organization of the S. cerevisiae phosphorylation network.}
+\newblock Cell 136: 952--63.
+
+\bibitem{Kornmann2009}
+Kornmann B, Currie E, Collins SR, Schuldiner M, Nunnari J, et~al. (2009) {An
+  ER-mitochondria tethering complex revealed by a synthetic biology screen.}
+\newblock Science (New York, NY) 325: 477--481.
+
+\bibitem{Bandyopadhyay2011}
+Bandyopadhyay S (2011) {Rewiring of Genetic Networks in Response to DNA
+  Damage}.
+\newblock Science 1385.
+
+\bibitem{Edwards2001}
+Edwards JS, Ibarra RU, Palsson BO (2001) {In silico predictions of Escherichia
+  coli metabolic capabilities are consistent with experimental data.}
+\newblock Nature biotechnology 19: 125--130.
+
+\bibitem{Shlomi2005}
+Shlomi T, Berkman O, Ruppin E (2005) {Regulatory on/off minimization of
+  metabolic flux}.
+\newblock Proceedings of the National Academy of Sciences 102: 7695--7700.
+
+\bibitem{Becker2007}
+Becker SA, Feist AM, Mo ML, Hannum G, Palsson BO, et~al. (2007) {Quantitative
+  prediction of cellular metabolism with constraint-based models: the COBRA
+  Toolbox.}
+\newblock Nature protocols 2: 727--38.
+
+\bibitem{Feist2008}
+Feist AM, Palsson BO (2008) {The growing scope of applications of genome-scale
+  metabolic reconstructions using Escherichia coli.}
+\newblock Nature biotechnology 26: 659--667.
+
+\bibitem{Smallbone2009a}
+Smallbone K, Simeonidis E (2009) {Flux balance analysis: a geometric
+  perspective.}
+\newblock Journal of theoretical biology 258: 311--5.
+
+\bibitem{Orth2010}
+Orth JD, Thiele I, Palsson BO (2010) {What is flux balance analysis?}
+\newblock Nature biotechnology 28: 245--8.
+
+\bibitem{Harrison2007}
+Harrison R, Papp B, P\'{a}l C, Oliver SG, Delneri D (2007) {Plasticity of
+  genetic interactions in metabolic networks of yeast.}
+\newblock Proceedings of the National Academy of Sciences of the United States
+  of America 104: 2307--12.
+
+\bibitem{Schellenberger2011a}
+Schellenberger J, Que R, Fleming RMT, Thiele I, Orth JD, et~al. (2011)
+  {Quantitative prediction of cellular metabolism with constraint-based models:
+  the COBRA Toolbox v2.0}.
+\newblock Nat Protocols 6: 1290--1307.
+
+\bibitem{Mo2009}
+Mo ML, Palsson BO, Herrg\aa~rd MJ (2009) {Connecting extracellular metabolomic
+  measurements to intracellular flux states in yeast}.
+\newblock BMC Systems Biology 3: 37.
+
+\bibitem{He2010}
+He X, Qian W, Wang Z, Li Y, Zhang J (2010) {Prevalent positive epistasis in
+  Escherichia coli and Saccharomyces cerevisiae metabolic networks.}
+\newblock Nature genetics 42: 272--6.
+
+\bibitem{Wall2005}
+Wall DP, Hirsh AE, Fraser HB, Kumm J, Giaever G, et~al. (2005) {Functional
+  genomic analysis of the rates of protein evolution}.
+\newblock Proceedings of the National Academy of Sciences of the United States
+  of America 102: 5483--5488.
+
+\bibitem{Barabasi2004}
+Barabasi AL, Oltvai ZN (2004) {Network biology: understanding the cell's
+  functional organization}.
+\newblock Nat Rev Genet 5: 101--113.
+
+\bibitem{Jakubowska2012}
+Jakubowska A, Korona R (2012) {Epistasis for Growth Rate and Total Metabolic
+  Flux in Yeast}.
+\newblock PLoS ONE 7: e33132.
+
+\bibitem{Lehner2011}
+Lehner B (2011) {Molecular mechanisms of epistasis within and between genes}.
+\newblock Trends in Genetics 27: 323--331.
+
+\bibitem{Agrawal2010}
+Agrawal AF, Whitlock MC (2010) {Environmental duress and epistasis: how does
+  stress affect the strength of selection on new mutations?}
+\newblock Trends in ecology \& evolution 25: 450--8.
+
+\bibitem{Casanueva2012}
+Casanueva MO, Burga A, Lehner B (2012) {Fitness Trade-Offs and Environmentally
+  Induced Mutation Buffering in Isogenic C. elegans}.
+\newblock Science 335: 82--85.
+
+\bibitem{Frezza2011}
+Frezza C, Zheng L, Folger O, Rajagopalan KN, MacKenzie ED, et~al. (2011) {Haem
+  oxygenase is synthetically lethal with the tumour suppressor fumarate
+  hydratase.}
+\newblock Nature 477: 225--8.
+
+\bibitem{Burgard2003}
+Burgard AP, Pharkya P, Maranas CD (2003) {Optknock: A bilevel programming
+  framework for identifying gene knockout strategies for microbial strain
+  optimization}.
+\newblock Biotechnology and Bioengineering 84: 647--657.
+
+\bibitem{Patil2005}
+Patil K, Rocha I, Forster J, Nielsen J (2005) {Evolutionary programming as a
+  platform for in silico metabolic engineering}.
+\newblock BMC Bioinformatics 6: 308.
+
+\bibitem{Cornelius2011}
+Cornelius SP, Kath WL, Motter AE (2011) {Controlling Complex Networks with
+  Compensatory Perturbations} .
+
+\bibitem{Covert2001}
+Covert MW, Schilling CH, Palsson BO (2001) {Regulation of gene expression in
+  flux balance models of metabolism.}
+\newblock Journal of theoretical biology 213: 73--88.
+
+\bibitem{Szappanos2011}
+Szappanos B, Kov\'{a}cs K, Szamecz B, Honti F, Costanzo M, et~al. (2011) {An
+  integrated approach to characterize genetic interaction networks in yeast
+  metabolism.}
+\newblock Nature genetics 43: 656--662.
+
+\bibitem{Varma1994}
+Varma A, Palsson BO (1994) {Stoichiometric flux balance models quantitatively
+  predict growth and metabolic by-product secretion in wild-type Escherichia
+  coli W3110.}
+\newblock Applied and environmental microbiology 60: 3724--31.
+
+\bibitem{Brochado2012}
+Brochado AR, Andrejev S, Maranas CD, Patil KR (2012) {Impact of Stoichiometry
+  Representation on Simulation of Genotype-Phenotype Relationships in Metabolic
+  Networks}.
+\newblock PLoS Comput Biol 8: e1002758.
+
+\end{thebibliography}
+
 \section*{Figure Legends}
 % This section is for figure legends only, do not include
 % graphics in your manuscript file.
@@ -864,7 +1190,7 @@ Myers, and Mr. Kaixiong Ye are also very much appreciated.
 %\label{Figure_label}
 %\end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 \caption{
 {\bf More positive differential epistases under environmental
 perturbations.} (\textbf{A}) Heat maps describe the global dynamics of
@@ -889,7 +1215,7 @@ low glucose, phosphate, trehalose, and xanthosine, respectively.
 \label{fig:eef1}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!htb]
 \caption{
 {\bf Epistasis dynamics between environmental perturbations.} (\textbf{A}) 
 Number of gene pairs with various epistatic relationships between ethanol and
@@ -902,7 +1228,7 @@ environments simulated in this study.
 \end{figure}
 
 
-\begin{figure}
+\begin{figure}[!htb]
 \caption{
 {\bf The global distribution of epistatic relations under simulated
 conditions.} (\textbf{A}) Distribution for the number of conditions in which
@@ -918,7 +1244,7 @@ represent the simulated conditions as indicated in \Fig~\ref{fig:eef1}.
 \label{fig:eef3}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!htb]
 \caption{
 {\bf Network properties for the extremely stable and extremely dynamic
 epistatic interactions.} (\textbf{A}) Degree distribution for genes in two
@@ -930,7 +1256,7 @@ are shown in Methods) for two epistatic interaction networks.
 \label{fig:eef4}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!htb]
 \caption{
 {\bf Co-evolution between genes with epistasis.} (\textbf{A}) Average evolutionary
 rate differences between gene pairs with FBA-predicted epistasis
@@ -947,7 +1273,8 @@ epistasis, respectively. The error bars represent standard errors.
 \end{figure}
 
 
-\section*{Tables}
+%\section*{Tables}
+%
 % 
 % See introductory notes if you wish to include sideways tables.
 %
