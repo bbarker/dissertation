@@ -10,30 +10,6 @@
 %
 % % % % % % % % % % % % % % % % % % % % % %
 %
-% -- IMPORTANT NOTE
-%
-% Be advised that this is merely a template 
-% designed to facilitate accurate translation of manuscript content 
-% into our production files. 
-%
-% This template contains extensive comments intended 
-% to minimize problems and delays during our production 
-% process. Please follow the template 
-% whenever possible.
-%
-% % % % % % % % % % % % % % % % % % % % % % % 
-%
-% Once your paper is accepted for publication and enters production, 
-% PLEASE REMOVE ALL TRACKED CHANGES in this file and leave only
-% the final text of your manuscript.
-%
-% DO NOT ADD EXTRA PACKAGES TO THIS TEMPLATE unless absolutely necessary.
-% Packages included in this template are intentionally
-% limited and basic in order to reduce the possibility
-% of issues during our production process.
-%
-% % % % % % % % % % % % % % % % % % % % % % %
-%
 % -- FIGURES AND TABLES
 %
 % DO NOT INCLUDE GRAPHICS IN YOUR MANUSCRIPT
@@ -41,14 +17,6 @@
 % - Figures generated using LaTeX should be extracted and removed from the PDF before submission. 
 % - Figures containing multiple panels/subfigures must be combined into one image file before submission.
 % See http://www.plosone.org/static/figureGuidelines for PLOS figure guidelines.
-%
-% Tables should be cell-based and may not contain:
-% - tabs/spacing/line breaks within cells to alter layout
-% - vertically-merged cells (no tabular environments within tabular environments, do not use \multirow)
-% - colors, shading, or graphic objects
-% See http://www.plosone.org/static/figureGuidelines#tables for table guidelines.
-%
-% For sideways tables, use the {rotating} package and use \begin{sidewaystable} instead of \begin{table} in the appropriate section. PLOS guidelines do not accomodate sideways figures.
 %
 % % % % % % % % % % % % % % % % % % % % % % % %
 %
@@ -58,11 +26,6 @@
 % Below are a few tips to help format your equations and other special characters according to our specifications. For more tips to help reduce the possibility of formatting errors during conversion, please see our LaTeX guidelines at http://www.plosone.org/static/latexGuidelines
 %
 % Please be sure to include all portions of an equation in the math environment, and for any superscripts or subscripts also include the base number/text. For example, use $mathrm{mm}^2$ instead of mm$^2$ (do not use \textsuperscript command).
-%
-% DO NOT USE the \rm command to render mathmode characters in roman font, instead use $\mathrm{}$
-% For bolding characters in mathmode, please use $\mathbf{}$ 
-%
-% Please add line breaks to long equations when possible in order to fit our 2-column layout. 
 %
 % For inline equations, please do not include punctuation within the math environment unless this is part of the equation.
 %
@@ -145,32 +108,58 @@
 % Title must be 150 characters or less
 \begin{flushleft}
 {\Large
-\textbf{Title}
+\textbf{Dynamic Epistasis under Varying Environmental Perturbations}
 }
 % Insert Author names, affiliations and corresponding author email.
 \\
-Author1$^{1}$, 
-Author2$^{2}$, 
-Author3$^{3,\ast}$
+Brandon Barker$^{1,\ast}$, 
+Lin Xu$^{2,\ast}$, 
+Zhenglong Gu$^{3,4,\dag}$
 \\
-\bf{1} Author1 Dept/Program/Center, Institution Name, City, State, Country
+\bf{1} Center for Advanced Computing, Cornell University, Ithaca, New
+York, United States of America
 \\
-\bf{2} Author2 Dept/Program/Center, Institution Name, City, State, Country
+\bf{2} Division of Hematology/Oncology, Department of Pediatrics,
+University of Texas Southwestern Medical Center, Dallas, Texas, United
+States of America
 \\
-\bf{3} Author3 Dept/Program/Center, Institution Name, City, State, Country
+\bf{3} Division of Nutritional Sciences, Cornell University, Ithaca,
+New York, United States of America
 \\
-$\ast$ E-mail: Corresponding author@institute.edu
+\bf{4} Tri-Institutional Training Program in Computational Biology and
+Medicine, New York, New York, United States of America
+\\
+$\ast$ Contributed equally. 
+\\
+$\dag$ E-mail: zg27@cornell.edu
 \end{flushleft}
 
 % Please keep the abstract between 250 and 300 words
 \section*{Abstract}
 
-% Please keep the Author Summary between 150 and 200 words
-% Use first person. PLOS ONE authors please skip this step. 
-% Author Summary not valid for PLOS ONE submissions.   
-\section*{Author Summary}
-
-
+Epistasis describes the phenomenon that mutations at different loci do
+not have independent effects with regard to certain
+phenotypes. Understanding the global epistatic landscape is vital for
+many genetic and evolutionary theories. Current knowledge for
+epistatic dynamics under multiple conditions is limited by the
+technological difficulties in experimentally screening epistatic
+relations among genes. We explored this issue by applying flux balance
+analysis to simulate epistatic landscapes under various
+environmental perturbations. Specifically, we looked at gene-gene
+epistatic interactions, where the mutations were assumed to occur in
+different genes. We predicted that epistasis tends to become more
+positive from glucose-abundant to nutrient-limiting conditions,
+indicating that selection might be less effective in removing
+deleterious mutations in the latter. We also observed a stable core of
+epistatic interactions in all tested conditions, as well as many
+epistatic interactions unique to each condition. Interestingly, genes
+in the stable epistatic interaction network are directly linked to
+most other genes whereas genes with condition-specific epistasis form
+a scale-free network. Furthermore, genes with stable epistasis tend to
+have similar evolutionary rates, whereas this co-evolving relationship
+does not hold for genes with condition-specific epistasis. Our
+findings provide a novel genome-wide picture about epistatic dynamics
+under environmental perturbations.
 
 \section*{Introduction}
 
@@ -195,11 +184,13 @@ $\ast$ E-mail: Corresponding author@institute.edu
 \section*{Discussion}
 
 
-
 % Do NOT remove this, even if you are not including acknowledgments.
 
 \section*{Acknowledgments}
 
+We firstly thank Tim Connallon for extremely helpful discussion
+related to epistasis. Discussions from Dr. Huifeng Jiang, Dr. Chris
+Myers, and Mr. Kaixiong Ye are also very much appreciated.
 
 \section*{References}
 
