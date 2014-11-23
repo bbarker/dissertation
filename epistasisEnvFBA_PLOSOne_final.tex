@@ -78,12 +78,6 @@
 % Captions will be left justified
 \usepackage[labelfont=bf,labelsep=period,justification=raggedright]{caption}
 
-%
-% Custom packages:
-%
-\usepackage{nicefrac}
-% Nicefrac is only used once, replace its occurrence as desired.
-
 % Use the PLoS provided BiBTeX style
 \bibliographystyle{plos2009}
 
@@ -100,7 +94,7 @@
 
 %% Include all macros below. Please limit the use of macros.
 
-\def\D{\mathrm{d}}
+\newcommand\D{\mathrm{d}}
 
 \newcommand{\Fig}{Fig.}
 \newcommand{\Figs}{Fig.} % It is the same for PLOS
@@ -269,7 +263,7 @@ Scripts for generating and analyzing the data can be found in the
 source code repository located at
 \url{https://github.com/bbarker/COBRAscripts/}. Scripts and
 documentation specific to this paper are located in the subdirectory
-\emph{MyProjects/EnvironmentalEpistasisFBA}.
+\textit{MyProjects/EnvironmentalEpistasisFBA}.
 
 \subsection*{Flux Balance Analysis}
 
@@ -643,8 +637,8 @@ similar evolutionary rates. To investigate whether two genes with
 predicted epistasis also tend to co-evolve, we calculated the
 evolutionary rate differences between two genes with epistasis from
 FBA modeling (\Fig~\ref{fig:eef5}A). Evolutionary rates
-($\nicefrac{d_\textnormal{N}}{d_\textnormal{S}}$) based on orthologous
-gene sets
+(${d_\textnormal{N}}$/${d_\textnormal{S}}$) based on orthologous gene
+sets
 from four yeast species of the genus Saccharomyces were downloaded
 from a commonly used reference dataset \citep{Wall2005}. Simulations
 based on the same number of gene pairs with FBA-predicted epistasis
