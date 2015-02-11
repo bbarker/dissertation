@@ -1,20 +1,6 @@
 \documentclass[letterpaper]{article}
 \usepackage[affil-it]{authblk}
 
-% \makeatletter
-% %
-% \def\maketitle
-%   {{\@flushglue=.25\textwidth minus.25\textwidth\z@skip
-%     \hyphenpenalty\@M
-%     \let\old@date\@date
-%     \def\@date{\mbox{}\hskip\@flushglue\old@date\hskip\@flushglue\mbox{}\par}%hmm
-%     \renewenvironment{tabular}[2][]{\par}
-%                                    {\par}%
-%   \AB@maketitle}}
-% %
-% \makeatother
-
-
 \usepackage{amsmath}
 \usepackage{amsthm}
 
@@ -25,9 +11,8 @@
 \input{\commonDir preambleCommon}      %
                                        %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{natbib}
-\bibliographystyle{natbib}
-
+\usepackage[numbers,sort&compress]{natbib}
+\bibliographystyle{unsrtnat}
 
 \graphicspath{{./falcon/figures/}}
 
@@ -72,8 +57,6 @@ complex abundance and metabolic flux from expression data}
 
 \affil[1]{Center for Advanced Computing,
   Cornell University, 534 Rhodes Hall, Ithaca, NY, USA.}
-%\affil[2]{Department of Biological Statistics and Computational Biology,
-%    Cornell University, 1198 Comstock Hall, Ithaca, NY, USA.}
 \affil[2]{Program of Bioinformatics and Integrative Biology,
   University of Massachusetts Medical School,
   55 Lake Avenue North, Worcester MA 01655}
@@ -92,28 +75,28 @@ USA.}
 \affil[9]{Division of Nutritional Sciences, Cornell University,
   Savage Hall, Ithaca, NY, USA.}
 
-
 \date{\today}
 
 %%%%%%%%%%%%%%%%%%
 \begin{document}%%
 %%%%%%%%%%%%%%%%%%
 
+\newboolean{thesisStyle}               %
+\setboolean{thesisStyle}{true}         %
+
 \maketitle
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                                       %
-\newboolean{thesisStyle}               %
-\setboolean{thesisStyle}{true}         %
-                                       %
+                                       %                                       %
 \input{\commonDir documentHeadCommon}  %
                                        %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
-\falconAbstractMotivation
-\falconAbstractResults
-\falconAbstractAvail
+blah
+% \falconAbstractMotivation
+% \falconAbstractResults
+% \falconAbstractAvail
 \end{abstract}
 
 % Redefine suppOrApp
@@ -130,7 +113,6 @@ USA.}
 \input{\commonDir falcon_appendix}   %
 %                                    %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \bibliography{library}
 \end{document}
