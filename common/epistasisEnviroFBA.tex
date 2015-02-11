@@ -308,16 +308,23 @@ indicating that epistatic relationships among genes can be very
 dynamic between abundant-glucose media and nutrient-limiting
 conditions.
 
-\ifthenelse{\boolean{thesisStyle}}{% 
-\captionpage{figure}{%
-\eeFBAfigOneCap}
-\label{fig:eef1}
+% \captionpage{figure}{%
+% \eeFBAfigOneCap}
+% \label{fig:eef1}
 
-\begin{figure}[H]
+% \begin{figure}[!htb]
+% \centering
+% \includegraphics[height=0.95\textheight]{envFigure_1}
+% \end{figure}
+
+
+\begin{figure}[!htb]
 \centering
-\includegraphics[height=0.95\textheight]{envFigure_1}
+\includegraphics[height=0.75\textheight]{envFigure_1}
+\caption{\eeFBAfigOneCap}
+\label{fig:eef1}
 \end{figure}
-}{}
+
 
 We further investigated the sign of differential epistasis from
 abundant-glucose to nutrient-limiting conditions. As shown in \Fig~\ref{fig:eef1}A, 
@@ -395,14 +402,20 @@ consistent with previously published results, there are significantly
 more positive epistases than negative epistases between genes in either
 condition \citep{He2010}.
 
-\ifthenelse{\boolean{thesisStyle}}{% 
-\begin{figure}[H]
+% \captionpage{figure}{%
+% \eeFBAfigTwoCap}
+% \label{fig:eef2}
+% \begin{figure}[!htb]
+% \centering
+% \includegraphics[width=\textwidth]{envFigure_2}
+% \end{figure}
+
+\begin{figure}[!htb]
 \centering
-\includegraphics[width=\textwidth]{envFigure_2}
+\includegraphics[width=0.9\textwidth]{envFigure_2}
 \caption{\eeFBAfigTwoCap}
 \label{fig:eef2}
 \end{figure}
-}{}
 
 If two genes have the same sign of epistasis and
 $\left|\epsilon\right| \geq 0.01$ in both conditions, they are defined
@@ -443,16 +456,24 @@ relations in each of the 16 environmental perturbations. As shown in
 each environment, about 40-60\% of epistatic interactions are stable
 and that each environment also has many private epistases among genes.
 
-\ifthenelse{\boolean{thesisStyle}}{% 
-\captionpage{figure}{%
-\eeFBAfigThreeCap}
-\label{fig:eef3}
+% \ifthenelse{\boolean{thesisStyle}}{% 
+% \captionpage{figure}{%
+% \eeFBAfigThreeCap}
+% \label{fig:eef3}
 
-\begin{figure}[H]
+% \begin{figure}[h]
+% \centering
+% \includegraphics[width=\textwidth]{envFigure_3}
+% \end{figure}
+% }{}
+
+
+\begin{figure}[!htb]
 \centering
-\includegraphics[width=\textwidth]{envFigure_3}
+\includegraphics[width=0.85\textwidth]{envFigure_3}
+\caption{\eeFBAfigThreeCap}
+\label{fig:eef3}
 \end{figure}
-}{}
 
 \subsection{Different network properties for stable and dynamic epistasis}
 
@@ -473,14 +494,24 @@ which is heterogeneous, meaning that the majority of nodes have few
 links but a small number of hubs have a large number of links
 (\Fig~\ref{fig:eef4}A, right panel).
 
-\ifthenelse{\boolean{thesisStyle}}{% 
-\begin{figure}[H]
+% \ifthenelse{\boolean{thesisStyle}}{% 
+% \begin{figure}[!htb]
+% \centering
+% \includegraphics[width=\textwidth]{envFigure_4}
+% \caption{\eeFBAfigFourCap}
+% \label{fig:eef4}
+% \end{figure}
+% }{}
+
+
+
+\begin{figure}[!htb]
 \centering
-\includegraphics[width=\textwidth]{envFigure_4}
-\caption{\eeFBAfigFourCap}
+\includegraphics[width=\textwidth]{envFigure_4BW}
+\caption{\eeFBAfigTwoCap}
 \label{fig:eef4}
 \end{figure}
-}{}
+
 
 In addition, we calculated three network parameters to compare these
 two types of epistatic interactions. We found that the network formed
@@ -512,16 +543,23 @@ two randomly selected genes. As shown in \Fig~\ref{fig:eef5}A, the gene pairs
 with FBA-predicted epistatic interactions tend to have more similar
 evolutionary rates than random expectation (P $< 10^{-4}$).
 
-\ifthenelse{\boolean{thesisStyle}}{% 
-\captionpage{figure}{%
-\eeFBAfigFiveCap}
-\label{fig:eef5}
+% \ifthenelse{\boolean{thesisStyle}}{% 
+% \captionpage{figure}{%
+% \eeFBAfigFiveCap}
+% \label{fig:eef5}
 
-\begin{figure}[H]
+% \begin{figure}[h]
+% \centering
+% \includegraphics[height=0.75\textheight]{envFigure_5}
+% \end{figure}
+% }{}
+
+\begin{figure}[!htb]
 \centering
-\includegraphics[height=0.95\textheight]{envFigure_5}
+\includegraphics[height=0.75\textheight]{envFigure_5}
+\caption{\eeFBAfigFiveCap}
+\label{fig:eef5}
 \end{figure}
-}{}
 
 In \Fig~\ref{fig:eef4} we observed unique network properties for extremely stable
 and extremely dynamic epistatic interactions. We further investigate
