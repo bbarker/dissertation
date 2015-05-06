@@ -330,7 +330,7 @@ rules. When data completely covers the genes in the model
 (e.g. \citealt{Lee2012}), complex abundance tends to have few differences in yeast
 regardless of the evaluation method (25 rules; 1.08\% of all rules for
 Yeast~7). This number goes up significantly in Human Recon~2
-\citep{Thiele2013} due to more complex GPR rues (935 rules; 22\% of
+\citep{Thiele2013} due to more complex GPR rules (935 rules; 22\% of
 all rules). For the human model, we could not find any data set that
 covered every gene, so instead random expression data roughly matching
 a power law was used to generate this statistic. If we use proteomics
@@ -357,13 +357,15 @@ Variability Analysis (FVA) to determine reaction direction
 \citep{Lee2012}. Briefly, this involves two FBA simulations per
 reaction catalyzed by an enzyme, and as the algorithm is iterative,
 this global procedure may be run several times before converging to a
-flux vector. We removed FVA to mitigate some
-of the cost, and instead assign flux direction in batch; while it is
-possible that the objective value may decrease using this approach,
-this is not an issue since the objective function increases to include
-more irreversible fluxes at each iteration, and the objective value of
-a function with more fluxes should supersede the importance of one
-with fewer fluxes.
+flux vector. We removed FVA to mitigate some of the cost, and instead
+assign flux direction in batch; while it is possible that the
+objective value may decrease in subsequent iterations of the
+algorithm, this is not an issue since the objective function is
+changed at each iteration to include more irreversible
+fluxes. The objective value of a function with more
+fluxes should supersede the importance of one with fewer fluxes, as
+the functions are not the same and thus not directly comparable, 
+and we wish to include as many data points in the fitting as possible.
 
 One major advance in our method is the consideration of enzyme
 complexes sharing multiple reactions, which we call reaction groups.
