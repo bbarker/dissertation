@@ -200,17 +200,18 @@ reactions (\textbf{b}; 618 cumulative constraints).}
   \caption{} \label{fig:HumanExpCorr:A}
   \end{subfigure}
 \\
-  \begin{subfigure}[b]{0.95\textwidth}
+  \begin{subfigure}[b]{0.91\textwidth}
   \includegraphics[width=\textwidth]{mRNA_protein_correlation}
   \caption{} \label{fig:HumanExpCorr:B}
   \end{subfigure} 
 \\
 \end{tabular}
-\caption{Correlation between two types of proteomic data \textbf{(a)}; 
-left, proteins that were detected are shown as zeros, whereas they are filtered
+\caption{Correlation between proteomic datasets obtained from two different
+instruments \textbf{(a)}; 
+left, proteins that were detected are shown as zeros, whereas they are filtered 
 in the middle, and only metabolic genes are shown on the right. In \textbf{(b)},
-these proteomic datasets (with zeros removed) are correlated with an mRNA dataset 
-\hl{what kind and which?}.}
+these proteomic datasets (with zeros removed) are correlated with an 
+mRNA (microarray) dataset.}
 \label{fig:HumanExpCorr}
 \end{figure}
 \FloatBarrier
@@ -277,12 +278,18 @@ possible, and we almost always must make do with mRNA measurements,
 which may even have some degree of inaccuracy in measuring the mRNA
 abundance. What has been seen is that Spearman's $\rho = 0.6$ for
 correlation between RNA-Seq and protein intensity in datasets from
-HeLa cells \citep{Nagaraj2011}. This implies that much can likely
-still be gleaned from analyzing RNA-Seq data, but, an appropriate
-degree of caution must be used in interpreting results based on
-RNA-Seq data. By incorporating more information, such as metabolic
+HeLa cells \citep{Nagaraj2011}. We also found that there is moderate
+correlation (Pearson's $r = 0.5$) between proteomic and microarray data
+and fairly strong correlation between proteomic data obtained from
+different instruments 
+(Pearson's $r = 0.7$; \suppOrApp \Fig~\ref{fig:HumanExpCorr}).
+This implies that much can likely
+still be gleaned from analyzing various types of expression data, 
+but, an appropriate
+degree of caution must be used in interpreting results. 
+By incorporating more information, such as metabolic
 constraints, we hope to obviate some of the error in estimating
-protein intensity from RNA-Seq data.
+protein intensity from mRNA data.
 
 \emph{Assumption~\ref{asm:isozyme}.} We also include the notion of
 isozymes--different proteins that catalyze the same reaction--in our
@@ -637,6 +644,12 @@ generated with the command \texttt{makeMethodFigures(\textquotesingle
 fluxCmpScatter\textquotesingle)}. Note that, as written, this requires
 a graphical MATLAB session.
 
+Several figures can be generated that are related to comparing 
+human proteomic and transcriptomic data by executing the script 
+\texttt{proteomic\_file\_make.py} in the \texttt{analysis/nci60}
+subdirectory; this includes \suppOrApp \Fig~\ref{fig:HumanExpCorr}.
+
+
 \begin{sloppypar}
 Comparison of the effects of the employed enzyme complexation methods
 were evaluated using \texttt{compareEnzymeExpression.m} and 
@@ -660,3 +673,6 @@ Enzyme complexation comparisons were performed on proteomics data
 from \citealt{Gholami2013} (Human; 786-O cell line) and 
 \citealt{Picotti2013} (yeast; BY strain), and on RNA-Seq data
 from \citealt{Lee2012} (yeast; 75\% max $\mu$ condition).
+Human proteomic and trascriptomic data used for comparison
+in \suppOrApp \Fig~\ref{fig:HumanExpCorr} were taken from 
+\citealt{Gholami2013}.

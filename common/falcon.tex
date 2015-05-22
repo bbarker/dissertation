@@ -155,7 +155,14 @@ significantly different sizes in yeast, we
 wrote the MATLAB function \texttt{removeEnzymeIrrevs} to find all
 enzymatic reactions in a model that are annotated as reversible but
 are constrained to operate in one direction only. The script then
-changes the bounds to allow flux in both directions. The function
+changes the bounds to allow flux in both directions. This is
+not something a researcher would normally want to do to improve
+predictions, but quite the opposite; constraints should generally
+act to improve modeling predictions, but we are interested
+to see how their removal influences model predictions and
+solution robustness.
+
+The function
 \texttt{useYN5irrevs} copies the irreversible annotations found in
 Yeast~5.21 \citep{Lee2012} to a newer yeast model, but could in
 principle be used for any two models; by default, this script is coded
