@@ -28,7 +28,16 @@ metabolic models \citep{Blazier2012}. The minimization of metabolic
 adjustment (MoMA; \citealt{Segre2002}) algorithm is the simplest
 metabolic flux fitting algorithm, and it can be extended in order to
 allow the use of absolute expression data for the estimation of flux
-\citep{Lee2012}, which is the approach taken in this study.
+\citep{Lee2012}, which is the approach taken in this study. A different
+approach for using expression in COBRA, also very simple, is E-flux,
+which simply uses some function of expression (chosen at the
+researcher's discretion; typically a constant multiplier of
+expression) as flux constraints \citep{Colijn2009}. Despite this
+surprising simplicity, the method has found many successful
+applications, but the user-chosen parameter and use of expression as
+hard constraints is, in our opinion, a detraction, and others have had
+better results taking an approach similar to \citealt{Lee2012}
+\citep{Bogart2015}.
 
 % May eventually want to make this a conditional include section
 % and include it earlier in dissertation.
@@ -92,12 +101,14 @@ $\forall i:$ & $-d_i \le v_i-a_i \le d_i$ \\
 \end{equation}
 
 The $d_i$ are just the distances from \textit{a priori} fluxes to
-their corresponding fitted fluxes.  Linear MoMA has the advantage that
+their corresponding fitted fluxes. Linear MoMA has the advantage that
 it is not biased towards penalizing large magnitude fluxes or
 under-penalizing fluxes that are less than one
 \citep{Boyd2004,Shlomi2005}. Additionally, linear programs are often
 amenable to more alterations that maintain convexity than a quadratic
-program \citep{Boyd2004}.
+program and tend to have fewer variables take on small values, and it
+is much easier to interpret the importance of a zero than 
+a small value \citep{Boyd2004}.
 
 We wish to apply MoMA to expression data rather than flux data, but there
 are two primary problems that must be tackled. First, we must quantify
@@ -124,10 +135,25 @@ the same complex. Reaction direction assignment enables comparison of
 fluxes and expression by changing fluxes to non-negative values. We
 show that batch assignment, rather than serial assignment
 \citep{Lee2012} of reaction direction can greatly improve time
-efficiency.  Finally, we employ several sensitivity analyses and
+efficiency while maintaining or slightly improving correlations
+with experimental fluxes. In addition to several of the methods 
+described so far, we also included in our comparison two methods for
+\emph{tissue-specific} modeling. In GIMME, the authors remove
+reactions whose associated gene expression is below some threshold,
+then add reactions that preclude some user-defined \emph{required
+metabolic functionalities} in an FBA objective back into the model,
+and finally use FBA again to obtain fluxes \citep{Becker2008}. The
+other tissue-specific method we compared with is iMAT, which employs a
+mixed integer linear programming (MILP) problem to maximize the number
+of reactions whose activity corresponds to their expression state
+(again using thresholds, but this time, there are low, medium, and
+highly expressed genes, and only the lowly and highly expressed genes
+are included in the objective) all while subject to typical
+constraints found in FBA \citep{Shlomi2008}.
+ 
+Finally, we employ several sensitivity analyses and
 performance benchmarks so that users of the FALCON method and related
 methods may have a better understanding of what to expect in practice.
-
 \section{Methods}
 
 Most genome-scale models have attached Boolean (\textit{sans}
@@ -548,7 +574,7 @@ yeast model \citep{Aung2013}, we find that
 our algorithm has significant improvements in time efficiency while
 maintaining correlation with experimental fluxes, and is much faster 
 than any similarly performing method (Table~\ref{tab:FalcPerf}; 
-\suppOrApp \Fig~\ref{fig:FluxBars}).
+\suppOrApp \Fig~\ref{fig:FluxBars}). 
 Timing for the human model also improved in FALCON; in a model with
 medium constraints and exometabolic directionality constraints, FALCON
 completed on average in 3.6~m and the method from \citealt{Lee2012} in
@@ -807,7 +833,7 @@ only part of the problem in any largely underdetermined system. We
 show that gene expression can prove to be a valuable basis for forming
 an objective, as opposed to methods that only use expression to
 further constrain the model by creating tissue-specific or
-condition-specific models \citep{Shlomi2008,Becker2008,Gowen2010}.
+condition-specific models \citep{Colijn2009,Shlomi2008,Becker2008,Gowen2010}.
 
 For better curated models, the approach described immediately finds
 use for understanding metabolism, as well as being a scaffold to find
