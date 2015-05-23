@@ -193,29 +193,6 @@ reactions (\textbf{b}; 618 cumulative constraints).}
 \end{figure}
 \FloatBarrier
 
-\begin{figure}[!htb]
-\begin{tabular}{c}
-  \begin{subfigure}[b]{0.95\textwidth}
-  \includegraphics[width=\textwidth]{prot_DeepProt_correlation}
-  \caption{} \label{fig:HumanExpCorr:A}
-  \end{subfigure}
-\\
-  \begin{subfigure}[b]{0.91\textwidth}
-  \includegraphics[width=\textwidth]{mRNA_protein_correlation}
-  \caption{} \label{fig:HumanExpCorr:B}
-  \end{subfigure} 
-\\
-\end{tabular}
-\caption{Correlation between proteomic datasets obtained from two different
-instruments \textbf{(a)}; 
-left, proteins that were detected are shown as zeros, whereas they are filtered 
-in the middle, and only metabolic genes are shown on the right. In \textbf{(b)},
-these proteomic datasets (with zeros removed) are correlated with an 
-mRNA (microarray) dataset.}
-\label{fig:HumanExpCorr}
-\end{figure}
-\FloatBarrier
-
 %\setlength\fboxsep{0pt}
 %\setlength\fboxrule{0.5pt}
 
@@ -269,6 +246,28 @@ complexes, we refer to an enzyme complex as being one or more
 polypeptide chains that act together to carry out metabolic
 catalysis.
 
+\begin{figure}[!htb]
+\begin{tabular}{c}
+  \begin{subfigure}[b]{0.95\textwidth}
+  \includegraphics[width=\textwidth]{prot_DeepProt_correlation}
+  \caption{} \label{fig:HumanExpCorr:A}
+  \end{subfigure}
+\\
+  \begin{subfigure}[b]{0.91\textwidth}
+  \includegraphics[width=\textwidth]{mRNA_protein_correlation}
+  \caption{} \label{fig:HumanExpCorr:B}
+  \end{subfigure} 
+\\
+\end{tabular}
+\caption{Correlation between proteomic datasets obtained from two different
+instruments \textbf{(a)}; 
+left, proteins that were detected are shown as zeros, whereas they are filtered 
+in the middle, and only metabolic genes are shown on the right. In \textbf{(b)},
+these proteomic datasets (with zeros removed) are correlated with an 
+mRNA (microarray) dataset.}
+\label{fig:HumanExpCorr}
+\end{figure}
+\FloatBarrier
 
 \emph{Assumption~\ref{asm:expcorr}.}  A fundamental assumption
 that we need in order to guarantee an accurate estimate of (unitless)
@@ -435,6 +434,16 @@ the same enzyme complex. While we do not explicitly consider these in
 in the minimum disjunction algorithm, these redundancies are taken into
 account subsequently in Algorithm~\ref{alg:FALCON}.
 
+In order to explore the effect that stoichiometry of protein complexes
+can have on metabolism, we compared time series aggregates of fluxes
+and metabolite counts from a whole cell model of \emph{Mycoplasma
+genitalium} \citep{Karr2012} in two different conditions (\suppOrApp
+\Fig~\ref{fig:WCComplexationFlux}). While there are outliers and
+deviations from perfect correlation, the results indicate that, 
+at least in a whole cell model of \emph{M. genitalium}, our
+assumption for protein complex stoichiometry may be acceptable.
+Nonetheless, we hope to address this assumption at a future date.
+
 What is currently not considered in our process is that some peptide
 isoforms may find use in completely different complexes, and in some
 cases, individual peptides may have multiple active sites; in the
@@ -451,6 +460,37 @@ are a few enzymes where a single polypeptide may have multiple active
 sites (e.g.\ fatty acid synthase), and this is not currently taken into
 account in our model. One way that we may take this into account has
 been illustrated online by one of the authors \citep{Smallbone2014}. 
+
+\begin{figure}[!htb]
+\centering
+\begin{tabular}{c}
+  \begin{subfigure}[b]{0.75\textwidth}
+  \includegraphics[width=\textwidth, height=0.4\textheight]{WC_complexation_flux}
+  \caption{} \label{fig:WCComplexationFlux:A}
+  \end{subfigure}
+\\
+  \begin{subfigure}[b]{0.75\textwidth}
+  \includegraphics[width=\textwidth, height=0.4\textheight]{WC_complexation_mets}
+  \caption{} \label{fig:WCComplexationFlux:B}
+  \end{subfigure} 
+\\
+\end{tabular}
+\caption{The Whole Cell model was simulated for 9000 seconds with both
+default (WT) and simplified unitary (Perturb) protein complex
+stoichiometry. Among 645 total metabolic fluxes, 298 had nonzero flux
+in both conditions. We calculated the sum of each of these 298 fluxes
+across 9000 seconds. We omitted 10 fluxes whose overall sum was of
+different sign between WT and Perturb, took the $\log_{10}$ value of
+the remaining 288 fluxes, and plotted these values, in both WT and
+Perturb \textbf{(a)}. Similarly, among 722 total metabolites, 182 had
+nonzero counts in both conditions. We calculated the sum of each of
+the counts of these 182 metabolites across 9000 seconds, took the
+$\log_{10}$ of these values, and plotted them in both WT and Perturb
+\textbf{(b)}. In both cases, the red line indicates the line of best
+fit for the Pearson's correlation.}
+\label{fig:WCComplexationFlux}
+\end{figure}
+\FloatBarrier
 
 \emph{Assumption~\ref{asm:holo}.}
 We do not make any special assumptions requiring symmetry of an

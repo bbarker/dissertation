@@ -30,13 +30,24 @@
 \title{A robust and efficient method for estimating enzyme
 complex abundance and metabolic flux from expression data}
 
+
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%
+\begin{document}%%
+%%%%%%%%%%%%%%%%%%
+
 \author[1]{Brandon E. Barker%
   \thanks{Electronic address: \texttt{brandon.barker@cornell.edu}; Corresponding author}}
 
-\author[2]{Narayanan Sadagopan}
-%  \thanks{Electronic address: \texttt{narayanan.sadagopan@umassmed.edu}}}
+\newcounter{NarayanYipingCoAuthor}
+\author[2]{Narayanan Sadagopan\footnote{contributed equally}%
+\protect\setcounter{NarayanYipingCoAuthor}{\value{footnote}}%
+%  \thanks{Electronic address: \texttt{narayanan.sadagopan@umassmed.edu}}
+}
+\newcommand\NarayanYipingCoAuthorMark{\footnotemark[\value{NarayanYipingCoAuthor}]}%
 
-\author[3]{Yiping Wang}
+\author[3]{Yiping Wang\protect\NarayanYipingCoAuthorMark}
 %  \thanks{Electronic address: \texttt{yw595@cornell.edu}}}
 
 \author[4,5]{Kieran Smallbone}
@@ -74,12 +85,6 @@ USA.}
   111 Cummington Street, Boston, MA, USA.}
 \affil[9]{Division of Nutritional Sciences, Cornell University,
   Savage Hall, Ithaca, NY, USA.}
-
-\date{\today}
-
-%%%%%%%%%%%%%%%%%%
-\begin{document}%%
-%%%%%%%%%%%%%%%%%%
 
 \newboolean{thesisStyle}               %
 \setboolean{thesisStyle}{true}         %
