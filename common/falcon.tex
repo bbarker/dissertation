@@ -43,7 +43,7 @@ better results taking an approach similar to \citealt{Lee2012}
 % and include it earlier in dissertation.
 %\subsection{MoMA: Minimization of Metabolic Adjustment}
 
-The MoMA method is framed as a constrained least-squares optimization
+The MoMA method, framed as a constrained least-squares optimization
 problem, is typically employed to calculate the flux vector of an
 \textit{in silico} organism after a mutation by minimizing the distance
 between the wild-type flux and the mutant flux. The biological
@@ -126,7 +126,7 @@ objective, which must be altered in several ways (also discussed in
 method). We develop automatic scaling of expression values so that
 they are comparable to flux units obtained in the optimization
 routine. This can be an advantage over the prior method as it no longer requires
-the manual choice of a flux and complex abundance pair with ratio that
+the manual choice of a flux and complex abundance pair with a ratio that
 is assumed to be representative of every such pair in the system.
 Related to this, we also implement the sharing of enzyme complex
 abundance between the reactions that the complex catalyzes, rather
@@ -180,12 +180,10 @@ analysis. In order to work with two sets of constraints with
 significantly different sizes in yeast, we
 wrote the MATLAB function \texttt{removeEnzymeIrrevs} to find all
 enzymatic reactions in a model that are annotated as reversible but
-are constrained to operate in one direction only. The script then
-changes the bounds to allow flux in both directions. This is
-not something a researcher would normally want to do to improve
-predictions, but quite the opposite; constraints should generally
-act to improve modeling predictions, but we are interested
-to see how their removal influences model predictions and
+are constrained to operate in one direction only. This is not
+something a researcher would normally want to do since constraints
+should generally act to improve modeling predictions, but we are
+interested to see how their removal influences model predictions and
 solution robustness.
 
 The function
