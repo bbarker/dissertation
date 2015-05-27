@@ -689,21 +689,8 @@ sophisticated means of constraint, such as enzyme crowding constraints
 specific modeling tools, may prove highly beneficial.
 
 
-\captionpage{figure}{%
-Correlation of perturbed enzyme abundance vectors and flux
-vectors with the associated unperturbed vector for the 
-Yeast~7 model. The interval median
-correlation is shown in green. Noise sampled from a multivariate
-log-normal distribution with parameters $\mu=1$ and $\sigma$ (x-axis) is
-multiplicatively applied to the enzyme abundance vector, and the
-y-axis shows the Pearson correlation between the two vectors
-\textbf{(a)}. Similar plots show correlation between flux vectors estimated
-with FALCON using the same perturbed and unperturbed expression
-vectors \textbf{(b-c)}.}
-\label{fig:ExpSens}
-
 \newlength{\expSensLen}
-\setlength{\expSensLen}{0.76\textwidth}
+\setlength{\expSensLen}{0.7\textwidth}
 \begin{figure}[H]
 \centering
 \begin{tabular}{c}
@@ -723,8 +710,19 @@ vectors \textbf{(b-c)}.}
   \end{subfigure} 
 \\
 \end{tabular}
+\caption{%
+Correlation of perturbed enzyme abundance vectors and flux
+vectors with the associated unperturbed vector for the 
+Yeast~7 model. The interval median
+correlation is shown in green. Noise sampled from a multivariate
+log-normal distribution with parameters $\mu=1$ and $\sigma$ (x-axis) is
+multiplicatively applied to the enzyme abundance vector, and the
+y-axis shows the Pearson correlation between the two vectors
+\textbf{(a)}. Similar plots show correlation between flux vectors estimated
+with FALCON using the same perturbed and unperturbed expression
+vectors \textbf{(b-c)}.}
+\label{fig:ExpSens}
 \end{figure}
-
 
 \subsection{Flux estimates provides information beyond enzyme complex abundance}
 It is not an unreasonable hypothesis that fluxes would correlate well
