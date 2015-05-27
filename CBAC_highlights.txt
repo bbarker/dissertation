@@ -1,0 +1,5 @@
+
+A new algorithm can estimate enzyme abundance using gene-protein-reaction rules.
+A new algorithm uses enzyme abundance to quickly estimate fluxes.
+The flux estimates enjoy comparably superior predictivity and good robustness.
+Software packages with modular implementations are available for the algorithms.
